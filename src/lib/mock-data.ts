@@ -217,4 +217,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.png',
     hint: 'english king',
   },
+  {
+    id: 'e15',
+    name: 'Shot Heard Round the World',
+    type: 'Event',
+    description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/shot-heard-round-the-world.png',
+    hint: 'american revolution',
+  },
 ];
