@@ -2,7 +2,8 @@
 
 import { verifyHistoricalConnection, VerifyHistoricalConnectionInput, VerifyHistoricalConnectionOutput } from '@/ai/flows/verify-historical-connection';
 import { findMatchingCard } from '@/ai/flows/find-matching-card';
-import type { FindMatchingCardInput, FindMatchingCardOutput } from '@/ai/flows/types';
+import type { FindMatchingCardInput, FindMatchingCardOutput, VerifyHistSetInput, VerifyHistSetOutput } from '@/ai/flows/types';
+import { verifyHistSet } from '@/ai/flows/verify-hist-set';
 
 
 export async function verifyConnectionAction(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
@@ -31,4 +32,15 @@ export async function findMatchingCardAction(input: FindMatchingCardInput): Prom
     }
 }
 
-    
+export async function verifyHistSetAction(input: VerifyHistSetInput): Promise<VerifyHistSetOutput> {
+    try {
+        const result = await verifyHistSet(input);
+        return result;
+    } catch (error) {
+        console.error('Error verifying Hist Set:', error);
+        return {
+            isValid: false,
+            reason: 'An error occurred while communicating with the historian AI. Please try again.',
+        };
+    }
+}

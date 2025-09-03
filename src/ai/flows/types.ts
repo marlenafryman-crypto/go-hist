@@ -6,6 +6,7 @@ const CardSchema = z.object({
   type: z.enum(['Person', 'Event']),
   description: z.string(),
 });
+export type Card = z.infer<typeof CardSchema>;
 
 export const FindMatchingCardInputSchema = z.object({
   request: z
@@ -34,4 +35,14 @@ export type FindMatchingCardOutput = z.infer<
   typeof FindMatchingCardOutputSchema
 >;
 
-    
+export const VerifyHistSetInputSchema = z.object({
+    cards: z.array(CardSchema).length(4).describe('The four cards being checked for a valid Hist Set.'),
+    explanation: z.string().describe('The player\'s explanation of the historical connection between the four cards.'),
+});
+export type VerifyHistSetInput = z.infer<typeof VerifyHistSetInputSchema>;
+
+export const VerifyHistSetOutputSchema = z.object({
+    isValid: z.boolean().describe('Whether the historical connection explanation is valid and follows the rules.'),
+    reason: z.string().describe('The reasoning behind the validity determination.'),
+});
+export type VerifyHistSetOutput = z.infer<typeof VerifyHistSetOutputSchema>;

@@ -8,11 +8,12 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
+import { HistSetVerifier } from '@/components/game/HistSetVerifier';
 import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { findMatchingCardAction } from './actions';
 
 function shuffle(array: any[]) {
@@ -31,6 +32,7 @@ export default function GamePage() {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
+  const [showHistSetDialog, setShowHistSetDialog] = useState(false);
 
   const currentPlayer = useMemo(() => {
     return gameState?.players.find(p => p.id === gameState.currentPlayerId);
@@ -69,8 +71,14 @@ export default function GamePage() {
 
   const handleSelectCard = (card: CardType) => {
     setSelectedCards(prev => {
-      if (prev.find(c => c.id === card.id)) {
+      const isSelected = prev.find(c => c.id === card.id);
+      if (isSelected) {
         return prev.filter(c => c.id !== card.id);
+      }
+      // Can't select more than 4 cards
+      if(prev.length >= 4) {
+        alert("You can only select up to 4 cards.");
+        return prev;
       }
       return [...prev, card];
     });
@@ -125,18 +133,16 @@ export default function GamePage() {
     });
   };
 
-  const formHistSet = () => {
-    if (selectedCards.length !== 4) {
-        alert("You must select exactly 4 cards to form a Hist Set.");
-        return;
-    }
+  const handleFormHistSet = () => {
     if (!currentPlayer) return;
 
     if (!selectedCards.some(c => c.type === 'Person')) {
       alert("A Hist Set must contain at least one Person card.");
       return;
     }
-
+    
+    setShowHistSetDialog(false);
+    
     setGameState(prev => {
       if (!prev) return null;
       let winningPlayer: Player | null = null;
@@ -154,6 +160,7 @@ export default function GamePage() {
         }
         return p;
       });
+
       if(winningPlayer) {
         setWinner(winningPlayer);
       }
@@ -208,7 +215,7 @@ export default function GamePage() {
              <AccordionTrigger className="font-headline text-xl">Rules</AccordionTrigger>
              <AccordionContent className="space-y-2 text-sm text-muted-foreground pt-4">
                 <p><strong className="text-foreground">Objective:</strong> Be the first to collect 5 "Hist Sets".</p>
-                <p><strong className="text-foreground">Hist Set:</strong> A set of 4 cards that have a historical connection. Each set must contain at least one "Person" card.</p>
+                <p><strong className="text-foreground">Hist Set:</strong> A set of 4 cards that have a historical connection. Each set must contain at least one "Person" card. You must defend your set to the Historian AI.</p>
                 <p><strong className="text-foreground">Asking:</strong> On your turn, you can ask an opponent for a card. Instead of asking for a specific card name, you ask a question (e.g., "Do you have a scientist?"). If they have a card that matches, you take it and go again. If not, you "Go Hist!" and draw a card from the deck, ending your turn.</p>
              </AccordionContent>
            </AccordionItem>
@@ -255,9 +262,9 @@ export default function GamePage() {
         <div className="bg-card/50 p-4 rounded-lg border">
           <div className="flex justify-between items-center mb-4">
               <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
-              <Button onClick={formHistSet} disabled={selectedCards.length !== 4}>
+              <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
                   <BookOpenCheck className="w-4 h-4 mr-2" />
-                  Form Hist Set
+                  I Have a Set!
               </Button>
           </div>
           <div className="flex justify-center items-end gap-4 h-full flex-wrap">
@@ -287,6 +294,24 @@ export default function GamePage() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction onClick={startNewGame}>Play Again</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    <AlertDialog open={showHistSetDialog} onOpenChange={setShowHistSetDialog}>
+      <AlertDialogContent className="max-w-2xl">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="font-headline text-2xl">Declare a Hist Set</AlertDialogTitle>
+           <AlertDialogDescription>
+            You have selected four cards. Explain the historical connection between them to the Historian AI.
+            If the connection is valid, the cards will form a new set.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <HistSetVerifier 
+          selectedCards={selectedCards} 
+          onVerified={handleFormHistSet}
+        />
+         <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
