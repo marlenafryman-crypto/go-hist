@@ -183,7 +183,7 @@ export const DECK: Card[] = [
     name: 'Joan of Arc',
     type: 'Person',
     description: 'A peasant girl who, believing that she was acting under divine guidance, led the French army in a momentous victory at Orléans.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/joan-of-arc.jpg',
+    imageUrl: 'https://i.ibb.co/5hB8mc47/Untitled-design-46.png',
     hint: 'french heroine',
   },
   {
@@ -410,6 +410,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/C3btpR3C/Untitled-design-45.png',
     hint: 'native american leader',
   },
+  {
+    id: 'p27',
+    name: 'Nelson Mandela',
+    type: 'Person',
+    description: 'A South African anti-apartheid revolutionary and political leader who served as President of South Africa from 1994 to 1999.',
+    imageUrl: 'https://i.ibb.co/tp2S8S36/Untitled-design-47.png',
+    hint: 'south african leader',
+  }
 ];
 
 
@@ -428,3 +436,4 @@ export const DECK: Card[] = [
     
 
     
+
