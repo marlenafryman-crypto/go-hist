@@ -330,5 +330,16 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/Xfn0DGdB/Untitled-design-31.png',
     hint: 'first lady activist',
   },
+  {
+    id: 'p22',
+    name: 'Franklin D. Roosevelt',
+    type: 'Person',
+    description: '32nd U.S. President, he led the nation through the Great Depression and World War II. Known for his New Deal policies and Fireside Chats.',
+    imageUrl: 'https://i.ibb.co/W48bn1vL/Untitled-design-32.png',
+    hint: 'us president',
+  },
 ];
 
+
+
+    
