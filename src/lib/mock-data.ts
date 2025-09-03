@@ -306,4 +306,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/xv24Q6v/Untitled-design-6.png',
     hint: 'ancient conqueror',
   },
+  {
+    id: 'p19',
+    name: 'Sojourner Truth',
+    type: 'Person',
+    description: 'An African-American abolitionist and women\'s rights activist. Truth was born into slavery but escaped with her infant daughter to freedom in 1826.',
+    imageUrl: 'https://i.ibb.co/MywWdS8M/Untitled-design-7.png',
+    hint: 'abolitionist activist',
+  },
 ];
