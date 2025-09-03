@@ -433,6 +433,14 @@ export const DECK: Card[] = [
     description: 'A British statesman, soldier, and writer who served as Prime Minister of the United Kingdom during the Second World War.',
     imageUrl: 'https://i.ibb.co/Mkvh2DTS/Untitled-design-49.png',
     hint: 'british prime minister',
+  },
+  {
+    id: 'e27',
+    name: 'Underground Railroad',
+    type: 'Event',
+    description: 'A network of secret routes and safe houses used by enslaved African Americans to escape into free states and Canada.',
+    imageUrl: 'https://i.ibb.co/C5pvn437/Untitled-design-50.png',
+    hint: 'escape network',
   }
 ];
 
@@ -454,3 +462,6 @@ export const DECK: Card[] = [
     
 
 
+
+
+    
