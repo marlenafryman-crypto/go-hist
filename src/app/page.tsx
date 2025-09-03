@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Feather, BookOpen } from 'lucide-react';
+import { Feather, BookOpen, View } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -71,7 +71,11 @@ export default function JoinGamePage() {
         </Card>
         
         <Card className="mt-4 text-center text-sm p-4">
-          <h3 className="font-headline text-lg mb-2 flex items-center justify-center gap-2"><BookOpen /> Edit the Deck</h3>
+          <Link href="/deck-editor">
+            <Button variant="outline" className="mb-2">
+              <View className="mr-2" /> View Deck
+            </Button>
+          </Link>
           <p className="text-muted-foreground">
             To add, remove, or edit cards, please modify the `DECK` array in the{' '}
             <code className="font-mono bg-muted px-1 py-0.5 rounded">
