@@ -241,4 +241,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.jpg',
     hint: 'human rights protest',
   },
+  {
+    id: 'e17',
+    name: 'Social Influence',
+    type: 'Event',
+    description: 'Influenced political life',
+    imageUrl: 'https://firebasestudio.app/assets/cards/social-influence.jpg',
+    hint: 'political influence',
+  },
 ];
