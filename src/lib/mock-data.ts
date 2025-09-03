@@ -247,7 +247,7 @@ export const DECK: Card[] = [
     name: 'Social Influence',
     type: 'Event',
     description: 'Influenced political life',
-    imageUrl: 'https://firebasestudio.app/assets/cards/social-influence.png',
+    imageUrl: 'https://i.ibb.co/HDDqDFs3/Untitled-design-43.png',
     hint: 'political influence',
   },
   {
@@ -414,5 +414,7 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
