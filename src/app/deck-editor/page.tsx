@@ -4,15 +4,18 @@ import { useState } from 'react';
 import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, KeyRound } from 'lucide-react';
+import { ChevronLeft, ChevronRight, KeyRound } from 'lucide-react';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+const CARDS_PER_PAGE = 10;
+
 export default function DeckEditorPage() {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +26,20 @@ export default function DeckEditorPage() {
       setPassword('');
     }
   };
+
+  const totalPages = Math.ceil(DECK.length / CARDS_PER_PAGE);
+  const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
+  const endIndex = startIndex + CARDS_PER_PAGE;
+  const currentCards = DECK.slice(startIndex, endIndex);
+
+  const goToNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
 
   if (!isAuthenticated) {
     return (
@@ -79,12 +96,25 @@ export default function DeckEditorPage() {
         </Link>
       </header>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {DECK.map(card => (
+        {currentCards.map(card => (
           <div key={card.id} className="flex flex-col items-center gap-2">
             <GameCard card={card} />
             <p className="text-xs text-muted-foreground">ID: {card.id}</p>
           </div>
         ))}
+      </div>
+       <div className="flex justify-center items-center gap-4 mt-8">
+        <Button onClick={goToPreviousPage} disabled={currentPage === 1}>
+          <ChevronLeft className="w-4 h-4 mr-2" />
+          Previous
+        </Button>
+        <span className="text-sm text-muted-foreground">
+          Page {currentPage} of {totalPages}
+        </span>
+        <Button onClick={goToNextPage} disabled={currentPage === totalPages}>
+          Next
+          <ChevronRight className="w-4 h-4 ml-2" />
+        </Button>
       </div>
       <footer className="mt-8 text-center text-muted-foreground text-sm">
         <p>To edit a card, modify the `DECK` array in the <code className="font-mono bg-muted px-1 py-0.5 rounded">src/lib/mock-data.ts</code> file.</p>
