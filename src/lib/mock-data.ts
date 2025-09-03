@@ -1,3 +1,4 @@
+
 import type { Card } from './types';
 
 export const DECK: Card[] = [
@@ -274,3 +275,5 @@ export const DECK: Card[] = [
     hint: 'human rights',
   },
 ];
+
+    
