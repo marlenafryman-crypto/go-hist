@@ -17,7 +17,7 @@ export default function JoinGamePage() {
     e.preventDefault();
     // For now, we just navigate to the game page.
     // In a real app, you'd handle game joining logic here.
-    if (playerName && (gameCode || 'new')) {
+    if (playerName) {
       router.push('/game');
     }
   };
