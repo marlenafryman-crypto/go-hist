@@ -284,7 +284,7 @@ function GamePageContent() {
                   I Have a Set!
               </Button>
           </div>
-          <div className="flex justify-center items-end gap-4 h-full flex-wrap">
+          <div className="flex flex-wrap justify-center items-end gap-4">
             {currentPlayer.hand.map(card => (
               <GameCard
                 key={card.id}
