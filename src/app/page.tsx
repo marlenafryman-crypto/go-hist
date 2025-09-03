@@ -58,7 +58,7 @@ export default function JoinGamePage() {
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full" disabled={!playerName}>
-              Enter the Athenaeum
+              Enter the Past
             </Button>
           </CardFooter>
         </form>
