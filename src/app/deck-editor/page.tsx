@@ -27,21 +27,20 @@ export default function DeckEditorPage() {
     }
   };
 
-  // Memoize the paginated cards so they are only calculated when needed.
-  const paginatedDeck = useMemo(() => {
-    if (!isAuthenticated) return { currentCards: [], totalPages: 0 };
-    
+  const { currentCards, totalPages } = useMemo(() => {
+    if (!isAuthenticated) {
+      return { currentCards: [], totalPages: 0 };
+    }
     const totalPages = Math.ceil(DECK.length / CARDS_PER_PAGE);
     const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
     const endIndex = startIndex + CARDS_PER_PAGE;
     const currentCards = DECK.slice(startIndex, endIndex);
-
     return { currentCards, totalPages };
   }, [isAuthenticated, currentPage]);
 
 
   const goToNextPage = () => {
-    setCurrentPage(prev => Math.min(prev + 1, paginatedDeck.totalPages));
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
   };
 
   const goToPreviousPage = () => {
@@ -104,7 +103,7 @@ export default function DeckEditorPage() {
         </Link>
       </header>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {paginatedDeck.currentCards.map(card => (
+        {currentCards.map(card => (
           <div key={card.id} className="flex flex-col items-center gap-2">
             <GameCard card={card} />
             <p className="text-xs text-muted-foreground">ID: {card.id}</p>
@@ -117,9 +116,9 @@ export default function DeckEditorPage() {
           Previous
         </Button>
         <span className="text-sm text-muted-foreground">
-          Page {currentPage} of {paginatedDeck.totalPages}
+          Page {currentPage} of {totalPages}
         </span>
-        <Button onClick={goToNextPage} disabled={currentPage === paginatedDeck.totalPages}>
+        <Button onClick={goToNextPage} disabled={currentPage === totalPages}>
           Next
           <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
