@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { findMatchingCardAction } from './actions';
 import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 function shuffle(array: any[]) {
   const a = [...array];
@@ -185,154 +186,156 @@ function GamePageContent() {
 
   return (
     <>
-    <div className="flex h-screen bg-background text-foreground">
-      {/* Sidebar */}
-      <aside className="w-80 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
-        <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-xl flex items-center gap-2"><Share2 /> Game Code</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center space-x-2">
-              <Input readOnly value={gameCode || ''} className="font-mono text-lg" />
-              <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(gameCode || '')}>Copy</Button>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="flex h-screen bg-background text-foreground">
+        {/* Sidebar */}
+        <aside className="w-80 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
+          <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-headline text-xl flex items-center gap-2"><Share2 /> Game Code</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center space-x-2">
+                <Input readOnly value={gameCode || ''} className="font-mono text-lg" />
+                <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(gameCode || '')}>Copy</Button>
+              </div>
+            </CardContent>
+          </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-xl flex items-center gap-2"><Users /> Players</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {gameState.players.map(p => (
-                <li key={p.id} className="flex justify-between items-center text-sm">
-                  <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>{p.name}</span>
-                  <Badge variant="secondary">{p.histSets.length} Sets</Badge>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="font-headline text-xl">Game Tools</AccordionTrigger>
-            <AccordionContent className="space-y-4 pt-4">
-              <ConnectionVerifier selectedCards={selectedCards} />
-               <AskForCard 
-                otherPlayers={otherPlayers}
-                onAsk={handleAskForCard} 
-              />
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-             <AccordionTrigger className="font-headline text-xl">Rules</AccordionTrigger>
-             <AccordionContent className="space-y-2 text-sm text-muted-foreground pt-4">
-                <p><strong className="text-foreground">Objective:</strong> Be the first to collect 5 "Hist Sets".</p>
-                <p><strong className="text-foreground">Hist Set:</strong> A set of 4 cards that have a historical connection. Each set must contain at least one "Person" card. You must defend your set to the Historian AI.</p>
-                <p><strong className="text-foreground">Asking:</strong> On your turn, you can ask an opponent for a card. Instead of asking for a specific card name, you ask a question (e.g., "Do you have a scientist?"). If they have a card that matches, you take it and go again. If not, you "Go Hist!" and draw a card from the deck, ending your turn.</p>
-             </AccordionContent>
-           </AccordionItem>
-        </Accordion>
-      </aside>
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-headline text-xl flex items-center gap-2"><Users /> Players</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {gameState.players.map(p => (
+                  <li key={p.id} className="flex justify-between items-center text-sm">
+                    <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>{p.name}</span>
+                    <Badge variant="secondary">{p.histSets.length} Sets</Badge>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+          <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="font-headline text-xl">Game Tools</AccordionTrigger>
+              <AccordionContent className="space-y-4 pt-4">
+                <ConnectionVerifier selectedCards={selectedCards} />
+                 <AskForCard 
+                  otherPlayers={otherPlayers}
+                  onAsk={handleAskForCard} 
+                />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+               <AccordionTrigger className="font-headline text-xl">Rules</AccordionTrigger>
+               <AccordionContent className="space-y-2 text-sm text-muted-foreground pt-4">
+                  <p><strong className="text-foreground">Objective:</strong> Be the first to collect 5 "Hist Sets".</p>
+                  <p><strong className="text-foreground">Hist Set:</strong> A set of 4 cards that have a historical connection. Each set must contain at least one "Person" card. You must defend your set to the Historian AI.</p>
+                  <p><strong className="text-foreground">Asking:</strong> On your turn, you can ask an opponent for a card. Instead of asking for a specific card name, you ask a question (e.g., "Do you have a scientist?"). If they have a card that matches, you take it and go again. If not, you "Go Hist!" and draw a card from the deck, ending your turn.</p>
+               </AccordionContent>
+             </AccordionItem>
+          </Accordion>
+        </aside>
 
-      {/* Main Game Area */}
-      <main className="flex-1 flex flex-col p-6 overflow-y-auto">
-        {/* Opponents' Area */}
-        <div className="flex-1 flex flex-col items-center justify-center">
-            {otherPlayers.map(player => (
-                <div key={player.id} className="mb-8 w-full">
-                    <p className="text-center font-headline mb-2">{player.name}'s Board</p>
-                    <div className="flex justify-center items-start gap-4 flex-wrap">
-                        <div className="flex gap-2">
-                            {Array(player.hand.length).fill(0).map((_, i) => <GameCard key={i} card="back" className="w-[80px] h-[120px]" />)}
-                        </div>
-                        {player.histSets.map((set, i) => (
-                          <div key={i} className="flex flex-col items-center">
-                            <div className="flex">
-                              {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" />)}
-                            </div>
-                            <Button variant="outline" size="sm" className="mt-2"><Swords className="w-4 h-4 mr-2" /> Challenge</Button>
+        {/* Main Game Area */}
+        <main className="flex-1 flex flex-col p-6 overflow-y-auto">
+          {/* Opponents' Area */}
+          <div className="flex-1 flex flex-col items-center justify-center">
+              {otherPlayers.map(player => (
+                  <div key={player.id} className="mb-8 w-full">
+                      <p className="text-center font-headline mb-2">{player.name}'s Board</p>
+                      <div className="flex justify-center items-start gap-4 flex-wrap">
+                          <div className="flex gap-2">
+                              {Array(player.hand.length).fill(0).map((_, i) => <GameCard key={i} card="back" className="w-[80px] h-[120px]" />)}
                           </div>
-                        ))}
-                    </div>
-                </div>
-            ))}
-        </div>
+                          {player.histSets.map((set, i) => (
+                            <div key={i} className="flex flex-col items-center">
+                              <div className="flex">
+                                {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" />)}
+                              </div>
+                              <Button variant="outline" size="sm" className="mt-2"><Swords className="w-4 h-4 mr-2" /> Challenge</Button>
+                            </div>
+                          ))}
+                      </div>
+                  </div>
+              ))}
+          </div>
 
-        {/* Center Area (Deck/Discard) */}
-        <div className="flex justify-center items-center gap-8 my-8">
-          <div>
-            <p className="text-center font-headline mb-2">Deck ({gameState.deck.length})</p>
-            <GameCard card="back" />
+          {/* Center Area (Deck/Discard) */}
+          <div className="flex justify-center items-center gap-8 my-8">
+            <div>
+              <p className="text-center font-headline mb-2">Deck ({gameState.deck.length})</p>
+              <GameCard card="back" />
+            </div>
+            <div>
+              <p className="text-center font-headline mb-2">Discard ({gameState.discardPile.length})</p>
+              {gameState.discardPile.length > 0 && <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} />}
+            </div>
           </div>
-          <div>
-            <p className="text-center font-headline mb-2">Discard ({gameState.discardPile.length})</p>
-            {gameState.discardPile.length > 0 && <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} />}
-          </div>
-        </div>
 
-        {/* Player's Hand Area */}
-        <div className="bg-card/50 p-4 rounded-lg border">
-          <div className="flex justify-between items-center mb-4">
-              <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
-              <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
-                  <BookOpenCheck className="w-4 h-4 mr-2" />
-                  I Have a Set!
-              </Button>
+          {/* Player's Hand Area */}
+          <div className="bg-card/50 p-4 rounded-lg border">
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
+                <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+                    <BookOpenCheck className="w-4 h-4 mr-2" />
+                    I Have a Set!
+                </Button>
+            </div>
+            <ScrollArea className="h-96 w-full">
+              <div className="flex flex-wrap justify-center items-end gap-4 p-4">
+                {currentPlayer.hand.map(card => (
+                  <GameCard
+                    key={card.id}
+                    card={card}
+                    isSelected={!!selectedCards.find(c => c.id === card.id)}
+                    onSelect={handleSelectCard}
+                    isPlayerCard={true}
+                  />
+                ))}
+              </div>
+            </ScrollArea>
           </div>
-          <div className="flex flex-wrap justify-center items-end gap-4">
-            {currentPlayer.hand.map(card => (
-              <GameCard
-                key={card.id}
-                card={card}
-                isSelected={!!selectedCards.find(c => c.id === card.id)}
-                onSelect={handleSelectCard}
-                isPlayerCard={true}
-              />
-            ))}
-          </div>
-        </div>
-      </main>
-    </div>
-    <AlertDialog open={!!winner}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="flex items-center gap-2 font-headline text-3xl">
-            <Trophy className="text-primary w-8 h-8" />
-            Game Over!
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-lg">
-            {winner?.name} has won the game by collecting {WINNING_SET_COUNT} Hist Sets!
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogAction onClick={startNewGame}>Play Again</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-    <AlertDialog open={showHistSetDialog} onOpenChange={setShowHistSetDialog}>
-      <AlertDialogContent className="max-w-2xl">
-        <AlertDialogHeader>
-          <AlertDialogTitle className="font-headline text-2xl">Declare a Hist Set</AlertDialogTitle>
-           <AlertDialogDescription>
-            You have selected four cards. Explain the historical connection between them to the Historian AI.
-            If the connection is valid, the cards will form a new set.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <HistSetVerifier 
-          selectedCards={selectedCards} 
-          onVerified={handleFormHistSet}
-        />
-         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-   </>
+        </main>
+      </div>
+      <AlertDialog open={!!winner}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 font-headline text-3xl">
+              <Trophy className="text-primary w-8 h-8" />
+              Game Over!
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-lg">
+              {winner?.name} has won the game by collecting {WINNING_SET_COUNT} Hist Sets!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={startNewGame}>Play Again</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={showHistSetDialog} onOpenChange={setShowHistSetDialog}>
+        <AlertDialogContent className="max-w-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-headline text-2xl">Declare a Hist Set</AlertDialogTitle>
+             <AlertDialogDescription>
+              You have selected four cards. Explain the historical connection between them to the Historian AI.
+              If the connection is valid, the cards will form a new set.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <HistSetVerifier 
+            selectedCards={selectedCards} 
+            onVerified={handleFormHistSet}
+          />
+           <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
 
