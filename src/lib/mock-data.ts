@@ -394,6 +394,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/KzGSYdgM/Untitled-design-41.png',
     hint: 'territory acquisition',
   },
+  {
+    id: 'p25',
+    name: 'Rosa Parks',
+    type: 'Person',
+    description: 'An activist in the civil rights movement best known for her pivotal role in the Montgomery bus boycott.',
+    imageUrl: 'https://i.ibb.co/w11Zjw3/Untitled-design-42.png',
+    hint: 'civil rights activist',
+  },
 ];
 
 
@@ -405,3 +413,6 @@ export const DECK: Card[] = [
 
 
 
+
+
+    
