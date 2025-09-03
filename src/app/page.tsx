@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Feather } from 'lucide-react';
+import { Feather, BookOpen } from 'lucide-react';
+import Link from 'next/link';
 
 export default function JoinGamePage() {
   const router = useRouter();
@@ -56,10 +57,16 @@ export default function JoinGamePage() {
               />
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex-col gap-4">
             <Button type="submit" className="w-full" disabled={!playerName}>
               Enter the Past
             </Button>
+            <Link href="/deck-editor" className="w-full">
+              <Button variant="outline" className="w-full">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Deck Editor
+              </Button>
+            </Link>
           </CardFooter>
         </form>
       </Card>
