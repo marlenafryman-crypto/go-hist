@@ -417,6 +417,22 @@ export const DECK: Card[] = [
     description: 'A South African anti-apartheid revolutionary and political leader who served as President of South Africa from 1994 to 1999.',
     imageUrl: 'https://i.ibb.co/tp2S8S36/Untitled-design-47.png',
     hint: 'south african leader',
+  },
+  {
+    id: 'p28',
+    name: 'Betsey Ross',
+    type: 'Person',
+    description: 'An American upholsterer who was credited by her relatives in 1870 with making the first American flag.',
+    imageUrl: 'https://i.ibb.co/jvBBfxRz/Untitled-design-48.png',
+    hint: 'american flag',
+  },
+  {
+    id: 'p29',
+    name: 'Winston Churchill',
+    type: 'Person',
+    description: 'A British statesman, soldier, and writer who served as Prime Minister of the United Kingdom during the Second World War.',
+    imageUrl: 'https://i.ibb.co/Mkvh2DTS/Untitled-design-49.png',
+    hint: 'british prime minister',
   }
 ];
 
@@ -436,4 +452,5 @@ export const DECK: Card[] = [
     
 
     
+
 
