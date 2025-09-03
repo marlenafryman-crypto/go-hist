@@ -207,7 +207,7 @@ export const DECK: Card[] = [
     name: 'Boston Tea Party',
     type: 'Event',
     description: 'In December 1773, American colonists disguised as Mohawk Indians dumped tea into Boston Harbor to protest the Tea Act and British taxation without representation.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/boston-tea-party.jpg',
+    imageUrl: 'https://i.ibb.co/8nXGw8wy/Boston-Tea-Party.png',
     hint: 'american revolution',
   },
   {
