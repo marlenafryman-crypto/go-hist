@@ -593,6 +593,22 @@ export const DECK: Card[] = [
     description: 'This person has a famous speech',
     imageUrl: 'https://i.ibb.co/d9mjshq/Untitled-design-70.png',
     hint: 'famous speech',
+  },
+  {
+    id: 'e35',
+    name: 'Civil War',
+    type: 'Event',
+    description: 'A war fought in the United States from 1861 to 1865, between the Union and the Confederacy.',
+    imageUrl: 'https://i.ibb.co/KpGc1rbs/Untitled-design-71.png',
+    hint: 'american war',
+  },
+  {
+    id: 'e36',
+    name: 'Confederate Army',
+    type: 'Event',
+    description: 'The military land force of the Confederate States of America during the American Civil War.',
+    imageUrl: 'https://i.ibb.co/dwkSGnyb/Untitled-design-72.png',
+    hint: 'civil war army',
   }
 ];
 
