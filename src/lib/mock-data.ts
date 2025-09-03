@@ -225,4 +225,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/shot-heard-round-the-world.png',
     hint: 'american revolution',
   },
+  {
+    id: 'p14',
+    name: 'Paul Revere',
+    type: 'Person',
+    description: 'An American silversmith and Patriot in the American Revolution, famous for his midnight ride to alert colonial militia of British forces.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/paul-revere.png',
+    hint: 'american patriot',
+  },
 ];
