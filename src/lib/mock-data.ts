@@ -386,6 +386,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/x8s3kyvV/Untitled-design-40.png',
     hint: 'founding document',
   },
+  {
+    id: 'e26',
+    name: 'Louisiana Purchase',
+    type: 'Event',
+    description: 'The acquisition of the Louisiana territory by the United States from France in 1803.',
+    imageUrl: 'https://i.ibb.co/KzGSYdgM/Untitled-design-41.png',
+    hint: 'territory acquisition',
+  },
 ];
 
 
@@ -393,6 +401,7 @@ export const DECK: Card[] = [
     
 
     
+
 
 
 
