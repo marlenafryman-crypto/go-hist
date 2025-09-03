@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -35,12 +35,15 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
       card2Name: selectedCards[1]?.name || '',
       explanation: '',
     },
-    values: {
+  });
+
+  useEffect(() => {
+    form.reset({
       card1Name: selectedCards[0]?.name || '',
       card2Name: selectedCards[1]?.name || '',
-      explanation: form.watch('explanation'),
-    }
-  });
+      explanation: form.getValues('explanation') || '',
+    });
+  }, [selectedCards, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
