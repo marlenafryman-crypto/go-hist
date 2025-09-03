@@ -1,25 +1,37 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import type { Card } from '@/lib/types';
 
 const CARDS_PER_PAGE = 10;
 
 export default function DeckEditorPage() {
+    const [allCards, setAllCards] = useState<Card[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const totalPages = useMemo(() => Math.ceil(DECK.length / CARDS_PER_PAGE), []);
+    useEffect(() => {
+        // Simulate fetching data to ensure component renders loading state first.
+        setAllCards(DECK);
+        setIsLoading(false);
+    }, []);
+
+    const totalPages = useMemo(() => {
+        if (allCards.length === 0) return 1;
+        return Math.ceil(allCards.length / CARDS_PER_PAGE);
+    }, [allCards]);
 
     const currentCards = useMemo(() => {
+        if (isLoading) return [];
         const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
         const endIndex = startIndex + CARDS_PER_PAGE;
-        return DECK.slice(startIndex, endIndex);
-    }, [currentPage]);
-
+        return allCards.slice(startIndex, endIndex);
+    }, [currentPage, isLoading, allCards]);
 
     const goToNextPage = () => {
         setCurrentPage(prev => Math.min(prev + 1, totalPages));
@@ -29,7 +41,7 @@ export default function DeckEditorPage() {
         setCurrentPage(prev => Math.max(prev - 1, 1));
     };
 
-    if (!currentCards) {
+    if (isLoading) {
         return (
           <div className="flex items-center justify-center min-h-screen">
             <p className="font-headline text-2xl">Loading Deck Editor...</p>
