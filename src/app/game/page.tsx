@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { findMatchingCardAction } from './actions';
+import { Input } from '@/components/ui/input';
 
 function shuffle(array: any[]) {
   const a = [...array];
