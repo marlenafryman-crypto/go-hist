@@ -61,16 +61,19 @@ export default function JoinGamePage() {
             <Button type="submit" className="w-full" disabled={!playerName}>
               Enter the Past
             </Button>
-            <a href="/deck-editor" target="_blank" rel="noopener noreferrer" className="w-full">
-              <Button variant="outline" className="w-full">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Deck Editor
-              </Button>
-            </a>
           </CardFooter>
         </form>
       </Card>
       
+      <div className="w-full max-w-md mt-4">
+        <a href="/deck-editor" target="_blank" rel="noopener noreferrer" className="w-full">
+          <Button variant="outline" className="w-full">
+            <BookOpen className="w-4 h-4 mr-2" />
+            Deck Editor
+          </Button>
+        </a>
+      </div>
+
       <p className="mt-8 text-center text-muted-foreground">
         A digital card game of historical connections. <br /> Form sets of four, but be ready to defend your links to the past!
       </p>
