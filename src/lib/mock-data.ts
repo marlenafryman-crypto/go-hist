@@ -338,6 +338,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/W48bn1vL/Untitled-design-32.png',
     hint: 'us president',
   },
+  {
+    id: 'p23',
+    name: 'Theodore Roosevelt',
+    type: 'Person',
+    description: '26th U.S. President, known for his "Square Deal" policies, conservationism, and leading the Rough Riders.',
+    imageUrl: 'https://i.ibb.co/5W8MnRLF/Untitled-design-33.png',
+    hint: 'us president',
+  },
 ];
 
 
