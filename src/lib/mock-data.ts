@@ -206,7 +206,7 @@ export const DECK: Card[] = [
     name: 'Boston Tea Party',
     type: 'Event',
     description: 'In December 1773, American colonists disguised as Mohawk Indians dumped tea into Boston Harbor to protest the Tea Act and British taxation without representation.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/boston-tea-party.png',
+    imageUrl: 'https://firebasestudio.app/assets/cards/boston-tea-party.jpg',
     hint: 'american revolution',
   },
   {
@@ -214,7 +214,7 @@ export const DECK: Card[] = [
     name: 'Shot Heard Round the World',
     type: 'Event',
     description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/shot-heard-round-the-world.png',
+    imageUrl: 'https://firebasestudio.app/assets/cards/shot-heard-round-the-world.jpg',
     hint: 'american revolution',
   },
   {
@@ -222,7 +222,7 @@ export const DECK: Card[] = [
     name: 'Paul Revere',
     type: 'Person',
     description: 'An American silversmith and Patriot in the American Revolution, famous for his midnight ride to alert colonial militia of British forces.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/paul-revere.png',
+    imageUrl: 'https://firebasestudio.app/assets/cards/paul-revere.jpg',
     hint: 'american patriot',
   },
   {
@@ -230,7 +230,7 @@ export const DECK: Card[] = [
     name: 'Henry VIII',
     type: 'Person',
     description: 'King of England from 1509 until his death, famously married six times and was a central figure in the English Reformation.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.png',
+    imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.jpg',
     hint: 'english king',
   },
   {
@@ -238,7 +238,7 @@ export const DECK: Card[] = [
     name: 'Human Rights Movement',
     type: 'Event',
     description: 'A social movement dedicated to securing and protecting the fundamental rights and freedoms for all individuals.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.png',
+    imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.jpg',
     hint: 'human rights protest',
   },
 ];
