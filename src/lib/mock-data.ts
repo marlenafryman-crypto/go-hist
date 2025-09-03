@@ -553,6 +553,22 @@ export const DECK: Card[] = [
     description: 'A Founding Father, the first Vice President, and the second President of the United States.',
     imageUrl: 'https://i.ibb.co/4gVCBGKg/Untitled-design-65.png',
     hint: 'founding father',
+  },
+  {
+    id: 'p40',
+    name: 'Napoleon Bonaparte',
+    type: 'Person',
+    description: 'A French military and political leader who rose to prominence during the French Revolution.',
+    imageUrl: 'https://i.ibb.co/1f67QDSX/Untitled-design-66.png',
+    hint: 'french emperor',
+  },
+  {
+    id: 'e32',
+    name: 'American Flag Creation',
+    type: 'Event',
+    description: 'The official creation of the first American flag, a symbol of independence and unity for the new nation.',
+    imageUrl: 'https://i.ibb.co/JR68yZV0/Untitled-design-67.png',
+    hint: 'national symbol',
   }
 ];
 
