@@ -36,7 +36,7 @@ export type FindMatchingCardOutput = z.infer<
 >;
 
 export const VerifyHistSetInputSchema = z.object({
-    cards: z.array(CardSchema.omit({imageUrl: true, hint: true})).length(4).describe('The four cards being checked for a valid Hist Set.'),
+    cards: z.array(CardSchema).length(4).describe('The four cards being checked for a valid Hist Set.'),
     explanation: z.string().describe('The player\'s explanation of the historical connection between the four cards.'),
 });
 export type VerifyHistSetInput = z.infer<typeof VerifyHistSetInputSchema>;

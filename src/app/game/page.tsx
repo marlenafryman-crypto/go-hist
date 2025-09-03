@@ -49,6 +49,8 @@ function GamePageContent() {
     const players: Player[] = [
       { id: 'player1', name: playerName, hand: [], histSets: [] },
       { id: 'player2', name: 'Ada Lovelace', hand: [], histSets: [] },
+      { id: 'player3', name: 'Winston Churchill', hand: [], histSets: [] },
+      { id: 'player4', name: 'Joan of Arc', hand: [], histSets: [] },
     ];
 
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {

@@ -207,7 +207,6 @@ export const DECK: Card[] = [
     name: 'Shot Heard Round the World',
     description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
     imageUrl: 'https://i.ibb.co/G3RTdBn3/Untitled-design-82.png',
-    hint: 'american revolution',
     type: 'Event',
   },
   {
@@ -533,7 +532,7 @@ export const DECK: Card[] = [
   {
     id: 'p38',
     name: 'Thomas Jefferson',
-    type_Person: 'Person',
+    type: 'Person',
     description: 'A Founding Father, the principal author of the Declaration of Independence, and the third President of the United States.',
     imageUrl: 'https://i.ibb.co/0VVKGGwn/Untitled-design-64.png',
     hint: 'founding father',
@@ -961,7 +960,15 @@ export const DECK: Card[] = [
     description: '35th President of the United States, who led the nation during the height of the Cold War and the Space Race.',
     imageUrl: 'https://i.ibb.co/NgFcHPwD/Untitled-design-2025-09-03-T153640-644.png',
     hint: 'us president',
-  }
+  },
+  {
+    id: 'p38',
+    name: 'Thomas Jefferson',
+    type: 'Person',
+    description: 'A Founding Father, the principal author of the Declaration of Independence, and the third President of the United States.',
+    imageUrl: 'https://i.ibb.co/0VVKGGwn/Untitled-design-64.png',
+    hint: 'founding father',
+  },
 ];
 
     
@@ -991,4 +998,5 @@ export const DECK: Card[] = [
     
 
     
+
 
