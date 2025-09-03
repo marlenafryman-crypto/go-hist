@@ -354,6 +354,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/5g4VXpk3/Untitled-design-34.png',
     hint: 'human rights',
   },
+  {
+    id: 'e23',
+    name: 'Womens Suffrage',
+    type: 'Event',
+    description: 'A decades-long fight to win the right to vote for women in the United States, culminating in the 19th Amendment.',
+    imageUrl: 'https://i.ibb.co/20J4k7xZ/Untitled-design-35.png',
+    hint: 'womens rights',
+  },
 ];
 
 
