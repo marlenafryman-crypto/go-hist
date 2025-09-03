@@ -633,10 +633,24 @@ export const DECK: Card[] = [
     description: 'A formal combat between two individuals with matched weapons.',
     imageUrl: 'https://i.ibb.co/pjpfk6zj/Untitled-design-78.png',
     hint: 'combat fight'
+  },
+  {
+    id: 'e39',
+    name: 'Treasury System',
+    type: 'Event',
+    description: 'The financial system of the United States, established by Alexander Hamilton.',
+    imageUrl: 'https://i.ibb.co/JjTPpGHP/Untitled-design-79.png',
+    hint: 'financial system'
+  },
+  {
+    id: 'e40',
+    name: 'Federalist Papers',
+    type: 'Event',
+    description: 'A series of 85 essays written by Alexander Hamilton, James Madison, and John Jay promoting the ratification of the United States Constitution.',
+    imageUrl: 'https://i.ibb.co/d00XtdYM/Untitled-design-80.png',
+    hint: 'constitutional essays'
   }
 ];
-
-
 
     
 
