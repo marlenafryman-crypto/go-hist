@@ -257,4 +257,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/conservation.jpg',
     hint: 'nature conservation',
   },
+  {
+    id: 'e19',
+    name: 'Panama Canal',
+    type: 'Event',
+    description: 'Canal connecting the Atlantic and Pacific Oceans to boost trade.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/panama-canal.jpg',
+    hint: 'canal trade',
+  },
 ];
