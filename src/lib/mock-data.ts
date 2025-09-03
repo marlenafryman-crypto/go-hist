@@ -457,6 +457,14 @@ export const DECK: Card[] = [
     description: 'An Indian lawyer, anti-colonial nationalist, and political ethicist, who employed nonviolent resistance to lead the successful campaign for India\'s independence from British Rule.',
     imageUrl: 'https://i.ibb.co/4gZ937Kw/Untitled-design-53.png',
     hint: 'indian leader',
+  },
+  {
+    id: 'p31',
+    name: 'Aaron Burr',
+    type: 'Person',
+    description: 'An American politician and lawyer who served as the third Vice President of the United States. He is infamous for his duel with Alexander Hamilton.',
+    imageUrl: 'https://i.ibb.co/DDRGWTLC/Untitled-design-54.png',
+    hint: 'american politician',
   }
 ];
 
