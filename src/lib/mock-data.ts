@@ -213,10 +213,10 @@ export const DECK: Card[] = [
   {
     id: 'e15',
     name: 'Shot Heard Round the World',
-    type: 'Event',
     description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
-    imageUrl: 'https://i.ibb.co/XfW45Ngv/shot-1.png',
+    imageUrl: 'https://i.ibb.co/G3RTdBn3/Untitled-design-82.png',
     hint: 'american revolution',
+    type: 'Event',
   },
   {
     id: 'p14',
@@ -603,7 +603,7 @@ export const DECK: Card[] = [
     hint: 'american war',
   },
   {
-    id_card: 'e36',
+    id: 'e36',
     name: 'Confederate Army',
     type: 'Event',
     description: 'The military land force of the Confederate States of America during the American Civil War.',
