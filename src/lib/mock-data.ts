@@ -103,7 +103,7 @@ export const DECK: Card[] = [
     name: 'Martin Luther King Jr.',
     type: 'Person',
     description: 'An American Baptist minister and activist who became the most visible spokesperson in the civil rights movement.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/martin-luther-king-jr.jpg',
+    imageUrl: 'https://i.ibb.co/BRp399Z/Untitled-design-51.png',
     hint: 'civil rights',
   },
   {
@@ -441,6 +441,14 @@ export const DECK: Card[] = [
     description: 'A network of secret routes and safe houses used by enslaved African Americans to escape into free states and Canada.',
     imageUrl: 'https://i.ibb.co/C5pvn437/Untitled-design-50.png',
     hint: 'escape network',
+  },
+  {
+    id: 'e28',
+    name: 'I Have a Dream Speech',
+    type: 'Event',
+    description: 'A public speech delivered by American civil rights activist Martin Luther King Jr. during the March on Washington for Jobs and Freedom on August 28, 1963.',
+    imageUrl: 'https://i.ibb.co/9kRWjVdw/Untitled-design-52.png',
+    hint: 'historic speech',
   }
 ];
 
@@ -463,5 +471,7 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
