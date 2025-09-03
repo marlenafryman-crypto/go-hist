@@ -70,14 +70,16 @@ export default function JoinGamePage() {
           </form>
         </Card>
         
-        <div className="w-full mt-4">
-          <a href="/deck-editor" target="_blank" rel="noopener noreferrer" className="w-full">
-            <Button variant="outline" className="w-full">
-              <BookOpen className="w-4 h-4 mr-2" />
-              Deck Editor
-            </Button>
-          </a>
-        </div>
+        <Card className="mt-4 text-center text-sm p-4">
+          <h3 className="font-headline text-lg mb-2 flex items-center justify-center gap-2"><BookOpen /> Deck Editor</h3>
+          <p className="text-muted-foreground">
+            To edit the cards in the deck, please modify the `DECK` array in the{' '}
+            <code className="font-mono bg-muted px-1 py-0.5 rounded">
+              src/lib/mock-data.ts
+            </code>{' '}
+            file.
+          </p>
+        </Card>
 
         <p className="mt-8 text-center text-muted-foreground">
           A card game of historical connections. <br /> Form sets of four, but be ready to defend your links to the past!
