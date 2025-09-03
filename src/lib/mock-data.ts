@@ -537,6 +537,22 @@ export const DECK: Card[] = [
     description: 'A Founding Father of the United States, chief staff aide to General George Washington, and the first Secretary of the Treasury.',
     imageUrl: 'https://i.ibb.co/Lz2XDN2j/Untitled-design-63.png',
     hint: 'founding father',
+  },
+  {
+    id: 'p38',
+    name: 'Thomas Jefferson',
+    type: 'Person',
+    description: 'A Founding Father, the principal author of the Declaration of Independence, and the third President of the United States.',
+    imageUrl: 'https://i.ibb.co/0VVKGGwn/Untitled-design-64.png',
+    hint: 'founding father',
+  },
+  {
+    id: 'p39',
+    name: 'John Adams',
+    type: 'Person',
+    description: 'A Founding Father, the first Vice President, and the second President of the United States.',
+    imageUrl: 'https://i.ibb.co/4gVCBGKg/Untitled-design-65.png',
+    hint: 'founding father',
   }
 ];
 
@@ -559,6 +575,8 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
 
