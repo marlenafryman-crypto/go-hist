@@ -28,7 +28,7 @@ const prompt = ai.definePrompt({
 
   A valid "Hist Set" must follow two rules:
   1.  The set must contain at least one "Person" card.
-  2.  The four cards must have a clear, direct, and verifiable historical connection. The connection must be explained by the player.
+  2.  The four cards must have a clear, direct, and verifiable historical connection. The connection must be explained by the player. It is acceptable for a set to contain multiple "Person" cards, as long as their connection is justified by common events or relationships.
 
   Here are the 4 cards the player has proposed:
   {{#each cards}}
@@ -40,7 +40,7 @@ const prompt = ai.definePrompt({
 
   First, check if there is at least one "Person" card in the set. If not, the set is invalid.
   
-  Next, critically evaluate the player's explanation. Is the historical connection strong, logical, and accurate? Be strict. Vague or tangential connections are not allowed.
+  Next, critically evaluate the player's explanation. Is the historical connection strong, logical, and accurate? Be strict. Vague or tangential connections are not allowed. For example, simply stating that two people were alive at the same time is not a valid connection. There must be a direct link, such as collaboration, conflict, or influence.
 
   Based on your evaluation, decide if the set is valid. Provide a clear reason for your decision, either confirming the valid connection or explaining why it is invalid.
   `,
