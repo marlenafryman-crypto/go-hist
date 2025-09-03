@@ -603,7 +603,7 @@ export const DECK: Card[] = [
     hint: 'american war',
   },
   {
-    id: 'e36',
+    id_card: 'e36',
     name: 'Confederate Army',
     type: 'Event',
     description: 'The military land force of the Confederate States of America during the American Civil War.',
@@ -623,8 +623,16 @@ export const DECK: Card[] = [
     name: 'War',
     type: 'Event',
     description: 'This person was involved in a war',
-    imageUrl: 'https://i.ibb.co/SXbsd5zY/7928a9f1-963a-4c70-817f-df93ee0d0f77.png',
+    imageUrl: 'https://i.ibb.co/vx1zJPhB/Untitled-design-77.png',
     hint: 'person involved war'
+  },
+  {
+    id: 'e38',
+    name: 'Duel',
+    type: 'Event',
+    description: 'A formal combat between two individuals with matched weapons.',
+    imageUrl: 'https://i.ibb.co/pjpfk6zj/Untitled-design-78.png',
+    hint: 'combat fight'
   }
 ];
 
