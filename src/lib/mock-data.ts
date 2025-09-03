@@ -47,7 +47,7 @@ export const DECK: Card[] = [
     name: 'Crossing the Rubicon',
     type: 'Event',
     description: 'A pivotal moment in 49 BC when Julius Caesar\'s army crossed the river, marking a point of no return.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/crossing-the-rubicon.jpg',
+    imageUrl: 'https://i.ibb.co/Z6Xn6mKq/Untitled-design-2025-09-03-T154442-644.png',
     hint: 'ancient battle',
   },
   {
@@ -87,7 +87,7 @@ export const DECK: Card[] = [
     name: 'Isaac Newton',
     type: 'Person',
     description: 'An English mathematician, physicist, and astronomer, widely recognized as one of the most influential scientists of all time.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/isaac-newton.jpg',
+    imageUrl: 'https://i.ibb.co/Fqx97nc2/Untitled-design-2025-09-03-T154353-257.png',
     hint: 'influential scientist',
   },
   {
@@ -95,7 +95,7 @@ export const DECK: Card[] = [
     name: 'Scientific Revolution',
     type: 'Event',
     description: 'A series of events that marked the emergence of modern science during the early modern period.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/scientific-revolution.jpg',
+    imageUrl: 'https://i.ibb.co/fJvKzJ8/Untitled-design-2025-09-03-T154246-629.png',
     hint: 'intellectual movement',
   },
   {
@@ -151,7 +151,7 @@ export const DECK: Card[] = [
     name: 'Analytical Engine',
     type: 'Event',
     description: 'A proposed mechanical general-purpose computer designed by English mathematician and computer pioneer Charles Babbage.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/analytical-engine.png',
+    imageUrl: 'https://i.ibb.co/8LKbF9wt/Untitled-design-2025-09-03-T154533-645.png',
     hint: 'early computer',
   },
   {
@@ -159,7 +159,7 @@ export const DECK: Card[] = [
     name: 'Galileo Galilei',
     type: 'Person',
     description: 'An Italian astronomer, physicist and engineer, whose discoveries with the telescope revolutionized astronomy.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/galileo-galilei.jpg',
+    imageUrl: 'https://i.ibb.co/sJp8xydP/Untitled-design-2025-09-03-T154625-620.png',
     hint: 'astronomer physicist',
   },
   {
@@ -167,7 +167,7 @@ export const DECK: Card[] = [
     name: 'The Copernican Model',
     type: 'Event',
     description: 'A model of the universe that placed the Sun, rather than Earth, at the center of the universe.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/copernican-model.png',
+    imageUrl: 'https://i.ibb.co/Cs9Tj0FG/Untitled-design-2025-09-03-T154712-610.png',
     hint: 'astronomy model',
   },
   {
@@ -991,3 +991,4 @@ export const DECK: Card[] = [
     
 
     
+
