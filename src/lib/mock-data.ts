@@ -298,4 +298,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/TB5dxXyC/Untitled-design-3.png',
     hint: 'radio address',
   },
+  {
+    id: 'p18',
+    name: 'Alexander the Great',
+    type: 'Person',
+    description: 'A king of the ancient Greek kingdom of Macedon, he created one of the largest empires of the ancient world.',
+    imageUrl: 'https://i.ibb.co/xv24Q6v/Untitled-design-6.png',
+    hint: 'ancient conqueror',
+  },
 ];
