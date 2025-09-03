@@ -378,6 +378,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/FkBPXQLN/Untitled-design-38.png',
     hint: 'first lady',
   },
+  {
+    id: 'e25',
+    name: 'Declaration of Independence',
+    type: 'Event',
+    description: 'The formal statement written by Thomas Jefferson declaring the freedom of the thirteen American colonies from Great Britain.',
+    imageUrl: 'https://i.ibb.co/x8s3kyvV/Untitled-design-40.png',
+    hint: 'founding document',
+  },
 ];
 
 
@@ -385,5 +393,6 @@ export const DECK: Card[] = [
     
 
     
+
 
 
