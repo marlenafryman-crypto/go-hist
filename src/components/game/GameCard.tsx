@@ -24,7 +24,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
       <Card className={cn("w-[220px] h-[320px] bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
         <div className="relative w-full h-full">
             <Image
-              src="https://i.ibb.co/SXbsd5zY/7928a9f1-963a-4c70-817f-df93ee0d0f77.png"
+              src="https://i.ibb.co/LddKckY6/Untitled-design-81.png"
               alt="Go Hist Card Back"
               fill
               className="object-cover"
