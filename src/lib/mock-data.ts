@@ -569,6 +569,22 @@ export const DECK: Card[] = [
     description: 'The official creation of the first American flag, a symbol of independence and unity for the new nation.',
     imageUrl: 'https://i.ibb.co/JR68yZV0/Untitled-design-67.png',
     hint: 'national symbol',
+  },
+  {
+    id: 'e33',
+    name: 'Emancipation Proclamation',
+    type: 'Event',
+    description: 'Issued by President Abraham Lincoln in 1863, it declared that all enslaved people in Confederate states in rebellion against the Union were to be set free.',
+    imageUrl: 'https://i.ibb.co/xKjNpccv/Untitled-design-68.png',
+    hint: 'historical document',
+  },
+  {
+    id: 'p41',
+    name: 'Ulysses S. Grant',
+    type: 'Person',
+    description: 'The 18th President of the United States and the commanding general of the Union Army in the American Civil War.',
+    imageUrl: 'https://i.ibb.co/CsYMy8nf/Untitled-design-69.png',
+    hint: 'us president general',
   }
 ];
 
