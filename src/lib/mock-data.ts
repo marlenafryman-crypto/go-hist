@@ -79,7 +79,7 @@ export const DECK: Card[] = [
     name: 'Manhattan Project',
     type: 'Event',
     description: 'A top-secret research and development undertaking during World War II that produced the first nuclear weapons.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/manhattan-project.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/manhattan-project.png',
     hint: 'wartime project',
   },
   {
@@ -151,7 +151,7 @@ export const DECK: Card[] = [
     name: 'Ada Lovelace',
     type: 'Person',
     description: 'An English mathematician and writer, chiefly known for her work on Charles Babbage\'s proposed mechanical computer.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/ada-lovelace.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/ada-lovelace.png',
     hint: 'computer pioneer',
   },
   {
@@ -159,7 +159,7 @@ export const DECK: Card[] = [
     name: 'Analytical Engine',
     type: 'Event',
     description: 'A proposed mechanical general-purpose computer designed by English mathematician and computer pioneer Charles Babbage.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/analytical-engine.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/analytical-engine.png',
     hint: 'early computer',
   },
   {
@@ -175,7 +175,7 @@ export const DECK: Card[] = [
     name: 'The Copernican Model',
     type: 'Event',
     description: 'A model of the universe that placed the Sun, rather than Earth, at the center of the universe.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/copernican-model.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/copernican-model.png',
     hint: 'astronomy model',
   },
   {
@@ -199,7 +199,7 @@ export const DECK: Card[] = [
     name: 'Treaty of Paris (1783)',
     type: 'Event',
     description: 'The peace agreement that officially ended the American Revolution. Britain recognized American independence and cede territory to the new United States.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/treaty-of-paris.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/treaty-of-paris.png',
     hint: 'peace treaty',
   },
   {
@@ -239,7 +239,7 @@ export const DECK: Card[] = [
     name: 'Human Rights Movement',
     type: 'Event',
     description: 'A social movement dedicated to securing and protecting the fundamental rights and freedoms for all individuals.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.png',
     hint: 'human rights protest',
   },
   {
@@ -247,7 +247,7 @@ export const DECK: Card[] = [
     name: 'Social Influence',
     type: 'Event',
     description: 'Influenced political life',
-    imageUrl: 'https://firebasestudio.app/assets/cards/social-influence.jpg',
+    imageUrl: 'https://firebasestudio.app/assets/cards/social-influence.png',
     hint: 'political influence',
   },
   {
@@ -275,5 +275,3 @@ export const DECK: Card[] = [
     hint: 'human rights',
   },
 ];
-
-    
