@@ -11,6 +11,11 @@ import Image from 'next/image';
 import { DECK } from '@/lib/mock-data';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+function generateGameCode() {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
+
 export default function JoinGamePage() {
   const router = useRouter();
   const [playerName, setPlayerName] = useState('');
@@ -19,7 +24,8 @@ export default function JoinGamePage() {
   const handleJoinGame = (e: React.FormEvent) => {
     e.preventDefault();
     if (playerName) {
-      router.push('/game');
+      const code = gameCode || generateGameCode();
+      router.push(`/game?code=${code}&player=${playerName}`);
     }
   };
 

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import type { GameState, Player, Card as CardType } from '@/lib/types';
 import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
@@ -9,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale } from 'lucide-react';
+import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Share2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -28,7 +29,11 @@ function shuffle(array: any[]) {
 const INITIAL_HAND_SIZE = 4;
 const WINNING_SET_COUNT = 5;
 
-export default function GamePage() {
+function GamePageContent() {
+  const searchParams = useSearchParams();
+  const gameCode = searchParams.get('code');
+  const playerName = searchParams.get('player') || 'You';
+
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
@@ -41,7 +46,7 @@ export default function GamePage() {
   const startNewGame = () => {
      const shuffledDeck = shuffle(DECK);
     const players: Player[] = [
-      { id: 'player1', name: 'You', hand: [], histSets: [] },
+      { id: 'player1', name: playerName, hand: [], histSets: [] },
       { id: 'player2', name: 'Ada Lovelace', hand: [], histSets: [] },
     ];
 
@@ -181,6 +186,19 @@ export default function GamePage() {
       {/* Sidebar */}
       <aside className="w-80 bg-card p-4 flex flex-col border-r space-y-6">
         <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl flex items-center gap-2"><Share2 /> Game Code</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center space-x-2">
+              <Input readOnly value={gameCode || ''} className="font-mono text-lg" />
+              <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(gameCode || '')}>Copy</Button>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-xl flex items-center gap-2"><Users /> Players</CardTitle>
@@ -312,5 +330,13 @@ export default function GamePage() {
       </AlertDialogContent>
     </AlertDialog>
    </>
+  );
+}
+
+export default function GamePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <GamePageContent />
+    </Suspense>
   );
 }
