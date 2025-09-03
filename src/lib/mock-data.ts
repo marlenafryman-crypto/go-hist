@@ -223,7 +223,7 @@ export const DECK: Card[] = [
     name: 'Paul Revere',
     type: 'Person',
     description: 'An American silversmith and Patriot in the American Revolution, famous for his midnight ride to alert colonial militia of British forces.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/paul-revere.jpg',
+    imageUrl: 'https://i.ibb.co/hQbfBWP/Untitled-design-29.png',
     hint: 'american patriot',
   },
   {
