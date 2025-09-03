@@ -31,18 +31,26 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      card1Name: selectedCards[0]?.name || '',
-      card2Name: selectedCards[1]?.name || '',
+      card1Name: '',
+      card2Name: '',
       explanation: '',
     },
   });
 
   useEffect(() => {
-    form.reset({
-      card1Name: selectedCards[0]?.name || '',
-      card2Name: selectedCards[1]?.name || '',
-      explanation: form.getValues('explanation') || '',
-    });
+    // When selectedCards change, update the form values.
+    // We only update if 2 cards are selected.
+    if (selectedCards.length >= 1) {
+        form.setValue('card1Name', selectedCards[0]?.name || '');
+    } else {
+        form.setValue('card1Name', '');
+    }
+    if (selectedCards.length >= 2) {
+        form.setValue('card2Name', selectedCards[1]?.name || '');
+    } else {
+        form.setValue('card2Name', '');
+    }
+
   }, [selectedCards, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
