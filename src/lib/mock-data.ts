@@ -282,4 +282,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/hFznTXS4/Untitled-design.png',
     hint: 'us president',
   },
+  {
+    id: 'p17',
+    name: 'Frederick Douglass',
+    type: 'Person',
+    description: 'An American social reformer, abolitionist, orator, writer, and statesman. After escaping from slavery, he became a national leader of the abolitionist movement.',
+    imageUrl: 'https://i.ibb.co/tMtykZvF/Untitled-design-1.png',
+    hint: 'abolitionist leader',
+  },
 ];
