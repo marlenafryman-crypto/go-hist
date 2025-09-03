@@ -21,10 +21,15 @@ interface GameCardProps {
 export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, otherPlayers, onAsk }: GameCardProps) {
   if (card === 'back') {
     return (
-      <Card className={cn("w-[220px] h-[320px] bg-primary flex items-center justify-center border-4 border-primary-foreground/50 shadow-lg", className)}>
-        <div className="flex flex-col items-center">
-          <Feather className="w-16 h-16 text-primary-foreground" />
-          <p className="font-headline text-primary-foreground text-2xl mt-2">Go Hist</p>
+      <Card className={cn("w-[220px] h-[320px] bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
+        <div className="relative w-full h-full">
+            <Image
+              src="https://i.ibb.co/SXbsd5zY/7928a9f1-963a-4c70-817f-df93ee0d0f77.png"
+              alt="Go Hist Card Back"
+              fill
+              className="object-cover"
+              data-ai-hint="card back"
+            />
         </div>
       </Card>
     );
