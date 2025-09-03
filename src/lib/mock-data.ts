@@ -346,6 +346,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/5W8MnRLF/Untitled-design-33.png',
     hint: 'us president',
   },
+  {
+    id: 'e22',
+    name: 'Human Rights',
+    type: 'Event',
+    description: 'A movement dedicated to securing and protecting the fundamental rights and freedoms for all individuals.',
+    imageUrl: 'https://i.ibb.co/5g4VXpk3/Untitled-design-34.png',
+    hint: 'human rights',
+  },
 ];
 
 
