@@ -196,10 +196,10 @@ export const DECK: Card[] = [
   },
   {
     id: 'e13',
-    name: 'Treaty of Paris (1783)',
+    name: 'Treaty of Paris',
     type: 'Event',
     description: 'The peace agreement that officially ended the American Revolution. Britain recognized American independence and cede territory to the new United States.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/treaty-of-paris.png',
+    imageUrl: 'https://i.ibb.co/Q7pZKnSm/Treaty-of-Paris-1783.png',
     hint: 'peace treaty',
   },
   {
