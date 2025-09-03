@@ -585,6 +585,14 @@ export const DECK: Card[] = [
     description: 'The 18th President of the United States and the commanding general of the Union Army in the American Civil War.',
     imageUrl: 'https://i.ibb.co/CsYMy8nf/Untitled-design-69.png',
     hint: 'us president general',
+  },
+  {
+    id: 'e34',
+    name: 'Famous speech',
+    type: 'Event',
+    description: 'This person has a famous speech',
+    imageUrl: 'https://i.ibb.co/d9mjshq/Untitled-design-70.png',
+    hint: 'famous speech',
   }
 ];
 
@@ -615,3 +623,4 @@ export const DECK: Card[] = [
     
 
     
+
