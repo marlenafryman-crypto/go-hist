@@ -1,6 +1,8 @@
 'use server';
 
 import { verifyHistoricalConnection, VerifyHistoricalConnectionInput, VerifyHistoricalConnectionOutput } from '@/ai/flows/verify-historical-connection';
+import { findMatchingCard, FindMatchingCardInput, FindMatchingCardOutput } from '@/ai/flows/find-matching-card';
+
 
 export async function verifyConnectionAction(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
   try {
@@ -13,4 +15,17 @@ export async function verifyConnectionAction(input: VerifyHistoricalConnectionIn
       reason: 'An error occurred while communicating with the historian AI. Please try again.',
     };
   }
+}
+
+export async function findMatchingCardAction(input: FindMatchingCardInput): Promise<FindMatchingCardOutput> {
+    try {
+        const result = await findMatchingCard(input);
+        return result;
+    } catch (error) {
+        console.error('Error finding matching card:', error);
+        return {
+            cardId: undefined,
+            reason: 'An error occurred while communicating with the arbiter AI. Please try again.',
+        };
+    }
 }

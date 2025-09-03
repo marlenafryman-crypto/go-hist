@@ -1,53 +1,46 @@
-
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import { HelpCircle, Loader2 } from 'lucide-react';
-import type { Player, Card as CardType } from '@/lib/types';
+import type { Player } from '@/lib/types';
 
 const formSchema = z.object({
   opponentId: z.string().min(1, 'You must select an opponent.'),
-  cardName: z.string().min(1, 'You must select a card to ask for.'),
+  request: z.string().min(3, 'Your request must be at least 3 characters long.'),
 });
 
 interface AskForCardProps {
-  currentPlayer: Player;
   otherPlayers: Player[];
-  onAsk: (opponentId: string, cardName: string) => void;
+  onAsk: (opponentId: string, request: string) => void;
 }
 
-export function AskForCard({ currentPlayer, otherPlayers, onAsk }: AskForCardProps) {
+export function AskForCard({ otherPlayers, onAsk }: AskForCardProps) {
   const [isLoading, setIsLoading] = useState(false);
-
-  const uniqueCardsInHand = useMemo(() => {
-    const cardNames = new Set<string>();
-    currentPlayer.hand.forEach(card => cardNames.add(card.name));
-    return Array.from(cardNames);
-  }, [currentPlayer.hand]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       opponentId: '',
-      cardName: '',
+      request: '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    onAsk(values.opponentId, values.cardName);
+    await onAsk(values.opponentId, values.request);
     setIsLoading(false);
     form.reset();
   }
   
   return (
-    <div className="space-y-4 pt-4 border-t">
+    <div className="space-y-4">
       <h3 className="font-headline text-xl flex items-center gap-2">
         <HelpCircle className="w-5 h-5 text-primary" />
         Ask for a Card
@@ -80,24 +73,13 @@ export function AskForCard({ currentPlayer, otherPlayers, onAsk }: AskForCardPro
           />
           <FormField
             control={form.control}
-            name="cardName"
+            name="request"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Card</FormLabel>
-                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a card to ask for" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {uniqueCardsInHand.map(cardName => (
-                      <SelectItem key={cardName} value={cardName}>
-                        {cardName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <FormLabel>Request</FormLabel>
+                <FormControl>
+                    <Input placeholder="e.g., 'a scientist' or 'an event from the 1800s'" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
