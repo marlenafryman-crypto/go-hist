@@ -123,14 +123,6 @@ export const DECK: Card[] = [
     hint: 'english monarch',
   },
   {
-    id: 'e08',
-    name: 'Spanish Armada',
-    type: 'Event',
-    description: 'A Habsburg Spanish fleet of 130 ships that sailed from Lisbon in 1588 with the purpose of escorting an army to invade England.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/spanish-armada.jpg',
-    hint: 'naval fleet',
-  },
-  {
     id: 'p09',
     name: 'Nikola Tesla',
     type: 'Person',
@@ -665,6 +657,54 @@ export const DECK: Card[] = [
     description: 'An act of nonviolent civil disobedience in colonial India led by Mahatma Gandhi to produce salt from seawater.',
     imageUrl: 'https://i.ibb.co/tTRKwj6w/Untitled-design-84.png',
     hint: 'indian protest'
+  },
+  {
+    id: 'e43',
+    name: 'Constitutional Debate',
+    type: 'Event',
+    description: 'The series of debates that took place during the drafting and ratification of the United States Constitution.',
+    imageUrl: 'https://i.ibb.co/39KnmqCB/Untitled-design-76.png',
+    hint: 'political debate'
+  },
+  {
+    id: 'e44',
+    name: 'World War I',
+    type: 'Event',
+    description: 'A global war originating in Europe that lasted from 28 July 1914 to 11 November 1918.',
+    imageUrl: 'https://i.ibb.co/zWY3WySH/Untitled-design-85.png',
+    hint: 'global conflict'
+  },
+  {
+    id: 'e08',
+    name: 'Spanish Armada',
+    type: 'Event',
+    description: 'A Habsburg Spanish fleet of 130 ships that sailed from Lisbon in 1588 with the purpose of escorting an army to invade England.',
+    imageUrl: 'https://i.ibb.co/f3Fp4Dy/Untitled-design-86.png',
+    hint: 'naval fleet'
+  },
+  {
+    id: 'e45',
+    name: 'English Reformation',
+    type: 'Event',
+    description: 'The series of events in 16th-century England by which the Church of England broke away from the authority of the Pope and the Roman Catholic Church.',
+    imageUrl: 'https://i.ibb.co/dwXCqJcQ/Untitled-design-87.png',
+    hint: 'religious movement'
+  },
+  {
+    id: 'e46',
+    name: 'Monarch',
+    type: 'Event',
+    description: 'This person was a monarch',
+    imageUrl: 'https://i.ibb.co/Ldz6QkRH/Untitled-design-88.png',
+    hint: 'royal ruler'
+  },
+  {
+    id: 'e47',
+    name: 'Elizabethan Era',
+    type: 'Event',
+    description: 'The period in English history during the reign of Queen Elizabeth I, from 1558 to 1603. It was a time of great exploration, artistic achievement, and political stability.',
+    imageUrl: 'https://i.ibb.co/d0qhM3XH/Untitled-design-89.png',
+    hint: 'english history'
   }
 ];
 
