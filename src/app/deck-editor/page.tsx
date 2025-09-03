@@ -1,21 +1,41 @@
 'use client';
 
-import { useState } from 'react';
-import { DECK } from '@/lib/mock-data';
+import { useState, useEffect } from 'react';
+import type { Card } from '@/lib/types';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
 const CARDS_PER_PAGE = 10;
 
 export default function DeckEditorPage() {
+  const [cards, setCards] = useState<Card[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  
-  const totalPages = Math.ceil(DECK.length / CARDS_PER_PAGE);
-  const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
-  const endIndex = startIndex + CARDS_PER_PAGE;
-  const currentCards = DECK.slice(startIndex, endIndex);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchCards() {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`/api/deck?page=${currentPage}&limit=${CARDS_PER_PAGE}`);
+        if (!res.ok) {
+          throw new Error('Failed to fetch cards from the server.');
+        }
+        const data = await res.json();
+        setCards(data.cards);
+        setTotalPages(data.totalPages);
+      } catch (e: any) {
+        setError(e.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchCards();
+  }, [currentPage]);
 
   const goToNextPage = () => {
     setCurrentPage(prev => Math.min(prev + 1, totalPages));
@@ -36,27 +56,42 @@ export default function DeckEditorPage() {
           </Button>
         </Link>
       </header>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {currentCards.map(card => (
-          <div key={card.id} className="flex flex-col items-center gap-2">
-            <GameCard card={card} />
-            <p className="text-xs text-muted-foreground">ID: {card.id}</p>
+
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="w-12 h-12 animate-spin text-primary" />
+        </div>
+      ) : error ? (
+        <div className="text-center text-destructive">
+          <p>Error: {error}</p>
+          <p>Please try refreshing the page.</p>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {cards.map(card => (
+              <div key={card.id} className="flex flex-col items-center gap-2">
+                <GameCard card={card} />
+                <p className="text-xs text-muted-foreground">ID: {card.id}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="flex justify-center items-center gap-4 mt-8">
-        <Button onClick={goToPreviousPage} disabled={currentPage === 1}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Previous
-        </Button>
-        <span className="text-sm text-muted-foreground">
-          Page {currentPage} of {totalPages}
-        </span>
-        <Button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Next
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <Button onClick={goToPreviousPage} disabled={currentPage === 1}>
+              <ChevronLeft className="w-4 h-4 mr-2" />
+              Previous
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              Page {currentPage} of {totalPages}
+            </span>
+            <Button onClick={goToNextPage} disabled={currentPage === totalPages}>
+              Next
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </>
+      )}
+
       <footer className="mt-8 text-center text-muted-foreground text-sm">
         <p>
           To edit a card, modify the `DECK` array in the{' '}
