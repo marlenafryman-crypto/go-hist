@@ -231,7 +231,7 @@ export const DECK: Card[] = [
     name: 'Human Rights Movement',
     type: 'Event',
     description: 'A social movement dedicated to securing and protecting the fundamental rights and freedoms for all individuals.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.png',
+    imageUrl: 'https://i.ibb.co/yBdB6Hr1/Untitled-design-2025-09-03-T153845-636.png',
     hint: 'human rights protest',
   },
   {
