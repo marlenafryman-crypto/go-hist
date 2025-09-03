@@ -240,6 +240,9 @@ export default function GamePage() {
                 card={card}
                 isSelected={!!selectedCards.find(c => c.id === card.id)}
                 onSelect={handleSelectCard}
+                isPlayerCard={true}
+                otherPlayers={otherPlayers}
+                onAsk={handleAskForCard}
               />
             ))}
           </div>
