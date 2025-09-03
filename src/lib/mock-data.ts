@@ -465,6 +465,14 @@ export const DECK: Card[] = [
     description: 'An American politician and lawyer who served as the third Vice President of the United States. He is infamous for his duel with Alexander Hamilton.',
     imageUrl: 'https://i.ibb.co/DDRGWTLC/Untitled-design-54.png',
     hint: 'american politician',
+  },
+  {
+    id: 'p32',
+    name: 'Sacagawea',
+    type: 'Person',
+    description: 'A Lemhi Shoshone woman who, in her teens, helped the Lewis and Clark Expedition in achieving their chartered mission objectives by exploring the Louisiana Territory.',
+    imageUrl: 'https://i.ibb.co/m5qPBJ6H/Untitled-design-55.png',
+    hint: 'native american guide',
   }
 ];
 
