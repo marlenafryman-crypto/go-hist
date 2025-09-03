@@ -71,9 +71,9 @@ export default function JoinGamePage() {
         </Card>
         
         <Card className="mt-4 text-center text-sm p-4">
-          <h3 className="font-headline text-lg mb-2 flex items-center justify-center gap-2"><BookOpen /> Deck Editor</h3>
+          <h3 className="font-headline text-lg mb-2 flex items-center justify-center gap-2"><BookOpen /> Edit the Deck</h3>
           <p className="text-muted-foreground">
-            To edit the cards in the deck, please modify the `DECK` array in the{' '}
+            To add, remove, or edit cards, please modify the `DECK` array in the{' '}
             <code className="font-mono bg-muted px-1 py-0.5 rounded">
               src/lib/mock-data.ts
             </code>{' '}
