@@ -6,11 +6,10 @@ import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { DeckEditorLogin } from '@/components/game/DeckEditorLogin';
 
 const CARDS_PER_PAGE = 10;
 
-function EditorView() {
+export default function DeckEditorPage() {
     const [currentPage, setCurrentPage] = useState(1);
 
     const { currentCards, totalPages } = useMemo(() => {
@@ -68,15 +67,4 @@ function EditorView() {
         </footer>
         </div>
     );
-}
-
-
-export default function DeckEditorPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  if (!isAuthenticated) {
-    return <DeckEditorLogin onLoginSuccess={() => setIsAuthenticated(true)} />;
-  }
-
-  return <EditorView />;
 }
