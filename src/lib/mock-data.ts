@@ -322,4 +322,13 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/svGwrHSc/Untitled-design-8.png',
     hint: 'us president',
   },
+  {
+    id: 'p21',
+    name: 'Eleanor Roosevelt',
+    type: 'Person',
+    description: 'An American political figure, diplomat, and activist. She served as the First Lady of the United States from 1933 to 1945.',
+    imageUrl: 'https://i.ibb.co/Xfn0DGdB/Untitled-design-31.png',
+    hint: 'first lady activist',
+  },
 ];
+
