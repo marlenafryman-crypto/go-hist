@@ -489,6 +489,22 @@ export const DECK: Card[] = [
     description: 'The last reigning Empress Regnant of Russia and the country\'s longest-ruling female leader.',
     imageUrl: 'https://i.ibb.co/hj7V5Ct/Untitled-design-57.png',
     hint: 'russian empress',
+  },
+  {
+    id: 'e29',
+    name: 'Revolutionary War',
+    type: 'Event',
+    description: 'The armed conflict between Great Britain and thirteen of its North American colonies, which had declared themselves the independent United States of America.',
+    imageUrl: 'https://i.ibb.co/S4dNB7ZG/Untitled-design-58.png',
+    hint: 'american war',
+  },
+  {
+    id: 'e30',
+    name: 'President of the United States',
+    type: 'Event',
+    description: 'The head of state and head of government of the United States of America. The president leads the executive branch of the federal government.',
+    imageUrl: 'https://i.ibb.co/ZRNczRfd/Untitled-design-59.png',
+    hint: 'us presidency',
   }
 ];
 
@@ -511,6 +527,8 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
 
