@@ -7,7 +7,7 @@ export const DECK: Card[] = [
     name: 'Leonardo da Vinci',
     type: 'Person',
     description: 'A true Renaissance man, excelling in painting, sculpture, architecture, music, science, and more.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/leonardo-da-vinci.jpg',
+    imageUrl: 'https://i.ibb.co/MydM0hhV/Untitled-design-2025-09-03-T152801-642.png',
     hint: 'renaissance artist',
   },
   {
@@ -15,7 +15,7 @@ export const DECK: Card[] = [
     name: 'The Renaissance',
     type: 'Event',
     description: 'A period of great cultural change and achievement in Europe that spanned from the 14th to the 17th century.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/the-renaissance.jpg',
+    imageUrl: 'https://i.ibb.co/Kcjt4Xjv/Untitled-design-2025-09-03-T151504-628.png',
     hint: 'historical period',
   },
   {
@@ -31,7 +31,7 @@ export const DECK: Card[] = [
     name: 'Discovery of Radium',
     type: 'Event',
     description: 'The 1898 discovery by Marie and Pierre Curie, which revolutionized science and medicine.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/discovery-of-radium.jpg',
+    imageUrl: 'https://i.ibb.co/DPZWVyxv/Untitled-design-2025-09-03-T152633-753.png',
     hint: 'scientific breakthrough',
   },
   {
@@ -71,7 +71,7 @@ export const DECK: Card[] = [
     name: 'Albert Einstein',
     type: 'Person',
     description: 'Developed the theory of relativity, one of the two pillars of modern physics.',
-    imageUrl: 'https://i.ibb.co/4wVPTxdW/Untitled-design-2025-09-03-T150338-618.png',
+    imageUrl: 'https://i.ibb.co/wFxrbfCg/Untitled-design-2025-09-03-T150827-710.png',
     hint: 'modern physicist',
   },
   {
@@ -575,7 +575,7 @@ export const DECK: Card[] = [
     name: 'Ulysses S. Grant',
     type: 'Person',
     description: 'The 18th President of the United States and the commanding general of the Union Army in the American Civil War.',
-    imageUrl: 'https://i.ibb.co/CsYMy8nf/Untitled-design-69.png',
+    imageUrl: 'https://iibb.co/CsYMy8nf/Untitled-design-69.png',
     hint: 'us president general',
   },
   {
@@ -903,7 +903,7 @@ export const DECK: Card[] = [
     name: 'New Deal',
     type: 'Event',
     description: 'A series of programs, public work projects, financial reforms, and regulations enacted by President Franklin D. Roosevelt.',
-    imageUrl: 'https://i.ibb.co/B2x7RTJT/Untitled-design-2025-09-03-T145845-648.png',
+    imageUrl: 'https://i.ibb.co/B2x7RTJT/Untitled-design-2025-09-03T145845-648.png',
     hint: 'economic programs',
   },
   {
@@ -945,6 +945,14 @@ export const DECK: Card[] = [
     description: 'This leader was influenced by the ideas of the Enlightenment, such as reason, individualism, and human rights.',
     imageUrl: 'https://i.ibb.co/35hggmWC/Untitled-design-2025-09-03-T144825-630.png',
     hint: 'philosophical movement'
+  },
+  {
+    id: 'e77',
+    name: 'The Crusades',
+    type: 'Event',
+    description: 'A series of religious wars initiated, supported, and sometimes directed by the Latin Church in the medieval period.',
+    imageUrl: 'https://i.ibb.co/PG2RQ1qV/Untitled-design-2025-09-03-T152931-651.png',
+    hint: 'religious wars',
   }
 ];
 
@@ -975,3 +983,4 @@ export const DECK: Card[] = [
     
 
     
+
