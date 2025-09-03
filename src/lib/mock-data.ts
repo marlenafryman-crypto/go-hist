@@ -209,4 +209,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/boston-tea-party.png',
     hint: 'american revolution',
   },
+  {
+    id: 'p13',
+    name: 'Henry VIII',
+    type: 'Person',
+    description: 'King of England from 1509 until his death, famously married six times and was a central figure in the English Reformation.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.png',
+    hint: 'english king',
+  },
 ];
