@@ -449,6 +449,14 @@ export const DECK: Card[] = [
     description: 'A public speech delivered by American civil rights activist Martin Luther King Jr. during the March on Washington for Jobs and Freedom on August 28, 1963.',
     imageUrl: 'https://i.ibb.co/9kRWjVdw/Untitled-design-52.png',
     hint: 'historic speech',
+  },
+  {
+    id: 'p30',
+    name: 'Mahatma Gandhi',
+    type: 'Person',
+    description: 'An Indian lawyer, anti-colonial nationalist, and political ethicist, who employed nonviolent resistance to lead the successful campaign for India\'s independence from British Rule.',
+    imageUrl: 'https://i.ibb.co/4gZ937Kw/Untitled-design-53.png',
+    hint: 'indian leader',
   }
 ];
 
