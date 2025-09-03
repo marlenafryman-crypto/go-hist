@@ -402,6 +402,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/w11Zjw3/Untitled-design-42.png',
     hint: 'civil rights activist',
   },
+  {
+    id: 'p26',
+    name: 'Chief Sitting Bull',
+    type: 'Person',
+    description: 'A Hunkpapa Lakota leader who led his people during years of resistance against United States government policies.',
+    imageUrl: 'https://i.ibb.co/C3btpR3C/Untitled-design-45.png',
+    hint: 'native american leader',
+  },
 ];
 
 
