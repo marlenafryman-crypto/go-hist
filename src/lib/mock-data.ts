@@ -210,14 +210,6 @@ export const DECK: Card[] = [
     hint: 'american revolution',
   },
   {
-    id: 'p13',
-    name: 'Henry VIII',
-    type: 'Person',
-    description: 'King of England from 1509 until his death, famously married six times and was a central figure in the English Reformation.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.png',
-    hint: 'english king',
-  },
-  {
     id: 'e15',
     name: 'Shot Heard Round the World',
     type: 'Event',
@@ -232,5 +224,13 @@ export const DECK: Card[] = [
     description: 'An American silversmith and Patriot in the American Revolution, famous for his midnight ride to alert colonial militia of British forces.',
     imageUrl: 'https://firebasestudio.app/assets/cards/paul-revere.png',
     hint: 'american patriot',
+  },
+  {
+    id: 'p13',
+    name: 'Henry VIII',
+    type: 'Person',
+    description: 'King of England from 1509 until his death, famously married six times and was a central figure in the English Reformation.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.png',
+    hint: 'english king',
   },
 ];
