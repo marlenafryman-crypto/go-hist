@@ -75,9 +75,8 @@ export default function GamePage() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
-      // Can't select more than 4 cards
+      // Can't select more than 4 cards for a set, but can select 2 for verification
       if(prev.length >= 4) {
-        alert("You can only select up to 4 cards.");
         return prev;
       }
       return [...prev, card];
@@ -136,11 +135,7 @@ export default function GamePage() {
   const handleFormHistSet = () => {
     if (!currentPlayer) return;
 
-    if (!selectedCards.some(c => c.type === 'Person')) {
-      alert("A Hist Set must contain at least one Person card.");
-      return;
-    }
-    
+    // This is called AFTER the AI has verified the set is valid
     setShowHistSetDialog(false);
     
     setGameState(prev => {
@@ -168,6 +163,7 @@ export default function GamePage() {
     });
     setSelectedCards([]);
   };
+  
 
   if (!gameState || !currentPlayer) {
     return (

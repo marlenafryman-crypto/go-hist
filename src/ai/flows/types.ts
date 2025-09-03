@@ -36,7 +36,7 @@ export type FindMatchingCardOutput = z.infer<
 >;
 
 export const VerifyHistSetInputSchema = z.object({
-    cards: z.array(CardSchema).length(4).describe('The four cards being checked for a valid Hist Set.'),
+    cards: z.array(CardSchema.omit({imageUrl: true, hint: true})).length(4).describe('The four cards being checked for a valid Hist Set.'),
     explanation: z.string().describe('The player\'s explanation of the historical connection between the four cards.'),
 });
 export type VerifyHistSetInput = z.infer<typeof VerifyHistSetInputSchema>;
@@ -46,3 +46,16 @@ export const VerifyHistSetOutputSchema = z.object({
     reason: z.string().describe('The reasoning behind the validity determination.'),
 });
 export type VerifyHistSetOutput = z.infer<typeof VerifyHistSetOutputSchema>;
+
+export const VerifyHistoricalConnectionInputSchema = z.object({
+  card1Name: z.string().describe('The name of the first card.'),
+  card2Name: z.string().describe('The name of the second card.'),
+  explanation: z.string().describe('The explanation of the historical connection between the two cards.'),
+});
+export type VerifyHistoricalConnectionInput = z.infer<typeof VerifyHistoricalConnectionInputSchema>;
+
+export const VerifyHistoricalConnectionOutputSchema = z.object({
+  isValid: z.boolean().describe('Whether the historical connection explanation is valid.'),
+  reason: z.string().describe('The reasoning behind the validity determination.'),
+});
+export type VerifyHistoricalConnectionOutput = z.infer<typeof VerifyHistoricalConnectionOutputSchema>;
