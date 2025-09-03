@@ -61,12 +61,12 @@ export default function JoinGamePage() {
             <Button type="submit" className="w-full" disabled={!playerName}>
               Enter the Past
             </Button>
-            <Link href="/deck-editor" className="w-full">
+            <a href="/deck-editor" target="_blank" rel="noopener noreferrer" className="w-full">
               <Button variant="outline" className="w-full">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Deck Editor
               </Button>
-            </Link>
+            </a>
           </CardFooter>
         </form>
       </Card>
