@@ -649,6 +649,22 @@ export const DECK: Card[] = [
     description: 'A series of 85 essays written by Alexander Hamilton, James Madison, and John Jay promoting the ratification of the United States Constitution.',
     imageUrl: 'https://i.ibb.co/d00XtdYM/Untitled-design-80.png',
     hint: 'constitutional essays'
+  },
+  {
+    id: 'e41',
+    name: 'World War Two',
+    type: 'Event',
+    description: 'A global war that lasted from 1939 to 1945, involving the vast majority of the world\'s countries.',
+    imageUrl: 'https://i.ibb.co/DxKHb3m/Untitled-design-83.png',
+    hint: 'global war'
+  },
+  {
+    id: 'e42',
+    name: 'Salt March',
+    type: 'Event',
+    description: 'An act of nonviolent civil disobedience in colonial India led by Mahatma Gandhi to produce salt from seawater.',
+    imageUrl: 'https://i.ibb.co/tTRKwj6w/Untitled-design-84.png',
+    hint: 'indian protest'
   }
 ];
 
