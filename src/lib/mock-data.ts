@@ -513,6 +513,30 @@ export const DECK: Card[] = [
     description: 'A group of American leaders who united the Thirteen Colonies, led the war for independence from Great Britain, and built a frame of government for the new United States.',
     imageUrl: 'https://i.ibb.co/bjmLJxD6/Untitled-design-60.png',
     hint: 'american leaders',
+  },
+  {
+    id: 'p35',
+    name: 'Susan B. Anthony',
+    type: 'Person',
+    description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
+    imageUrl: 'https://i.ibb.co/wZpPQ5Y4/Untitled-design-61.png',
+    hint: 'womens suffrage',
+  },
+  {
+    id: 'p36',
+    name: 'George III',
+    type: 'Person',
+    description: 'King of Great Britain and Ireland during the American Revolution.',
+    imageUrl: 'https://i.ibb.co/gZFhLBfk/Untitled-design-62.png',
+    hint: 'british king',
+  },
+  {
+    id: 'p37',
+    name: 'Alexander Hamilton',
+    type: 'Person',
+    description: 'A Founding Father of the United States, chief staff aide to General George Washington, and the first Secretary of the Treasury.',
+    imageUrl: 'https://i.ibb.co/Lz2XDN2j/Untitled-design-63.png',
+    hint: 'founding father',
   }
 ];
 
