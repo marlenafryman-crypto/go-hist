@@ -20,10 +20,10 @@ export const DECK: Card[] = [
   },
   {
     id: 'p02',
-    name: 'Marie Curie',
+    name: 'Marie Sklodowska-Curie',
     type: 'Person',
     description: 'A physicist and chemist who conducted pioneering research on radioactivity. The first woman to win a Nobel Prize.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/marie-curie.jpg',
+    imageUrl: 'https://i.ibb.co/4wVPTxdW/Untitled-design-2025-09-03-T150338-618.png',
     hint: 'pioneering scientist',
   },
   {
@@ -119,7 +119,7 @@ export const DECK: Card[] = [
     name: 'Queen Elizabeth I',
     type: 'Person',
     description: 'Queen of England and Ireland from 1558 until her death in 1603. Sometimes called the Virgin Queen.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/queen-elizabeth-i.jpg',
+    imageUrl: 'https://i.ibb.co/CKVNGYHq/Untitled-design-2025-09-03-T144143-636.png',
     hint: 'english monarch',
   },
   {
@@ -929,6 +929,22 @@ export const DECK: Card[] = [
     description: "This leader's influence extended beyond politics, shaping art, fashion, and social norms.",
     imageUrl: 'https://i.ibb.co/MybggRhz/Untitled-design-2025-09-03-T150044-624.png',
     hint: 'cultural influence',
+  },
+  {
+    id: 'e75',
+    name: 'Globalization',
+    type: 'Event',
+    description: 'The process of interaction and integration among people, companies, and governments worldwide.',
+    imageUrl: 'https://i.ibb.co/RprLGQ7K/Untitled-design-2025-09-03-T144250-681.png',
+    hint: 'global integration',
+  },
+  {
+    id: 'e76',
+    name: 'Enlightenment Influence',
+    type: 'Event',
+    description: 'This leader was influenced by the ideas of the Enlightenment, such as reason, individualism, and human rights.',
+    imageUrl: 'https://i.ibb.co/35hggmWC/Untitled-design-2025-09-03-T144825-630.png',
+    hint: 'philosophical movement'
   }
 ];
 
