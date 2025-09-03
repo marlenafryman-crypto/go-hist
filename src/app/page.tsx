@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Feather } from 'lucide-react';
 import Image from 'next/image';
+import { DECK } from '@/lib/mock-data';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function JoinGamePage() {
   const router = useRouter();
@@ -67,18 +69,21 @@ export default function JoinGamePage() {
           </form>
         </Card>
         
-        <Card className="mt-4 text-center text-sm p-4">
+        <Card className="mt-4">
           <CardHeader>
-            <CardTitle className="font-headline text-xl">Deck Management</CardTitle>
+             <CardTitle className="font-headline text-xl text-center">Current Deck</CardTitle>
+             <CardDescription className="text-center">To edit, modify <code className="font-mono bg-muted px-1 py-0.5 rounded">src/lib/mock-data.ts</code></CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">
-              To add, remove, or edit cards, please modify the `DECK` array in the{' '}
-              <code className="font-mono bg-muted px-1 py-0.5 rounded">
-                src/lib/mock-data.ts
-              </code>{' '}
-              file.
-            </p>
+            <ScrollArea className="h-48 w-full rounded-md border p-4">
+              <ul className="space-y-2">
+                {DECK.map(card => (
+                  <li key={card.id} className="text-sm text-muted-foreground">
+                    <span className="font-semibold text-foreground">{card.name}</span> ({card.type})
+                  </li>
+                ))}
+              </ul>
+            </ScrollArea>
           </CardContent>
         </Card>
 
