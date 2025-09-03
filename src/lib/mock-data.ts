@@ -63,7 +63,7 @@ export const DECK: Card[] = [
     name: 'Ptolemaic Dynasty',
     type: 'Event',
     description: 'A Hellenistic kingdom based in ancient Egypt, founded by Ptolemy I Soter, a companion of Alexander the Great.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/ptolemaic-dynasty.jpg',
+    imageUrl: 'https://i.ibb.co/rRRKmx3v/Untitled-design-2025-09-03-T154101-622.png',
     hint: 'ancient dynasty',
   },
   {
@@ -533,7 +533,7 @@ export const DECK: Card[] = [
   {
     id: 'p38',
     name: 'Thomas Jefferson',
-    type: 'Person',
+    type_Person: 'Person',
     description: 'A Founding Father, the principal author of the Declaration of Independence, and the third President of the United States.',
     imageUrl: 'https://i.ibb.co/0VVKGGwn/Untitled-design-64.png',
     hint: 'founding father',
@@ -991,4 +991,3 @@ export const DECK: Card[] = [
     
 
     
-
