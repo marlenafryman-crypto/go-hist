@@ -106,30 +106,33 @@ function GamePageContent() {
       
       const askedCard = opponent.hand.find(c => c.id === result.cardId);
       let newPlayers = [...prev.players];
+      const thisPlayer = newPlayers.find(p => p.id === prev.currentPlayerId);
+      if (!thisPlayer) return prev;
+
 
       if (askedCard) {
         alert(`${opponent.name} had the card! (${askedCard.name}). You get to go again. Reason: ${result.reason}`);
         const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
-        const newCurrentPlayerHand = [...currentPlayer.hand, askedCard];
+        thisPlayer.hand.push(askedCard);
         
         newPlayers = newPlayers.map(p => {
           if (p.id === opponentId) return { ...p, hand: newOpponentHand };
-          if (p.id === currentPlayer.id) return { ...p, hand: newCurrentPlayerHand };
+          if (p.id === thisPlayer.id) return { ...p, hand: thisPlayer.hand };
           return p;
         });
 
         return { ...prev, players: newPlayers, turnPhase: 'ask' };
       } else {
         alert(`Go Hist! ${opponent.name} did not have a matching card. You draw from the deck. Reason: ${result.reason}`);
-        const drawnCard = prev.deck.length > 0 ? prev.deck[0] : null;
-        const newDeck = prev.deck.length > 0 ? prev.deck.slice(1) : [];
-        let newCurrentPlayerHand = [...currentPlayer.hand];
-        if (drawnCard) {
-          newCurrentPlayerHand.push(drawnCard);
+        
+        const newDeck = [...prev.deck];
+        const drawnCard = newDeck.pop();
+        if(drawnCard) {
+            thisPlayer.hand.push(drawnCard);
         }
 
         newPlayers = newPlayers.map(p => {
-          if (p.id === currentPlayer.id) return { ...p, hand: newCurrentPlayerHand };
+          if (p.id === thisPlayer.id) return { ...p, hand: thisPlayer.hand };
           return p;
         });
         
@@ -243,7 +246,7 @@ function GamePageContent() {
         {/* Main Game Area */}
         <main className="flex-1 flex flex-col p-6 overflow-y-auto">
           {/* Opponents' Area */}
-          <div className="flex-1 flex flex-col items-center justify-center">
+          <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto">
               {otherPlayers.map(player => (
                   <div key={player.id} className="mb-8 w-full">
                       <p className="text-center font-headline mb-2">{player.name}'s Board</p>
