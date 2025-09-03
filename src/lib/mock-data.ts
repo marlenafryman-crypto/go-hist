@@ -39,7 +39,7 @@ export const DECK: Card[] = [
     name: 'Julius Caesar',
     type: 'Person',
     description: 'A Roman general and statesman who played a critical role in the events that led to the demise of the Roman Republic.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/julius-caesar.jpg',
+    imageUrl: 'https://i.ibb.co/TBmkw4r9/Untitled-design-2025-09-03-T153503-604.png',
     hint: 'roman emperor',
   },
   {
@@ -79,7 +79,7 @@ export const DECK: Card[] = [
     name: 'Manhattan Project',
     type: 'Event',
     description: 'A top-secret research and development undertaking during World War II that produced the first nuclear weapons.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/manhattan-project.png',
+    imageUrl: 'https://i.ibb.co/0jPv3jQg/Untitled-design-2025-09-03-T153603-905.png',
     hint: 'wartime project',
   },
   {
@@ -127,7 +127,7 @@ export const DECK: Card[] = [
     name: 'Nikola Tesla',
     type: 'Person',
     description: 'A Serbian-American inventor and engineer best known for his contributions to the design of the modern AC electricity system.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/nikola-tesla.jpg',
+    imageUrl: 'https://i.ibb.co/xtTjnWB1/Untitled-design-2025-09-03-T153239-636.png',
     hint: 'inventor engineer',
   },
   {
@@ -135,7 +135,7 @@ export const DECK: Card[] = [
     name: 'War of the Currents',
     type: 'Event',
     description: 'A series of events surrounding the introduction of competing electric power transmission systems in the late 1880s and early 1990s.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/war-of-the-currents.jpg',
+    imageUrl: 'https://i.ibb.co/j9kr3jXF/Untitled-design-2025-09-03-T153314-600.png',
     hint: 'technological rivalry',
   },
   {
@@ -143,7 +143,7 @@ export const DECK: Card[] = [
     name: 'Ada Lovelace',
     type: 'Person',
     description: 'An English mathematician and writer, chiefly known for her work on Charles Babbage\'s proposed mechanical computer.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/ada-lovelace.png',
+    imageUrl: 'https://i.ibb.co/jS5nfLy/Untitled-design-2025-09-03-T153410-595.png',
     hint: 'computer pioneer',
   },
   {
@@ -953,6 +953,14 @@ export const DECK: Card[] = [
     description: 'A series of religious wars initiated, supported, and sometimes directed by the Latin Church in the medieval period.',
     imageUrl: 'https://i.ibb.co/PG2RQ1qV/Untitled-design-2025-09-03-T152931-651.png',
     hint: 'religious wars',
+  },
+  {
+    id: 'p44',
+    name: 'John F. Kennedy',
+    type: 'Person',
+    description: '35th President of the United States, who led the nation during the height of the Cold War and the Space Race.',
+    imageUrl: 'https://i.ibb.co/NgFcHPwD/Untitled-design-2025-09-03-T153640-644.png',
+    hint: 'us president',
   }
 ];
 
