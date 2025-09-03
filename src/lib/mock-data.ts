@@ -370,6 +370,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/yFCszdHb/Untitled-design-36.png',
     hint: 'american expedition',
   },
+  {
+    id: 'p24',
+    name: 'Dolley Madison',
+    type: 'Person',
+    description: 'Wife of President James Madison, she is credited with saving the classic portrait of George Washington from the White House before it was burned by the British in 1814.',
+    imageUrl: 'https://i.ibb.co/FkBPXQLN/Untitled-design-38.png',
+    hint: 'first lady',
+  },
 ];
 
 
@@ -377,3 +385,4 @@ export const DECK: Card[] = [
     
 
     
+
