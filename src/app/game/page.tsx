@@ -185,9 +185,9 @@ function GamePageContent() {
 
   return (
     <>
-    <div className="flex h-screen bg-background text-foreground overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground">
       {/* Sidebar */}
-      <aside className="w-80 bg-card p-4 flex flex-col border-r space-y-6">
+      <aside className="w-80 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
         <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
         
         <Card>
@@ -240,7 +240,7 @@ function GamePageContent() {
       </aside>
 
       {/* Main Game Area */}
-      <main className="flex-1 flex flex-col p-6">
+      <main className="flex-1 flex flex-col p-6 overflow-y-auto">
         {/* Opponents' Area */}
         <div className="flex-1 flex flex-col items-center justify-center">
             {otherPlayers.map(player => (
