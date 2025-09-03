@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Feather, BookOpen, View } from 'lucide-react';
-import Link from 'next/link';
+import { Feather } from 'lucide-react';
 import Image from 'next/image';
 
 export default function JoinGamePage() {
@@ -17,8 +16,6 @@ export default function JoinGamePage() {
 
   const handleJoinGame = (e: React.FormEvent) => {
     e.preventDefault();
-    // For now, we just navigate to the game page.
-    // In a real app, you'd handle game joining logic here.
     if (playerName) {
       router.push('/game');
     }
@@ -71,18 +68,18 @@ export default function JoinGamePage() {
         </Card>
         
         <Card className="mt-4 text-center text-sm p-4">
-          <Link href="/deck-editor">
-            <Button variant="outline" className="mb-2">
-              <View className="mr-2" /> View Deck
-            </Button>
-          </Link>
-          <p className="text-muted-foreground">
-            To add, remove, or edit cards, please modify the `DECK` array in the{' '}
-            <code className="font-mono bg-muted px-1 py-0.5 rounded">
-              src/lib/mock-data.ts
-            </code>{' '}
-            file.
-          </p>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl">Deck Management</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground">
+              To add, remove, or edit cards, please modify the `DECK` array in the{' '}
+              <code className="font-mono bg-muted px-1 py-0.5 rounded">
+                src/lib/mock-data.ts
+              </code>{' '}
+              file.
+            </p>
+          </CardContent>
         </Card>
 
         <p className="mt-8 text-center text-muted-foreground">
