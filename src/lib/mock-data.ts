@@ -233,4 +233,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/henry-viii.png',
     hint: 'english king',
   },
+  {
+    id: 'e16',
+    name: 'Human Rights Movement',
+    type: 'Event',
+    description: 'A social movement dedicated to securing and protecting the fundamental rights and freedoms for all individuals.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/human-rights.png',
+    hint: 'human rights protest',
+  },
 ];
