@@ -198,7 +198,7 @@ export const DECK: Card[] = [
     name: 'Treaty of Paris (1783)',
     type: 'Event',
     description: 'The peace agreement that officially ended the American Revolution. Britain recognized American independence and cede territory to the new United States.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/treaty-of-paris.jpg',
     hint: 'peace treaty',
   },
   {
@@ -248,5 +248,13 @@ export const DECK: Card[] = [
     description: 'Influenced political life',
     imageUrl: 'https://firebasestudio.app/assets/cards/social-influence.jpg',
     hint: 'political influence',
+  },
+  {
+    id: 'e18',
+    name: 'Conservation',
+    type: 'Event',
+    description: 'Creates national parks and preserves natural resources.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/conservation.jpg',
+    hint: 'nature conservation',
   },
 ];
