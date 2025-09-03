@@ -362,8 +362,18 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/20J4k7xZ/Untitled-design-35.png',
     hint: 'womens rights',
   },
+  {
+    id: 'e24',
+    name: 'Lewis and Clark Expedition',
+    type: 'Event',
+    description: 'A journey of discovery across the western United States, commissioned by President Thomas Jefferson shortly after the Louisiana Purchase.',
+    imageUrl: 'https://i.ibb.co/yFCszdHb/Untitled-design-36.png',
+    hint: 'american expedition',
+  },
 ];
 
 
+
+    
 
     
