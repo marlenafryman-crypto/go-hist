@@ -27,7 +27,7 @@ export default function JoinGamePage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-8 bg-background">
       <div className="hidden md:flex md:w-1/2 lg:w-2/5 justify-center items-center">
-        <Image src="https://i.ibb.co/3k5g7b7/logo.png" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" />
+        <Image src="https://i.ibb.co/SXbsd5zY/7928a9f1-963a-4c70-817f-df93ee0d0f77.png" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" />
       </div>
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center space-x-4 mb-8 md:hidden">
@@ -80,7 +80,7 @@ export default function JoinGamePage() {
         </div>
 
         <p className="mt-8 text-center text-muted-foreground">
-          A digital card game of historical connections. <br /> Form sets of four, but be ready to defend your links to the past!
+          A card game of historical connections. <br /> Form sets of four, but be ready to defend your links to the past!
         </p>
       </div>
     </main>
