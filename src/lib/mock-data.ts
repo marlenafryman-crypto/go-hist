@@ -255,7 +255,7 @@ export const DECK: Card[] = [
     name: 'Conservation',
     type: 'Event',
     description: 'Creates national parks and preserves natural resources.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/conservation.jpg',
+    imageUrl: 'https://i.ibb.co/j9wNN5HM/Untitled-design-4.png',
     hint: 'nature conservation',
   },
   {
