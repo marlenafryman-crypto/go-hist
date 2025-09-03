@@ -314,4 +314,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/MywWdS8M/Untitled-design-7.png',
     hint: 'abolitionist activist',
   },
+  {
+    id: 'p20',
+    name: 'George Washington',
+    type: 'Person',
+    description: 'First President of the United States and Commander-in-Chief of the Continental Army during the American Revolutionary War.',
+    imageUrl: 'https://i.ibb.co/svGwrHSc/Untitled-design-8.png',
+    hint: 'us president',
+  },
 ];
