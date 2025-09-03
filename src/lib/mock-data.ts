@@ -271,7 +271,7 @@ export const DECK: Card[] = [
     name: 'Universal Declaration of Human Rights',
     type: 'Event',
     description: 'Global document guaranteeing basic human rights.',
-    imageUrl: 'https://i.ibb.co/68v7z37/Universal-Declaration-of-Human-Rights.jpg',
+    imageUrl: 'https://i.ibb.co/Kpcq4dz0/Untitled-design-37.png',
     hint: 'human rights',
   },
   {
