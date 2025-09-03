@@ -1,7 +1,8 @@
 'use server';
 
 import { verifyHistoricalConnection, VerifyHistoricalConnectionInput, VerifyHistoricalConnectionOutput } from '@/ai/flows/verify-historical-connection';
-import { findMatchingCard, FindMatchingCardInput, FindMatchingCardOutput } from '@/ai/flows/find-matching-card';
+import { findMatchingCard } from '@/ai/flows/find-matching-card';
+import type { FindMatchingCardInput, FindMatchingCardOutput } from '@/ai/flows/types';
 
 
 export async function verifyConnectionAction(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
@@ -29,3 +30,5 @@ export async function findMatchingCardAction(input: FindMatchingCardInput): Prom
         };
     }
 }
+
+    

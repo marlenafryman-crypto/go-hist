@@ -71,7 +71,7 @@ export const DECK: Card[] = [
     name: 'Albert Einstein',
     type: 'Person',
     description: 'Developed the theory of relativity, one of the two pillars of modern physics.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/albert-einstein.jpg',
+    imageUrl: 'https://i.ibb.co/4wVPTxdW/Untitled-design-2025-09-03-T150338-618.png',
     hint: 'modern physicist',
   },
   {
@@ -965,6 +965,8 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
 
