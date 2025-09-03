@@ -188,10 +188,10 @@ export const DECK: Card[] = [
   },
   {
     id: 'e12',
-    name: 'Hundred Years\' War',
+    name: '100 Years War',
     type: 'Event',
     description: 'A series of conflicts from 1337 to 1453 between the House of Plantagenet of England and the House of Valois of France.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/hundred-years-war.jpg',
+    imageUrl: 'https://i.ibb.co/Vcr2M4qn/Untitled-design-74.png',
     hint: 'medieval war',
   },
   {
@@ -609,6 +609,14 @@ export const DECK: Card[] = [
     description: 'The military land force of the Confederate States of America during the American Civil War.',
     imageUrl: 'https://i.ibb.co/dwkSGnyb/Untitled-design-72.png',
     hint: 'civil war army',
+  },
+  {
+    id: 'p42',
+    name: 'Robert E. Lee',
+    type: 'Person',
+    description: 'Commander of the Confederate States Army during the American Civil War.',
+    imageUrl: 'https://i.ibb.co/cX8rv9Hw/Untitled-design-73.png',
+    hint: 'confederate general',
   }
 ];
 
@@ -639,4 +647,3 @@ export const DECK: Card[] = [
     
 
     
-
