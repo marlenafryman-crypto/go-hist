@@ -6,7 +6,7 @@ export const DECK: Card[] = [
     name: 'Leonardo da Vinci',
     type: 'Person',
     description: 'A true Renaissance man, excelling in painting, sculpture, architecture, music, science, and more.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/leonardo-da-vinci.jpg',
     hint: 'renaissance artist',
   },
   {
@@ -14,7 +14,7 @@ export const DECK: Card[] = [
     name: 'The Renaissance',
     type: 'Event',
     description: 'A period of great cultural change and achievement in Europe that spanned from the 14th to the 17th century.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/the-renaissance.jpg',
     hint: 'historical period',
   },
   {
@@ -22,7 +22,7 @@ export const DECK: Card[] = [
     name: 'Marie Curie',
     type: 'Person',
     description: 'A physicist and chemist who conducted pioneering research on radioactivity. The first woman to win a Nobel Prize.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/marie-curie.jpg',
     hint: 'pioneering scientist',
   },
   {
@@ -30,7 +30,7 @@ export const DECK: Card[] = [
     name: 'Discovery of Radium',
     type: 'Event',
     description: 'The 1898 discovery by Marie and Pierre Curie, which revolutionized science and medicine.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/discovery-of-radium.jpg',
     hint: 'scientific breakthrough',
   },
   {
@@ -38,7 +38,7 @@ export const DECK: Card[] = [
     name: 'Julius Caesar',
     type: 'Person',
     description: 'A Roman general and statesman who played a critical role in the events that led to the demise of the Roman Republic.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/julius-caesar.jpg',
     hint: 'roman emperor',
   },
   {
@@ -46,7 +46,7 @@ export const DECK: Card[] = [
     name: 'Crossing the Rubicon',
     type: 'Event',
     description: 'A pivotal moment in 49 BC when Julius Caesar\'s army crossed the river, marking a point of no return.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/crossing-the-rubicon.jpg',
     hint: 'ancient battle',
   },
   {
@@ -54,7 +54,7 @@ export const DECK: Card[] = [
     name: 'Cleopatra',
     type: 'Person',
     description: 'The last active ruler of the Ptolemaic Kingdom of Egypt, known for her intelligence and political acumen.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/cleopatra.jpg',
     hint: 'egyptian queen',
   },
   {
@@ -62,7 +62,7 @@ export const DECK: Card[] = [
     name: 'Ptolemaic Dynasty',
     type: 'Event',
     description: 'A Hellenistic kingdom based in ancient Egypt, founded by Ptolemy I Soter, a companion of Alexander the Great.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/ptolemaic-dynasty.jpg',
     hint: 'ancient dynasty',
   },
   {
@@ -70,7 +70,7 @@ export const DECK: Card[] = [
     name: 'Albert Einstein',
     type: 'Person',
     description: 'Developed the theory of relativity, one of the two pillars of modern physics.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/albert-einstein.jpg',
     hint: 'modern physicist',
   },
   {
@@ -78,7 +78,7 @@ export const DECK: Card[] = [
     name: 'Manhattan Project',
     type: 'Event',
     description: 'A top-secret research and development undertaking during World War II that produced the first nuclear weapons.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/manhattan-project.jpg',
     hint: 'wartime project',
   },
   {
@@ -86,7 +86,7 @@ export const DECK: Card[] = [
     name: 'Isaac Newton',
     type: 'Person',
     description: 'An English mathematician, physicist, and astronomer, widely recognized as one of the most influential scientists of all time.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/isaac-newton.jpg',
     hint: 'influential scientist',
   },
   {
@@ -94,7 +94,7 @@ export const DECK: Card[] = [
     name: 'Scientific Revolution',
     type: 'Event',
     description: 'A series of events that marked the emergence of modern science during the early modern period.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/scientific-revolution.jpg',
     hint: 'intellectual movement',
   },
   {
@@ -102,7 +102,7 @@ export const DECK: Card[] = [
     name: 'Martin Luther King Jr.',
     type: 'Person',
     description: 'An American Baptist minister and activist who became the most visible spokesperson in the civil rights movement.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/martin-luther-king-jr.jpg',
     hint: 'civil rights',
   },
   {
@@ -110,7 +110,7 @@ export const DECK: Card[] = [
     name: 'March on Washington',
     type: 'Event',
     description: 'A massive protest march in August 1963, where Martin Luther King Jr. delivered his famous "I Have a Dream" speech.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/march-on-washington.jpg',
     hint: 'protest march',
   },
   {
@@ -118,7 +118,7 @@ export const DECK: Card[] = [
     name: 'Queen Elizabeth I',
     type: 'Person',
     description: 'Queen of England and Ireland from 1558 until her death in 1603. Sometimes called the Virgin Queen.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/queen-elizabeth-i.jpg',
     hint: 'english monarch',
   },
   {
@@ -126,7 +126,7 @@ export const DECK: Card[] = [
     name: 'Spanish Armada',
     type: 'Event',
     description: 'A Habsburg Spanish fleet of 130 ships that sailed from Lisbon in 1588 with the purpose of escorting an army to invade England.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/spanish-armada.jpg',
     hint: 'naval fleet',
   },
   {
@@ -134,7 +134,7 @@ export const DECK: Card[] = [
     name: 'Nikola Tesla',
     type: 'Person',
     description: 'A Serbian-American inventor and engineer best known for his contributions to the design of the modern AC electricity system.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/nikola-tesla.jpg',
     hint: 'inventor engineer',
   },
   {
@@ -142,7 +142,7 @@ export const DECK: Card[] = [
     name: 'War of the Currents',
     type: 'Event',
     description: 'A series of events surrounding the introduction of competing electric power transmission systems in the late 1880s and early 1990s.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/war-of-the-currents.jpg',
     hint: 'technological rivalry',
   },
   {
@@ -150,7 +150,7 @@ export const DECK: Card[] = [
     name: 'Ada Lovelace',
     type: 'Person',
     description: 'An English mathematician and writer, chiefly known for her work on Charles Babbage\'s proposed mechanical computer.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/ada-lovelace.jpg',
     hint: 'computer pioneer',
   },
   {
@@ -158,7 +158,7 @@ export const DECK: Card[] = [
     name: 'Analytical Engine',
     type: 'Event',
     description: 'A proposed mechanical general-purpose computer designed by English mathematician and computer pioneer Charles Babbage.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/analytical-engine.jpg',
     hint: 'early computer',
   },
   {
@@ -166,7 +166,7 @@ export const DECK: Card[] = [
     name: 'Galileo Galilei',
     type: 'Person',
     description: 'An Italian astronomer, physicist and engineer, whose discoveries with the telescope revolutionized astronomy.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/galileo-galilei.jpg',
     hint: 'astronomer physicist',
   },
   {
@@ -174,7 +174,7 @@ export const DECK: Card[] = [
     name: 'The Copernican Model',
     type: 'Event',
     description: 'A model of the universe that placed the Sun, rather than Earth, at the center of the universe.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/copernican-model.jpg',
     hint: 'astronomy model',
   },
   {
@@ -182,7 +182,7 @@ export const DECK: Card[] = [
     name: 'Joan of Arc',
     type: 'Person',
     description: 'A peasant girl who, believing that she was acting under divine guidance, led the French army in a momentous victory at Orléans.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/joan-of-arc.jpg',
     hint: 'french heroine',
   },
   {
@@ -190,7 +190,7 @@ export const DECK: Card[] = [
     name: 'Hundred Years\' War',
     type: 'Event',
     description: 'A series of conflicts from 1337 to 1453 between the House of Plantagenet of England and the House of Valois of France.',
-    imageUrl: 'https://picsum.photos/300/400',
+    imageUrl: 'https://firebasestudio.app/assets/cards/hundred-years-war.jpg',
     hint: 'medieval war',
   },
   {
