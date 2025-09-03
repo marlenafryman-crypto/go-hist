@@ -617,6 +617,14 @@ export const DECK: Card[] = [
     description: 'Commander of the Confederate States Army during the American Civil War.',
     imageUrl: 'https://i.ibb.co/cX8rv9Hw/Untitled-design-73.png',
     hint: 'confederate general',
+  },
+  {
+    id: 'e37',
+    name: 'War',
+    type: 'Event',
+    description: 'This person was involved in a war',
+    imageUrl: 'https://i.ibb.co/SXbsd5zY/7928a9f1-963a-4c70-817f-df93ee0d0f77.png',
+    hint: 'person involved war'
   }
 ];
 
