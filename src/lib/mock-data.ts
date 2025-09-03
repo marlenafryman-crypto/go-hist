@@ -279,7 +279,7 @@ export const DECK: Card[] = [
     name: 'Abraham Lincoln',
     type: 'Person',
     description: '16th President of the United States, who led the country through the Civil War and abolished slavery.',
-    imageUrl: 'https://i.ibb.co/hFznTXS4/Untitled-design.png',
+    imageUrl: 'https://i.ibb.co/TB28Jt1Q/Untitled-design-44.png',
     hint: 'us president',
   },
   {
@@ -414,6 +414,8 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
 
