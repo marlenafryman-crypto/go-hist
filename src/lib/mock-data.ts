@@ -290,4 +290,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/tMtykZvF/Untitled-design-1.png',
     hint: 'abolitionist leader',
   },
+  {
+    id: 'e21',
+    name: 'Fireside Chats',
+    type: 'Event',
+    description: 'A series of evening radio addresses given by U.S. President Franklin D. Roosevelt between 1933 and 1944.',
+    imageUrl: 'https://i.ibb.co/TB5dxXyC/Untitled-design-3.png',
+    hint: 'radio address',
+  },
 ];
