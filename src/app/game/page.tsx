@@ -7,6 +7,7 @@ import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
+import { AskForCard } from '@/components/game/AskForCard';
 import { Users, Swords, BookOpenCheck, ChevronLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -68,6 +69,53 @@ export default function GamePage() {
     });
   };
 
+  const handleAskForCard = (opponentId: string, cardName: string) => {
+    if (!gameState || !currentPlayer) return;
+
+    setGameState(prev => {
+      if (!prev) return null;
+
+      const opponent = prev.players.find(p => p.id === opponentId);
+      if (!opponent) return prev;
+
+      const askedCard = opponent.hand.find(c => c.name === cardName);
+      let newPlayers = [...prev.players];
+
+      if (askedCard) {
+        alert(`${opponent.name} had the card! You get to go again.`);
+        const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
+        const newCurrentPlayerHand = [...currentPlayer.hand, askedCard];
+        
+        newPlayers = newPlayers.map(p => {
+          if (p.id === opponentId) return { ...p, hand: newOpponentHand };
+          if (p.id === currentPlayer.id) return { ...p, hand: newCurrentPlayerHand };
+          return p;
+        });
+
+        return { ...prev, players: newPlayers, turnPhase: 'ask' };
+      } else {
+        alert(`Go Hist! ${opponent.name} did not have the card. You draw from the deck.`);
+        const drawnCard = prev.deck.length > 0 ? prev.deck[0] : null;
+        const newDeck = prev.deck.length > 0 ? prev.deck.slice(1) : [];
+        let newCurrentPlayerHand = [...currentPlayer.hand];
+        if (drawnCard) {
+          newCurrentPlayerHand.push(drawnCard);
+        }
+
+        newPlayers = newPlayers.map(p => {
+          if (p.id === currentPlayer.id) return { ...p, hand: newCurrentPlayerHand };
+          return p;
+        });
+        
+        // Simple turn switch for now
+        const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
+        const nextPlayerId = prev.players[nextPlayerIndex].id;
+
+        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayerId, turnPhase: 'draw' };
+      }
+    });
+  };
+
   const formHistSet = () => {
     if (selectedCards.length !== 4) return;
     if (!currentPlayer) return;
@@ -125,11 +173,16 @@ export default function GamePage() {
             </ul>
           </CardContent>
         </Card>
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
           <AccordionItem value="item-1">
             <AccordionTrigger className="font-headline text-xl">Tools</AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="space-y-4">
               <ConnectionVerifier selectedCards={selectedCards} />
+               <AskForCard 
+                currentPlayer={currentPlayer} 
+                otherPlayers={otherPlayers}
+                onAsk={handleAskForCard} 
+              />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
