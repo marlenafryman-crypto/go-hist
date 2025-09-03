@@ -265,4 +265,12 @@ export const DECK: Card[] = [
     imageUrl: 'https://firebasestudio.app/assets/cards/panama-canal.jpg',
     hint: 'canal trade',
   },
+  {
+    id: 'e20',
+    name: 'Universal Declaration of Human Rights',
+    type: 'Event',
+    description: 'Global document guaranteeing basic human rights.',
+    imageUrl: 'https://firebasestudio.app/assets/cards/universal-declaration-of-human-rights.jpg',
+    hint: 'human rights',
+  },
 ];
