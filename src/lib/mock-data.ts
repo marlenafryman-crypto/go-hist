@@ -505,6 +505,14 @@ export const DECK: Card[] = [
     description: 'The head of state and head of government of the United States of America. The president leads the executive branch of the federal government.',
     imageUrl: 'https://i.ibb.co/ZRNczRfd/Untitled-design-59.png',
     hint: 'us presidency',
+  },
+  {
+    id: 'e31',
+    name: 'Founding Fathers',
+    type: 'Event',
+    description: 'A group of American leaders who united the Thirteen Colonies, led the war for independence from Great Britain, and built a frame of government for the new United States.',
+    imageUrl: 'https://i.ibb.co/bjmLJxD6/Untitled-design-60.png',
+    hint: 'american leaders',
   }
 ];
 
