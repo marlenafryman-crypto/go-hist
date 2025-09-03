@@ -473,6 +473,22 @@ export const DECK: Card[] = [
     description: 'A Lemhi Shoshone woman who, in her teens, helped the Lewis and Clark Expedition in achieving their chartered mission objectives by exploring the Louisiana Territory.',
     imageUrl: 'https://i.ibb.co/m5qPBJ6H/Untitled-design-55.png',
     hint: 'native american guide',
+  },
+  {
+    id: 'p33',
+    name: 'Harriet Tubman',
+    type: 'Person',
+    description: 'An American abolitionist and political activist who escaped slavery and made some 13 missions to rescue approximately 70 enslaved people.',
+    imageUrl: 'https://i.ibb.co/nMnY5rGs/Untitled-design-56.png',
+    hint: 'abolitionist activist',
+  },
+  {
+    id: 'p34',
+    name: 'Catherine the Great',
+    type: 'Person',
+    description: 'The last reigning Empress Regnant of Russia and the country\'s longest-ruling female leader.',
+    imageUrl: 'https://i.ibb.co/hj7V5Ct/Untitled-design-57.png',
+    hint: 'russian empress',
   }
 ];
 
