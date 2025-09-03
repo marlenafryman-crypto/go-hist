@@ -177,7 +177,7 @@ function GamePageContent() {
   if (!gameState || !currentPlayer) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="font-headline text-2xl">Shuffling the annals of history...</p>
+        <p className="font-headline text-2xl">Shuffling Thru Time</p>
       </div>
     );
   }
