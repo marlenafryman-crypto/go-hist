@@ -55,7 +55,7 @@ export const DECK: Card[] = [
     name: 'Cleopatra',
     type: 'Person',
     description: 'The last active ruler of the Ptolemaic Kingdom of Egypt, known for her intelligence and political acumen.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/cleopatra.jpg',
+    imageUrl: 'https://i.ibb.co/TxkYvb1k/Untitled-design-5.png',
     hint: 'egyptian queen',
   },
   {
