@@ -271,7 +271,15 @@ export const DECK: Card[] = [
     name: 'Universal Declaration of Human Rights',
     type: 'Event',
     description: 'Global document guaranteeing basic human rights.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/universal-declaration-of-human-rights.jpg',
+    imageUrl: 'https://i.ibb.co/68v7z37/Universal-Declaration-of-Human-Rights.jpg',
     hint: 'human rights',
+  },
+  {
+    id: 'p16',
+    name: 'Abraham Lincoln',
+    type: 'Person',
+    description: '16th President of the United States, who led the country through the Civil War and abolished slavery.',
+    imageUrl: 'https://i.ibb.co/hFznTXS4/Untitled-design.png',
+    hint: 'us president',
   },
 ];
