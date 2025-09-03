@@ -72,7 +72,6 @@ export default function JoinGamePage() {
         <Card className="mt-4">
           <CardHeader>
              <CardTitle className="font-headline text-xl text-center">Current Deck</CardTitle>
-             <CardDescription className="text-center">To edit, modify <code className="font-mono bg-muted px-1 py-0.5 rounded">src/lib/mock-data.ts</code></CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-48 w-full rounded-md border p-4">
