@@ -961,14 +961,6 @@ export const DECK: Card[] = [
     imageUrl: 'https://i.ibb.co/NgFcHPwD/Untitled-design-2025-09-03-T153640-644.png',
     hint: 'us president',
   },
-  {
-    id: 'p38',
-    name: 'Thomas Jefferson',
-    type: 'Person',
-    description: 'A Founding Father, the principal author of the Declaration of Independence, and the third President of the United States.',
-    imageUrl: 'https://i.ibb.co/0VVKGGwn/Untitled-design-64.png',
-    hint: 'founding father',
-  },
 ];
 
     
@@ -998,5 +990,6 @@ export const DECK: Card[] = [
     
 
     
+
 
 
