@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { Card as CardType } from '@/lib/types';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { User, History } from 'lucide-react';
 import { ScrollArea } from '../ui/scroll-area';
@@ -39,8 +39,16 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
     }
   };
 
+  const cardBaseSize = isPlayerCard ? 'w-[150px] h-[225px]' : 'w-[200px] h-[300px]';
+  const cardTitleSize = isPlayerCard ? 'text-sm' : 'text-base';
+  const iconSize = isPlayerCard ? 'w-3 h-3' : 'w-4 h-4';
+  const cardDescriptionSize = isPlayerCard ? 'text-xs' : 'text-sm';
+  const imageSize = isPlayerCard ? 'h-[60px]' : 'h-[120px]';
+  const textContentSize = isPlayerCard ? 'text-[10px]' : 'text-xs';
+
+
   return (
-    <div className={cn('relative', isPlayerCard ? 'w-[150px] h-[225px]' : 'w-[200px] h-[300px]', className)}>
+    <div className={cn('relative', cardBaseSize, className)}>
       <Card
         onClick={handleSelect}
         className={cn(
@@ -51,14 +59,14 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
         )}
       >
         <CardHeader className="p-2 md:p-3">
-          <CardTitle className="font-headline text-sm md:text-base leading-tight truncate">{card.name}</CardTitle>
+          <CardTitle className={cn("font-headline leading-tight truncate", cardTitleSize)}>{card.name}</CardTitle>
           <div className="flex items-center space-x-2">
-            {card.type === 'Person' ? <User className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground" /> : <History className="w-3 h-3 md:w-4 md:h-4 text-muted-foreground" />}
-            <CardDescription className="text-xs md:text-sm">{card.type}</CardDescription>
+            {card.type === 'Person' ? <User className={cn(iconSize, "text-muted-foreground")} /> : <History className={cn(iconSize, "text-muted-foreground")} />}
+            <CardDescription className={cardDescriptionSize}>{card.type}</CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="p-0 flex-grow flex flex-col">
-          <div className={cn("relative w-full", isPlayerCard ? "h-[60px]" : "h-[80px] md:h-[120px]")}>
+        <CardContent className="p-0 flex-grow flex flex-col min-h-0">
+          <div className={cn("relative w-full", imageSize)}>
             <Image
               src={card.imageUrl}
               alt={card.name}
@@ -68,7 +76,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
             />
           </div>
           <ScrollArea className="flex-grow">
-            <p className="text-[10px] md:text-xs p-2 md:p-3 text-foreground/80 leading-snug">{card.description}</p>
+            <p className={cn("p-2 md:p-3 text-foreground/80 leading-snug", textContentSize)}>{card.description}</p>
           </ScrollArea>
         </CardContent>
       </Card>
