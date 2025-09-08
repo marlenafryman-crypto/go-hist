@@ -59,7 +59,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
         )}
       >
         <CardHeader className="p-2 md:p-3">
-          <CardTitle className={cn("font-headline leading-tight truncate", cardTitleSize)}>{card.name}</CardTitle>
+          <CardTitle className={cn("font-headline leading-snug", cardTitleSize)}>{card.name}</CardTitle>
           <div className="flex items-center space-x-2">
             {card.type === 'Person' ? <User className={cn(iconSize, "text-muted-foreground")} /> : <History className={cn(iconSize, "text-muted-foreground")} />}
             <CardDescription className={cardDescriptionSize}>{card.type}</CardDescription>
