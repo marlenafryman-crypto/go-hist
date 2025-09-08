@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Share2, Trash2 } from 'lucide-react';
+import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Share2, Trash2, ArrowDownToLine, GitCommitHorizontal } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -28,8 +28,9 @@ function shuffle(array: any[]) {
   return a;
 }
 
-const INITIAL_HAND_SIZE = 4;
-const WINNING_SET_COUNT = 5;
+const INITIAL_HAND_SIZE = 7;
+const WINNING_SET_COUNT = 2;
+
 
 function GamePageContent() {
   const searchParams = useSearchParams();
@@ -50,8 +51,6 @@ function GamePageContent() {
     const players: Player[] = [
       { id: 'player1', name: playerName, hand: [], histSets: [] },
       { id: 'player2', name: 'Ada Lovelace', hand: [], histSets: [] },
-      { id: 'player3', name: 'Winston Churchill', hand: [], histSets: [] },
-      { id: 'player4', name: 'Joan of Arc', hand: [], histSets: [] },
     ];
 
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
@@ -60,8 +59,6 @@ function GamePageContent() {
         if (card) player.hand.push(card);
       }
     }
-    
-    players[1].histSets.push([shuffledDeck.pop()!, shuffledDeck.pop()!, shuffledDeck.pop()!, shuffledDeck.pop()!]);
 
     setGameState({
       players,
@@ -69,6 +66,7 @@ function GamePageContent() {
       discardPile: [shuffledDeck.pop()!],
       currentPlayerId: 'player1',
       turnPhase: 'draw',
+      log: ['New game started.'],
     });
     setWinner(null);
     setSelectedCards([]);
@@ -78,8 +76,11 @@ function GamePageContent() {
     startNewGame();
   }, []);
 
+  const addToLog = (message: string) => {
+    setGameState(prev => prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null);
+  };
+
   const handleSelectCard = (card: CardType) => {
-    // During discard phase, only one card can be selected
     if (gameState?.turnPhase === 'discard') {
       setSelectedCards([card]);
       return;
@@ -90,11 +91,50 @@ function GamePageContent() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
-      // Can't select more than 4 cards for a set, but can select 2 for verification
       if(prev.length >= 4) {
         return prev;
       }
       return [...prev, card];
+    });
+  };
+
+   const handleDrawFromDeck = () => {
+    if (!gameState || !currentPlayer || gameState.turnPhase !== 'draw') return;
+
+    setGameState(prev => {
+      if (!prev) return null;
+      const newDeck = [...prev.deck];
+      const drawnCard = newDeck.pop();
+      if (!drawnCard) {
+        addToLog('Deck is empty!');
+        return prev;
+      }
+      const newHand = [...currentPlayer.hand, drawnCard];
+      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
+      
+      addToLog(`${currentPlayer.name} drew from the deck.`);
+      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
+    });
+  };
+
+  const handleDrawFromDiscard = () => {
+    if (!gameState || !currentPlayer || gameState.turnPhase !== 'draw') return;
+
+    setGameState(prev => {
+      if (!prev || prev.discardPile.length === 0) return null;
+      
+      const newDiscardPile = [...prev.discardPile];
+      const drawnCard = newDiscardPile.pop();
+      if (!drawnCard) {
+        addToLog('Discard pile is empty!');
+        return prev;
+      }
+      
+      const newHand = [...currentPlayer.hand, drawnCard];
+      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
+
+      addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
+      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'action' };
     });
   };
 
@@ -104,48 +144,48 @@ function GamePageContent() {
     const opponent = gameState.players.find(p => p.id === opponentId);
     if (!opponent) return;
 
+    addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
+
     const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
     const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
 
     setGameState(prev => {
       if (!prev) return null;
       
-      const askedCard = opponent.hand.find(c => c.id === result.cardId);
-      let newPlayers = [...prev.players];
-      const thisPlayer = newPlayers.find(p => p.id === prev.currentPlayerId);
+      const thisPlayer = prev.players.find(p => p.id === prev.currentPlayerId);
       if (!thisPlayer) return prev;
-
+      
+      const askedCard = opponent.hand.find(c => c.id === result.cardId);
 
       if (askedCard) {
-        alert(`${opponent.name} had the card! (${askedCard.name}). You get to go again. Reason: ${result.reason}`);
-        const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
-        thisPlayer.hand.push(askedCard);
+        addToLog(`${opponent.name} had "${askedCard.name}"! ${thisPlayer.name} takes it and goes again. Reason: ${result.reason}`);
         
-        newPlayers = newPlayers.map(p => {
+        const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
+        const newPlayerHand = [...thisPlayer.hand, askedCard];
+        
+        const newPlayers = prev.players.map(p => {
           if (p.id === opponentId) return { ...p, hand: newOpponentHand };
-          if (p.id === thisPlayer.id) return { ...p, hand: thisPlayer.hand };
+          if (p.id === thisPlayer.id) return { ...p, hand: newPlayerHand };
           return p;
         });
 
-        return { ...prev, players: newPlayers, turnPhase: 'ask' };
+        // Player gets to take another action
+        return { ...prev, players: newPlayers, turnPhase: 'action' };
       } else {
-        alert(`Go Hist! ${opponent.name} did not have a matching card. You draw from the deck.`);
+        addToLog(`Go Hist! ${opponent.name} did not have a matching card. ${thisPlayer.name} must draw.`);
         
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
         if(drawnCard) {
-            thisPlayer.hand.push(drawnCard);
+            const newPlayerHand = [...thisPlayer.hand, drawnCard];
+            const newPlayers = prev.players.map(p => p.id === thisPlayer.id ? { ...p, hand: newPlayerHand } : p);
+            addToLog(`${thisPlayer.name} drew "${drawnCard.name}". Now they must discard.`);
+            return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
         }
-
-        newPlayers = newPlayers.map(p => {
-          if (p.id === thisPlayer.id) return { ...p, hand: thisPlayer.hand };
-          return p;
-        });
         
-        const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
-        const nextPlayerId = prev.players[nextPlayerIndex].id;
-
-        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayerId, turnPhase: 'draw' };
+        // If deck is empty, just move to discard phase
+        addToLog(`Deck is empty! ${thisPlayer.name} must discard.`);
+        return { ...prev, turnPhase: 'discard' };
       }
     });
   };
@@ -153,26 +193,15 @@ function GamePageContent() {
   const handleFormHistSet = () => {
     if (!currentPlayer || !gameState) return;
 
-    // This is called AFTER the AI has verified the set is valid
     setShowHistSetDialog(false);
     
     setGameState(prev => {
       if (!prev) return null;
       let winningPlayer: Player | null = null;
-      const newDeck = [...prev.deck];
       
       const newPlayers = prev.players.map(p => {
         if (p.id === currentPlayer.id) {
             const newHand = p.hand.filter(c => !selectedCards.find(sc => sc.id === c.id));
-            
-            // Draw 4 new cards
-            for(let i = 0; i < 4; i++) {
-                const drawnCard = newDeck.pop();
-                if (drawnCard) {
-                    newHand.push(drawnCard);
-                }
-            }
-
             const updatedPlayer = {
                 ...p,
                 hand: newHand,
@@ -186,16 +215,18 @@ function GamePageContent() {
         return p;
       });
 
+      addToLog(`${currentPlayer.name} successfully formed a Hist Set!`);
+
       if(winningPlayer) {
         setWinner(winningPlayer);
       }
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+      return { ...prev, players: newPlayers, turnPhase: 'discard' };
     });
     setSelectedCards([]);
   };
 
   const handleDiscardCard = () => {
-    if (!currentPlayer || !gameState || selectedCards.length !== 1) return;
+    if (!currentPlayer || !gameState || selectedCards.length !== 1 || gameState.turnPhase !== 'discard') return;
 
     setGameState(prev => {
         if (!prev) return null;
@@ -215,6 +246,8 @@ function GamePageContent() {
         
         const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
         const nextPlayerId = prev.players[nextPlayerIndex].id;
+        
+        addToLog(`${currentPlayer.name} discarded "${cardToDiscard.name}". It is now ${prev.players[nextPlayerIndex].name}'s turn.`);
 
         return {
             ...prev,
@@ -237,25 +270,47 @@ function GamePageContent() {
 
   const otherPlayers = gameState.players.filter(p => p.id !== currentPlayer.id);
 
+  const renderTurnSpecificControls = () => {
+    switch (gameState.turnPhase) {
+      case 'draw':
+        return (
+          <div className="flex justify-center items-center gap-4">
+            <Button onClick={handleDrawFromDeck} disabled={gameState.deck.length === 0}>
+                <ArrowDownToLine className="w-4 h-4 mr-2" />
+                Draw from Deck ({gameState.deck.length})
+            </Button>
+            <Button onClick={handleDrawFromDiscard} variant="outline" disabled={gameState.discardPile.length === 0}>
+                <GitCommitHorizontal className="w-4 h-4 mr-2" />
+                Take Discard ({gameState.discardPile.length})
+            </Button>
+          </div>
+        );
+      case 'action':
+         return (
+             <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+                <BookOpenCheck className="w-4 h-4 mr-2" />
+                Declare a Hist Set
+            </Button>
+         );
+      case 'discard':
+        return (
+            <Button onClick={handleDiscardCard} disabled={selectedCards.length !== 1}>
+                <Trash2 className="w-4 h-4 mr-2" />
+                Discard Selected Card
+            </Button>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <div className="flex h-screen bg-background text-foreground">
         {/* Sidebar */}
-        <aside className="w-80 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
+        <aside className="w-96 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
           <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
           
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline text-xl flex items-center gap-2"><Share2 /> Game Code</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center space-x-2">
-                <Input readOnly value={gameCode || ''} className="font-mono text-lg" />
-                <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(gameCode || '')}>Copy</Button>
-              </div>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader>
               <CardTitle className="font-headline text-xl flex items-center gap-2"><Users /> Players</CardTitle>
@@ -264,7 +319,7 @@ function GamePageContent() {
               <ul className="space-y-2">
                 {gameState.players.map(p => (
                   <li key={p.id} className="flex justify-between items-center text-sm">
-                    <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>{p.name}</span>
+                    <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>{p.name} {p.id === currentPlayer.id ? '(You)' : ''}</span>
                     <Badge variant="secondary">{p.histSets.length} Sets</Badge>
                   </li>
                 ))}
@@ -275,19 +330,24 @@ function GamePageContent() {
             <AccordionItem value="item-1">
               <AccordionTrigger className="font-headline text-xl">Game Tools</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-4">
-                <ConnectionVerifier selectedCards={selectedCards} />
                  <AskForCard 
                   otherPlayers={otherPlayers}
-                  onAsk={handleAskForCard} 
+                  onAsk={handleAskForCard}
+                  disabled={gameState.turnPhase !== 'action'}
                 />
+                <ConnectionVerifier selectedCards={selectedCards} />
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-               <AccordionTrigger className="font-headline text-xl">Rules</AccordionTrigger>
-               <AccordionContent className="space-y-2 text-sm text-muted-foreground pt-4">
-                  <p><strong className="text-foreground">Objective:</strong> Be the first to collect 5 "Hist Sets".</p>
-                  <p><strong className="text-foreground">Hist Set:</strong> A set of 4 cards that have a historical connection. Each set must contain at least one "Person" card. You must defend your set to the Historian AI.</p>
-                  <p><strong className="text-foreground">Asking:</strong> On your turn, you can ask an opponent for a card. Instead of asking for a specific card name, you ask a question (e.g., "Do you have a scientist?"). If they have a card that matches, you take it and go again. If not, you "Go Hist!" and draw a card from the deck, ending your turn.</p>
+               <AccordionTrigger className="font-headline text-xl">Game Log</AccordionTrigger>
+               <AccordionContent className="pt-4">
+                  <ScrollArea className="h-48 w-full rounded-md border p-2">
+                    <ul className="space-y-1">
+                      {gameState.log.map((entry, i) => (
+                        <li key={i} className="text-xs text-muted-foreground">{entry}</li>
+                      ))}
+                    </ul>
+                  </ScrollArea>
                </AccordionContent>
              </AccordionItem>
           </Accordion>
@@ -296,7 +356,7 @@ function GamePageContent() {
         {/* Main Game Area */}
         <main className="flex-1 flex flex-col p-6 overflow-y-auto">
           {/* Opponents' Area */}
-          <div className="flex-1 flex flex-col items-center justify-start overflow-y-auto">
+          <div className="flex-1 flex flex-col items-center justify-center overflow-y-auto">
               {otherPlayers.map(player => (
                   <div key={player.id} className="mb-8 w-full">
                       <p className="text-center font-headline mb-2">{player.name}'s Board</p>
@@ -309,7 +369,6 @@ function GamePageContent() {
                               <div className="flex">
                                 {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" inSet />)}
                               </div>
-                              <Button variant="outline" size="sm" className="mt-2"><Swords className="w-4 h-4 mr-2" /> Challenge</Button>
                             </div>
                           ))}
                       </div>
@@ -317,35 +376,16 @@ function GamePageContent() {
               ))}
           </div>
 
-          {/* Center Area (Deck/Discard) */}
-          <div className="flex justify-center items-center gap-8 my-8">
-            <div>
-              <p className="text-center font-headline mb-2">Deck ({gameState.deck.length})</p>
-              <GameCard card="back" />
-            </div>
-            <div>
-              <p className="text-center font-headline mb-2">Discard ({gameState.discardPile.length})</p>
-              {gameState.discardPile.length > 0 && <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} />}
-            </div>
-          </div>
-
           {/* Player's Hand Area */}
           <div className="bg-card/50 p-4 rounded-lg border">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
-                {gameState.turnPhase === 'discard' ? (
-                     <Button onClick={handleDiscardCard} disabled={selectedCards.length !== 1}>
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Discard Selected Card
-                    </Button>
-                ) : (
-                    <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
-                        <BookOpenCheck className="w-4 h-4 mr-2" />
-                        I Have a Set!
-                    </Button>
-                )}
+                <div className="flex items-center gap-4">
+                  <p className="text-sm text-muted-foreground font-headline">Turn: <span className="text-primary font-bold">{gameState.turnPhase.toUpperCase()}</span></p>
+                  {renderTurnSpecificControls()}
+                </div>
             </div>
-            <ScrollArea className="h-96 w-full">
+            <ScrollArea className="h-[350px] w-full">
               <div className="flex flex-wrap justify-center items-end gap-4 p-4">
                 {currentPlayer.hand.map(card => (
                   <GameCard

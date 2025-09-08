@@ -19,5 +19,6 @@ export interface GameState {
   deck: Card[];
   discardPile: Card[];
   currentPlayerId: string;
-  turnPhase: 'draw' | 'ask' | 'form_set' | 'discard';
+  turnPhase: 'draw' | 'action' | 'discard';
+  log: string[];
 }

@@ -19,9 +19,10 @@ const formSchema = z.object({
 interface AskForCardProps {
   otherPlayers: Player[];
   onAsk: (opponentId: string, request: string) => void;
+  disabled?: boolean;
 }
 
-export function AskForCard({ otherPlayers, onAsk }: AskForCardProps) {
+export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,47 +48,49 @@ export function AskForCard({ otherPlayers, onAsk }: AskForCardProps) {
       </h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="opponentId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Opponent</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <fieldset disabled={disabled || isLoading} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="opponentId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Opponent</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select an opponent" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {otherPlayers.map(player => (
+                        <SelectItem key={player.id} value={player.id}>
+                          {player.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="request"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Request</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select an opponent" />
-                    </SelectTrigger>
+                      <Input placeholder="e.g., 'a scientist' or 'an event from the 1800s'" {...field} />
                   </FormControl>
-                  <SelectContent>
-                    {otherPlayers.map(player => (
-                      <SelectItem key={player.id} value={player.id}>
-                        {player.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="request"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Request</FormLabel>
-                <FormControl>
-                    <Input placeholder="e.g., 'a scientist' or 'an event from the 1800s'" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Ask
-          </Button>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" disabled={disabled || isLoading}>
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Ask
+            </Button>
+          </fieldset>
         </form>
       </Form>
     </div>
