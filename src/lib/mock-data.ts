@@ -111,7 +111,7 @@ export const DECK: Card[] = [
     name: 'March on Washington',
     type: 'Event',
     description: 'A massive protest march in August 1963, where Martin Luther King Jr. delivered his famous "I Have a Dream" speech.',
-    imageUrl: 'https://firebasestudio.app/assets/cards/march-on-washington.jpg',
+    imageUrl: 'https://i.ibb.co/BSpr5b3/Untitled-design-97.png',
     hint: 'protest march',
   },
   {
@@ -742,7 +742,7 @@ export const DECK: Card[] = [
     name: 'March on Washington',
     type: 'Event',
     description: 'A major civil rights protest for jobs and freedom.',
-    imageUrl: 'https://i.ibb.co/7J8tgk0W/Untitled-design-97.png',
+    imageUrl: 'https://i.ibb.co/BSpr5b3/Untitled-design-97.png',
     hint: 'civil rights march',
   },
   {
@@ -990,6 +990,7 @@ export const DECK: Card[] = [
     
 
     
+
 
 
 
