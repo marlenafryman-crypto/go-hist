@@ -52,6 +52,7 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
     const verificationResult = await verifyConnectionAction(values);
     setResult(verificationResult);
     setIsLoading(false);
+    form.setValue('explanation', '');
   }
   
   return (
