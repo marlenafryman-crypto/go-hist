@@ -134,7 +134,7 @@ function GamePageContent() {
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
 
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
-      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'action' };
+      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
     });
   };
 
