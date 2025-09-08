@@ -39,18 +39,11 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
 
   useEffect(() => {
     // When selectedCards change, update the form values.
-    // We only update if 2 cards are selected.
-    if (selectedCards.length >= 1) {
-        form.setValue('card1Name', selectedCards[0]?.name || '');
-    } else {
-        form.setValue('card1Name', '');
-    }
-    if (selectedCards.length >= 2) {
-        form.setValue('card2Name', selectedCards[1]?.name || '');
-    } else {
-        form.setValue('card2Name', '');
-    }
-
+    form.setValue('card1Name', selectedCards[0]?.name || '');
+    form.setValue('card2Name', selectedCards[1]?.name || '');
+    // Reset explanation and result when selection changes
+    form.setValue('explanation', '');
+    setResult(null);
   }, [selectedCards, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -77,7 +70,7 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
                 <FormItem>
                   <FormLabel>Card 1</FormLabel>
                   <FormControl>
-                    <Input placeholder="Name of first card" {...field} />
+                    <Input placeholder="Select first card" {...field} readOnly />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -90,7 +83,7 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
                 <FormItem>
                   <FormLabel>Card 2</FormLabel>
                   <FormControl>
-                    <Input placeholder="Name of second card" {...field} />
+                    <Input placeholder="Select second card" {...field} readOnly />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
