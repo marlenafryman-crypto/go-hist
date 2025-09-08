@@ -198,10 +198,20 @@ function GamePageContent() {
     setGameState(prev => {
       if (!prev) return null;
       let winningPlayer: Player | null = null;
+      const newDeck = [...prev.deck];
+      let newHand = [...(currentPlayer.hand || [])];
+      newHand = newHand.filter(c => !selectedCards.find(sc => sc.id === c.id));
+      
+      // Draw 4 new cards
+      for(let i=0; i<4; i++) {
+        const drawnCard = newDeck.pop();
+        if (drawnCard) {
+          newHand.push(drawnCard);
+        }
+      }
       
       const newPlayers = prev.players.map(p => {
         if (p.id === currentPlayer.id) {
-            const newHand = p.hand.filter(c => !selectedCards.find(sc => sc.id === c.id));
             const updatedPlayer = {
                 ...p,
                 hand: newHand,
@@ -215,12 +225,13 @@ function GamePageContent() {
         return p;
       });
 
-      addToLog(`${currentPlayer.name} successfully formed a Hist Set!`);
+      addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
 
       if(winningPlayer) {
         setWinner(winningPlayer);
       }
-      return { ...prev, players: newPlayers, turnPhase: 'discard' };
+
+      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
     });
     setSelectedCards([]);
   };
@@ -269,6 +280,8 @@ function GamePageContent() {
   }
 
   const otherPlayers = gameState.players.filter(p => p.id !== currentPlayer.id);
+  const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
+
 
   const renderTurnSpecificControls = () => {
     switch (gameState.turnPhase) {
@@ -356,7 +369,7 @@ function GamePageContent() {
         {/* Main Game Area */}
         <main className="flex-1 flex flex-col p-6 overflow-y-auto">
           {/* Opponents' Area */}
-          <div className="flex-1 flex flex-col items-center justify-center overflow-y-auto">
+          <div className="flex-1 flex flex-col items-center justify-start py-8">
               {otherPlayers.map(player => (
                   <div key={player.id} className="mb-8 w-full">
                       <p className="text-center font-headline mb-2">{player.name}'s Board</p>
@@ -365,7 +378,7 @@ function GamePageContent() {
                               {Array(player.hand.length).fill(0).map((_, i) => <GameCard key={i} card="back" className="w-[80px] h-[120px]" />)}
                           </div>
                           {player.histSets.map((set, i) => (
-                            <div key={i} className="flex flex-col items-center p-2 rounded-lg border border-green-500 bg-green-500/10">
+                            <div key={i} className="flex flex-col items-center p-2 rounded-lg border-2 border-green-500 bg-green-500/10">
                               <div className="flex">
                                 {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" inSet />)}
                               </div>
@@ -374,6 +387,25 @@ function GamePageContent() {
                       </div>
                   </div>
               ))}
+              
+              {/* Deck and Discard Pile */}
+              <div className="flex items-end space-x-8 my-8">
+                <div>
+                  <p className="text-center font-headline mb-2">Deck</p>
+                  <GameCard card="back" className="w-[120px] h-[180px]" />
+                </div>
+                <div>
+                  <p className="text-center font-headline mb-2">Discard</p>
+                  {topOfDiscard ? (
+                    <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
+                  ) : (
+                    <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
+                        <p className="text-xs text-muted-foreground">Empty</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
           </div>
 
           {/* Player's Hand Area */}
@@ -385,7 +417,7 @@ function GamePageContent() {
                   {renderTurnSpecificControls()}
                 </div>
             </div>
-            <ScrollArea className="h-[350px] w-full">
+            <ScrollArea className="h-[250px] w-full">
               <div className="flex flex-wrap justify-center items-end gap-4 p-4">
                 {currentPlayer.hand.map(card => (
                   <GameCard
