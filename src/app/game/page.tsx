@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Share2 } from 'lucide-react';
+import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Share2, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -79,6 +79,12 @@ function GamePageContent() {
   }, []);
 
   const handleSelectCard = (card: CardType) => {
+    // During discard phase, only one card can be selected
+    if (gameState?.turnPhase === 'discard') {
+      setSelectedCards([card]);
+      return;
+    }
+    
     setSelectedCards(prev => {
       const isSelected = prev.find(c => c.id === card.id);
       if (isSelected) {
@@ -145,7 +151,7 @@ function GamePageContent() {
   };
 
   const handleFormHistSet = () => {
-    if (!currentPlayer) return;
+    if (!currentPlayer || !gameState) return;
 
     // This is called AFTER the AI has verified the set is valid
     setShowHistSetDialog(false);
@@ -153,11 +159,23 @@ function GamePageContent() {
     setGameState(prev => {
       if (!prev) return null;
       let winningPlayer: Player | null = null;
+      const newDeck = [...prev.deck];
+      
       const newPlayers = prev.players.map(p => {
         if (p.id === currentPlayer.id) {
+            const newHand = p.hand.filter(c => !selectedCards.find(sc => sc.id === c.id));
+            
+            // Draw 4 new cards
+            for(let i = 0; i < 4; i++) {
+                const drawnCard = newDeck.pop();
+                if (drawnCard) {
+                    newHand.push(drawnCard);
+                }
+            }
+
             const updatedPlayer = {
                 ...p,
-                hand: p.hand.filter(c => !selectedCards.find(sc => sc.id === c.id)),
+                hand: newHand,
                 histSets: [...p.histSets, selectedCards]
             };
             if (updatedPlayer.histSets.length >= WINNING_SET_COUNT) {
@@ -171,11 +189,43 @@ function GamePageContent() {
       if(winningPlayer) {
         setWinner(winningPlayer);
       }
-      return { ...prev, players: newPlayers };
+      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
     });
     setSelectedCards([]);
   };
-  
+
+  const handleDiscardCard = () => {
+    if (!currentPlayer || !gameState || selectedCards.length !== 1) return;
+
+    setGameState(prev => {
+        if (!prev) return null;
+        const cardToDiscard = selectedCards[0];
+
+        const newPlayers = prev.players.map(p => {
+            if (p.id === currentPlayer.id) {
+                return {
+                    ...p,
+                    hand: p.hand.filter(c => c.id !== cardToDiscard.id)
+                };
+            }
+            return p;
+        });
+
+        const newDiscardPile = [...prev.discardPile, cardToDiscard];
+        
+        const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
+        const nextPlayerId = prev.players[nextPlayerIndex].id;
+
+        return {
+            ...prev,
+            players: newPlayers,
+            discardPile: newDiscardPile,
+            currentPlayerId: nextPlayerId,
+            turnPhase: 'draw'
+        };
+    });
+    setSelectedCards([]);
+  };
 
   if (!gameState || !currentPlayer) {
     return (
@@ -255,9 +305,9 @@ function GamePageContent() {
                               {Array(player.hand.length).fill(0).map((_, i) => <GameCard key={i} card="back" className="w-[80px] h-[120px]" />)}
                           </div>
                           {player.histSets.map((set, i) => (
-                            <div key={i} className="flex flex-col items-center">
+                            <div key={i} className="flex flex-col items-center p-2 rounded-lg border border-green-500 bg-green-500/10">
                               <div className="flex">
-                                {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" />)}
+                                {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" inSet />)}
                               </div>
                               <Button variant="outline" size="sm" className="mt-2"><Swords className="w-4 h-4 mr-2" /> Challenge</Button>
                             </div>
@@ -283,10 +333,17 @@ function GamePageContent() {
           <div className="bg-card/50 p-4 rounded-lg border">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
-                <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
-                    <BookOpenCheck className="w-4 h-4 mr-2" />
-                    I Have a Set!
-                </Button>
+                {gameState.turnPhase === 'discard' ? (
+                     <Button onClick={handleDiscardCard} disabled={selectedCards.length !== 1}>
+                        <Trash2 className="w-4 h-4 mr-2" />
+                        Discard Selected Card
+                    </Button>
+                ) : (
+                    <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+                        <BookOpenCheck className="w-4 h-4 mr-2" />
+                        I Have a Set!
+                    </Button>
+                )}
             </div>
             <ScrollArea className="h-96 w-full">
               <div className="flex flex-wrap justify-center items-end gap-4 p-4">

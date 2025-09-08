@@ -12,9 +12,10 @@ interface GameCardProps {
   onSelect?: (card: CardType) => void;
   className?: string;
   isPlayerCard?: boolean;
+  inSet?: boolean;
 }
 
-export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }: GameCardProps) {
+export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
   if (card === 'back') {
     return (
       <Card className={cn("w-[220px] h-[320px] bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
@@ -44,6 +45,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
         className={cn(
           "w-[220px] h-[320px] flex flex-col cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg border-4",
           isSelected ? 'border-ring shadow-2xl scale-105' : 'border-card',
+          inSet ? 'border-green-500' : '',
           onSelect ? '' : 'cursor-default hover:scale-100'
         )}
       >
