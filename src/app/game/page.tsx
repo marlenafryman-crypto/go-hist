@@ -129,7 +129,7 @@ function GamePageContent() {
 
         return { ...prev, players: newPlayers, turnPhase: 'ask' };
       } else {
-        alert(`Go Hist! ${opponent.name} did not have a matching card. You draw from the deck. Reason: ${result.reason}`);
+        alert(`Go Hist! ${opponent.name} did not have a matching card. You draw from the deck.`);
         
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
