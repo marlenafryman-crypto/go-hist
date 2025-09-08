@@ -19,7 +19,7 @@ interface GameCardProps {
 export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
   if (card === 'back') {
     return (
-      <Card className={cn("w-[200px] h-[300px] bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
+      <Card className={cn("bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
         <div className="relative w-full h-full">
             <Image
               src="https://i.ibb.co/LddKckY6/Untitled-design-81.png"
