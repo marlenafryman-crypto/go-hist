@@ -574,7 +574,7 @@ export const DECK: Card[] = [
     name: 'Ulysses S. Grant',
     type: 'Person',
     description: 'The 18th President of the United States and the commanding general of the Union Army in the American Civil War.',
-    imageUrl: 'https://iibb.co/CsYMy8nf/Untitled-design-69.png',
+    imageUrl: 'https://i.ibb.co/s8JHpZN/Untitled-design-2025-09-08-T160601-573.png',
     hint: 'us president general',
   },
   {
@@ -990,6 +990,7 @@ export const DECK: Card[] = [
     
 
     
+
 
 
 
