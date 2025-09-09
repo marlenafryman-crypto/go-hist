@@ -93,6 +93,9 @@ function GamePageContent() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
+      if(gameState?.turnPhase === 'discard') {
+        return [card];
+      }
       if(prev.length >= 4) {
         return prev;
       }
@@ -161,18 +164,14 @@ function GamePageContent() {
         let newPlayerHand = [...thisPlayer.hand];
         if(drawnCard) {
             newPlayerHand.push(drawnCard);
-            addToLog(`${thisPlayer.name} drew "${drawnCard.name}". Their turn is over.`);
+            addToLog(`${thisPlayer.name} drew "${drawnCard.name}".`);
         } else {
-            addToLog(`Deck is empty! ${thisPlayer.name}'s turn is over.`);
+            addToLog(`Deck is empty!`);
         }
 
         const newPlayers = prev.players.map(p => p.id === thisPlayer.id ? { ...p, hand: newPlayerHand } : p);
-        const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
-        const nextPlayerId = prev.players[nextPlayerIndex].id;
         
-        addToLog(`It is now ${prev.players[nextPlayerIndex].name}'s turn.`);
-
-        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayerId, turnPhase: 'action' };
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
       }
     });
   };
@@ -471,5 +470,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
