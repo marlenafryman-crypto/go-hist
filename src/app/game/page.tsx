@@ -321,6 +321,21 @@ function GamePageContent() {
         <aside className="w-96 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
           <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
           
+           <Card>
+            <CardHeader>
+              <CardTitle className="font-headline text-xl flex items-center gap-2"><Share2 /> Share Game</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-2">Share this code with a friend to have them join:</p>
+              <div className="flex items-center space-x-2">
+                <Input value={gameCode || ''} readOnly />
+                <Button variant="outline" size="icon" onClick={() => navigator.clipboard.writeText(window.location.href)}>
+                    <Share2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle className="font-headline text-xl flex items-center gap-2"><Users /> Players</CardTitle>
@@ -476,5 +491,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
