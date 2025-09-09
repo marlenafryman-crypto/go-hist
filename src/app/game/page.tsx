@@ -72,10 +72,6 @@ function GamePageContent() {
     setSelectedCards([]);
   }
 
-  useEffect(() => {
-    startNewGame();
-  }, []);
-
   const addToLog = (message: string) => {
     setGameState(prev => prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null);
   };
@@ -273,8 +269,9 @@ function GamePageContent() {
 
   if (!gameState || !currentPlayer) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="font-headline text-2xl">Shuffling Thru Time</p>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <p className="font-headline text-2xl mb-4">Welcome to Go Hist!</p>
+        <Button onClick={startNewGame}>Start New Game</Button>
       </div>
     );
   }
@@ -445,6 +442,7 @@ function GamePageContent() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
+             <Link href="/"><AlertDialogAction>Main Menu</AlertDialogAction></Link>
             <AlertDialogAction onClick={startNewGame}>Play Again</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -478,3 +476,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
