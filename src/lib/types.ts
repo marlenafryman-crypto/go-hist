@@ -1,3 +1,5 @@
+export const INITIAL_HAND_SIZE = 5;
+
 export interface Card {
   id: string;
   name: string;
@@ -22,5 +24,3 @@ export interface GameState {
   turnPhase: 'action' | 'discard';
   log: string[];
 }
-
-    

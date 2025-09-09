@@ -18,6 +18,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { findMatchingCardAction } from './actions';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { INITIAL_HAND_SIZE } from '@/lib/types';
 
 function shuffle(array: any[]) {
   const a = [...array];
@@ -28,7 +29,6 @@ function shuffle(array: any[]) {
   return a;
 }
 
-const INITIAL_HAND_SIZE = 7;
 const WINNING_SET_COUNT = 2;
 
 
@@ -51,6 +51,9 @@ function GamePageContent() {
     const players: Player[] = [
       { id: 'player1', name: playerName, hand: [], histSets: [] },
       { id: 'player2', name: 'Ada Lovelace', hand: [], histSets: [] },
+      { id: 'player3', name: 'Nikola Tesla', hand: [], histSets: [] },
+      { id: 'player4', name: 'Marie Curie', hand: [], histSets: [] },
+      { id: 'player5', name: 'Isaac Newton', hand: [], histSets: [] },
     ];
 
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
@@ -122,6 +125,26 @@ function GamePageContent() {
     });
   };
 
+  const handleDrawFromDiscard = () => {
+    if (!gameState || !currentPlayer || gameState.turnPhase !== 'action') return;
+    
+    setGameState(prev => {
+      if (!prev) return null;
+      const newDiscardPile = [...prev.discardPile];
+      const drawnCard = newDiscardPile.pop();
+
+      if (!drawnCard) {
+        return prev;
+      }
+
+      const newHand = [...currentPlayer.hand, drawnCard];
+      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
+
+      addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
+      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
+    });
+  };
+
   const handleAskForCard = async (opponentId: string, request: string) => {
     if (!gameState || !currentPlayer) return;
     
@@ -161,17 +184,22 @@ function GamePageContent() {
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
         
-        let newPlayerHand = [...thisPlayer.hand];
         if(drawnCard) {
-            newPlayerHand.push(drawnCard);
             addToLog(`${thisPlayer.name} drew "${drawnCard.name}".`);
+            endTurn();
         } else {
             addToLog(`Deck is empty!`);
+            endTurn();
         }
 
-        const newPlayers = prev.players.map(p => p.id === thisPlayer.id ? { ...p, hand: newPlayerHand } : p);
+        const newPlayers = prev.players.map(p => {
+            if(p.id === thisPlayer.id && drawnCard){
+                return {...p, hand: [...p.hand, drawnCard]}
+            }
+            return p;
+        });
         
-        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
       }
     });
   };
@@ -380,21 +408,23 @@ function GamePageContent() {
               ))}
               
               {/* Deck and Discard Pile */}
-              <div className="flex items-end space-x-8 my-8">
-                <div>
-                  <p className="text-center font-headline mb-2">Deck</p>
-                  <GameCard card="back" className="w-[120px] h-[180px]" />
-                </div>
-                <div>
-                  <p className="text-center font-headline mb-2">Discard</p>
-                  {topOfDiscard ? (
-                    <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
-                  ) : (
-                    <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
-                        <p className="text-xs text-muted-foreground">Empty</p>
+                <div className="flex items-end space-x-8 my-8">
+                    <div>
+                        <p className="text-center font-headline mb-2">Deck</p>
+                        <GameCard card="back" className="w-[120px] h-[180px]" />
                     </div>
-                  )}
-                </div>
+                    <div>
+                        <p className="text-center font-headline mb-2">Discard</p>
+                        <div onClick={handleDrawFromDiscard} className="cursor-pointer">
+                        {topOfDiscard ? (
+                            <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
+                        ) : (
+                            <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
+                                <p className="text-xs text-muted-foreground">Empty</p>
+                            </div>
+                        )}
+                        </div>
+                    </div>
               </div>
 
           </div>
@@ -408,8 +438,8 @@ function GamePageContent() {
                   {renderTurnSpecificControls()}
                 </div>
             </div>
-            <ScrollArea className="h-[250px] w-full">
-              <div className="flex flex-wrap justify-center items-end gap-4 p-4">
+            <ScrollArea className="w-full whitespace-nowrap">
+              <div className="flex items-end gap-4 p-4">
                 {currentPlayer.hand.map(card => (
                   <GameCard
                     key={card.id}
