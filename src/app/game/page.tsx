@@ -65,7 +65,7 @@ function GamePageContent() {
       deck: shuffledDeck,
       discardPile: [shuffledDeck.pop()!],
       currentPlayerId: 'player1',
-      turnPhase: 'draw',
+      turnPhase: 'action',
       log: ['New game started.'],
     });
     setWinner(null);
@@ -75,13 +75,19 @@ function GamePageContent() {
   const addToLog = (message: string) => {
     setGameState(prev => prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null);
   };
+  
+  const endTurn = () => {
+    setGameState(prev => {
+      if (!prev) return null;
+      const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
+      const nextPlayerId = prev.players[nextPlayerIndex].id;
+      addToLog(`It is now ${prev.players[nextPlayerIndex].name}'s turn.`);
+      return { ...prev, currentPlayerId: nextPlayerId, turnPhase: 'action' };
+    });
+    setSelectedCards([]);
+  }
 
   const handleSelectCard = (card: CardType) => {
-    if (gameState?.turnPhase === 'discard') {
-      setSelectedCards([card]);
-      return;
-    }
-    
     setSelectedCards(prev => {
       const isSelected = prev.find(c => c.id === card.id);
       if (isSelected) {
@@ -95,7 +101,7 @@ function GamePageContent() {
   };
 
    const handleDrawFromDeck = () => {
-    if (!gameState || !currentPlayer || gameState.turnPhase !== 'draw') return;
+    if (!gameState || !currentPlayer || gameState.turnPhase !== 'action') return;
 
     setGameState(prev => {
       if (!prev) return null;
@@ -108,29 +114,8 @@ function GamePageContent() {
       const newHand = [...currentPlayer.hand, drawnCard];
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
       
-      addToLog(`${currentPlayer.name} drew from the deck.`);
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
-    });
-  };
-
-  const handleDrawFromDiscard = () => {
-    if (!gameState || !currentPlayer || gameState.turnPhase !== 'draw') return;
-
-    setGameState(prev => {
-      if (!prev || prev.discardPile.length === 0) return null;
-      
-      const newDiscardPile = [...prev.discardPile];
-      const drawnCard = newDiscardPile.pop();
-      if (!drawnCard) {
-        addToLog('Discard pile is empty!');
-        return prev;
-      }
-      
-      const newHand = [...currentPlayer.hand, drawnCard];
-      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
-
-      addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
-      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
+      addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
+      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
     });
   };
 
@@ -172,16 +157,22 @@ function GamePageContent() {
         
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
-        if(drawnCard) {
-            const newPlayerHand = [...thisPlayer.hand, drawnCard];
-            const newPlayers = prev.players.map(p => p.id === thisPlayer.id ? { ...p, hand: newPlayerHand } : p);
-            addToLog(`${thisPlayer.name} drew "${drawnCard.name}". Now they must discard.`);
-            return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
-        }
         
-        // If deck is empty, just move to discard phase
-        addToLog(`Deck is empty! ${thisPlayer.name} must discard.`);
-        return { ...prev, turnPhase: 'discard' };
+        let newPlayerHand = [...thisPlayer.hand];
+        if(drawnCard) {
+            newPlayerHand.push(drawnCard);
+            addToLog(`${thisPlayer.name} drew "${drawnCard.name}". Their turn is over.`);
+        } else {
+            addToLog(`Deck is empty! ${thisPlayer.name}'s turn is over.`);
+        }
+
+        const newPlayers = prev.players.map(p => p.id === thisPlayer.id ? { ...p, hand: newPlayerHand } : p);
+        const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
+        const nextPlayerId = prev.players[nextPlayerIndex].id;
+        
+        addToLog(`It is now ${prev.players[nextPlayerIndex].name}'s turn.`);
+
+        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayerId, turnPhase: 'action' };
       }
     });
   };
@@ -235,10 +226,11 @@ function GamePageContent() {
   const handleDiscardCard = () => {
     if (!currentPlayer || !gameState || selectedCards.length !== 1 || gameState.turnPhase !== 'discard') return;
 
+    const cardToDiscard = selectedCards[0];
+    
     setGameState(prev => {
         if (!prev) return null;
-        const cardToDiscard = selectedCards[0];
-
+        
         const newPlayers = prev.players.map(p => {
             if (p.id === currentPlayer.id) {
                 return {
@@ -251,20 +243,15 @@ function GamePageContent() {
 
         const newDiscardPile = [...prev.discardPile, cardToDiscard];
         
-        const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
-        const nextPlayerId = prev.players[nextPlayerIndex].id;
-        
-        addToLog(`${currentPlayer.name} discarded "${cardToDiscard.name}". It is now ${prev.players[nextPlayerIndex].name}'s turn.`);
-
         return {
             ...prev,
             players: newPlayers,
-            discardPile: newDiscardPile,
-            currentPlayerId: nextPlayerId,
-            turnPhase: 'draw'
+            discardPile: newDiscardPile
         };
     });
-    setSelectedCards([]);
+    
+    addToLog(`${currentPlayer.name} discarded "${cardToDiscard.name}".`);
+    endTurn();
   };
 
   if (!gameState || !currentPlayer) {
@@ -282,25 +269,18 @@ function GamePageContent() {
 
   const renderTurnSpecificControls = () => {
     switch (gameState.turnPhase) {
-      case 'draw':
-        return (
-          <div className="flex justify-center items-center gap-4">
-            <Button onClick={handleDrawFromDeck} disabled={gameState.deck.length === 0}>
-                <ArrowDownToLine className="w-4 h-4 mr-2" />
-                Draw from Deck ({gameState.deck.length})
-            </Button>
-            <Button onClick={handleDrawFromDiscard} variant="outline" disabled={gameState.discardPile.length === 0}>
-                <GitCommitHorizontal className="w-4 h-4 mr-2" />
-                Take Discard ({gameState.discardPile.length})
-            </Button>
-          </div>
-        );
       case 'action':
          return (
-             <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
-                <BookOpenCheck className="w-4 h-4 mr-2" />
-                Declare a Hist Set
-            </Button>
+            <div className="flex justify-center items-center gap-4">
+                 <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+                    <BookOpenCheck className="w-4 h-4 mr-2" />
+                    Declare a Hist Set
+                </Button>
+                <Button onClick={handleDrawFromDeck} disabled={gameState.deck.length === 0} variant="outline">
+                    <ArrowDownToLine className="w-4 h-4 mr-2" />
+                    Draw from Deck ({gameState.deck.length})
+                </Button>
+            </div>
          );
       case 'discard':
         return (
@@ -491,3 +471,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
