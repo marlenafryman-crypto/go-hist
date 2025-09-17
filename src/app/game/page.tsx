@@ -62,20 +62,24 @@ function GamePageContent() {
     });
   }, [updateGameState]);
 
+  const players = useMemo(() => gameState?.players || [], [gameState?.players]);
+  const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
+  const turnPhase = useMemo(() => gameState?.turnPhase, [gameState?.turnPhase]);
+  
   const currentPlayer = useMemo(() => {
-    if (!gameState) return null;
-    return gameState.players.find(p => p.id === gameState.currentPlayerId);
-  }, [gameState?.players, gameState?.currentPlayerId]);
+    if (!players || !currentPlayerId) return null;
+    return players.find(p => p.id === currentPlayerId);
+  }, [players, currentPlayerId]);
 
   const otherPlayers = useMemo(() => {
-    if (!gameState || !currentPlayer) return [];
-    return gameState.players.filter(p => p.id !== currentPlayer.id);
-  }, [gameState?.players, currentPlayer]);
+    if (!players || !currentPlayer) return [];
+    return players.filter(p => p.id !== currentPlayer.id);
+  }, [players, currentPlayer]);
   
   const humanPlayerIds = useMemo(() => {
-    if (!gameState) return [];
-    return gameState.players.filter(p => p.isHuman).map(p => p.id);
-  }, [gameState?.players]);
+    if (!players) return [];
+    return players.filter(p => p.isHuman).map(p => p.id);
+  }, [players]);
 
 
   const startNewGame = useCallback(() => {
@@ -189,7 +193,7 @@ function GamePageContent() {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || winner) return;
     
     updateGameState(prev => {
-      if (!prev || !currentPlayer) return prev;
+      if (!prev || !currentPlayer || prev.turnPhase !== 'action') return prev;
       const newDiscardPile = [...prev.discardPile];
       const drawnCard = newDiscardPile.pop();
 
@@ -462,18 +466,18 @@ function GamePageContent() {
   }, [gameState, currentPlayer, winner, addToLog]);
 
   useEffect(() => {
-    if (gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'action' && !winner) {
+    if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner, handleAiTurn, currentPlayer, gameState]);
+  }, [currentPlayer, turnPhase, winner, handleAiTurn]);
 
   useEffect(() => {
-    if(gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'discard' && !winner) {
+    if(currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
        setTimeout(() => {
         handleDiscardCard();
       }, 2000);
     }
-  }, [gameState, currentPlayer, winner]);
+  }, [currentPlayer, turnPhase, winner, gameState]);
 
 
   if (!gameState || !currentPlayer) {
