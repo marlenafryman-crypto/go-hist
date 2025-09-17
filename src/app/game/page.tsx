@@ -142,7 +142,7 @@ function GamePageContent() {
       try {
         const savedGameState = JSON.parse(savedGame);
         if (savedGameState) {
-            updateGameState(savedGameState);
+            setGameState(savedGameState);
             const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
             if (winningPlayer) {
               setWinner(winningPlayer);
@@ -157,7 +157,7 @@ function GamePageContent() {
     } else if (searchParams.get('numPlayers')) {
       startNewGame();
     }
-  }, [gameCode, startNewGame, searchParams, updateGameState]);
+  }, [gameCode, startNewGame, searchParams]);
 
   const handleSelectCard = (card: CardType) => {
     if (winner) return;
@@ -446,7 +446,7 @@ function GamePageContent() {
     if (gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [gameState?.currentPlayerId, gameState?.turnPhase, currentPlayer, handleAiTurn, winner, gameState]);
+  }, [gameState, currentPlayer, winner, handleAiTurn]);
 
   // AI Discard Logic
   useEffect(() => {
@@ -683,3 +683,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
