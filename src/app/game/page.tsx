@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { findMatchingCardAction } from './actions';
+import { findMatchingCardAction, getAiPlayerActionAction, verifyHistSetAction } from './actions';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
@@ -41,10 +41,12 @@ function GamePageContent() {
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
+  const [isAiTurn, setIsAiTurn] = useState(false);
 
-  const updateGameState = (newState: GameState | null) => {
+
+  const updateGameState = (newState: GameState | null, bypassLog: boolean = false) => {
     setGameState(newState);
-    if (gameCode && typeof window !== 'undefined') {
+    if (gameCode && typeof window !== 'undefined' && !bypassLog) {
       window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
     }
   };
@@ -107,22 +109,38 @@ function GamePageContent() {
     setGameState(prev => {
       const newState = prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null;
       if (newState && gameCode) {
-        window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
+        // Use a functional update to ensure we're logging the absolute latest state.
+        setGameState(currentState => {
+          if (currentState) window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(currentState));
+          return currentState;
+        });
       }
       return newState;
     });
   };
   
-  const endTurn = () => {
+  const endTurn = useCallback(() => {
     updateGameState(prev => {
       if (!prev) return null;
-      const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
+      const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
+      const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
       const nextPlayerId = prev.players[nextPlayerIndex].id;
-      addToLog(`It is now ${prev.players[nextPlayerIndex].name}'s turn.`);
-      return { ...prev, currentPlayerId: nextPlayerId, turnPhase: 'action' };
+      
+      const nextPlayer = prev.players[nextPlayerIndex];
+      addToLog(`It is now ${nextPlayer.name}'s turn.`);
+      
+      const newState = { ...prev, currentPlayerId: nextPlayerId, turnPhase: 'action' as const };
+      
+      if (nextPlayer.id !== 'player1') {
+        setIsAiTurn(true);
+      } else {
+        setIsAiTurn(false);
+      }
+      
+      return newState;
     });
     setSelectedCards([]);
-  }
+  }, [updateGameState]);
 
   const handleSelectCard = (card: CardType) => {
     setSelectedCards(prev => {
@@ -188,6 +206,8 @@ function GamePageContent() {
     const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
     const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
 
+    let playerGoesAgain = false;
+
     updateGameState(prev => {
       if (!prev) return null;
       
@@ -207,8 +227,8 @@ function GamePageContent() {
           if (p.id === thisPlayer.id) return { ...p, hand: newPlayerHand };
           return p;
         });
-
-        // Player gets to take another action
+        
+        playerGoesAgain = true;
         return { ...prev, players: newPlayers, turnPhase: 'action' };
       } else {
         addToLog(`Go Hist! ${opponent.name} did not have a matching card. ${thisPlayer.name} must draw.`);
@@ -229,18 +249,21 @@ function GamePageContent() {
             return p;
         });
         
-        const tempState = { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' as const };
-        
-        // This needs to be a separate call to avoid race condition with endTurn
-        setTimeout(() => endTurn(), 0);
-        
-        return tempState;
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' as const };
       }
     });
-  };
 
-  const handleFormHistSet = () => {
+    if (!playerGoesAgain) {
+       setTimeout(() => endTurn(), 1000);
+    }
+  };
+  
+  const handleFormHistSet = (cardsToSet: CardType[], explanation?: string) => {
     if (!currentPlayer || !gameState) return;
+
+    if (explanation) {
+      addToLog(`${currentPlayer.name} declares a Hist Set with the explanation: "${explanation}"`);
+    }
 
     setShowHistSetDialog(false);
     
@@ -249,7 +272,7 @@ function GamePageContent() {
       let winningPlayer: Player | null = null;
       const newDeck = [...prev.deck];
       let newHand = [...(currentPlayer.hand || [])];
-      newHand = newHand.filter(c => !selectedCards.find(sc => sc.id === c.id));
+      newHand = newHand.filter(c => !cardsToSet.find(sc => sc.id === c.id));
       
       // Draw 4 new cards
       for(let i=0; i<4; i++) {
@@ -264,7 +287,7 @@ function GamePageContent() {
             const updatedPlayer = {
                 ...p,
                 hand: newHand,
-                histSets: [...p.histSets, selectedCards]
+                histSets: [...p.histSets, cardsToSet]
             };
             if (updatedPlayer.histSets.length >= WINNING_SET_COUNT) {
                 winningPlayer = updatedPlayer;
@@ -285,11 +308,12 @@ function GamePageContent() {
     setSelectedCards([]);
   };
 
-  const handleDiscardCard = () => {
-    if (!currentPlayer || !gameState || selectedCards.length !== 1 || gameState.turnPhase !== 'discard') return;
-
-    const cardToDiscard = selectedCards[0];
+  const handleDiscardCard = (cardToDiscard?: CardType) => {
+    if (!currentPlayer || !gameState || gameState.turnPhase !== 'discard') return;
     
+    const card = cardToDiscard || selectedCards[0];
+    if (!card) return;
+
     updateGameState(prev => {
         if (!prev) return null;
         
@@ -297,13 +321,13 @@ function GamePageContent() {
             if (p.id === currentPlayer.id) {
                 return {
                     ...p,
-                    hand: p.hand.filter(c => c.id !== cardToDiscard.id)
+                    hand: p.hand.filter(c => c.id !== card.id)
                 };
             }
             return p;
         });
 
-        const newDiscardPile = [...prev.discardPile, cardToDiscard];
+        const newDiscardPile = [...prev.discardPile, card];
         
         return {
             ...prev,
@@ -312,9 +336,96 @@ function GamePageContent() {
         };
     });
     
-    addToLog(`${currentPlayer.name} discarded "${cardToDiscard.name}".`);
+    addToLog(`${currentPlayer.name} discarded "${card.name}".`);
     endTurn();
   };
+
+  const handleAiTurn = useCallback(async () => {
+    if (!gameState || !currentPlayer || currentPlayer.id === 'player1') {
+      setIsAiTurn(false);
+      return;
+    }
+  
+    addToLog(`${currentPlayer.name} is thinking...`);
+  
+    const otherPlayers = gameState.players
+      .filter(p => p.id !== currentPlayer.id)
+      .map(p => ({
+        id: p.id,
+        name: p.name,
+        handSize: p.hand.length,
+        histSetCount: p.histSets.length,
+      }));
+  
+    const discardTopCard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : undefined;
+    const canWin = currentPlayer.histSets.length + 1 >= WINNING_SET_COUNT;
+  
+    const aiAction = await getAiPlayerActionAction({
+      playerName: currentPlayer.name,
+      hand: currentPlayer.hand,
+      histSetCount: currentPlayer.histSets.length,
+      otherPlayers,
+      discardTopCard,
+      canWin,
+    });
+  
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Dramatic pause
+  
+    switch (aiAction.action) {
+      case 'formSet':
+        if (aiAction.cardIds && aiAction.explanation) {
+          const cardsToSet = currentPlayer.hand.filter(c => aiAction.cardIds!.includes(c.id));
+          if (cardsToSet.length === 4) {
+            const verification = await verifyHistSetAction({ cards: cardsToSet, explanation: aiAction.explanation });
+            if (verification.isValid) {
+              handleFormHistSet(cardsToSet, aiAction.explanation);
+            } else {
+              addToLog(`${currentPlayer.name} tried to form a set, but the historian deemed it invalid: ${verification.reason}`);
+              handleDrawFromDeck(); 
+            }
+          }
+        }
+        break;
+      case 'ask':
+        if (aiAction.opponentId && aiAction.request) {
+          await handleAskForCard(aiAction.opponentId, aiAction.request);
+        }
+        break;
+      case 'drawDeck':
+        addToLog(`${currentPlayer.name} decides to draw from the deck.`);
+        handleDrawFromDeck();
+        break;
+      case 'drawDiscard':
+         if (discardTopCard) {
+            addToLog(`${currentPlayer.name} decides to take "${discardTopCard.name}" from the discard pile.`);
+            handleDrawFromDiscard();
+        } else {
+            handleDrawFromDeck();
+        }
+        break;
+    }
+    
+    // AI discard logic
+    setTimeout(() => {
+        setGameState(currentState => {
+            if (currentState?.currentPlayerId === currentPlayer.id && currentState?.turnPhase === 'discard') {
+                const aiPlayer = currentState.players.find(p => p.id === currentPlayer.id);
+                if (aiPlayer && aiPlayer.hand.length > 0) {
+                   const cardToDiscard = aiPlayer.hand[Math.floor(Math.random() * aiPlayer.hand.length)];
+                   handleDiscardCard(cardToDiscard);
+                }
+            }
+            return currentState;
+        });
+    }, 2000); // Wait a bit before discarding
+
+  }, [gameState, currentPlayer]);
+
+  useEffect(() => {
+    if (isAiTurn) {
+        handleAiTurn();
+    }
+  }, [isAiTurn, handleAiTurn]);
 
   if (!gameState || !currentPlayer) {
     return (
@@ -330,6 +441,9 @@ function GamePageContent() {
 
 
   const renderTurnSpecificControls = () => {
+    const isPlayerTurn = currentPlayer.id === 'player1' && !isAiTurn;
+    if (!isPlayerTurn) return <p className="text-sm text-primary font-headline animate-pulse">AI is thinking...</p>;
+
     switch (gameState.turnPhase) {
       case 'action':
          return (
@@ -346,7 +460,7 @@ function GamePageContent() {
          );
       case 'discard':
         return (
-            <Button onClick={handleDiscardCard} disabled={selectedCards.length !== 1}>
+            <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1}>
                 <Trash2 className="w-4 h-4 mr-2" />
                 Discard Selected Card
             </Button>
@@ -400,7 +514,7 @@ function GamePageContent() {
                  <AskForCard 
                   otherPlayers={otherPlayers}
                   onAsk={handleAskForCard}
-                  disabled={gameState.turnPhase !== 'action'}
+                  disabled={gameState.turnPhase !== 'action' || currentPlayer.id !== 'player1'}
                 />
                 <ConnectionVerifier selectedCards={selectedCards} />
               </AccordionContent>
@@ -517,7 +631,7 @@ function GamePageContent() {
           </AlertDialogHeader>
           <HistSetVerifier 
             selectedCards={selectedCards} 
-            onVerified={handleFormHistSet}
+            onVerified={() => handleFormHistSet(selectedCards)}
           />
            <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -535,5 +649,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    

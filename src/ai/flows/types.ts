@@ -59,3 +59,31 @@ export const VerifyHistoricalConnectionOutputSchema = z.object({
   reason: z.string().describe('The reasoning behind the validity determination.'),
 });
 export type VerifyHistoricalConnectionOutput = z.infer<typeof VerifyHistoricalConnectionOutputSchema>;
+
+
+const AiPlayerInfoSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  handSize: z.number(),
+  histSetCount: z.number(),
+});
+
+export const GetAiPlayerActionInputSchema = z.object({
+  playerName: z.string().describe("The AI player's name."),
+  hand: z.array(CardSchema).describe("The AI player's current hand."),
+  histSetCount: z.number().describe('The number of Hist Sets the AI player has already formed.'),
+  otherPlayers: z.array(AiPlayerInfoSchema).describe('Information about the other players in the game.'),
+  discardTopCard: CardSchema.optional().describe('The card currently on top of the discard pile, if any.'),
+  canWin: z.boolean().describe('Whether forming one more set will win the game.'),
+});
+export type GetAiPlayerActionInput = z.infer<typeof GetAiPlayerActionInputSchema>;
+
+
+export const GetAiPlayerActionOutputSchema = z.object({
+  action: z.enum(['formSet', 'ask', 'drawDeck', 'drawDiscard']).describe('The action the AI has decided to take.'),
+  cardIds: z.array(z.string()).optional().describe("The IDs of the cards to form a set with. Only present if action is 'formSet'."),
+  explanation: z.string().optional().describe("The explanation for the Hist Set. Only present if action is 'formSet'."),
+  opponentId: z.string().optional().describe("The ID of the opponent to ask for a card. Only present if action is 'ask'."),
+  request: z.string().optional().describe("The card being requested from the opponent. Only present if action is 'ask'."),
+});
+export type GetAiPlayerActionOutput = z.infer<typeof GetAiPlayerActionOutputSchema>;

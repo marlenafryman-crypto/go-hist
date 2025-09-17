@@ -2,8 +2,9 @@
 
 import { verifyHistoricalConnection, VerifyHistoricalConnectionInput, VerifyHistoricalConnectionOutput } from '@/ai/flows/verify-historical-connection';
 import { findMatchingCard } from '@/ai/flows/find-matching-card';
-import type { FindMatchingCardInput, FindMatchingCardOutput, VerifyHistSetInput, VerifyHistSetOutput } from '@/ai/flows/types';
+import type { FindMatchingCardInput, FindMatchingCardOutput, VerifyHistSetInput, VerifyHistSetOutput, GetAiPlayerActionInput, GetAiPlayerActionOutput } from '@/ai/flows/types';
 import { verifyHistSet } from '@/ai/flows/verify-hist-set';
+import { getAiPlayerAction } from '@/ai/flows/get-ai-player-action';
 
 
 export async function verifyConnectionAction(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
@@ -41,6 +42,20 @@ export async function verifyHistSetAction(input: VerifyHistSetInput): Promise<Ve
         return {
             isValid: false,
             reason: 'An error occurred while communicating with the historian AI. Please try again.',
+        };
+    }
+}
+
+
+export async function getAiPlayerActionAction(input: GetAiPlayerActionInput): Promise<GetAiPlayerActionOutput> {
+    try {
+        const result = await getAiPlayerAction(input);
+        return result;
+    } catch (error) {
+        console.error('Error getting AI player action:', error);
+        // Default to drawing from the deck on error
+        return {
+            action: 'drawDeck'
         };
     }
 }
