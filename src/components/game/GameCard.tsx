@@ -54,7 +54,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
       'relative shrink-0', 
       cardBaseSize, 
       className,
-      isInteractive ? "transition-all duration-300 transform hover:scale-110 hover:-translate-y-4 hover:z-10" : ""
+      "transition-all duration-300 transform hover:scale-110 hover:-translate-y-4 hover:z-10"
       )}>
       <Card
         onClick={handleSelect}
