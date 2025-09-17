@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -42,7 +41,6 @@ function GamePageContent() {
   const [verifiedConnectionCards, setVerifiedConnectionCards] = useState<string[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
-  const [showTurnActionDialog, setShowTurnActionDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [showSelectSetDialog, setShowSelectSetDialog] = useState(false);
@@ -479,15 +477,6 @@ function GamePageContent() {
   }, [gameState, currentPlayer, winner, addToLog, handleAskForCard, handleDrawFromDeck, handleDrawFromDiscard, handleFormHistSet]);
 
   useEffect(() => {
-    if (currentPlayer?.isHuman && turnPhase === 'action' && !winner && !showTurnActionDialog) {
-        setShowTurnActionDialog(true);
-    } else if (!currentPlayer?.isHuman || turnPhase === 'discard' || winner) {
-        setShowTurnActionDialog(false);
-    }
-  }, [currentPlayer?.id, turnPhase, winner, showTurnActionDialog]);
-
-
-  useEffect(() => {
     if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !winner) {
         const timer = setTimeout(() => handleAiTurn(), 2000);
         return () => clearTimeout(timer);
@@ -524,15 +513,30 @@ function GamePageContent() {
 
   const renderTurnSpecificControls = () => {
     const isPlayerTurn = currentPlayer.isHuman;
-    if (!isPlayerTurn) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for {currentPlayer.name}...</p>;
+    if (!isPlayerTurn || winner) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for {currentPlayer.name}...</p>;
 
     switch (turnPhase) {
       case 'action':
          return (
-            <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
-                <BookOpenCheck className="w-4 h-4 mr-2" />
-                Declare a Hist Set
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={() => setShowAskDialog(true)}>
+                  <HelpCircle className="mr-2"/> Ask Player
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleDrawFromDeck} disabled={deck.length === 0}>
+                <ArrowDownToLine className="mr-2"/> Draw Deck
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleDrawFromDiscard} disabled={!topOfDiscard}>
+                <Trash2 className="mr-2"/> Take Discard
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+                  <BookOpenCheck className="w-4 h-4 mr-2" />
+                  Declare Set
+              </Button>
+              <Button variant="destructive" size="sm" onClick={() => updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null)}>
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Go to Discard
+              </Button>
+            </div>
          );
       case 'discard':
         return (
@@ -690,35 +694,6 @@ function GamePageContent() {
            <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
           </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-       <AlertDialog open={showTurnActionDialog} onOpenChange={setShowTurnActionDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="font-headline text-2xl">It's your turn, {currentPlayer.name}!</AlertDialogTitle>
-            <AlertDialogDescription>
-              What would you like to do?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <div className="grid grid-cols-1 gap-4 py-4">
-             <Button variant="outline" onClick={() => { setShowAskDialog(true); setShowTurnActionDialog(false); }}>
-                <HelpCircle className="mr-2"/> Ask a Player for a Card
-             </Button>
-             <Button variant="outline" onClick={() => { handleDrawFromDeck(); setShowTurnActionDialog(false); }} disabled={deck.length === 0}>
-              <ArrowDownToLine className="mr-2"/> Draw from Deck ({deck.length})
-            </Button>
-            <Button variant="outline" onClick={() => { handleDrawFromDiscard(); setShowTurnActionDialog(false); }} disabled={!topOfDiscard}>
-               <Trash2 className="mr-2"/> Take Discard: "{topOfDiscard?.name}"
-            </Button>
-            <Button variant="outline" onClick={() => { 
-                updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
-                setShowTurnActionDialog(false);
-              }}
-            >
-              <Trash2 className="w-4 h-4 mr-2" />
-              Discard a Card
-            </Button>
-          </div>
         </AlertDialogContent>
       </AlertDialog>
       <AlertDialog open={showAskDialog} onOpenChange={setShowAskDialog}>
