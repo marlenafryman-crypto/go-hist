@@ -64,14 +64,14 @@ function GamePageContent() {
     }
   }, [gameCode]);
 
-   const addToLog = (message: string) => {
+   const addToLog = useCallback((message: string) => {
     setGameState(prev => {
       if (!prev) return null;
       const newLog = [message, ...prev.log].slice(0, 20);
       const newState = { ...prev, log: newLog };
       return newState;
     });
-  };
+  }, []);
 
   const currentPlayer = useMemo(() => {
     if (!gameState) return null;
@@ -683,5 +683,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
