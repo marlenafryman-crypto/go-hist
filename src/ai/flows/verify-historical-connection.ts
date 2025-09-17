@@ -3,7 +3,7 @@
 /**
  * @fileOverview An AI agent for verifying historical connections between cards.
  *
- * - verifyHistoricalConnection - A function that verifies the historical connection explanation.
+ * - verifyHistoricalConnection - A function that verifies the historical-connection-explanation.
  */
 
 import {ai} from '@/ai/genkit';
@@ -14,8 +14,9 @@ import {
   type VerifyHistoricalConnectionOutput,
 } from './types';
 
-
-export async function verifyHistoricalConnection(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
+export async function verifyHistoricalConnection(
+  input: VerifyHistoricalConnectionInput
+): Promise<VerifyHistoricalConnectionOutput> {
   return verifyHistoricalConnectionFlow(input);
 }
 
@@ -61,14 +62,23 @@ const verifyHistoricalConnectionFlow = ai.defineFlow(
     outputSchema: VerifyHistoricalConnectionOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    if (!output) {
+    try {
+      const {output} = await prompt(input);
+      if (!output) {
+        return {
+          isValid: false,
+          reason:
+            'The historian AI was unable to provide a valid response. This may be due to a safety filter or an internal error. Please rephrase your explanation or try a different connection.',
+        };
+      }
+      return output;
+    } catch (error) {
+      console.error('Error in verifyHistoricalConnectionFlow:', error);
       return {
         isValid: false,
         reason:
-          'The historian AI was unable to provide a valid response. This may be due to a safety filter or an internal error. Please rephrase your explanation or try a different connection.',
+          'A critical error occurred while communicating with the historian AI. Please try again later.',
       };
     }
-    return output;
   }
 );

@@ -12,10 +12,14 @@ export async function verifyConnectionAction(input: VerifyHistoricalConnectionIn
     const result = await verifyHistoricalConnection(input);
     return result;
   } catch (error) {
-    console.error('Error verifying connection:', error);
+    console.error('Error in verifyConnectionAction:', error);
+    let reason = 'An unexpected error occurred while communicating with the historian AI. Please try again.';
+    if (error instanceof Error) {
+        reason = `An error occurred: ${error.message}. Please try again.`;
+    }
     return {
       isValid: false,
-      reason: 'An error occurred while communicating with the historian AI. Please try again.',
+      reason: reason,
     };
   }
 }
