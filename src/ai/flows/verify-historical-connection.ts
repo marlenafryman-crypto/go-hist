@@ -34,26 +34,6 @@ Critically evaluate the player's explanation. Is the historical connection stron
 
 Based on your evaluation, decide if the connection is valid and provide your reasoning.
 `,
-  config: {
-    safetySettings: [
-      {
-        category: 'HARM_CATEGORY_HATE_SPEECH',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_HARASSMENT',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-      },
-    ],
-  },
 });
 
 const verifyHistoricalConnectionFlow = ai.defineFlow(
@@ -68,7 +48,8 @@ const verifyHistoricalConnectionFlow = ai.defineFlow(
       if (!output) {
         return {
           isValid: false,
-          reason: 'The historian AI was unable to provide a valid response. This may be due to a safety filter or an internal error. Please rephrase your explanation or try a different connection.',
+          reason:
+            'The historian AI was unable to provide a valid response. This may be due to a safety filter or an internal error. Please rephrase your explanation or try a different connection.',
         };
       }
       return output;

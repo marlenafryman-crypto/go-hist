@@ -7,7 +7,6 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
 import {
   FindMatchingCardInputSchema,
   FindMatchingCardOutputSchema,
@@ -39,26 +38,6 @@ const prompt = ai.definePrompt({
 
   If no card is a good match, return a reason explaining why none of the cards fit the request. Only return a card if it's a strong, direct match. Be strict.
   `,
-  config: {
-    safetySettings: [
-      {
-        category: 'HARM_CATEGORY_HATE_SPEECH',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_HARASSMENT',
-        threshold: 'BLOCK_LOW_AND_ABOVE',
-      },
-      {
-        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
-      },
-    ],
-  },
 });
 
 const findMatchingCardFlow = ai.defineFlow(
