@@ -44,7 +44,6 @@ function GamePageContent() {
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
-  const [showSelectSetDialog, setShowSelectSetDialog] = useState(false);
   const [hasTakenAction, setHasTakenAction] = useState(false);
 
 
@@ -652,7 +651,6 @@ function GamePageContent() {
                   selectedCards={selectedCards} 
                   onVerified={handleVerifiedConnection}
                 />
-                <Button variant="outline" className="w-full" onClick={() => setShowSelectSetDialog(true)}>I Have a Set</Button>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -799,19 +797,6 @@ function GamePageContent() {
             </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <AlertDialog open={showSelectSetDialog} onOpenChange={setShowSelectSetDialog}>
-        <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle className="font-headline text-2xl">Select Your Set</AlertDialogTitle>
-              <AlertDialogDescription>
-                Select 4 cards from your hand to form a set. Once selected, click the 'Declare a Hist Set' button.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogAction onClick={() => setShowSelectSetDialog(false)}>OK</AlertDialogAction>
-            </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </>
   );
 }
@@ -823,5 +808,7 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
 
     
