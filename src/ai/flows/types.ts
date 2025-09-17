@@ -43,7 +43,7 @@ export type VerifyHistSetInput = z.infer<typeof VerifyHistSetInputSchema>;
 
 export const VerifyHistSetOutputSchema = z.object({
     isValid: z.boolean().describe('Whether the historical connection explanation is valid and follows the rules.'),
-    reason: z.string().describe('The reasoning behind the validity determination.'),
+    reason: z.string().describe('The reasoning behind the validity determination. If the set is valid, confirm it. If invalid, explain why (e.g., connection too weak, no Person card).'),
 });
 export type VerifyHistSetOutput = z.infer<typeof VerifyHistSetOutputSchema>;
 

@@ -73,7 +73,6 @@ const verifyHistSetFlow = ai.defineFlow(
     outputSchema: VerifyHistSetOutputSchema,
   },
   async input => {
-    // Rule 1: Check for at least one Person card
     const hasPersonCard = input.cards.some(card => card.type === 'Person');
     if (!hasPersonCard) {
       return {
@@ -82,7 +81,6 @@ const verifyHistSetFlow = ai.defineFlow(
       };
     }
     
-    // If the rule is met, proceed with AI validation
     const {output} = await prompt(input);
     return output!;
   }
