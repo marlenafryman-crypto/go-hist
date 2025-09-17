@@ -134,7 +134,7 @@ export default function JoinGamePage() {
               ))}
             </CardContent>
             <CardFooter className="flex-col gap-4">
-              <Button type="submit" className="w-full" disabled={playerNames.some(name => name.trim() === '') || totalPlayers < 2}>
+              <Button type="submit" className="w-full" disabled={playerNames.some(name => name.trim() === '') || totalPlayers < 2 || totalPlayers > MAX_PLAYERS}>
                 Start New Game
               </Button>
             </CardFooter>
@@ -148,3 +148,5 @@ export default function JoinGamePage() {
     </main>
   );
 }
+
+    

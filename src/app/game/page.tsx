@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -191,6 +192,7 @@ function GamePageContent() {
       const drawnCard = newDeck.pop();
       if (!drawnCard) {
         addToLog('Deck is empty!');
+        setHasTakenAction(true);
         return { ...prev, turnPhase: 'action' };
       }
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
@@ -210,6 +212,7 @@ function GamePageContent() {
       const drawnCard = newDiscardPile.pop();
 
       if (!drawnCard) {
+        setHasTakenAction(true);
         return prev;
       }
 
@@ -284,7 +287,7 @@ function GamePageContent() {
         
         setSelectedCards([]);
         setHasTakenAction(true);
-        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
       });
   }
   
@@ -330,7 +333,20 @@ function GamePageContent() {
 
       addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
       setSelectedCards([]);
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+      
+      const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
+      
+      if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+      }
+
+      const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
+      const nextPlayerIndex = (currentPlayerIndex + 1) % newPlayers.length;
+      const nextPlayer = newPlayers[nextPlayerIndex];
+      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
+      
+      setHasTakenAction(false);
+      return { ...prev, log: newLog, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
     });
   };
 
@@ -343,13 +359,13 @@ function GamePageContent() {
       card = selectedCards[0];
     } 
     else if (!card) {
-      if (currentPlayer.hand.length > 0) {
+      if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
           card = currentPlayer.hand[currentPlayer.hand.length - 1];
       }
     }
     
     if (!card) {
-      if (currentPlayer.hand.length === 0) {
+      if (currentPlayer.hand.length <= INITIAL_HAND_SIZE) {
            updateGameState(prev => {
               if (!prev) return null;
               const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
@@ -363,9 +379,10 @@ function GamePageContent() {
            return;
       }
       if (currentPlayer.isHuman) {
+        addToLog("You must select a card to discard.");
         return;
       }
-       if (!currentPlayer.isHuman && currentPlayer.hand.length > 0) {
+       if (!currentPlayer.isHuman && currentPlayer.hand.length > INITIAL_HAND_SIZE) {
         card = currentPlayer.hand[currentPlayer.hand.length - 1];
       } else {
         return; 
@@ -379,16 +396,29 @@ function GamePageContent() {
         let newDiscardPile = prev.discardPile;
         let logMessage = '';
 
-        if(card) {
-          const finalCardToDiscard = card;
+        const finalCardToDiscard = card;
+        if(finalCardToDiscard) {
           newPlayers = prev.players.map(p => {
               if (p.id === currentPlayer.id) {
                   return { ...p, hand: p.hand.filter(c => c.id !== finalCardToDiscard.id) };
               }
               return p;
           });
-          newDiscardPile = [...prev.discardPile, card];
-          logMessage = `${currentPlayer.name} discarded "${card.name}".`;
+          newDiscardPile = [...prev.discardPile, finalCardToDiscard];
+          logMessage = `${currentPlayer.name} discarded "${finalCardToDiscard.name}".`;
+        }
+
+        const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
+        if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
+            setSelectedCards([]);
+            const newLog = [logMessage, ...prev.log].filter(Boolean).slice(0, 20);
+            return {
+                ...prev,
+                players: newPlayers,
+                discardPile: newDiscardPile,
+                log: newLog,
+                turnPhase: 'discard',
+            };
         }
 
         const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
@@ -482,19 +512,41 @@ function GamePageContent() {
   }, [gameState, currentPlayer, winner, addToLog, handleAskForCard, handleDrawFromDeck, handleDrawFromDiscard, handleFormHistSet]);
 
   useEffect(() => {
-    if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !winner) {
+    if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !hasTakenAction && !winner) {
         const timer = setTimeout(() => handleAiTurn(), 2000);
         return () => clearTimeout(timer);
     }
-  }, [currentPlayer?.id, turnPhase, winner, handleAiTurn]);
+  }, [currentPlayer?.id, turnPhase, winner, handleAiTurn, hasTakenAction]);
 
   useEffect(() => {
-    if(currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
+     if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
        setTimeout(() => {
         handleDiscardCard();
       }, 2000);
     }
   }, [currentPlayer?.id, turnPhase, winner, handleDiscardCard]);
+
+  useEffect(() => {
+    if (currentPlayer && hasTakenAction && turnPhase === 'action') {
+      if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
+        if (!currentPlayer.isHuman) {
+          updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
+        }
+      } else {
+        updateGameState(prev => {
+          if (!prev || !currentPlayer) return null;
+          
+          const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
+          const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
+          const nextPlayer = prev.players[nextPlayerIndex];
+          const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
+          
+          setHasTakenAction(false);
+          return { ...prev, log: newLog, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
+        });
+      }
+    }
+  }, [currentPlayer, hasTakenAction, turnPhase, updateGameState]);
 
 
   if (!gameState || !currentPlayer) {
@@ -537,15 +589,17 @@ function GamePageContent() {
                   <BookOpenCheck className="w-4 h-4 mr-2" />
                   Declare Set
               </Button>
-              <Button variant="destructive" size="sm" onClick={() => updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null)}>
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  Go to Discard
-              </Button>
+              { (hasTakenAction && currentPlayer.hand.length > INITIAL_HAND_SIZE) &&
+                <Button variant="destructive" size="sm" onClick={() => updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null)}>
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Go to Discard
+                </Button>
+              }
             </div>
          );
       case 'discard':
         return (
-            <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1 && currentPlayer.hand.length > 0}>
+            <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1}>
                 <Trash2 className="w-4 h-4 mr-2" />
                 Discard Selected Card
             </Button>
@@ -570,7 +624,7 @@ function GamePageContent() {
                 {players.map(p => (
                   <li key={p.id} className="flex justify-between items-center text-sm">
                     <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>
-                      {p.name} {humanPlayerIds.includes(p.id) ? `(P${humanPlayerIds.indexOf(p.id) + 1})` : '(AI)'}
+                      {p.name} {p.isHuman ? `(You)` : '(AI)'}
                     </span>
                     <Badge variant="secondary">{p.histSets.length} Sets</Badge>
                   </li>
@@ -639,7 +693,7 @@ function GamePageContent() {
               </div>
               <div>
                   <p className="text-center font-headline mb-2">Discard</p>
-                  <div className={turnPhase === 'action' ? 'cursor-pointer' : 'cursor-not-allowed'} onClick={turnPhase === 'action' ? handleDrawFromDiscard : undefined}>
+                  <div className={(turnPhase === 'action' && !hasTakenAction) ? 'cursor-pointer' : 'cursor-not-allowed'} onClick={(turnPhase === 'action' && !hasTakenAction) ? handleDrawFromDiscard : undefined}>
                   {topOfDiscard ? (
                       <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
                   ) : (
@@ -769,3 +823,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
