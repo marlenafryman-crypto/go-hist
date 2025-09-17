@@ -1,28 +1,24 @@
 'use server';
 
-import { verifyHistoricalConnection, VerifyHistoricalConnectionInput, VerifyHistoricalConnectionOutput } from '@/ai/flows/verify-historical-connection';
 import { findMatchingCard } from '@/ai/flows/find-matching-card';
 import type { FindMatchingCardInput, FindMatchingCardOutput, VerifyHistSetInput, VerifyHistSetOutput, GetAiPlayerActionInput, GetAiPlayerActionOutput } from '@/ai/flows/types';
 import { verifyHistSet } from '@/ai/flows/verify-hist-set';
 import { getAiPlayerAction } from '@/ai/flows/get-ai-player-action';
+import { getHistoricalSuggestions, GetHistoricalSuggestionsInput, GetHistoricalSuggestionsOutput } from '@/ai/flows/get-historical-suggestions';
 
 
-export async function verifyConnectionAction(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
-  try {
-    const result = await verifyHistoricalConnection(input);
-    return result;
-  } catch (error) {
-    console.error('Error in verifyConnectionAction:', error);
-    let reason = 'An unexpected error occurred while communicating with the historian AI. Please try again.';
-    if (error instanceof Error) {
-        reason = `An error occurred: ${error.message}. Please try again.`;
+export async function getHistoricalSuggestionsAction(input: GetHistoricalSuggestionsInput): Promise<GetHistoricalSuggestionsOutput> {
+    try {
+        const result = await getHistoricalSuggestions(input);
+        return result;
+    } catch (error) {
+        console.error('Error getting historical suggestions:', error);
+        return {
+            suggestions: [],
+        };
     }
-    return {
-      isValid: false,
-      reason: reason,
-    };
-  }
 }
+
 
 export async function findMatchingCardAction(input: FindMatchingCardInput): Promise<FindMatchingCardOutput> {
     try {

@@ -11,14 +11,13 @@ import { ScrollArea } from '../ui/scroll-area';
 interface GameCardProps {
   card: CardType | 'back';
   isSelected?: boolean;
-  isVerified?: boolean;
   onSelect?: (card: CardType) => void;
   className?: string;
   isPlayerCard?: boolean;
   inSet?: boolean;
 }
 
-export function GameCard({ card, isSelected, isVerified, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
+export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
   if (card === 'back') {
     return (
       <Card className={cn("bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
@@ -57,8 +56,7 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
         onClick={handleSelect}
         className={cn(
           "w-full h-full flex flex-col shadow-lg border-4 transition-all duration-200",
-          isSelected ? 'border-ring shadow-2xl' : 'border-card',
-          isVerified ? 'border-blue-500' : '',
+          isSelected ? 'border-primary shadow-2xl scale-105' : 'border-card',
           isInteractive ? 'cursor-pointer' : 'cursor-default',
           inSet ? 'border-green-500' : ''
         )}
@@ -88,5 +86,3 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
     </div>
   );
 }
-
-    

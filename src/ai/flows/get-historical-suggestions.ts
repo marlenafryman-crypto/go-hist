@@ -22,7 +22,7 @@ const GetHistoricalSuggestionsOutputSchema = z.object({
   suggestions: z
     .array(z.string())
     .describe(
-      'A list of suggestions for cards that have a close historical connection to the card in the player\'s hand.'
+      'A list of 3-5 brief ideas for cards (people, events, or concepts) that have a close historical connection to the card in the player\'s hand. These are just ideas to help the player.'
     ),
 });
 export type GetHistoricalSuggestionsOutput = z.infer<
@@ -39,13 +39,14 @@ const prompt = ai.definePrompt({
   name: 'getHistoricalSuggestionsPrompt',
   input: {schema: GetHistoricalSuggestionsInputSchema},
   output: {schema: GetHistoricalSuggestionsOutputSchema},
-  prompt: `You are a historian providing suggestions for cards that have a close historical connection to a card in the player's hand.
+  prompt: `You are a historian providing suggestions for the card game "Go Hist!".
+A player has selected a card and needs ideas for other cards that could form a historically connected set of 4.
 
-  Given the following card description:
-  {{cardDescription}}
+The player's card has this description:
+"{{cardDescription}}"
 
-  Suggest a list of cards that would form a valid Hist Set with the described card. Return the suggestions as a JSON array of strings.
-  `,
+Based on this card, suggest a list of 3-5 distinct people, events, or concepts that have a strong historical connection to it. Keep the suggestions brief and to the point.
+`,
 });
 
 const getHistoricalSuggestionsFlow = ai.defineFlow(
@@ -55,7 +56,13 @@ const getHistoricalSuggestionsFlow = ai.defineFlow(
     outputSchema: GetHistoricalSuggestionsOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    try {
+      const {output} = await prompt(input);
+      return output || { suggestions: [] };
+    } catch (error) {
+      console.error('Error in getHistoricalSuggestionsFlow:', error);
+      // Return an empty list on error to prevent crashes.
+      return { suggestions: [] };
+    }
   }
 );

@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -9,10 +7,10 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
+import { SuggestionProvider } from '@/components/game/SuggestionProvider';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, BookOpenCheck, ChevronLeft, Trophy, Scale, Trash2, ArrowDownToLine, HelpCircle } from 'lucide-react';
+import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, HelpCircle, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -39,7 +37,6 @@ function GamePageContent() {
   
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
-  const [verifiedConnectionCards, setVerifiedConnectionCards] = useState<string[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
@@ -132,7 +129,6 @@ function GamePageContent() {
     updateGameState(newGameState);
     setWinner(null);
     setSelectedCards([]);
-    setVerifiedConnectionCards([]);
     setHasTakenAction(false);
   }, [searchParams, updateGameState]);
 
@@ -166,14 +162,22 @@ function GamePageContent() {
     setSelectedCards(prev => {
       const isSelected = prev.find(c => c.id === card.id);
       if (isSelected) {
-        return prev.filter(c => c.id !== card.id);
+        // If the card is already selected, unselect it and any others
+        return [];
       }
+      
       if (turnPhase === 'action') {
+        // In action phase, allow up to 4 cards to be selected for forming a set,
+        // but the suggestion provider will only use the first one.
         if (prev.length < 4) {
-          return [...prev, card];
+            return [...prev, card];
+        } else {
+            // If 4 are already selected, replace the selection with the new card
+            return [card];
         }
       }
       if (turnPhase === 'discard') {
+        // In discard phase, only one card can be selected
         return [card];
       }
       return prev;
@@ -512,14 +516,20 @@ function GamePageContent() {
   }, [currentPlayer?.id, turnPhase, winner, handleDiscardCard]);
 
   useEffect(() => {
-    if (currentPlayer && hasTakenAction && turnPhase === 'action') {
+    if (currentPlayer && hasTakenAction && turnPhase === 'action' && !winner) {
       if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
-        updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
+        if (!currentPlayer.isHuman) {
+          handleDiscardCard();
+        } else {
+          updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
+        }
       } else {
-        endTurn();
+        if (!currentPlayer.isHuman) {
+          endTurn();
+        }
       }
     }
-  }, [currentPlayer?.id, hasTakenAction, turnPhase, updateGameState, endTurn, currentPlayer?.hand.length]);
+  }, [currentPlayer, hasTakenAction, turnPhase, updateGameState, endTurn, winner, handleDiscardCard]);
 
 
   if (!gameState || !currentPlayer) {
@@ -535,11 +545,6 @@ function GamePageContent() {
   }
 
   const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
-
-  const handleVerifiedConnection = (card1Id: string, card2Id: string) => {
-    setVerifiedConnectionCards(prev => [...new Set([...prev, card1Id, card2Id])]);
-  };
-
 
   const renderTurnSpecificControls = () => {
     const isPlayerTurn = currentPlayer.isHuman;
@@ -562,6 +567,11 @@ function GamePageContent() {
                   <BookOpenCheck className="w-4 h-4 mr-2" />
                   Declare Set
               </Button>
+              { (hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE) &&
+                <Button variant="secondary" size="sm" onClick={endTurn}>
+                    End Turn
+                </Button>
+              }
               { (hasTakenAction && currentPlayer.hand.length > INITIAL_HAND_SIZE) &&
                 <Button variant="destructive" size="sm" onClick={() => updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null)}>
                     <Trash2 className="w-4 h-4 mr-2" />
@@ -619,12 +629,9 @@ function GamePageContent() {
               </AccordionContent>
             </AccordionItem>
              <AccordionItem value="item-2">
-              <AccordionTrigger className="font-headline text-xl">Consult the Historian</AccordionTrigger>
+              <AccordionTrigger className="font-headline text-xl flex items-center gap-2"><Lightbulb /> Consult the Historian</AccordionTrigger>
               <AccordionContent className="pt-4 space-y-4">
-                <ConnectionVerifier 
-                  selectedCards={selectedCards} 
-                  onVerified={handleVerifiedConnection}
-                />
+                <SuggestionProvider selectedCards={selectedCards} />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -692,7 +699,6 @@ function GamePageContent() {
                     key={card.id}
                     card={card}
                     isSelected={!!selectedCards.find(c => c.id === card.id)}
-                    isVerified={verifiedConnectionCards.includes(card.id)}
                     onSelect={handleSelectCard}
                     isPlayerCard={true}
                   />
