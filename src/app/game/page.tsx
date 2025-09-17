@@ -133,7 +133,7 @@ function GamePageContent() {
     setWinner(null);
     setSelectedCards([]);
     setVerifiedConnectionCards([]);
-  }, [searchParams, updateGameState]);
+  }, [searchParams, updateGameState, addToLog]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -167,15 +167,18 @@ function GamePageContent() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
-      if(turnPhase === 'discard') {
+      if (turnPhase === 'discard') {
+        // In discard phase, only allow one card to be selected.
         return [card];
       }
-      if(prev.length >= 4) {
-        return prev;
+      if (prev.length < 4) {
+        // In action phase, allow up to 4 cards.
+        return [...prev, card];
       }
-      return [...prev, card];
+      return prev; // Max 4 cards selected
     });
   };
+  
 
    const handleDrawFromDeck = () => {
     if (!gameState || !currentPlayer || turnPhase !== 'action' || winner) return;
@@ -251,7 +254,7 @@ function GamePageContent() {
         return { ...prev, players: newPlayers, turnPhase: 'action' };
       });
     } else {
-      addToLog(`Go Hist! ${opponent.name} did not have a matching card. ${currentPlayer.name} must draw.`);
+      addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
       
       updateGameState(prev => {
         if (!prev || !currentPlayer) return null;
@@ -488,7 +491,7 @@ function GamePageContent() {
         const timer = setTimeout(() => handleAiTurn(), 2000);
         return () => clearTimeout(timer);
     }
-  }, [currentPlayerId, turnPhase, winner, handleAiTurn, currentPlayer]);
+  }, [currentPlayer, turnPhase, winner, handleAiTurn]);
 
   useEffect(() => {
     if(currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
@@ -496,16 +499,16 @@ function GamePageContent() {
         handleDiscardCard();
       }, 2000);
     }
-  }, [currentPlayerId, turnPhase, winner, handleDiscardCard, currentPlayer]);
+  }, [currentPlayer, turnPhase, winner, handleDiscardCard]);
 
 
   if (!gameState || !currentPlayer) {
       return (
          <div className="flex flex-col items-center justify-center min-h-screen">
-          <p className="font-headline text-2xl mb-4">Loading Game or No Active Game...</p>
-          <p className="text-muted-foreground mb-4">Go back to start a new one.</p>
+          <p className="font-headline text-2xl mb-4">Loading the Past...</p>
+          <p className="text-muted-foreground mb-4">Go back to the main menu to start a new game.</p>
           <Link href="/">
-              <Button>Go to Home</Button>
+              <Button>Main Menu</Button>
           </Link>
         </div>
       );
@@ -520,7 +523,7 @@ function GamePageContent() {
 
   const renderTurnSpecificControls = () => {
     const isPlayerTurn = currentPlayer.isHuman;
-    if (!isPlayerTurn) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for other players...</p>;
+    if (!isPlayerTurn) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for {currentPlayer.name}...</p>;
 
     switch (turnPhase) {
       case 'action':
@@ -591,23 +594,40 @@ function GamePageContent() {
         </aside>
 
         <main className="flex-1 flex flex-col p-6">
-            <div className="flex items-end justify-center space-x-8 my-8 flex-grow">
-                <div>
-                    <p className="text-center font-headline mb-2">Deck</p>
-                    <GameCard card="back" className="w-[120px] h-[180px]" />
+          <div className="flex-1 overflow-y-auto space-y-8">
+            {otherPlayers.map(player => (
+              <div key={player.id}>
+                <h3 className="font-headline text-lg mb-2">{player.name}'s Hand ({player.hand.length})</h3>
+                <div className="flex items-end gap-2 p-2 bg-muted/20 rounded-lg min-h-[120px]">
+                  {player.hand.map((card, index) => (
+                    <GameCard
+                      key={`${player.id}-${index}`}
+                      card="back"
+                      isPlayerCard={false}
+                    />
+                  ))}
                 </div>
-                <div>
-                    <p className="text-center font-headline mb-2">Discard</p>
-                    <div className="cursor-not-allowed">
-                    {topOfDiscard ? (
-                        <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
-                    ) : (
-                        <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
-                            <p className="text-xs text-muted-foreground">Empty</p>
-                        </div>
-                    )}
-                    </div>
-                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-end justify-center space-x-8 my-8">
+              <div>
+                  <p className="text-center font-headline mb-2">Deck</p>
+                  <GameCard card="back" className="w-[120px] h-[180px]" />
+              </div>
+              <div>
+                  <p className="text-center font-headline mb-2">Discard</p>
+                  <div className={turnPhase === 'action' ? 'cursor-pointer' : 'cursor-not-allowed'} onClick={turnPhase === 'action' ? handleDrawFromDiscard : undefined}>
+                  {topOfDiscard ? (
+                      <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
+                  ) : (
+                      <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
+                          <p className="text-xs text-muted-foreground">Empty</p>
+                      </div>
+                  )}
+                  </div>
+              </div>
           </div>
 
           <div className="bg-card/50 p-4 rounded-lg border">
@@ -715,8 +735,10 @@ function GamePageContent() {
 
 export default function GamePage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading the Past...</div>}>
       <GamePageContent />
     </Suspense>
   );
 }
+
+    
