@@ -483,7 +483,7 @@ function GamePageContent() {
     } else if (!currentPlayer?.isHuman || turnPhase === 'discard' || winner) {
         setShowTurnActionDialog(false);
     }
-  }, [currentPlayer, turnPhase, winner, showTurnActionDialog]);
+  }, [currentPlayer?.id, turnPhase, winner, showTurnActionDialog]);
 
 
   useEffect(() => {
@@ -491,7 +491,7 @@ function GamePageContent() {
         const timer = setTimeout(() => handleAiTurn(), 2000);
         return () => clearTimeout(timer);
     }
-  }, [currentPlayer, turnPhase, winner, handleAiTurn]);
+  }, [currentPlayer?.id, turnPhase, winner, handleAiTurn]);
 
   useEffect(() => {
     if(currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
@@ -499,7 +499,7 @@ function GamePageContent() {
         handleDiscardCard();
       }, 2000);
     }
-  }, [currentPlayer, turnPhase, winner, handleDiscardCard]);
+  }, [currentPlayer?.id, turnPhase, winner, handleDiscardCard]);
 
 
   if (!gameState || !currentPlayer) {
@@ -740,5 +740,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
