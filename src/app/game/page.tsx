@@ -212,24 +212,40 @@ function GamePageContent() {
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
 
-    // Let the AI check the hand
-    const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
-    const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
-    const askedCard = opponent.hand.find(c => c.id === result.cardId);
+    // Let the AI check the hand if the opponent is an AI, or if we need to simulate the check for a human
+    let askedCard: CardType | undefined;
+    if (!opponent.isHuman) {
+        const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
+        const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
+        askedCard = opponent.hand.find(c => c.id === result.cardId);
+    } else {
+        // Here you might add UI for the human opponent to respond. For now, we simulate.
+        // For this local hot-seat game, we can just check their hand.
+        const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
+        const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
+        askedCard = opponent.hand.find(c => c.id === result.cardId);
+    }
+
 
     if (askedCard) {
-      addToLog(`${opponent.name} had "${askedCard.name}"! ${currentPlayer.name} takes it and goes again. Reason: ${result.reason}`);
+      addToLog(`${opponent.name} had "${askedCard.name}"! ${currentPlayer.name} takes it and gets to take another action.`);
       
+      const cardToTransfer = askedCard; // for clarity
+
       updateGameState(prev => {
         if (!prev) return null;
-        const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
-        const newPlayerHand = [...currentPlayer.hand, askedCard];
+        let newPlayers = [...prev.players];
+
+        const opponentIndex = newPlayers.findIndex(p => p.id === opponentId);
+        const playerIndex = newPlayers.findIndex(p => p.id === currentPlayer!.id);
+
+        if(opponentIndex === -1 || playerIndex === -1) return prev;
+
+        const newOpponentHand = newPlayers[opponentIndex].hand.filter(c => c.id !== cardToTransfer.id);
+        const newPlayerHand = [...newPlayers[playerIndex].hand, cardToTransfer];
         
-        const newPlayers = prev.players.map(p => {
-          if (p.id === opponentId) return { ...p, hand: newOpponentHand };
-          if (p.id === currentPlayer.id) return { ...p, hand: newPlayerHand };
-          return p;
-        });
+        newPlayers[opponentIndex] = {...newPlayers[opponentIndex], hand: newOpponentHand };
+        newPlayers[playerIndex] = {...newPlayers[playerIndex], hand: newPlayerHand };
         
         // Player's turn continues.
         return { ...prev, players: newPlayers, turnPhase: 'action' };
@@ -313,6 +329,7 @@ function GamePageContent() {
 
       addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
       setSelectedCards([]);
+      // Player's turn continues for a discard action
       return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
     });
   };
@@ -320,28 +337,37 @@ function GamePageContent() {
   const handleDiscardCard = (cardToDiscard?: CardType) => {
     if (!currentPlayer || !gameState || gameState.turnPhase !== 'discard' || winner) return;
     
-    const card = cardToDiscard || selectedCards[0];
-    if (!card && (!cardToDiscard && selectedCards.length === 0)) {
-        if(currentPlayer.hand.length === 0) {
-            // If hand is empty, just end turn.
-            updateGameState(prev => {
-                if (!prev) return null;
-                const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
-                const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
-                const nextPlayer = prev.players[nextPlayerIndex];
-                
-                const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].filter(Boolean).slice(0, 20);
-                
-                return {
-                    ...prev,
-                    log: newLog,
-                    currentPlayerId: nextPlayer.id,
-                    turnPhase: 'action',
-                };
-            });
-            return;
-        }
+    let card = cardToDiscard;
+
+    // For human player, get card from selection
+    if (currentPlayer.isHuman) {
+      card = selectedCards[0];
+    } 
+    // For AI player, if no card is provided, auto-select one
+    else if (!card) {
+      if (currentPlayer.hand.length > 0) {
+          card = currentPlayer.hand[currentPlayer.hand.length - 1]; // AI discards last card
+      }
+    }
+    
+    if (!card) {
+      // This should only happen if hand is empty, in which case we just end turn.
+      if (currentPlayer.hand.length === 0) {
+           updateGameState(prev => {
+              if (!prev) return null;
+              const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
+              const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
+              const nextPlayer = prev.players[nextPlayerIndex];
+              const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
+              
+              return { ...prev, log: newLog, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
+           });
+           return;
+      }
+      // If human and no card selected, do nothing.
+      if (currentPlayer.isHuman) {
         return;
+      }
     }
 
     updateGameState(prev => {
@@ -352,9 +378,10 @@ function GamePageContent() {
         let logMessage = '';
 
         if(card) {
+          const finalCardToDiscard = card; // for type safety in filter
           newPlayers = prev.players.map(p => {
               if (p.id === currentPlayer.id) {
-                  return { ...p, hand: p.hand.filter(c => c.id !== card.id) };
+                  return { ...p, hand: p.hand.filter(c => c.id !== finalCardToDiscard.id) };
               }
               return p;
           });
@@ -456,31 +483,16 @@ function GamePageContent() {
     if (gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner, handleAiTurn]); // More precise dependencies
+  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner]);
 
   // AI Discard Logic
   useEffect(() => {
     if(gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'discard' && !winner) {
        setTimeout(() => {
-        // Double check state inside timeout to avoid race conditions
-        setGameState(currentState => {
-            if (!currentState) return null;
-            const currentAiPlayer = currentState.players.find(p => p.id === currentState.currentPlayerId);
-            if (currentAiPlayer && !currentAiPlayer.isHuman && currentState.turnPhase === 'discard') {
-                if (currentAiPlayer.hand.length > 0) {
-                   // A slightly smarter discard: discard the last card drawn if it doesn't help form a set
-                   const cardToDiscard = currentAiPlayer.hand[currentAiPlayer.hand.length - 1];
-                   handleDiscardCard(cardToDiscard);
-                } else {
-                    // If hand is empty, just end turn by discarding nothing
-                    handleDiscardCard(undefined);
-                }
-            }
-            return currentState;
-        });
+        handleDiscardCard();
     }, 2000); // Wait a bit before discarding
     }
-  }, [gameState, currentPlayer, winner]);
+  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner]);
 
 
   if (!gameState || !currentPlayer) {
@@ -595,28 +607,24 @@ function GamePageContent() {
 
         {/* Main Game Area */}
         <main className="flex-1 flex flex-col p-6">
-          {/* Opponents' Area */}
-          <div className="flex-1 flex flex-col items-center justify-center py-8">
-              {/* Deck and Discard Pile */}
-                <div className="flex items-end space-x-8 my-8">
-                    <div>
-                        <p className="text-center font-headline mb-2">Deck</p>
-                        <GameCard card="back" className="w-[120px] h-[180px]" />
-                    </div>
-                    <div>
-                        <p className="text-center font-headline mb-2">Discard</p>
-                        <div onClick={handleDrawFromDiscard} className={gameState.turnPhase === 'action' && currentPlayer.isHuman && !winner ? "cursor-pointer" : "cursor-not-allowed"}>
-                        {topOfDiscard ? (
-                            <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
-                        ) : (
-                            <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
-                                <p className="text-xs text-muted-foreground">Empty</p>
-                            </div>
-                        )}
+          {/* Deck and Discard Pile */}
+            <div className="flex items-end justify-center space-x-8 my-8 flex-grow">
+                <div>
+                    <p className="text-center font-headline mb-2">Deck</p>
+                    <GameCard card="back" className="w-[120px] h-[180px]" />
+                </div>
+                <div>
+                    <p className="text-center font-headline mb-2">Discard</p>
+                    <div onClick={handleDrawFromDiscard} className={gameState.turnPhase === 'action' && currentPlayer.isHuman && !winner ? "cursor-pointer" : "cursor-not-allowed"}>
+                    {topOfDiscard ? (
+                        <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
+                    ) : (
+                        <div className="w-[120px] h-[180px] rounded-lg border-2 border-dashed bg-muted/50 flex items-center justify-center">
+                            <p className="text-xs text-muted-foreground">Empty</p>
                         </div>
+                    )}
                     </div>
-              </div>
-
+                </div>
           </div>
 
           {/* Player's Hand Area */}
@@ -691,3 +699,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
