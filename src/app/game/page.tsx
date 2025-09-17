@@ -42,6 +42,13 @@ function GamePageContent() {
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
 
+  // Isolate core state primitives from gameState to stabilize dependencies
+  const players = useMemo(() => gameState?.players || [], [gameState?.players]);
+  const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
+  const turnPhase = useMemo(() => gameState?.turnPhase, [gameState?.turnPhase]);
+  const log = useMemo(() => gameState?.log || [], [gameState?.log]);
+  const deck = useMemo(() => gameState?.deck || [], [gameState?.deck]);
+
   const updateGameState = useCallback((newState: GameState | null) => {
     setGameState(newState);
     if (typeof window !== 'undefined') {
@@ -61,10 +68,6 @@ function GamePageContent() {
       return newState;
     });
   }, [updateGameState]);
-
-  const players = useMemo(() => gameState?.players || [], [gameState?.players]);
-  const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
-  const turnPhase = useMemo(() => gameState?.turnPhase, [gameState?.turnPhase]);
   
   const currentPlayer = useMemo(() => {
     if (!players || !currentPlayerId) return null;
@@ -135,7 +138,7 @@ function GamePageContent() {
     if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
       try {
         const savedGameState = JSON.parse(savedGame);
-        if (savedGameState) {
+        if (savedGameState && savedGameState.players) { // Basic validation
             setGameState(savedGameState);
             const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
             if (winningPlayer) {
@@ -160,7 +163,7 @@ function GamePageContent() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
-      if(gameState?.turnPhase === 'discard') {
+      if(turnPhase === 'discard') {
         return [card];
       }
       if(prev.length >= 4) {
@@ -171,7 +174,7 @@ function GamePageContent() {
   };
 
    const handleDrawFromDeck = () => {
-    if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || winner) return;
+    if (!gameState || !currentPlayer || turnPhase !== 'action' || winner) return;
 
     updateGameState(prev => {
       if (!prev || !currentPlayer) return prev;
@@ -190,7 +193,7 @@ function GamePageContent() {
   };
 
   const handleDrawFromDiscard = () => {
-    if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || winner) return;
+    if (!gameState || !currentPlayer || turnPhase !== 'action' || winner) return;
     
     updateGameState(prev => {
       if (!prev || !currentPlayer || prev.turnPhase !== 'action') return prev;
@@ -326,7 +329,7 @@ function GamePageContent() {
   };
 
   const handleDiscardCard = (cardToDiscard?: CardType) => {
-    if (!currentPlayer || !gameState || gameState.turnPhase !== 'discard' || winner) return;
+    if (!currentPlayer || !gameState || turnPhase !== 'discard' || winner) return;
     
     let card = cardToDiscard;
 
@@ -354,6 +357,11 @@ function GamePageContent() {
       }
       if (currentPlayer.isHuman) {
         return;
+      }
+       if (!currentPlayer.isHuman && currentPlayer.hand.length > 0) {
+        card = currentPlayer.hand[currentPlayer.hand.length - 1];
+      } else {
+        return; 
       }
     }
 
@@ -463,13 +471,13 @@ function GamePageContent() {
         break;
     }
 
-  }, [gameState, currentPlayer, winner, addToLog]);
+  }, [gameState, currentPlayer, winner, addToLog, handleAskForCard, handleDrawFromDeck, handleDrawFromDiscard, handleFormHistSet]);
 
   useEffect(() => {
     if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [currentPlayer, turnPhase, winner, handleAiTurn]);
+  }, [currentPlayer, turnPhase, winner, handleAiTurn, currentPlayerId]);
 
   useEffect(() => {
     if(currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
@@ -477,7 +485,7 @@ function GamePageContent() {
         handleDiscardCard();
       }, 2000);
     }
-  }, [currentPlayer, turnPhase, winner, gameState]);
+  }, [currentPlayer, turnPhase, winner, handleDiscardCard, currentPlayerId]);
 
 
   if (!gameState || !currentPlayer) {
@@ -510,7 +518,7 @@ function GamePageContent() {
     const isPlayerTurn = currentPlayer.isHuman;
     if (!isPlayerTurn) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for other players...</p>;
 
-    switch (gameState.turnPhase) {
+    switch (turnPhase) {
       case 'action':
          return (
             <div className="flex justify-center items-center gap-4">
@@ -518,9 +526,9 @@ function GamePageContent() {
                     <BookOpenCheck className="w-4 h-4 mr-2" />
                     Declare a Hist Set
                 </Button>
-                <Button onClick={handleDrawFromDeck} disabled={gameState.deck.length === 0} variant="outline">
+                <Button onClick={handleDrawFromDeck} disabled={deck.length === 0} variant="outline">
                     <ArrowDownToLine className="w-4 h-4 mr-2" />
-                    Draw from Deck ({gameState.deck.length})
+                    Draw from Deck ({deck.length})
                 </Button>
             </div>
          );
@@ -548,7 +556,7 @@ function GamePageContent() {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
-                {gameState.players.map(p => (
+                {players.map(p => (
                   <li key={p.id} className="flex justify-between items-center text-sm">
                     <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>
                       {p.name} {humanPlayerIds.includes(p.id) ? `(P${humanPlayerIds.indexOf(p.id) + 1})` : '(AI)'}
@@ -566,7 +574,7 @@ function GamePageContent() {
                  <AskForCard 
                   otherPlayers={otherPlayers}
                   onAsk={handleAskForCard}
-                  disabled={gameState.turnPhase !== 'action' || !currentPlayer.isHuman || !!winner}
+                  disabled={turnPhase !== 'action' || !currentPlayer.isHuman || !!winner}
                 />
                 <ConnectionVerifier 
                   selectedCards={selectedCards} 
@@ -579,7 +587,7 @@ function GamePageContent() {
                <AccordionContent className="pt-4">
                   <ScrollArea className="h-48 w-full rounded-md border p-2">
                     <ul className="space-y-1">
-                      {gameState.log.map((entry, i) => (
+                      {log.map((entry, i) => (
                         <li key={i} className="text-xs text-muted-foreground">{entry}</li>
                       ))}
                     </ul>
@@ -597,7 +605,10 @@ function GamePageContent() {
                 </div>
                 <div>
                     <p className="text-center font-headline mb-2">Discard</p>
-                    <div onClick={handleDrawFromDiscard} className={gameState.turnPhase === 'action' && currentPlayer.isHuman && !winner ? "cursor-pointer" : "cursor-not-allowed"}>
+                    <div 
+                      onClick={turnPhase === 'action' ? handleDrawFromDiscard : undefined} 
+                      className={turnPhase === 'action' && currentPlayer.isHuman && !winner ? "cursor-pointer" : "cursor-not-allowed"}
+                    >
                     {topOfDiscard ? (
                         <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
                     ) : (
@@ -613,7 +624,7 @@ function GamePageContent() {
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
                 <div className="flex items-center gap-4">
-                  <p className="text-sm text-muted-foreground font-headline">Turn: <span className="text-primary font-bold">{gameState.turnPhase.toUpperCase()}</span></p>
+                  <p className="text-sm text-muted-foreground font-headline">Turn: <span className="text-primary font-bold">{turnPhase.toUpperCase()}</span></p>
                   {renderTurnSpecificControls()}
                 </div>
             </div>
@@ -680,5 +691,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
