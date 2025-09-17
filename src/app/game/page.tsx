@@ -50,6 +50,18 @@ function GamePageContent() {
     }
   };
 
+   const addToLog = useCallback((message: string) => {
+    setGameState(prev => {
+      if (!prev) return null;
+      const newLog = [message, ...prev.log].slice(0, 20);
+      const newState = { ...prev, log: newLog };
+       if (gameCode && typeof window !== 'undefined') {
+        window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
+      }
+      return newState;
+    });
+  }, [gameCode]);
+
   const currentPlayer = useMemo(() => {
     return gameState?.players.find(p => p.id === gameState.currentPlayerId);
   }, [gameState]);
@@ -101,22 +113,26 @@ function GamePageContent() {
     updateGameState(newGameState);
     setWinner(null);
     setSelectedCards([]);
-  }, [searchParams, gameCode]);
+  }, [searchParams]);
 
   useEffect(() => {
     if (!gameCode || typeof window === 'undefined') return;
 
     const savedGame = window.localStorage.getItem(`game-${gameCode}`);
     if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
-      const savedGameState = JSON.parse(savedGame);
-      if (savedGameState) {
-        setGameState(savedGameState);
-        // Check if there is a winner in the loaded state
-        const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
-        if (winningPlayer) {
-          setWinner(winningPlayer);
+      try {
+        const savedGameState = JSON.parse(savedGame);
+        if (savedGameState) {
+            setGameState(savedGameState);
+            const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
+            if (winningPlayer) {
+            setWinner(winningPlayer);
+            }
+        } else {
+            startNewGame();
         }
-      } else {
+      } catch (e) {
+        console.error("Failed to parse saved game state:", e);
         startNewGame();
       }
     } else if (searchParams.get('numPlayers')) {
@@ -124,34 +140,17 @@ function GamePageContent() {
     }
   }, [gameCode, startNewGame, searchParams]);
 
-
-  const addToLog = (message: string) => {
-    setGameState(prev => {
-      const newState = prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null;
-      if (newState && gameCode) {
-        setGameState(currentState => {
-          if (currentState) {
-             const finalState = {...currentState, log: [message, ...currentState.log].slice(0, 20)};
-             window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(finalState));
-             return finalState;
-          }
-          return currentState;
-        });
-      }
-      return newState;
-    });
-  };
   
   const endTurn = useCallback(() => {
-    updateGameState(prev => {
+    setGameState(prev => {
       if (!prev) return null;
       const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
       const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
       const nextPlayer = prev.players[nextPlayerIndex];
       
-      addToLog(`It is now ${nextPlayer.name}'s turn.`);
+      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0,20);
       
-      const newState = { ...prev, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const };
+      const newState = { ...prev, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const, log: newLog };
       
       if (!nextPlayer.isHuman) {
         setIsAiTurn(true);
@@ -162,7 +161,7 @@ function GamePageContent() {
       return newState;
     });
     setSelectedCards([]);
-  }, [updateGameState]);
+  }, []);
 
   const handleSelectCard = (card: CardType) => {
     setSelectedCards(prev => {
@@ -228,8 +227,6 @@ function GamePageContent() {
     const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
     const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
 
-    let playerGoesAgain = false;
-
     updateGameState(prev => {
       if (!prev) return null;
       
@@ -239,7 +236,7 @@ function GamePageContent() {
       const askedCard = opponent.hand.find(c => c.id === result.cardId);
 
       if (askedCard) {
-        addToLog(`${opponent.name} had "${askedCard.name}"! ${thisPlayer.name} takes it and goes again. Reason: ${result.reason}`);
+        const newLog = [`${opponent.name} had "${askedCard.name}"! ${thisPlayer.name} takes it and goes again. Reason: ${result.reason}`, ...prev.log].slice(0,20);
         
         const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
         const newPlayerHand = [...thisPlayer.hand, askedCard];
@@ -250,19 +247,18 @@ function GamePageContent() {
           return p;
         });
         
-        playerGoesAgain = true;
         // After a successful ask, player has another action. Does not go to discard.
-        return { ...prev, players: newPlayers, turnPhase: 'action' };
+        return { ...prev, players: newPlayers, turnPhase: 'action', log: newLog };
       } else {
-        addToLog(`Go Hist! ${opponent.name} did not have a matching card. ${thisPlayer.name} must draw.`);
+        let newLog = [`Go Hist! ${opponent.name} did not have a matching card. ${thisPlayer.name} must draw.`, ...prev.log].slice(0,20);
         
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
         
         if(drawnCard) {
-            addToLog(`${thisPlayer.name} drew "${drawnCard.name}".`);
+            newLog = [`${thisPlayer.name} drew "${drawnCard.name}".`, ...newLog].slice(0,20);
         } else {
-            addToLog(`Deck is empty!`);
+            newLog = [`Deck is empty!`, ...newLog].slice(0,20);
         }
 
         const newPlayers = prev.players.map(p => {
@@ -276,7 +272,7 @@ function GamePageContent() {
         const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
         const nextPlayerIndex = (currentPlayerIndex + 1) % newPlayers.length;
         const nextPlayer = newPlayers[nextPlayerIndex];
-        addToLog(`It is now ${nextPlayer.name}'s turn.`);
+        newLog = [`It is now ${nextPlayer.name}'s turn.`, ...newLog].slice(0,20);
         
         if (!nextPlayer.isHuman) {
             setIsAiTurn(true);
@@ -284,7 +280,7 @@ function GamePageContent() {
             setIsAiTurn(false);
         }
 
-        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const };
+        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const, log: newLog };
       }
     });
   };
@@ -451,7 +447,7 @@ function GamePageContent() {
         });
     }, 2000); // Wait a bit before discarding
 
-  }, [gameState, currentPlayer]);
+  }, [gameState, currentPlayer, addToLog]);
 
   useEffect(() => {
     if (isAiTurn) {
