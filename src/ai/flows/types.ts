@@ -56,7 +56,7 @@ export type VerifyHistoricalConnectionInput = z.infer<typeof VerifyHistoricalCon
 
 export const VerifyHistoricalConnectionOutputSchema = z.object({
   isValid: z.boolean().describe('Whether the historical connection explanation is valid.'),
-  reason: z.string().describe('The reasoning behind the validity determination.'),
+  reason: z.string().describe('The reasoning behind the validity determination. If the connection is valid, this should be a brief confirmation. If it is invalid, this should explain why.'),
 });
 export type VerifyHistoricalConnectionOutput = z.infer<typeof VerifyHistoricalConnectionOutputSchema>;
 
