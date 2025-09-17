@@ -26,7 +26,6 @@ export default function JoinGamePage() {
   const [playerNames, setPlayerNames] = useState<string[]>(['']);
   const [numPlayers, setNumPlayers] = useState(1);
   const [numAiPlayers, setNumAiPlayers] = useState(1);
-  const [gameCode, setGameCode] = useState('');
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export default function JoinGamePage() {
   const handleStartGame = (e: React.FormEvent) => {
     e.preventDefault();
     if (playerNames.every(name => name.trim() !== '') && isClient) {
-      const code = gameCode || generateGameCode();
+      const code = generateGameCode();
       const queryParams = new URLSearchParams();
       queryParams.set('code', code);
       queryParams.set('numPlayers', String(numPlayers));
@@ -133,19 +132,10 @@ export default function JoinGamePage() {
                   />
                 </div>
               ))}
-              <div className="space-y-2">
-                <Label htmlFor="game-code">Game Code (Optional)</Label>
-                <Input 
-                  id="game-code" 
-                  placeholder="Enter code to join a game" 
-                  value={gameCode}
-                  onChange={(e) => setGameCode(e.target.value)}
-                />
-              </div>
             </CardContent>
             <CardFooter className="flex-col gap-4">
               <Button type="submit" className="w-full" disabled={playerNames.some(name => name.trim() === '') || totalPlayers < 2}>
-                {gameCode ? 'Join Game' : 'Start New Game'}
+                Start New Game
               </Button>
             </CardFooter>
           </form>
