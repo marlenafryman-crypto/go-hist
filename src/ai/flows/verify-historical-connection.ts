@@ -24,17 +24,13 @@ const prompt = ai.definePrompt({
   input: {schema: VerifyHistoricalConnectionInputSchema},
   output: {schema: VerifyHistoricalConnectionOutputSchema},
   prompt: `You are an expert historian. You will be given two cards, and an explanation of how they are historically connected.
-Your job is to determine whether the explanation is valid, and provide a reason for your determination.
+Your job is to determine whether the explanation is valid.
 
 Card 1: {{{card1Name}}}
 Card 2: {{{card2Name}}}
 Explanation: {{{explanation}}}
 
-Is the explanation valid? Answer in the following JSON format:
-{
-  "isValid": boolean,
-  "reason": string
-}`,
+Is the explanation valid? Your response must be ONLY the JSON object, with no other text or formatting.`,
   config: {
     safetySettings: [
       {
