@@ -25,9 +25,17 @@ export default function JoinGamePage() {
     e.preventDefault();
     if (playerName) {
       const code = gameCode || generateGameCode();
-      router.push(`/game?code=${code}&player=${playerName}`);
+      router.push(`/game?code=${code}&player=${encodeURIComponent(playerName)}`);
     }
   };
+
+  const handleNewGame = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (playerName) {
+      const code = generateGameCode();
+      router.push(`/game?code=${code}&player=${encodeURIComponent(playerName)}`);
+    }
+  }
 
   return (
     <main className="flex min-h-screen items-center justify-center p-8 bg-background">
@@ -43,8 +51,8 @@ export default function JoinGamePage() {
         <Card className="shadow-2xl">
           <form onSubmit={handleJoinGame}>
             <CardHeader>
-              <CardTitle className="font-headline text-3xl">Join a Game</CardTitle>
-              <CardDescription>Enter your name and a game code to begin.</CardDescription>
+              <CardTitle className="font-headline text-3xl">Join or Start a Game</CardTitle>
+              <CardDescription>Enter your name, then join an existing game or start a new one.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
@@ -58,10 +66,10 @@ export default function JoinGamePage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="game-code">Game Code</Label>
+                <Label htmlFor="game-code">Game Code (Optional)</Label>
                 <Input 
                   id="game-code" 
-                  placeholder="Enter code or leave blank to start new" 
+                  placeholder="Enter code to join a game" 
                   value={gameCode}
                   onChange={(e) => setGameCode(e.target.value)}
                 />
@@ -69,7 +77,7 @@ export default function JoinGamePage() {
             </CardContent>
             <CardFooter className="flex-col gap-4">
               <Button type="submit" className="w-full" disabled={!playerName}>
-                Enter the Past
+                {gameCode ? 'Join Game' : 'Start New Game'}
               </Button>
             </CardFooter>
           </form>
