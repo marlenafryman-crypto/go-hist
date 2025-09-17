@@ -12,7 +12,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, BookOpenCheck, ChevronLeft, Trophy, Scale, Trash2, ArrowDownToLine } from 'lucide-react';
+import { Users, BookOpenCheck, ChevronLeft, Trophy, Scale, Trash2, ArrowDownToLine, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -42,7 +42,8 @@ function GamePageContent() {
   const [verifiedConnectionCards, setVerifiedConnectionCards] = useState<string[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
-  const [showDrawDialog, setShowDrawDialog] = useState(false);
+  const [showTurnActionDialog, setShowTurnActionDialog] = useState(false);
+  const [showAskDialog, setShowAskDialog] = useState(false);
 
 
   // Isolate core state primitives from gameState to stabilize dependencies
@@ -217,6 +218,7 @@ function GamePageContent() {
   const handleAskForCard = async (opponentId: string, request: string) => {
     if (!gameState || !currentPlayer || winner) return;
 
+    setShowAskDialog(false);
     const opponent = gameState.players.find(p => p.id === opponentId);
     if (!opponent) return;
 
@@ -257,7 +259,7 @@ function GamePageContent() {
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
         let newPlayers = [...prev.players];
-        const newLog = [...prev.log];
+        let newLog = [...prev.log];
         
         if (drawnCard) {
           newLog.unshift(`${currentPlayer.name} drew "${drawnCard.name}".`);
@@ -477,6 +479,15 @@ function GamePageContent() {
   }, [gameState, currentPlayer, winner, addToLog, handleAskForCard, handleDrawFromDeck, handleDrawFromDiscard, handleFormHistSet]);
 
   useEffect(() => {
+    if (currentPlayer?.isHuman && turnPhase === 'action' && !winner && !showTurnActionDialog) {
+        setShowTurnActionDialog(true);
+    } else if (!currentPlayer?.isHuman || turnPhase === 'discard' || winner) {
+        setShowTurnActionDialog(false);
+    }
+  }, [currentPlayer, turnPhase, winner, showTurnActionDialog]);
+
+
+  useEffect(() => {
     if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !winner) {
         const timer = setTimeout(() => handleAiTurn(), 2000);
         return () => clearTimeout(timer);
@@ -493,22 +504,15 @@ function GamePageContent() {
 
 
   if (!gameState || !currentPlayer) {
-    if (searchParams && !searchParams.has('numPlayers')) {
       return (
          <div className="flex flex-col items-center justify-center min-h-screen">
-          <p className="font-headline text-2xl mb-4">No active game.</p>
+          <p className="font-headline text-2xl mb-4">Loading Game or No Active Game...</p>
           <p className="text-muted-foreground mb-4">Go back to start a new one.</p>
           <Link href="/">
               <Button>Go to Home</Button>
           </Link>
         </div>
       );
-    }
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="font-headline text-2xl mb-4">Loading Game...</p>
-      </div>
-    );
   }
 
   const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
@@ -525,16 +529,10 @@ function GamePageContent() {
     switch (turnPhase) {
       case 'action':
          return (
-            <div className="flex justify-center items-center gap-4">
-                 <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
-                    <BookOpenCheck className="w-4 h-4 mr-2" />
-                    Declare a Hist Set
-                </Button>
-                <Button onClick={() => setShowDrawDialog(true)} variant="outline">
-                    <ArrowDownToLine className="w-4 h-4 mr-2" />
-                    Draw or Take a Card
-                </Button>
-            </div>
+            <Button onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+                <BookOpenCheck className="w-4 h-4 mr-2" />
+                Declare a Hist Set
+            </Button>
          );
       case 'discard':
         return (
@@ -575,12 +573,7 @@ function GamePageContent() {
             <AccordionItem value="item-1">
               <AccordionTrigger className="font-headline text-xl">Game Tools</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-4">
-                 <AskForCard 
-                  otherPlayers={otherPlayers}
-                  onAsk={handleAskForCard}
-                  disabled={turnPhase !== 'action' || !currentPlayer.isHuman || !!winner}
-                />
-                <ConnectionVerifier 
+                 <ConnectionVerifier 
                   selectedCards={selectedCards} 
                   onVerified={handleVerifiedConnection}
                 />
@@ -681,23 +674,44 @@ function GamePageContent() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <AlertDialog open={showDrawDialog} onOpenChange={setShowDrawDialog}>
+       <AlertDialog open={showTurnActionDialog} onOpenChange={setShowTurnActionDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-headline text-2xl">Draw or Take a Card</AlertDialogTitle>
+            <AlertDialogTitle className="font-headline text-2xl">It's your turn, {currentPlayer.name}!</AlertDialogTitle>
             <AlertDialogDescription>
-              Choose your action. You can either draw a new card from the top of the deck or take the top card from the discard pile.
+              What would you like to do?
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <Button variant="outline" onClick={() => { handleDrawFromDeck(); setShowDrawDialog(false); }} disabled={deck.length === 0}>
-              Draw from Deck ({deck.length})
+          <div className="grid grid-cols-1 gap-4 py-4">
+             <Button variant="outline" onClick={() => { setShowAskDialog(true); setShowTurnActionDialog(false); }}>
+                <HelpCircle className="mr-2"/> Ask a Player for a Card
+             </Button>
+             <Button variant="outline" onClick={() => { handleDrawFromDeck(); setShowTurnActionDialog(false); }} disabled={deck.length === 0}>
+              <ArrowDownToLine className="mr-2"/> Draw from Deck ({deck.length})
             </Button>
-            <Button onClick={() => { handleDrawFromDiscard(); setShowDrawDialog(false); }} disabled={!topOfDiscard}>
-              Take Discard: "{topOfDiscard?.name}"
+            <Button variant="outline" onClick={() => { handleDrawFromDiscard(); setShowTurnActionDialog(false); }} disabled={!topOfDiscard}>
+               <Trash2 className="mr-2"/> Take Discard: "{topOfDiscard?.name}"
             </Button>
-          </AlertDialogFooter>
+          </div>
         </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={showAskDialog} onOpenChange={setShowAskDialog}>
+          <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="font-headline text-2xl">Ask for a Card</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Ask another player for a card you need to complete a set.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AskForCard
+                  otherPlayers={otherPlayers}
+                  onAsk={handleAskForCard}
+                  disabled={!currentPlayer.isHuman || !!winner}
+              />
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+              </AlertDialogFooter>
+          </AlertDialogContent>
       </AlertDialog>
     </>
   );
