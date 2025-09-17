@@ -38,28 +38,35 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
       onSelect(card);
     }
   };
+  
+  const isInteractive = !!onSelect;
 
-  const cardBaseSize = isPlayerCard ? 'w-[150px] h-[225px]' : 'w-[200px] h-[300px]';
-  const cardTitleSize = isPlayerCard ? 'text-sm' : 'text-base';
-  const iconSize = isPlayerCard ? 'w-3 h-3' : 'w-4 h-4';
-  const cardDescriptionSize = isPlayerCard ? 'text-xs' : 'text-sm';
-  const imageSize = isPlayerCard ? 'h-[60px]' : 'h-[120px]';
-  const textContentSize = isPlayerCard ? 'text-[10px]' : 'text-xs';
+  const cardBaseSize = isPlayerCard ? 'w-[150px] h-[225px]' : 'w-[120px] h-[180px]';
+  const cardTitleSize = isPlayerCard ? 'text-sm' : 'text-xs';
+  const iconSize = isPlayerCard ? 'w-3 h-3' : 'w-3 h-3';
+  const cardDescriptionSize = isPlayerCard ? 'text-xs' : 'text-[10px]';
+  const imageSize = isPlayerCard ? 'h-[60px]' : 'h-[80px]';
+  const textContentSize = isPlayerCard ? 'text-[10px]' : 'text-[9px]';
 
 
   return (
-    <div className={cn('relative', cardBaseSize, className)}>
+    <div className={cn(
+      'relative shrink-0', 
+      cardBaseSize, 
+      className,
+      isInteractive ? "transition-all duration-300 transform hover:scale-110 hover:-translate-y-4 hover:z-10" : ""
+      )}>
       <Card
         onClick={handleSelect}
         className={cn(
-          "w-full h-full flex flex-col cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg border-4",
+          "w-full h-full flex flex-col shadow-lg border-4",
           isSelected ? 'border-ring shadow-2xl scale-105' : 'border-card',
           inSet ? 'border-green-500' : '',
-          onSelect ? '' : 'cursor-default hover:scale-100'
+          isInteractive ? 'cursor-pointer' : 'cursor-default'
         )}
       >
-        <CardHeader className="p-2 md:p-3">
-          <CardTitle className={cn("font-headline leading-snug", cardTitleSize)}>{card.name}</CardTitle>
+        <CardHeader className="p-2">
+          <CardTitle className={cn("font-headline leading-tight whitespace-normal", cardTitleSize)}>{card.name}</CardTitle>
           <div className="flex items-center space-x-2">
             {card.type === 'Person' ? <User className={cn(iconSize, "text-muted-foreground")} /> : <History className={cn(iconSize, "text-muted-foreground")} />}
             <CardDescription className={cardDescriptionSize}>{card.type}</CardDescription>
@@ -76,7 +83,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
             />
           </div>
           <ScrollArea className="flex-grow">
-            <p className={cn("p-2 md:p-3 text-foreground/80 leading-snug", textContentSize)}>{card.description}</p>
+            <p className={cn("p-2 text-foreground/80 leading-snug", textContentSize)}>{card.description}</p>
           </ScrollArea>
         </CardContent>
       </Card>

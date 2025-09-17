@@ -14,6 +14,7 @@ export interface Player {
   name: string;
   hand: Card[];
   histSets: Card[][];
+  isHuman: boolean;
 }
 
 export interface GameState {

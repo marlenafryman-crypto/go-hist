@@ -18,7 +18,7 @@ const formSchema = z.object({
 
 interface AskForCardProps {
   otherPlayers: Player[];
-  onAsk: (opponentId: string, request: string) => void;
+  onAsk: (opponentId: string, request: string) => Promise<void>;
   disabled?: boolean;
 }
 

@@ -19,12 +19,13 @@ const formSchema = z.object({
 
 interface HistSetVerifierProps {
   selectedCards: CardType[];
-  onVerified: () => void;
+  onVerified: (explanation: string) => void;
 }
 
 export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<VerifyHistSetOutput | null>(null);
+  const [explanation, setExplanation] = useState('');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,6 +37,7 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     setResult(null);
+    setExplanation(values.explanation);
 
     const aiCards = selectedCards.map(({ id, name, type, description }) => ({ id, name, type, description }));
     const verificationResult = await verifyHistSetAction({
@@ -83,7 +85,7 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
           <AlertDescription>
             <p className="mb-4">{result.reason}</p>
             {result.isValid && (
-                <Button onClick={onVerified}>Form This Set</Button>
+                <Button onClick={() => onVerified(explanation)}>Form This Set</Button>
             )}
           </AlertDescription>
         </Alert>
