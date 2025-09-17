@@ -45,7 +45,6 @@ function GamePageContent() {
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [showSelectSetDialog, setShowSelectSetDialog] = useState(false);
 
-  // Isolate core state primitives from gameState to stabilize dependencies
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
   const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
   const turnPhase = useMemo(() => gameState?.turnPhase, [gameState?.turnPhase]);
@@ -141,7 +140,7 @@ function GamePageContent() {
     if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
       try {
         const savedGameState = JSON.parse(savedGame);
-        if (savedGameState && savedGameState.players) { // Basic validation
+        if (savedGameState && savedGameState.players) {
             setGameState(savedGameState);
             const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
             if (winningPlayer) {
@@ -301,7 +300,6 @@ function GamePageContent() {
       let newHand = [...(currentPlayer.hand || [])];
       newHand = newHand.filter(c => !cardsToSet.find(sc => sc.id === c.id));
       
-      // Draw 4 new cards
       for(let i=0; i<4; i++) {
         const drawnCard = newDeck.pop();
         if (drawnCard) {
@@ -341,7 +339,7 @@ function GamePageContent() {
     } 
     else if (!card) {
       if (currentPlayer.hand.length > 0) {
-          card = currentPlayer.hand[currentPlayer.hand.length - 1]; // AI discards last card
+          card = currentPlayer.hand[currentPlayer.hand.length - 1];
       }
     }
     
@@ -605,13 +603,23 @@ function GamePageContent() {
               <div key={player.id}>
                 <h3 className="font-headline text-lg mb-2">{player.name}'s Hand ({player.hand.length})</h3>
                 <div className="flex items-end gap-2 p-2 bg-muted/20 rounded-lg min-h-[120px]">
-                  {player.hand.map((_, index) => (
-                    <GameCard
-                      key={`${player.id}-${index}`}
-                      card="back"
-                      isPlayerCard={false}
-                    />
-                  ))}
+                  {player.isHuman ? (
+                      player.hand.map(card => (
+                        <GameCard
+                          key={card.id}
+                          card={card}
+                          isPlayerCard={false}
+                        />
+                      ))
+                  ) : (
+                      player.hand.map((_, index) => (
+                        <GameCard
+                          key={`${player.id}-${index}`}
+                          card="back"
+                          isPlayerCard={false}
+                        />
+                      ))
+                  )}
                 </div>
               </div>
             ))}
