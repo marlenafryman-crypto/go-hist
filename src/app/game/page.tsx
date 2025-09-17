@@ -44,6 +44,7 @@ function GamePageContent() {
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showTurnActionDialog, setShowTurnActionDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
+  const [showConnectionVerifier, setShowConnectionVerifier] = useState(false);
 
 
   // Isolate core state primitives from gameState to stabilize dependencies
@@ -133,7 +134,7 @@ function GamePageContent() {
     setWinner(null);
     setSelectedCards([]);
     setVerifiedConnectionCards([]);
-  }, [searchParams, updateGameState, addToLog]);
+  }, [searchParams, updateGameState]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -570,26 +571,17 @@ function GamePageContent() {
           </Card>
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="font-headline text-xl">Game Tools</AccordionTrigger>
-              <AccordionContent className="space-y-4 pt-4">
-                 <ConnectionVerifier 
-                  selectedCards={selectedCards} 
-                  onVerified={handleVerifiedConnection}
-                />
+              <AccordionTrigger className="font-headline text-xl">Game Log</AccordionTrigger>
+              <AccordionContent className="pt-4">
+                <ScrollArea className="h-48 w-full rounded-md border p-2">
+                  <ul className="space-y-1">
+                    {log.map((entry, i) => (
+                      <li key={i} className="text-xs text-muted-foreground">{entry}</li>
+                    ))}
+                  </ul>
+                </ScrollArea>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-2">
-               <AccordionTrigger className="font-headline text-xl">Game Log</AccordionTrigger>
-               <AccordionContent className="pt-4">
-                  <ScrollArea className="h-48 w-full rounded-md border p-2">
-                    <ul className="space-y-1">
-                      {log.map((entry, i) => (
-                        <li key={i} className="text-xs text-muted-foreground">{entry}</li>
-                      ))}
-                    </ul>
-                  </ScrollArea>
-               </AccordionContent>
-             </AccordionItem>
           </Accordion>
         </aside>
 
@@ -699,6 +691,9 @@ function GamePageContent() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="grid grid-cols-1 gap-4 py-4">
+            <Button variant="outline" onClick={() => { setShowConnectionVerifier(true); setShowTurnActionDialog(false); }}>
+                <Scale className="mr-2"/> Check a Connection
+             </Button>
              <Button variant="outline" onClick={() => { setShowAskDialog(true); setShowTurnActionDialog(false); }}>
                 <HelpCircle className="mr-2"/> Ask a Player for a Card
              </Button>
@@ -724,6 +719,23 @@ function GamePageContent() {
                   onAsk={handleAskForCard}
                   disabled={!currentPlayer.isHuman || !!winner}
               />
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+              </AlertDialogFooter>
+          </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={showConnectionVerifier} onOpenChange={setShowConnectionVerifier}>
+          <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="font-headline text-2xl">Consult the Historian</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Select two cards from your hand and explain the connection.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <ConnectionVerifier 
+                  selectedCards={selectedCards} 
+                  onVerified={handleVerifiedConnection}
+                />
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
