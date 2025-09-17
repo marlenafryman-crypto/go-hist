@@ -44,6 +44,8 @@ function GamePageContent() {
   const [showAskDialog, setShowAskDialog] = useState(false);
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [showSelectSetDialog, setShowSelectSetDialog] = useState(false);
+  const [hasTakenAction, setHasTakenAction] = useState(false);
+
 
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
   const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
@@ -131,6 +133,7 @@ function GamePageContent() {
     setWinner(null);
     setSelectedCards([]);
     setVerifiedConnectionCards([]);
+    setHasTakenAction(false);
   }, [searchParams, updateGameState]);
 
   useEffect(() => {
@@ -179,7 +182,7 @@ function GamePageContent() {
   
 
    const handleDrawFromDeck = () => {
-    if (!gameState || !currentPlayer || turnPhase !== 'action' || winner) return;
+    if (!gameState || !currentPlayer || turnPhase !== 'action' || winner || hasTakenAction) return;
 
     updateGameState(prev => {
       if (!prev || !currentPlayer) return prev;
@@ -193,12 +196,13 @@ function GamePageContent() {
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
       
       addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
+      setHasTakenAction(true);
       return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
     });
   };
 
   const handleDrawFromDiscard = () => {
-    if (!gameState || !currentPlayer || turnPhase !== 'action' || winner) return;
+    if (!gameState || !currentPlayer || turnPhase !== 'action' || winner || hasTakenAction) return;
     
     updateGameState(prev => {
       if (!prev || !currentPlayer || prev.turnPhase !== 'action') return prev;
@@ -212,12 +216,13 @@ function GamePageContent() {
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
 
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
+      setHasTakenAction(true);
       return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'action' };
     });
   };
 
   const handleAskForCard = async (opponentId: string, request: string) => {
-    if (!gameState || !currentPlayer || winner) return;
+    if (!gameState || !currentPlayer || winner || hasTakenAction) return;
 
     setShowAskDialog(false);
     const opponent = gameState.players.find(p => p.id === opponentId);
@@ -278,7 +283,7 @@ function GamePageContent() {
         }
         
         setSelectedCards([]);
-
+        setHasTakenAction(true);
         return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
       });
   }
@@ -352,6 +357,7 @@ function GamePageContent() {
               const nextPlayer = prev.players[nextPlayerIndex];
               const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
               
+              setHasTakenAction(false);
               return { ...prev, log: newLog, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
            });
            return;
@@ -392,6 +398,7 @@ function GamePageContent() {
         const newLog = [`It is now ${nextPlayer.name}'s turn.`, logMessage, ...prev.log].filter(Boolean).slice(0, 20);
         
         setSelectedCards([]);
+        setHasTakenAction(false);
 
         return {
             ...prev,
@@ -517,13 +524,13 @@ function GamePageContent() {
       case 'action':
          return (
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => setShowAskDialog(true)}>
+              <Button variant="outline" size="sm" onClick={() => setShowAskDialog(true)} disabled={hasTakenAction}>
                   <HelpCircle className="mr-2"/> Ask Player
               </Button>
-              <Button variant="outline" size="sm" onClick={handleDrawFromDeck} disabled={deck.length === 0}>
+              <Button variant="outline" size="sm" onClick={handleDrawFromDeck} disabled={deck.length === 0 || hasTakenAction}>
                 <ArrowDownToLine className="mr-2"/> Draw Deck
               </Button>
-              <Button variant="outline" size="sm" onClick={handleDrawFromDiscard} disabled={!topOfDiscard}>
+              <Button variant="outline" size="sm" onClick={handleDrawFromDiscard} disabled={!topOfDiscard || hasTakenAction}>
                 <Trash2 className="mr-2"/> Take Discard
               </Button>
               <Button variant="outline" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
@@ -603,19 +610,19 @@ function GamePageContent() {
               <div key={player.id}>
                 <h3 className="font-headline text-lg mb-2">{player.name}'s Hand ({player.hand.length})</h3>
                 <div className="flex items-end gap-2 p-2 bg-muted/20 rounded-lg min-h-[120px]">
-                  {player.isHuman ? (
-                      player.hand.map(card => (
-                        <GameCard
-                          key={card.id}
-                          card={card}
-                          isPlayerCard={false}
-                        />
-                      ))
-                  ) : (
+                  {!player.isHuman ? (
                       player.hand.map((_, index) => (
                         <GameCard
                           key={`${player.id}-${index}`}
                           card="back"
+                          isPlayerCard={false}
+                        />
+                      ))
+                  ) : (
+                      player.hand.map(card => (
+                        <GameCard
+                          key={card.id}
+                          card={card}
                           isPlayerCard={false}
                         />
                       ))
@@ -715,7 +722,7 @@ function GamePageContent() {
               <AskForCard
                   otherPlayers={otherPlayers}
                   onAsk={handleAskForCard}
-                  disabled={!currentPlayer.isHuman || !!winner}
+                  disabled={!currentPlayer.isHuman || !!winner || hasTakenAction}
               />
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -762,5 +769,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
