@@ -66,10 +66,12 @@ export function ConnectionVerifier({ selectedCards, onVerified }: ConnectionVeri
   
   return (
     <div className="space-y-4">
-      <h3 className="font-headline text-xl flex items-center gap-2">
+      <div className="flex items-center gap-2">
         <Scale className="w-5 h-5 text-primary" />
-        Consult the Historian
-      </h3>
+        <h3 className="font-headline text-lg">
+        Check Card Connections
+        </h3>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
