@@ -4,25 +4,16 @@
  * @fileOverview An AI agent for verifying historical connections between cards.
  *
  * - verifyHistoricalConnection - A function that verifies the historical connection explanation.
- * - VerifyHistoricalConnectionInput - The input type for the verifyHistoricalConnection function.
- * - VerifyHistoricalConnectionOutput - The return type for the verifyHistoricalConnection function.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {
+  VerifyHistoricalConnectionInputSchema,
+  VerifyHistoricalConnectionOutputSchema,
+  type VerifyHistoricalConnectionInput,
+  type VerifyHistoricalConnectionOutput,
+} from './types';
 
-const VerifyHistoricalConnectionInputSchema = z.object({
-  card1Name: z.string().describe('The name of the first card.'),
-  card2Name: z.string().describe('The name of the second card.'),
-  explanation: z.string().describe('The explanation of the historical connection between the two cards.'),
-});
-export type VerifyHistoricalConnectionInput = z.infer<typeof VerifyHistoricalConnectionInputSchema>;
-
-const VerifyHistoricalConnectionOutputSchema = z.object({
-  isValid: z.boolean().describe('Whether the historical connection explanation is valid.'),
-  reason: z.string().describe('The reasoning behind the validity determination.'),
-});
-export type VerifyHistoricalConnectionOutput = z.infer<typeof VerifyHistoricalConnectionOutputSchema>;
 
 export async function verifyHistoricalConnection(input: VerifyHistoricalConnectionInput): Promise<VerifyHistoricalConnectionOutput> {
   return verifyHistoricalConnectionFlow(input);
