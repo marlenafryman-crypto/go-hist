@@ -44,8 +44,6 @@ function GamePageContent() {
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showTurnActionDialog, setShowTurnActionDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
-  const [showConnectionVerifier, setShowConnectionVerifier] = useState(false);
-
 
   // Isolate core state primitives from gameState to stabilize dependencies
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
@@ -168,15 +166,17 @@ function GamePageContent() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
+      // Allow selecting up to 4 cards during 'action' phase for sets/verification
+      if (turnPhase === 'action') {
+        if (prev.length < 4) {
+          return [...prev, card];
+        }
+      }
+      // Allow selecting only 1 card during 'discard' phase
       if (turnPhase === 'discard') {
-        // In discard phase, only allow one card to be selected.
         return [card];
       }
-      if (prev.length < 4) {
-        // In action phase, allow up to 4 cards.
-        return [...prev, card];
-      }
-      return prev; // Max 4 cards selected
+      return prev;
     });
   };
   
@@ -196,7 +196,7 @@ function GamePageContent() {
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
       
       addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
     });
   };
 
@@ -215,7 +215,7 @@ function GamePageContent() {
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
 
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
-      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
+      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'action' };
     });
   };
 
@@ -569,7 +569,7 @@ function GamePageContent() {
               </ul>
             </CardContent>
           </Card>
-          <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+           <Accordion type="single" collapsible className="w-full" defaultValue="item-2">
             <AccordionItem value="item-1">
               <AccordionTrigger className="font-headline text-xl">Game Log</AccordionTrigger>
               <AccordionContent className="pt-4">
@@ -582,6 +582,15 @@ function GamePageContent() {
                 </ScrollArea>
               </AccordionContent>
             </AccordionItem>
+             <AccordionItem value="item-2">
+              <AccordionTrigger className="font-headline text-xl">Consult the Historian</AccordionTrigger>
+              <AccordionContent className="pt-4">
+                <ConnectionVerifier 
+                  selectedCards={selectedCards} 
+                  onVerified={handleVerifiedConnection}
+                />
+              </AccordionContent>
+            </AccordionItem>
           </Accordion>
         </aside>
 
@@ -591,7 +600,7 @@ function GamePageContent() {
               <div key={player.id}>
                 <h3 className="font-headline text-lg mb-2">{player.name}'s Hand ({player.hand.length})</h3>
                 <div className="flex items-end gap-2 p-2 bg-muted/20 rounded-lg min-h-[120px]">
-                  {player.hand.map((card, index) => (
+                  {player.hand.map((_, index) => (
                     <GameCard
                       key={`${player.id}-${index}`}
                       card="back"
@@ -691,9 +700,6 @@ function GamePageContent() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="grid grid-cols-1 gap-4 py-4">
-            <Button variant="outline" onClick={() => { setShowConnectionVerifier(true); setShowTurnActionDialog(false); }}>
-                <Scale className="mr-2"/> Check a Connection
-             </Button>
              <Button variant="outline" onClick={() => { setShowAskDialog(true); setShowTurnActionDialog(false); }}>
                 <HelpCircle className="mr-2"/> Ask a Player for a Card
              </Button>
@@ -702,6 +708,14 @@ function GamePageContent() {
             </Button>
             <Button variant="outline" onClick={() => { handleDrawFromDiscard(); setShowTurnActionDialog(false); }} disabled={!topOfDiscard}>
                <Trash2 className="mr-2"/> Take Discard: "{topOfDiscard?.name}"
+            </Button>
+            <Button variant="outline" onClick={() => { 
+                updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
+                setShowTurnActionDialog(false);
+              }}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Discard a Card
             </Button>
           </div>
         </AlertDialogContent>
@@ -719,23 +733,6 @@ function GamePageContent() {
                   onAsk={handleAskForCard}
                   disabled={!currentPlayer.isHuman || !!winner}
               />
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-              </AlertDialogFooter>
-          </AlertDialogContent>
-      </AlertDialog>
-      <AlertDialog open={showConnectionVerifier} onOpenChange={setShowConnectionVerifier}>
-          <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className="font-headline text-2xl">Consult the Historian</AlertDialogTitle>
-                <AlertDialogDescription>
-                    Select two cards from your hand and explain the connection.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <ConnectionVerifier 
-                  selectedCards={selectedCards} 
-                  onVerified={handleVerifiedConnection}
-                />
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
