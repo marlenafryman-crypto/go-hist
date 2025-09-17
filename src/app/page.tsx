@@ -39,7 +39,7 @@ export default function JoinGamePage() {
     if (totalPlayers > MAX_PLAYERS) {
       setNumAiPlayers(MAX_PLAYERS - numPlayers);
     }
-  }, [numPlayers, totalPlayers]);
+  }, [numPlayers, numAiPlayers, totalPlayers]);
 
   const handlePlayerNameChange = (index: number, name: string) => {
     const newPlayerNames = [...playerNames];
