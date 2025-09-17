@@ -212,25 +212,14 @@ function GamePageContent() {
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
 
-    // Let the AI check the hand if the opponent is an AI, or if we need to simulate the check for a human
-    let askedCard: CardType | undefined;
-    if (!opponent.isHuman) {
-        const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
-        const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
-        askedCard = opponent.hand.find(c => c.id === result.cardId);
-    } else {
-        // Here you might add UI for the human opponent to respond. For now, we simulate.
-        // For this local hot-seat game, we can just check their hand.
-        const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
-        const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
-        askedCard = opponent.hand.find(c => c.id === result.cardId);
-    }
-
+    const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
+    const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
+    const askedCard = opponent.hand.find(c => c.id === result.cardId);
 
     if (askedCard) {
       addToLog(`${opponent.name} had "${askedCard.name}"! ${currentPlayer.name} takes it and gets to take another action.`);
       
-      const cardToTransfer = askedCard; // for clarity
+      const cardToTransfer = askedCard;
 
       updateGameState(prev => {
         if (!prev) return null;
@@ -247,7 +236,6 @@ function GamePageContent() {
         newPlayers[opponentIndex] = {...newPlayers[opponentIndex], hand: newOpponentHand };
         newPlayers[playerIndex] = {...newPlayers[playerIndex], hand: newPlayerHand };
         
-        // Player's turn continues.
         return { ...prev, players: newPlayers, turnPhase: 'action' };
       });
     } else {
@@ -329,7 +317,6 @@ function GamePageContent() {
 
       addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
       setSelectedCards([]);
-      // Player's turn continues for a discard action
       return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
     });
   };
@@ -339,11 +326,9 @@ function GamePageContent() {
     
     let card = cardToDiscard;
 
-    // For human player, get card from selection
     if (currentPlayer.isHuman) {
       card = selectedCards[0];
     } 
-    // For AI player, if no card is provided, auto-select one
     else if (!card) {
       if (currentPlayer.hand.length > 0) {
           card = currentPlayer.hand[currentPlayer.hand.length - 1]; // AI discards last card
@@ -351,7 +336,6 @@ function GamePageContent() {
     }
     
     if (!card) {
-      // This should only happen if hand is empty, in which case we just end turn.
       if (currentPlayer.hand.length === 0) {
            updateGameState(prev => {
               if (!prev) return null;
@@ -364,7 +348,6 @@ function GamePageContent() {
            });
            return;
       }
-      // If human and no card selected, do nothing.
       if (currentPlayer.isHuman) {
         return;
       }
@@ -378,7 +361,7 @@ function GamePageContent() {
         let logMessage = '';
 
         if(card) {
-          const finalCardToDiscard = card; // for type safety in filter
+          const finalCardToDiscard = card;
           newPlayers = prev.players.map(p => {
               if (p.id === currentPlayer.id) {
                   return { ...p, hand: p.hand.filter(c => c.id !== finalCardToDiscard.id) };
@@ -436,7 +419,7 @@ function GamePageContent() {
       canWin,
     });
   
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Dramatic pause
+    await new Promise(resolve => setTimeout(resolve, 1000));
   
     switch (aiAction.action) {
       case 'formSet':
@@ -476,27 +459,25 @@ function GamePageContent() {
         break;
     }
 
-  }, [gameState, currentPlayer, winner, addToLog, updateGameState]);
-
+  }, [gameState, currentPlayer, winner, addToLog]);
 
   useEffect(() => {
     if (gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner]);
+  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner, handleAiTurn, currentPlayer, gameState]);
 
-  // AI Discard Logic
   useEffect(() => {
     if(gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'discard' && !winner) {
        setTimeout(() => {
         handleDiscardCard();
-    }, 2000); // Wait a bit before discarding
+      }, 2000);
     }
-  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner]);
+  }, [gameState, currentPlayer, winner]);
 
 
   if (!gameState || !currentPlayer) {
-    if (searchParams && !searchParams.get('numPlayers')) {
+    if (searchParams && !searchParams.has('numPlayers')) {
       return (
          <div className="flex flex-col items-center justify-center min-h-screen">
           <p className="font-headline text-2xl mb-4">No active game.</p>
@@ -554,7 +535,6 @@ function GamePageContent() {
   return (
     <>
       <div className="flex h-screen bg-background text-foreground">
-        {/* Sidebar */}
         <aside className="w-96 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
           <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
 
@@ -605,9 +585,7 @@ function GamePageContent() {
           </Accordion>
         </aside>
 
-        {/* Main Game Area */}
         <main className="flex-1 flex flex-col p-6">
-          {/* Deck and Discard Pile */}
             <div className="flex items-end justify-center space-x-8 my-8 flex-grow">
                 <div>
                     <p className="text-center font-headline mb-2">Deck</p>
@@ -627,7 +605,6 @@ function GamePageContent() {
                 </div>
           </div>
 
-          {/* Player's Hand Area */}
           <div className="bg-card/50 p-4 rounded-lg border">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
@@ -699,5 +676,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
