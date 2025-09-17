@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,10 +20,15 @@ export default function JoinGamePage() {
   const router = useRouter();
   const [playerName, setPlayerName] = useState('');
   const [gameCode, setGameCode] = useState('');
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleJoinGame = (e: React.FormEvent) => {
     e.preventDefault();
-    if (playerName) {
+    if (playerName && isClient) {
       const code = gameCode || generateGameCode();
       router.push(`/game?code=${code}&player=${encodeURIComponent(playerName)}`);
     }
@@ -31,7 +36,7 @@ export default function JoinGamePage() {
 
   const handleNewGame = (e: React.FormEvent) => {
     e.preventDefault();
-    if (playerName) {
+    if (playerName && isClient) {
       const code = generateGameCode();
       router.push(`/game?code=${code}&player=${encodeURIComponent(playerName)}`);
     }
@@ -107,3 +112,5 @@ export default function JoinGamePage() {
     </main>
   );
 }
+
+    

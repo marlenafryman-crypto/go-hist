@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, Suspense } from 'react';
+import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import type { GameState, Player, Card as CardType } from '@/lib/types';
 import { DECK } from '@/lib/mock-data';
@@ -42,12 +42,19 @@ function GamePageContent() {
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
 
+  const updateGameState = (newState: GameState | null) => {
+    setGameState(newState);
+    if (gameCode && typeof window !== 'undefined') {
+      window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
+    }
+  };
+
   const currentPlayer = useMemo(() => {
     return gameState?.players.find(p => p.id === gameState.currentPlayerId);
   }, [gameState]);
 
-  const startNewGame = () => {
-     const shuffledDeck = shuffle(DECK);
+  const startNewGame = useCallback(() => {
+    const shuffledDeck = shuffle(DECK);
     const players: Player[] = [
       { id: 'player1', name: playerName, hand: [], histSets: [] },
       { id: 'player2', name: 'Ada Lovelace', hand: [], histSets: [] },
@@ -63,24 +70,51 @@ function GamePageContent() {
       }
     }
 
-    setGameState({
+    const newGameState = {
       players,
       deck: shuffledDeck,
       discardPile: [shuffledDeck.pop()!],
       currentPlayerId: 'player1',
-      turnPhase: 'action',
+      turnPhase: 'action' as 'action' | 'discard',
       log: ['New game started.'],
-    });
+    };
+    
+    updateGameState(newGameState);
     setWinner(null);
     setSelectedCards([]);
-  }
+  }, [playerName, gameCode]);
+
+  useEffect(() => {
+    if (!gameCode || typeof window === 'undefined') return;
+
+    const savedGame = window.localStorage.getItem(`game-${gameCode}`);
+    if (savedGame) {
+      const savedGameState = JSON.parse(savedGame);
+      setGameState(savedGameState);
+      // Check if there is a winner in the loaded state
+      const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
+      if (winningPlayer) {
+        setWinner(winningPlayer);
+      }
+    } else {
+      // Only start a new game if one doesn't exist.
+      // This is wrapped in a button now, so this logic might be redundant.
+    }
+  }, [gameCode]);
+
 
   const addToLog = (message: string) => {
-    setGameState(prev => prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null);
+    setGameState(prev => {
+      const newState = prev ? { ...prev, log: [message, ...prev.log].slice(0, 20) } : null;
+      if (newState && gameCode) {
+        window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
+      }
+      return newState;
+    });
   };
   
   const endTurn = () => {
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev) return null;
       const nextPlayerIndex = (prev.players.findIndex(p => p.id === prev.currentPlayerId) + 1) % prev.players.length;
       const nextPlayerId = prev.players[nextPlayerIndex].id;
@@ -109,7 +143,7 @@ function GamePageContent() {
    const handleDrawFromDeck = () => {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action') return;
 
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev) return null;
       const newDeck = [...prev.deck];
       const drawnCard = newDeck.pop();
@@ -117,8 +151,7 @@ function GamePageContent() {
         addToLog('Deck is empty!');
         return prev;
       }
-      const newHand = [...currentPlayer.hand, drawnCard];
-      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
+      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
       
       addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
       return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
@@ -128,7 +161,7 @@ function GamePageContent() {
   const handleDrawFromDiscard = () => {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action') return;
     
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev) return null;
       const newDiscardPile = [...prev.discardPile];
       const drawnCard = newDiscardPile.pop();
@@ -137,8 +170,7 @@ function GamePageContent() {
         return prev;
       }
 
-      const newHand = [...currentPlayer.hand, drawnCard];
-      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: newHand } : p);
+      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
 
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
       return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
@@ -156,7 +188,7 @@ function GamePageContent() {
     const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
     const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
 
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev) return null;
       
       const thisPlayer = prev.players.find(p => p.id === prev.currentPlayerId);
@@ -186,10 +218,8 @@ function GamePageContent() {
         
         if(drawnCard) {
             addToLog(`${thisPlayer.name} drew "${drawnCard.name}".`);
-            endTurn();
         } else {
             addToLog(`Deck is empty!`);
-            endTurn();
         }
 
         const newPlayers = prev.players.map(p => {
@@ -199,7 +229,12 @@ function GamePageContent() {
             return p;
         });
         
-        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
+        const tempState = { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' as const };
+        
+        // This needs to be a separate call to avoid race condition with endTurn
+        setTimeout(() => endTurn(), 0);
+        
+        return tempState;
       }
     });
   };
@@ -209,7 +244,7 @@ function GamePageContent() {
 
     setShowHistSetDialog(false);
     
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev) return null;
       let winningPlayer: Player | null = null;
       const newDeck = [...prev.deck];
@@ -255,7 +290,7 @@ function GamePageContent() {
 
     const cardToDiscard = selectedCards[0];
     
-    setGameState(prev => {
+    updateGameState(prev => {
         if (!prev) return null;
         
         const newPlayers = prev.players.map(p => {
@@ -500,3 +535,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
