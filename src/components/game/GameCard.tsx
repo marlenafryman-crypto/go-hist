@@ -50,19 +50,14 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
 
 
   return (
-    <div className={cn(
-      'relative shrink-0', 
-      cardBaseSize, 
-      className,
-      "transition-all duration-300 transform hover:scale-110 hover:-translate-y-4 hover:z-10"
-      )}>
+    <div className={cn('relative shrink-0', cardBaseSize, className)}>
       <Card
         onClick={handleSelect}
         className={cn(
-          "w-full h-full flex flex-col shadow-lg border-4",
+          "w-full h-full flex flex-col shadow-lg border-4 transition-all duration-300 ease-in-out",
           isSelected ? 'border-ring shadow-2xl scale-105' : 'border-card',
-          inSet ? 'border-green-500' : '',
-          isInteractive ? 'cursor-pointer' : 'cursor-default'
+          isInteractive ? 'cursor-pointer hover:scale-110 hover:-translate-y-4 hover:z-10' : 'cursor-default',
+          inSet ? 'border-green-500' : ''
         )}
       >
         <CardHeader className="p-2">
