@@ -259,10 +259,10 @@ function GamePageContent() {
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
         let newPlayers = [...prev.players];
-        let newLog = [...prev.log];
+        let logMessage = '';
         
         if (drawnCard) {
-          newLog.unshift(`${currentPlayer.name} drew "${drawnCard.name}".`);
+          logMessage = `${currentPlayer.name} drew "${drawnCard.name}".`;
           newPlayers = prev.players.map(p => {
             if (p.id === currentPlayer.id) {
               return { ...p, hand: [...p.hand, drawnCard] };
@@ -270,18 +270,14 @@ function GamePageContent() {
             return p;
           });
         } else {
-          newLog.unshift(`Deck is empty!`);
+          logMessage = `Deck is empty!`;
         }
         
-        const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
-        const nextPlayerIndex = (currentPlayerIndex + 1) % newPlayers.length;
-        const nextPlayer = newPlayers[nextPlayerIndex];
-        
-        newLog.unshift(`It is now ${nextPlayer.name}'s turn.`);
+        const newLog = [logMessage, ...prev.log].slice(0, 20);
         
         setSelectedCards([]);
 
-        return { ...prev, players: newPlayers, deck: newDeck, log: newLog.slice(0, 20), currentPlayerId: nextPlayer.id, turnPhase: 'action' };
+        return { ...prev, players: newPlayers, deck: newDeck, log: newLog, turnPhase: 'discard' };
       });
     }
   };
