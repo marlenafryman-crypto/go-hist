@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -41,6 +42,8 @@ function GamePageContent() {
   const [verifiedConnectionCards, setVerifiedConnectionCards] = useState<string[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
+  const [showDrawDialog, setShowDrawDialog] = useState(false);
+
 
   // Isolate core state primitives from gameState to stabilize dependencies
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
@@ -475,9 +478,10 @@ function GamePageContent() {
 
   useEffect(() => {
     if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !winner) {
-        handleAiTurn();
+        const timer = setTimeout(() => handleAiTurn(), 2000);
+        return () => clearTimeout(timer);
     }
-  }, [currentPlayer, turnPhase, winner, handleAiTurn, currentPlayerId]);
+  }, [currentPlayerId, turnPhase, winner, handleAiTurn, currentPlayer]);
 
   useEffect(() => {
     if(currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
@@ -485,7 +489,7 @@ function GamePageContent() {
         handleDiscardCard();
       }, 2000);
     }
-  }, [currentPlayer, turnPhase, winner, handleDiscardCard, currentPlayerId]);
+  }, [currentPlayerId, turnPhase, winner, handleDiscardCard, currentPlayer]);
 
 
   if (!gameState || !currentPlayer) {
@@ -526,9 +530,9 @@ function GamePageContent() {
                     <BookOpenCheck className="w-4 h-4 mr-2" />
                     Declare a Hist Set
                 </Button>
-                <Button onClick={handleDrawFromDeck} disabled={deck.length === 0} variant="outline">
+                <Button onClick={() => setShowDrawDialog(true)} variant="outline">
                     <ArrowDownToLine className="w-4 h-4 mr-2" />
-                    Draw from Deck ({deck.length})
+                    Draw or Take a Card
                 </Button>
             </div>
          );
@@ -605,10 +609,7 @@ function GamePageContent() {
                 </div>
                 <div>
                     <p className="text-center font-headline mb-2">Discard</p>
-                    <div 
-                      onClick={turnPhase === 'action' ? handleDrawFromDiscard : undefined} 
-                      className={turnPhase === 'action' && currentPlayer.isHuman && !winner ? "cursor-pointer" : "cursor-not-allowed"}
-                    >
+                    <div className="cursor-not-allowed">
                     {topOfDiscard ? (
                         <GameCard card={topOfDiscard} className="w-[120px] h-[180px]" />
                     ) : (
@@ -677,6 +678,24 @@ function GamePageContent() {
           />
            <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={showDrawDialog} onOpenChange={setShowDrawDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-headline text-2xl">Draw or Take a Card</AlertDialogTitle>
+            <AlertDialogDescription>
+              Choose your action. You can either draw a new card from the top of the deck or take the top card from the discard pile.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <Button variant="outline" onClick={() => { handleDrawFromDeck(); setShowDrawDialog(false); }} disabled={deck.length === 0}>
+              Draw from Deck ({deck.length})
+            </Button>
+            <Button onClick={() => { handleDrawFromDiscard(); setShowDrawDialog(false); }} disabled={!topOfDiscard}>
+              Take Discard: "{topOfDiscard?.name}"
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
