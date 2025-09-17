@@ -191,7 +191,7 @@ function GamePageContent() {
       const drawnCard = newDeck.pop();
       if (!drawnCard) {
         addToLog('Deck is empty!');
-        return prev;
+        return { ...prev, turnPhase: 'discard' };
       }
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
       
