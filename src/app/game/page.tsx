@@ -107,13 +107,17 @@ function GamePageContent() {
     if (!gameCode || typeof window === 'undefined') return;
 
     const savedGame = window.localStorage.getItem(`game-${gameCode}`);
-    if (savedGame) {
+    if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
       const savedGameState = JSON.parse(savedGame);
-      setGameState(savedGameState);
-      // Check if there is a winner in the loaded state
-      const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
-      if (winningPlayer) {
-        setWinner(winningPlayer);
+      if (savedGameState) {
+        setGameState(savedGameState);
+        // Check if there is a winner in the loaded state
+        const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
+        if (winningPlayer) {
+          setWinner(winningPlayer);
+        }
+      } else {
+        startNewGame();
       }
     } else if (searchParams.get('numPlayers')) {
       startNewGame();
