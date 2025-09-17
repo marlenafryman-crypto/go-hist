@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -22,9 +23,10 @@ const formSchema = z.object({
 
 interface ConnectionVerifierProps {
   selectedCards: CardType[];
+  onVerified: (card1Id: string, card2Id: string) => void;
 }
 
-export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
+export function ConnectionVerifier({ selectedCards, onVerified }: ConnectionVerifierProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<VerifyHistoricalConnectionOutput | null>(null);
 
@@ -50,6 +52,13 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
     setIsLoading(true);
     setResult(null);
     const verificationResult = await verifyConnectionAction(values);
+    if (verificationResult.isValid) {
+      const card1 = selectedCards.find(c => c.name === values.card1Name);
+      const card2 = selectedCards.find(c => c.name === values.card2Name);
+      if (card1 && card2) {
+        onVerified(card1.id, card2.id);
+      }
+    }
     setResult(verificationResult);
     setIsLoading(false);
     form.setValue('explanation', '');
@@ -104,7 +113,7 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading || selectedCards.length < 2}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Verify Connection
           </Button>
@@ -120,3 +129,5 @@ export function ConnectionVerifier({ selectedCards }: ConnectionVerifierProps) {
     </div>
   );
 }
+
+    

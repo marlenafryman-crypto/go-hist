@@ -31,38 +31,27 @@ function shuffle(array: any[]) {
 
 const WINNING_SET_COUNT = 2;
 const AI_NAMES = ['Ada Lovelace', 'Nikola Tesla', 'Marie Curie', 'Isaac Newton', 'Galileo Galilei'];
+const LOCAL_GAME_KEY = 'go-hist-local-game';
 
 function GamePageContent() {
   const searchParams = useSearchParams();
-  const [gameCode, setGameCode] = useState<string | null>(null);
   
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
+  const [verifiedConnectionCards, setVerifiedConnectionCards] = useState<string[]>([]);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
 
-  useEffect(() => {
-    if (searchParams) {
-      const code = searchParams.get('code');
-      if (code) {
-        setGameCode(code);
-      } else {
-        // If no code, generate one for local storage key
-        setGameCode(`local-${Math.random().toString(36).substring(2, 8)}`);
-      }
-    }
-  }, [searchParams]);
-
   const updateGameState = useCallback((newState: GameState | null) => {
     setGameState(newState);
-    if (gameCode && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       if (newState) {
-        window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
+        window.localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(newState));
       } else {
-        window.localStorage.removeItem(`game-${gameCode}`);
+        window.localStorage.removeItem(LOCAL_GAME_KEY);
       }
     }
-  }, [gameCode]);
+  }, []);
 
    const addToLog = useCallback((message: string) => {
     setGameState(prev => {
@@ -76,21 +65,21 @@ function GamePageContent() {
   const currentPlayer = useMemo(() => {
     if (!gameState) return null;
     return gameState.players.find(p => p.id === gameState.currentPlayerId);
-  }, [gameState]);
+  }, [gameState?.players, gameState?.currentPlayerId]);
 
   const otherPlayers = useMemo(() => {
     if (!gameState || !currentPlayer) return [];
     return gameState.players.filter(p => p.id !== currentPlayer.id);
-  }, [gameState, currentPlayer]);
+  }, [gameState?.players, currentPlayer]);
   
   const humanPlayerIds = useMemo(() => {
     if (!gameState) return [];
     return gameState.players.filter(p => p.isHuman).map(p => p.id);
-  }, [gameState]);
+  }, [gameState?.players]);
 
 
   const startNewGame = useCallback(() => {
-    if (!searchParams || !gameCode) return;
+    if (!searchParams) return;
     
     const numPlayers = parseInt(searchParams.get('numPlayers') || '1', 10);
     const numAi = parseInt(searchParams.get('numAi') || '1', 10);
@@ -132,12 +121,13 @@ function GamePageContent() {
     updateGameState(newGameState);
     setWinner(null);
     setSelectedCards([]);
-  }, [searchParams, updateGameState, gameCode]);
+    setVerifiedConnectionCards([]);
+  }, [searchParams, updateGameState]);
 
   useEffect(() => {
-    if (!gameCode || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
 
-    const savedGame = window.localStorage.getItem(`game-${gameCode}`);
+    const savedGame = window.localStorage.getItem(LOCAL_GAME_KEY);
     if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
       try {
         const savedGameState = JSON.parse(savedGame);
@@ -154,10 +144,10 @@ function GamePageContent() {
         console.error("Failed to parse saved game state:", e);
         startNewGame();
       }
-    } else if (searchParams.get('numPlayers')) {
+    } else if (searchParams && searchParams.get('numPlayers')) {
       startNewGame();
     }
-  }, [gameCode, startNewGame, searchParams]);
+  }, [startNewGame, searchParams]);
 
   const handleSelectCard = (card: CardType) => {
     if (winner) return;
@@ -332,7 +322,28 @@ function GamePageContent() {
     if (!currentPlayer || !gameState || gameState.turnPhase !== 'discard' || winner) return;
     
     const card = cardToDiscard || selectedCards[0];
-    if (!card && (!cardToDiscard && selectedCards.length === 0)) return;
+    if (!card && (!cardToDiscard && selectedCards.length === 0)) {
+        if(currentPlayer.hand.length === 0) {
+            // If hand is empty, just end turn.
+            setGameState(prev => {
+                if (!prev) return null;
+                const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
+                const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
+                const nextPlayer = prev.players[nextPlayerIndex];
+                
+                const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].filter(Boolean).slice(0, 20);
+                
+                return {
+                    ...prev,
+                    log: newLog,
+                    currentPlayerId: nextPlayer.id,
+                    turnPhase: 'action',
+                };
+            });
+            return;
+        }
+        return;
+    }
 
     setGameState(prev => {
         if (!prev || !currentPlayer) return null;
@@ -446,12 +457,13 @@ function GamePageContent() {
     if (gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [gameState, currentPlayer, winner, handleAiTurn]);
+  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner]); // More precise dependencies
 
   // AI Discard Logic
   useEffect(() => {
     if(gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'discard' && !winner) {
        setTimeout(() => {
+        // Double check state inside timeout to avoid race conditions
         setGameState(currentState => {
             if (!currentState) return null;
             const currentAiPlayer = currentState.players.find(p => p.id === currentState.currentPlayerId);
@@ -473,10 +485,13 @@ function GamePageContent() {
 
 
   if (!gameState || !currentPlayer) {
+    // If there's no game state, it might be loading or the user needs to start a new game.
+    // The useEffect hook will handle starting a new game if params are present.
+    // Otherwise, this screen is a temporary state.
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="font-headline text-2xl mb-4">Welcome to Go Hist!</p>
-        <p className="text-muted-foreground mb-4">No active game found for this code.</p>
+        <p className="font-headline text-2xl mb-4">Loading Game...</p>
+        <p className="text-muted-foreground mb-4">Or go back to start a new one.</p>
         <Link href="/">
             <Button>Go to Home</Button>
         </Link>
@@ -485,6 +500,10 @@ function GamePageContent() {
   }
 
   const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
+
+  const handleVerifiedConnection = (card1Id: string, card2Id: string) => {
+    setVerifiedConnectionCards(prev => [...new Set([...prev, card1Id, card2Id])]);
+  };
 
 
   const renderTurnSpecificControls = () => {
@@ -507,7 +526,7 @@ function GamePageContent() {
          );
       case 'discard':
         return (
-            <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1}>
+            <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1 && currentPlayer.hand.length > 0}>
                 <Trash2 className="w-4 h-4 mr-2" />
                 Discard Selected Card
             </Button>
@@ -550,7 +569,10 @@ function GamePageContent() {
                   onAsk={handleAskForCard}
                   disabled={gameState.turnPhase !== 'action' || !currentPlayer.isHuman || !!winner}
                 />
-                <ConnectionVerifier selectedCards={selectedCards} />
+                <ConnectionVerifier 
+                  selectedCards={selectedCards} 
+                  onVerified={handleVerifiedConnection}
+                />
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
@@ -628,6 +650,7 @@ function GamePageContent() {
                     key={card.id}
                     card={card}
                     isSelected={!!selectedCards.find(c => c.id === card.id)}
+                    isVerified={verifiedConnectionCards.includes(card.id)}
                     onSelect={handleSelectCard}
                     isPlayerCard={true}
                   />
@@ -683,3 +706,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
