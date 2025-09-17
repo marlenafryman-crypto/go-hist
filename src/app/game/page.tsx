@@ -44,6 +44,8 @@ function GamePageContent() {
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showTurnActionDialog, setShowTurnActionDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
+  const [showGoHistDialog, setShowGoHistDialog] = useState(false);
+  const [showSelectSetDialog, setShowSelectSetDialog] = useState(false);
 
   // Isolate core state primitives from gameState to stabilize dependencies
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
@@ -166,13 +168,11 @@ function GamePageContent() {
       if (isSelected) {
         return prev.filter(c => c.id !== card.id);
       }
-      // Allow selecting up to 4 cards during 'action' phase for sets/verification
       if (turnPhase === 'action') {
         if (prev.length < 4) {
           return [...prev, card];
         }
       }
-      // Allow selecting only 1 card during 'discard' phase
       if (turnPhase === 'discard') {
         return [card];
       }
@@ -256,17 +256,20 @@ function GamePageContent() {
       });
     } else {
       addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
-      
-      updateGameState(prev => {
+      setShowGoHistDialog(true);
+    }
+  };
+
+  const handleGoHistDraw = () => {
+     updateGameState(prev => {
         if (!prev || !currentPlayer) return null;
         
         const newDeck = [...prev.deck];
         const drawnCard = newDeck.pop();
         let newPlayers = [...prev.players];
-        let logMessage = '';
         
         if (drawnCard) {
-          logMessage = `${currentPlayer.name} drew "${drawnCard.name}".`;
+          addToLog(`${currentPlayer.name} drew "${drawnCard.name}".`);
           newPlayers = prev.players.map(p => {
             if (p.id === currentPlayer.id) {
               return { ...p, hand: [...p.hand, drawnCard] };
@@ -274,17 +277,14 @@ function GamePageContent() {
             return p;
           });
         } else {
-          logMessage = `Deck is empty!`;
+          addToLog(`Deck is empty!`);
         }
-        
-        const newLog = [logMessage, ...prev.log].slice(0, 20);
         
         setSelectedCards([]);
 
-        return { ...prev, players: newPlayers, deck: newDeck, log: newLog, turnPhase: 'discard' };
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
       });
-    }
-  };
+  }
   
   const handleFormHistSet = (cardsToSet: CardType[], explanation?: string) => {
     if (!currentPlayer || !gameState || winner) return;
@@ -584,11 +584,12 @@ function GamePageContent() {
             </AccordionItem>
              <AccordionItem value="item-2">
               <AccordionTrigger className="font-headline text-xl">Consult the Historian</AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-4 space-y-4">
                 <ConnectionVerifier 
                   selectedCards={selectedCards} 
                   onVerified={handleVerifiedConnection}
                 />
+                <Button variant="outline" className="w-full" onClick={() => setShowSelectSetDialog(true)}>I Have a Set</Button>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -737,6 +738,35 @@ function GamePageContent() {
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>
           </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={showGoHistDialog} onOpenChange={setShowGoHistDialog}>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="font-headline text-3xl text-primary">Go Hist!</AlertDialogTitle>
+              <AlertDialogDescription>
+                Your opponent did not have the card you asked for. You will now draw a card from the deck.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction onClick={() => {
+                setShowGoHistDialog(false);
+                handleGoHistDraw();
+              }}>OK</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={showSelectSetDialog} onOpenChange={setShowSelectSetDialog}>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="font-headline text-2xl">Select Your Set</AlertDialogTitle>
+              <AlertDialogDescription>
+                Select 4 cards from your hand to form a set. Once selected, click the 'Declare a Hist Set' button.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction onClick={() => setShowSelectSetDialog(false)}>OK</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
       </AlertDialog>
     </>
   );
