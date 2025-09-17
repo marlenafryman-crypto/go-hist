@@ -11,7 +11,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Trash2, ArrowDownToLine, GitCommitHorizontal } from 'lucide-react';
+import { Users, BookOpenCheck, ChevronLeft, Trophy, Scale, Trash2, ArrowDownToLine } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -54,13 +54,13 @@ function GamePageContent() {
   }, []);
 
    const addToLog = useCallback((message: string) => {
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev) return null;
       const newLog = [message, ...prev.log].slice(0, 20);
       const newState = { ...prev, log: newLog };
       return newState;
     });
-  }, []);
+  }, [updateGameState]);
 
   const currentPlayer = useMemo(() => {
     if (!gameState) return null;
@@ -169,7 +169,7 @@ function GamePageContent() {
    const handleDrawFromDeck = () => {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || winner) return;
 
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev || !currentPlayer) return prev;
 
       const newDeck = [...prev.deck];
@@ -188,7 +188,7 @@ function GamePageContent() {
   const handleDrawFromDiscard = () => {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || winner) return;
     
-    setGameState(prev => {
+    updateGameState(prev => {
       if (!prev || !currentPlayer) return prev;
       const newDiscardPile = [...prev.discardPile];
       const drawnCard = newDiscardPile.pop();
@@ -206,21 +206,21 @@ function GamePageContent() {
 
   const handleAskForCard = async (opponentId: string, request: string) => {
     if (!gameState || !currentPlayer || winner) return;
-    
+
     const opponent = gameState.players.find(p => p.id === opponentId);
     if (!opponent) return;
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
 
+    // Let the AI check the hand
     const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
     const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
-
     const askedCard = opponent.hand.find(c => c.id === result.cardId);
 
     if (askedCard) {
       addToLog(`${opponent.name} had "${askedCard.name}"! ${currentPlayer.name} takes it and goes again. Reason: ${result.reason}`);
       
-      setGameState(prev => {
+      updateGameState(prev => {
         if (!prev) return null;
         const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
         const newPlayerHand = [...currentPlayer.hand, askedCard];
@@ -231,14 +231,13 @@ function GamePageContent() {
           return p;
         });
         
+        // Player's turn continues.
         return { ...prev, players: newPlayers, turnPhase: 'action' };
       });
-      // After a successful ask, player has another action. Does not go to discard.
-      // And we don't need to re-trigger AI turn here as it's the same player's turn
     } else {
       addToLog(`Go Hist! ${opponent.name} did not have a matching card. ${currentPlayer.name} must draw.`);
       
-      setGameState(prev => {
+      updateGameState(prev => {
         if (!prev || !currentPlayer) return null;
         
         const newDeck = [...prev.deck];
@@ -280,7 +279,7 @@ function GamePageContent() {
 
     setShowHistSetDialog(false);
     
-    setGameState(prev => {
+    updateGameState(prev => {
       if(!prev || !currentPlayer) return prev;
 
       let winningPlayer: Player | null = null;
@@ -325,7 +324,7 @@ function GamePageContent() {
     if (!card && (!cardToDiscard && selectedCards.length === 0)) {
         if(currentPlayer.hand.length === 0) {
             // If hand is empty, just end turn.
-            setGameState(prev => {
+            updateGameState(prev => {
                 if (!prev) return null;
                 const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
                 const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
@@ -345,7 +344,7 @@ function GamePageContent() {
         return;
     }
 
-    setGameState(prev => {
+    updateGameState(prev => {
         if (!prev || !currentPlayer) return null;
 
         let newPlayers = prev.players;
@@ -450,14 +449,14 @@ function GamePageContent() {
         break;
     }
 
-  }, [gameState, currentPlayer, winner, addToLog]);
+  }, [gameState, currentPlayer, winner, addToLog, updateGameState]);
 
 
   useEffect(() => {
     if (gameState && currentPlayer && !currentPlayer.isHuman && gameState.turnPhase === 'action' && !winner) {
         handleAiTurn();
     }
-  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner]); // More precise dependencies
+  }, [gameState?.currentPlayerId, gameState?.turnPhase, winner, handleAiTurn]); // More precise dependencies
 
   // AI Discard Logic
   useEffect(() => {
@@ -485,16 +484,20 @@ function GamePageContent() {
 
 
   if (!gameState || !currentPlayer) {
-    // If there's no game state, it might be loading or the user needs to start a new game.
-    // The useEffect hook will handle starting a new game if params are present.
-    // Otherwise, this screen is a temporary state.
+    if (searchParams && !searchParams.get('numPlayers')) {
+      return (
+         <div className="flex flex-col items-center justify-center min-h-screen">
+          <p className="font-headline text-2xl mb-4">No active game.</p>
+          <p className="text-muted-foreground mb-4">Go back to start a new one.</p>
+          <Link href="/">
+              <Button>Go to Home</Button>
+          </Link>
+        </div>
+      );
+    }
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
         <p className="font-headline text-2xl mb-4">Loading Game...</p>
-        <p className="text-muted-foreground mb-4">Or go back to start a new one.</p>
-        <Link href="/">
-            <Button>Go to Home</Button>
-        </Link>
       </div>
     );
   }
@@ -593,25 +596,7 @@ function GamePageContent() {
         {/* Main Game Area */}
         <main className="flex-1 flex flex-col p-6">
           {/* Opponents' Area */}
-          <div className="flex-1 flex flex-col items-center justify-start py-8">
-              {otherPlayers.map(player => (
-                  <div key={player.id} className="mb-8 w-full">
-                      <p className="text-center font-headline mb-2">{player.name}'s Board</p>
-                      <div className="flex justify-center items-start gap-4 flex-wrap">
-                          <div className="flex gap-2">
-                              {Array(player.hand.length).fill(0).map((_, i) => <GameCard key={i} card="back" className="w-[80px] h-[120px]" />)}
-                          </div>
-                          {player.histSets.map((set, i) => (
-                            <div key={i} className="flex flex-col items-center p-2 rounded-lg border-2 border-green-500 bg-green-500/10">
-                              <div className="flex">
-                                {set.map(card => <GameCard key={card.id} card={card} className="w-[80px] h-[120px] -ml-8 first:ml-0" inSet />)}
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                  </div>
-              ))}
-              
+          <div className="flex-1 flex flex-col items-center justify-center py-8">
               {/* Deck and Discard Pile */}
                 <div className="flex items-end space-x-8 my-8">
                     <div>
@@ -706,5 +691,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
