@@ -54,9 +54,9 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard, 
       <Card
         onClick={handleSelect}
         className={cn(
-          "w-full h-full flex flex-col shadow-lg border-4 transition-all duration-300 ease-in-out",
-          isSelected ? 'border-ring shadow-2xl scale-105' : 'border-card',
-          isInteractive ? 'cursor-pointer hover:scale-110 hover:-translate-y-4 hover:z-10' : 'cursor-default',
+          "w-full h-full flex flex-col shadow-lg border-4 transition-all duration-200",
+          isSelected ? 'border-ring shadow-2xl' : 'border-card',
+          isInteractive ? 'cursor-pointer' : 'cursor-default',
           inSet ? 'border-green-500' : ''
         )}
       >
