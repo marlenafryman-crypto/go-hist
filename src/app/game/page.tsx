@@ -180,6 +180,25 @@ function GamePageContent() {
     });
   };
   
+  const endTurn = useCallback(() => {
+    updateGameState(prev => {
+      if (!prev) return null;
+      const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
+      const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
+      const nextPlayer = prev.players[nextPlayerIndex];
+      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
+      
+      setHasTakenAction(false);
+      setSelectedCards([]);
+
+      return {
+        ...prev,
+        log: newLog,
+        currentPlayerId: nextPlayer.id,
+        turnPhase: 'action',
+      };
+    });
+  }, [updateGameState]);
 
    const handleDrawFromDeck = () => {
     if (!gameState || !currentPlayer || turnPhase !== 'action' || winner || hasTakenAction) return;
@@ -192,13 +211,13 @@ function GamePageContent() {
       if (!drawnCard) {
         addToLog('Deck is empty!');
         setHasTakenAction(true);
-        return { ...prev, turnPhase: 'action' };
+        return { ...prev };
       }
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
       
       addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
       setHasTakenAction(true);
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
+      return { ...prev, players: newPlayers, deck: newDeck };
     });
   };
 
@@ -219,7 +238,7 @@ function GamePageContent() {
 
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
       setHasTakenAction(true);
-      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'action' };
+      return { ...prev, players: newPlayers, discardPile: newDiscardPile };
     });
   };
 
@@ -256,6 +275,7 @@ function GamePageContent() {
         newPlayers[opponentIndex] = {...newPlayers[opponentIndex], hand: newOpponentHand };
         newPlayers[playerIndex] = {...newPlayers[playerIndex], hand: newPlayerHand };
         
+        // Player gets another action, so hasTakenAction is NOT set to true
         return { ...prev, players: newPlayers, turnPhase: 'action' };
       });
     } else {
@@ -284,9 +304,8 @@ function GamePageContent() {
           addToLog(`Deck is empty!`);
         }
         
-        setSelectedCards([]);
         setHasTakenAction(true);
-        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'action' };
+        return { ...prev, players: newPlayers, deck: newDeck };
       });
   }
   
@@ -331,7 +350,6 @@ function GamePageContent() {
       });
 
       addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
-      setSelectedCards([]);
       
       const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
       
@@ -339,13 +357,8 @@ function GamePageContent() {
         return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
       }
 
-      const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
-      const nextPlayerIndex = (currentPlayerIndex + 1) % newPlayers.length;
-      const nextPlayer = newPlayers[nextPlayerIndex];
-      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
-      
-      setHasTakenAction(false);
-      return { ...prev, log: newLog, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
+      endTurn();
+      return { ...prev, players: newPlayers, deck: newDeck };
     });
   };
 
@@ -365,26 +378,12 @@ function GamePageContent() {
     
     if (!card) {
       if (currentPlayer.hand.length <= INITIAL_HAND_SIZE) {
-           updateGameState(prev => {
-              if (!prev) return null;
-              const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
-              const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
-              const nextPlayer = prev.players[nextPlayerIndex];
-              const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
-              
-              setHasTakenAction(false);
-              return { ...prev, log: newLog, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
-           });
+           endTurn();
            return;
       }
       if (currentPlayer.isHuman) {
         addToLog("You must select a card to discard.");
         return;
-      }
-       if (!currentPlayer.isHuman && currentPlayer.hand.length > INITIAL_HAND_SIZE) {
-        card = currentPlayer.hand[currentPlayer.hand.length - 1];
-      } else {
-        return; 
       }
     }
 
@@ -405,38 +404,23 @@ function GamePageContent() {
           });
           newDiscardPile = [...prev.discardPile, finalCardToDiscard];
           logMessage = `${currentPlayer.name} discarded "${finalCardToDiscard.name}".`;
+          addToLog(logMessage);
         }
 
         const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
         if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
             setSelectedCards([]);
-            const newLog = [logMessage, ...prev.log].filter(Boolean).slice(0, 20);
+            // Still needs to discard, stay in discard phase
             return {
                 ...prev,
                 players: newPlayers,
                 discardPile: newDiscardPile,
-                log: newLog,
                 turnPhase: 'discard',
             };
         }
-
-        const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
-        const nextPlayerIndex = (currentPlayerIndex + 1) % newPlayers.length;
-        const nextPlayer = newPlayers[nextPlayerIndex];
         
-        const newLog = [`It is now ${nextPlayer.name}'s turn.`, logMessage, ...prev.log].filter(Boolean).slice(0, 20);
-        
-        setSelectedCards([]);
-        setHasTakenAction(false);
-
-        return {
-            ...prev,
-            players: newPlayers,
-            discardPile: newDiscardPile,
-            log: newLog,
-            currentPlayerId: nextPlayer.id,
-            turnPhase: 'action',
-        };
+        endTurn();
+        return { ...prev, players: newPlayers, discardPile: newDiscardPile };
     });
   };
 
@@ -485,6 +469,8 @@ function GamePageContent() {
           } else {
              handleDrawFromDeck();
           }
+        } else {
+           handleDrawFromDeck();
         }
         break;
       case 'ask':
@@ -516,7 +502,7 @@ function GamePageContent() {
         return () => clearTimeout(timer);
     }
   }, [currentPlayer?.id, turnPhase, winner, handleAiTurn, hasTakenAction]);
-
+  
   useEffect(() => {
      if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
        setTimeout(() => {
@@ -528,24 +514,12 @@ function GamePageContent() {
   useEffect(() => {
     if (currentPlayer && hasTakenAction && turnPhase === 'action') {
       if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
-        if (!currentPlayer.isHuman) {
-          updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
-        }
+        updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
       } else {
-        updateGameState(prev => {
-          if (!prev || !currentPlayer) return null;
-          
-          const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
-          const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
-          const nextPlayer = prev.players[nextPlayerIndex];
-          const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
-          
-          setHasTakenAction(false);
-          return { ...prev, log: newLog, currentPlayerId: nextPlayer.id, turnPhase: 'action' };
-        });
+        endTurn();
       }
     }
-  }, [currentPlayer, hasTakenAction, turnPhase, updateGameState]);
+  }, [currentPlayer?.id, hasTakenAction, turnPhase, updateGameState, endTurn, currentPlayer?.hand.length]);
 
 
   if (!gameState || !currentPlayer) {
@@ -808,9 +782,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
-
-    
-
-    
