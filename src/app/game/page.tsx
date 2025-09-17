@@ -10,13 +10,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ConnectionVerifier } from '@/components/game/ConnectionVerifier';
 import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Share2, Trash2, ArrowDownToLine, GitCommitHorizontal } from 'lucide-react';
+import { Users, Swords, BookOpenCheck, ChevronLeft, Trophy, Scale, Trash2, ArrowDownToLine, GitCommitHorizontal } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { findMatchingCardAction, getAiPlayerActionAction, verifyHistSetAction } from './actions';
-import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
 
@@ -34,7 +33,7 @@ const AI_NAMES = ['Ada Lovelace', 'Nikola Tesla', 'Marie Curie', 'Isaac Newton',
 
 function GamePageContent() {
   const searchParams = useSearchParams();
-  const gameCode = searchParams.get('code');
+  const [gameCode, setGameCode] = useState<string | null>(null);
   
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
@@ -42,38 +41,53 @@ function GamePageContent() {
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [isAiTurn, setIsAiTurn] = useState(false);
 
+  useEffect(() => {
+    if (searchParams) {
+      const code = searchParams.get('code');
+      if (code) {
+        setGameCode(code);
+      } else {
+        // If no code, generate one for local storage key
+        setGameCode(`local-${Math.random().toString(36).substring(2, 8)}`);
+      }
+    }
+  }, [searchParams]);
 
-  const updateGameState = (newState: GameState | null, bypassLog: boolean = false) => {
+  const updateGameState = useCallback((newState: GameState | null) => {
     setGameState(newState);
-    if (gameCode && typeof window !== 'undefined' && !bypassLog) {
+    if (gameCode && typeof window !== 'undefined') {
       window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
     }
-  };
+  }, [gameCode]);
 
    const addToLog = useCallback((message: string) => {
     setGameState(prev => {
       if (!prev) return null;
       const newLog = [message, ...prev.log].slice(0, 20);
       const newState = { ...prev, log: newLog };
-       if (gameCode && typeof window !== 'undefined') {
-        window.localStorage.setItem(`game-${gameCode}`, JSON.stringify(newState));
-      }
+      // This state update is saved to localStorage by the main updateGameState function
+      // to avoid multiple writes.
       return newState;
     });
-  }, [gameCode]);
+  }, []);
 
   const currentPlayer = useMemo(() => {
     return gameState?.players.find(p => p.id === gameState.currentPlayerId);
-  }, [gameState]);
+  }, [gameState?.players, gameState?.currentPlayerId]);
 
+  const otherPlayers = useMemo(() => {
+    if (!gameState || !currentPlayer) return [];
+    return gameState.players.filter(p => p.id !== currentPlayer.id);
+  }, [gameState?.players, currentPlayer]);
+  
   const humanPlayerIds = useMemo(() => {
     if (!gameState) return [];
     return gameState.players.filter(p => p.isHuman).map(p => p.id);
-  }, [gameState]);
+  }, [gameState?.players]);
 
 
   const startNewGame = useCallback(() => {
-    if (!searchParams) return;
+    if (!searchParams || !gameCode) return;
     
     const numPlayers = parseInt(searchParams.get('numPlayers') || '1', 10);
     const numAi = parseInt(searchParams.get('numAi') || '1', 10);
@@ -113,7 +127,10 @@ function GamePageContent() {
     updateGameState(newGameState);
     setWinner(null);
     setSelectedCards([]);
-  }, [searchParams]);
+    if (!players[0].isHuman) {
+      setIsAiTurn(true);
+    }
+  }, [searchParams, updateGameState, gameCode]);
 
   useEffect(() => {
     if (!gameCode || typeof window === 'undefined') return;
@@ -126,8 +143,13 @@ function GamePageContent() {
             setGameState(savedGameState);
             const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= WINNING_SET_COUNT);
             if (winningPlayer) {
-            setWinner(winningPlayer);
+              setWinner(winningPlayer);
             }
+            const firstPlayer = savedGameState.players.find(p => p.id === savedGameState.currentPlayerId);
+            if(firstPlayer && !firstPlayer.isHuman) {
+                setIsAiTurn(true);
+            }
+
         } else {
             startNewGame();
         }
@@ -142,26 +164,26 @@ function GamePageContent() {
 
   
   const endTurn = useCallback(() => {
+    if (!gameState) return;
+    const currentPlayerIndex = gameState.players.findIndex(p => p.id === gameState.currentPlayerId);
+    const nextPlayerIndex = (currentPlayerIndex + 1) % gameState.players.length;
+    const nextPlayer = gameState.players[nextPlayerIndex];
+    
     setGameState(prev => {
-      if (!prev) return null;
-      const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
-      const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
-      const nextPlayer = prev.players[nextPlayerIndex];
-      
-      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0,20);
-      
-      const newState = { ...prev, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const, log: newLog };
-      
-      if (!nextPlayer.isHuman) {
-        setIsAiTurn(true);
-      } else {
-        setIsAiTurn(false);
-      }
-      
-      return newState;
+        if (!prev) return null;
+        return { ...prev, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const };
     });
+    
+    addToLog(`It is now ${nextPlayer.name}'s turn.`);
+    
+    if (!nextPlayer.isHuman) {
+      setIsAiTurn(true);
+    } else {
+      setIsAiTurn(false);
+    }
     setSelectedCards([]);
-  }, []);
+  }, [gameState, addToLog]);
+
 
   const handleSelectCard = (card: CardType) => {
     setSelectedCards(prev => {
@@ -182,38 +204,32 @@ function GamePageContent() {
    const handleDrawFromDeck = () => {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action') return;
 
-    updateGameState(prev => {
-      if (!prev) return null;
-      const newDeck = [...prev.deck];
-      const drawnCard = newDeck.pop();
-      if (!drawnCard) {
-        addToLog('Deck is empty!');
-        return prev;
-      }
-      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
-      
-      addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
-    });
+    const newDeck = [...gameState.deck];
+    const drawnCard = newDeck.pop();
+    if (!drawnCard) {
+      addToLog('Deck is empty!');
+      return;
+    }
+    const newPlayers = gameState.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
+    
+    addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
+    updateGameState({ ...gameState, players: newPlayers, deck: newDeck, turnPhase: 'discard' });
   };
 
   const handleDrawFromDiscard = () => {
     if (!gameState || !currentPlayer || gameState.turnPhase !== 'action') return;
     
-    updateGameState(prev => {
-      if (!prev) return null;
-      const newDiscardPile = [...prev.discardPile];
-      const drawnCard = newDiscardPile.pop();
+    const newDiscardPile = [...gameState.discardPile];
+    const drawnCard = newDiscardPile.pop();
 
-      if (!drawnCard) {
-        return prev;
-      }
+    if (!drawnCard) {
+      return;
+    }
 
-      const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
+    const newPlayers = gameState.players.map(p => p.id === currentPlayer.id ? { ...p, hand: [...p.hand, drawnCard] } : p);
 
-      addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
-      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
-    });
+    addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
+    updateGameState({ ...gameState, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' });
   };
 
   const handleAskForCard = async (opponentId: string, request: string) => {
@@ -227,62 +243,45 @@ function GamePageContent() {
     const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
     const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
 
-    updateGameState(prev => {
-      if (!prev) return null;
-      
-      const thisPlayer = prev.players.find(p => p.id === prev.currentPlayerId);
-      if (!thisPlayer) return prev;
-      
-      const askedCard = opponent.hand.find(c => c.id === result.cardId);
+    const askedCard = opponent.hand.find(c => c.id === result.cardId);
 
-      if (askedCard) {
-        const newLog = [`${opponent.name} had "${askedCard.name}"! ${thisPlayer.name} takes it and goes again. Reason: ${result.reason}`, ...prev.log].slice(0,20);
-        
-        const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
-        const newPlayerHand = [...thisPlayer.hand, askedCard];
-        
-        const newPlayers = prev.players.map(p => {
-          if (p.id === opponentId) return { ...p, hand: newOpponentHand };
-          if (p.id === thisPlayer.id) return { ...p, hand: newPlayerHand };
-          return p;
-        });
-        
-        // After a successful ask, player has another action. Does not go to discard.
-        return { ...prev, players: newPlayers, turnPhase: 'action', log: newLog };
+    if (askedCard) {
+      addToLog(`${opponent.name} had "${askedCard.name}"! ${currentPlayer.name} takes it and goes again. Reason: ${result.reason}`);
+      
+      const newOpponentHand = opponent.hand.filter(c => c.id !== askedCard.id);
+      const newPlayerHand = [...currentPlayer.hand, askedCard];
+      
+      const newPlayers = gameState.players.map(p => {
+        if (p.id === opponentId) return { ...p, hand: newOpponentHand };
+        if (p.id === currentPlayer.id) return { ...p, hand: newPlayerHand };
+        return p;
+      });
+      
+      // After a successful ask, player has another action. Does not go to discard.
+      updateGameState({ ...gameState, players: newPlayers, turnPhase: 'action' });
+    } else {
+      addToLog(`Go Hist! ${opponent.name} did not have a matching card. ${currentPlayer.name} must draw.`);
+      
+      const newDeck = [...gameState.deck];
+      const drawnCard = newDeck.pop();
+      let newPlayers = [...gameState.players];
+      
+      if(drawnCard) {
+          addToLog(`${currentPlayer.name} drew "${drawnCard.name}".`);
+          newPlayers = gameState.players.map(p => {
+              if(p.id === currentPlayer.id){
+                  return {...p, hand: [...p.hand, drawnCard]}
+              }
+              return p;
+          });
       } else {
-        let newLog = [`Go Hist! ${opponent.name} did not have a matching card. ${thisPlayer.name} must draw.`, ...prev.log].slice(0,20);
-        
-        const newDeck = [...prev.deck];
-        const drawnCard = newDeck.pop();
-        
-        if(drawnCard) {
-            newLog = [`${thisPlayer.name} drew "${drawnCard.name}".`, ...newLog].slice(0,20);
-        } else {
-            newLog = [`Deck is empty!`, ...newLog].slice(0,20);
-        }
-
-        const newPlayers = prev.players.map(p => {
-            if(p.id === thisPlayer.id && drawnCard){
-                return {...p, hand: [...p.hand, drawnCard]}
-            }
-            return p;
-        });
-        
-        // After failing an ask, player draws and immediately ends their turn.
-        const currentPlayerIndex = newPlayers.findIndex(p => p.id === prev.currentPlayerId);
-        const nextPlayerIndex = (currentPlayerIndex + 1) % newPlayers.length;
-        const nextPlayer = newPlayers[nextPlayerIndex];
-        newLog = [`It is now ${nextPlayer.name}'s turn.`, ...newLog].slice(0,20);
-        
-        if (!nextPlayer.isHuman) {
-            setIsAiTurn(true);
-        } else {
-            setIsAiTurn(false);
-        }
-
-        return { ...prev, players: newPlayers, deck: newDeck, currentPlayerId: nextPlayer.id, turnPhase: 'action' as const, log: newLog };
+          addToLog(`Deck is empty!`);
       }
-    });
+
+      updateGameState({ ...gameState, players: newPlayers, deck: newDeck });
+      // After failing an ask, player draws and immediately ends their turn.
+      endTurn();
+    }
   };
   
   const handleFormHistSet = (cardsToSet: CardType[], explanation?: string) => {
@@ -294,44 +293,41 @@ function GamePageContent() {
 
     setShowHistSetDialog(false);
     
-    updateGameState(prev => {
-      if (!prev) return null;
-      let winningPlayer: Player | null = null;
-      const newDeck = [...prev.deck];
-      let newHand = [...(currentPlayer.hand || [])];
-      newHand = newHand.filter(c => !cardsToSet.find(sc => sc.id === c.id));
-      
-      // Draw 4 new cards
-      for(let i=0; i<4; i++) {
-        const drawnCard = newDeck.pop();
-        if (drawnCard) {
-          newHand.push(drawnCard);
-        }
+    let winningPlayer: Player | null = null;
+    const newDeck = [...gameState.deck];
+    let newHand = [...(currentPlayer.hand || [])];
+    newHand = newHand.filter(c => !cardsToSet.find(sc => sc.id === c.id));
+    
+    // Draw 4 new cards
+    for(let i=0; i<4; i++) {
+      const drawnCard = newDeck.pop();
+      if (drawnCard) {
+        newHand.push(drawnCard);
       }
-      
-      const newPlayers = prev.players.map(p => {
-        if (p.id === currentPlayer.id) {
-            const updatedPlayer = {
-                ...p,
-                hand: newHand,
-                histSets: [...p.histSets, cardsToSet]
-            };
-            if (updatedPlayer.histSets.length >= WINNING_SET_COUNT) {
-                winningPlayer = updatedPlayer;
-            }
-            return updatedPlayer;
-        }
-        return p;
-      });
-
-      addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
-
-      if(winningPlayer) {
-        setWinner(winningPlayer);
+    }
+    
+    const newPlayers = gameState.players.map(p => {
+      if (p.id === currentPlayer.id) {
+          const updatedPlayer = {
+              ...p,
+              hand: newHand,
+              histSets: [...p.histSets, cardsToSet]
+          };
+          if (updatedPlayer.histSets.length >= WINNING_SET_COUNT) {
+              winningPlayer = updatedPlayer;
+          }
+          return updatedPlayer;
       }
-
-      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+      return p;
     });
+
+    addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
+
+    if(winningPlayer) {
+      setWinner(winningPlayer);
+    }
+
+    updateGameState({ ...gameState, players: newPlayers, deck: newDeck, turnPhase: 'discard' });
     setSelectedCards([]);
   };
 
@@ -341,26 +337,22 @@ function GamePageContent() {
     const card = cardToDiscard || selectedCards[0];
     if (!card) return;
 
-    updateGameState(prev => {
-        if (!prev) return null;
-        
-        const newPlayers = prev.players.map(p => {
-            if (p.id === currentPlayer.id) {
-                return {
-                    ...p,
-                    hand: p.hand.filter(c => c.id !== card.id)
-                };
-            }
-            return p;
-        });
+    const newPlayers = gameState.players.map(p => {
+        if (p.id === currentPlayer.id) {
+            return {
+                ...p,
+                hand: p.hand.filter(c => c.id !== card.id)
+            };
+        }
+        return p;
+    });
 
-        const newDiscardPile = [...prev.discardPile, card];
-        
-        return {
-            ...prev,
-            players: newPlayers,
-            discardPile: newDiscardPile
-        };
+    const newDiscardPile = [...gameState.discardPile, card];
+    
+    updateGameState({
+        ...gameState,
+        players: newPlayers,
+        discardPile: newDiscardPile
     });
     
     addToLog(`${currentPlayer.name} discarded "${card.name}".`);
@@ -435,19 +427,36 @@ function GamePageContent() {
     // AI discard logic
     setTimeout(() => {
         setGameState(currentState => {
-            if (currentState?.currentPlayerId === currentPlayer.id && currentState?.turnPhase === 'discard') {
+            if (!currentState) return null;
+            if (currentState.currentPlayerId === currentPlayer.id && currentState.turnPhase === 'discard') {
                 const aiPlayer = currentState.players.find(p => p.id === currentPlayer.id);
                 if (aiPlayer && aiPlayer.hand.length > 0) {
                    // A slightly smarter discard: discard the last card drawn if it doesn't help form a set
                    const cardToDiscard = aiPlayer.hand[aiPlayer.hand.length - 1];
-                   handleDiscardCard(cardToDiscard);
+                   
+                    const newPlayers = currentState.players.map(p => {
+                        if (p.id === currentPlayer.id) {
+                            return { ...p, hand: p.hand.filter(c => c.id !== cardToDiscard.id) };
+                        }
+                        return p;
+                    });
+                    const newDiscardPile = [...currentState.discardPile, cardToDiscard];
+                    addToLog(`${currentPlayer.name} discarded "${cardToDiscard.name}".`);
+                    
+                    updateGameState({
+                        ...currentState,
+                        players: newPlayers,
+                        discardPile: newDiscardPile,
+                    });
+                    
+                    endTurn();
                 }
             }
             return currentState;
         });
     }, 2000); // Wait a bit before discarding
 
-  }, [gameState, currentPlayer, addToLog]);
+  }, [gameState, currentPlayer, addToLog, updateGameState, endTurn]);
 
   useEffect(() => {
     if (isAiTurn) {
@@ -467,7 +476,6 @@ function GamePageContent() {
     );
   }
 
-  const otherPlayers = gameState.players.filter(p => p.id !== currentPlayer.id);
   const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
 
 
@@ -507,21 +515,6 @@ function GamePageContent() {
         {/* Sidebar */}
         <aside className="w-96 bg-card p-4 flex-col border-r space-y-6 hidden md:flex">
           <h2 className="font-headline text-3xl text-primary flex items-center gap-2 border-b pb-4">Go Hist <Link href="/" className="ml-auto"><Button variant="ghost" size="icon"><ChevronLeft /></Button></Link></h2>
-          
-           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline text-xl flex items-center gap-2"><Share2 /> Share Game</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-2">Share this code with a friend to have them join:</p>
-              <div className="flex items-center space-x-2">
-                <Input value={gameCode || ''} readOnly />
-                <Button variant="outline" size="icon" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-                    <Share2 className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
 
           <Card>
             <CardHeader>
@@ -568,7 +561,7 @@ function GamePageContent() {
         </aside>
 
         {/* Main Game Area */}
-        <main className="flex-1 flex flex-col p-6 overflow-y-auto">
+        <main className="flex-1 flex flex-col p-6">
           {/* Opponents' Area */}
           <div className="flex-1 flex flex-col items-center justify-start py-8">
               {otherPlayers.map(player => (
@@ -621,14 +614,14 @@ function GamePageContent() {
                 </div>
             </div>
             <ScrollArea className="w-full whitespace-nowrap">
-              <div className="flex items-end gap-4 p-4">
+              <div className="flex w-max items-end gap-4 p-4">
                 {currentPlayer.hand.map(card => (
                   <GameCard
                     key={card.id}
                     card={card}
                     isSelected={!!selectedCards.find(c => c.id === card.id)}
                     onSelect={handleSelectCard}
-                    isPlayerCard={currentPlayer.isHuman}
+                    isPlayerCard={true}
                   />
                 ))}
               </div>
