@@ -70,7 +70,7 @@ export default function JoinGamePage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-8 bg-background">
       <div className="hidden md:flex md:w-1/2 lg:w-2/5 justify-center items-center">
-        <Image src="https://i.ibb.co/pjbkcjgk/bbeb7da5-c733-44da-856a-35ecda42df02.png" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" />
+        <Image src="https://i.ibb.co/LddKckY/Untitled-design-81.png" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" />
       </div>
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center space-x-4 mb-8 md:hidden">
