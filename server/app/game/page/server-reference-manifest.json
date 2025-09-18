@@ -1,0 +1,49 @@
+{
+  "node": {
+    "402e3b7add7b9be4f67164dfc4473eadb3cc247645": {
+      "workers": {
+        "app/game/page": {
+          "moduleId": "[project]/.next-internal/server/app/game/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/game/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/game/page": "action-browser"
+      }
+    },
+    "4013ecd32771ca5a5cb4631dbc43b0a7f3836926e5": {
+      "workers": {
+        "app/game/page": {
+          "moduleId": "[project]/.next-internal/server/app/game/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/game/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/game/page": "action-browser"
+      }
+    },
+    "4037e0f74b22cb4d6205e199f744a28d3b98775534": {
+      "workers": {
+        "app/game/page": {
+          "moduleId": "[project]/.next-internal/server/app/game/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/game/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/game/page": "action-browser"
+      }
+    },
+    "40248c92dca293ccfbece01676e24c89098f571b74": {
+      "workers": {
+        "app/game/page": {
+          "moduleId": "[project]/.next-internal/server/app/game/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/game/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/game/page": "action-browser"
+      }
+    }
+  },
+  "edge": {}
+}
