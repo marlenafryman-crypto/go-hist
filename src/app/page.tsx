@@ -23,9 +23,9 @@ const MAX_PLAYERS = 5;
 
 export default function JoinGamePage() {
   const router = useRouter();
-  const [playerNames, setPlayerNames] = useState<string[]>(['']);
-  const [numPlayers, setNumPlayers] = useState(1);
-  const [numAiPlayers, setNumAiPlayers] = useState(1);
+  const [playerNames, setPlayerNames] = useState<string[]>(['', '']);
+  const [numPlayers, setNumPlayers] = useState(2);
+  const [numAiPlayers, setNumAiPlayers] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -33,12 +33,6 @@ export default function JoinGamePage() {
   }, []);
 
   const totalPlayers = numPlayers + numAiPlayers;
-
-  useEffect(() => {
-    if (totalPlayers > MAX_PLAYERS) {
-      setNumAiPlayers(MAX_PLAYERS - numPlayers);
-    }
-  }, [numPlayers, numAiPlayers, totalPlayers]);
 
   const handlePlayerNameChange = (index: number, name: string) => {
     const newPlayerNames = [...playerNames];
@@ -60,13 +54,13 @@ export default function JoinGamePage() {
 
   const handleStartGame = (e: React.FormEvent) => {
     e.preventDefault();
-    if (playerNames.every(name => name.trim() !== '') && isClient) {
+    if (playerNames.slice(0, numPlayers).every(name => name.trim() !== '') && isClient) {
       const code = generateGameCode();
       const queryParams = new URLSearchParams();
       queryParams.set('code', code);
       queryParams.set('numPlayers', String(numPlayers));
-      queryParams.set('numAi', String(numAiPlayers));
-      playerNames.forEach((name, index) => {
+      queryParams.set('numAi', String(0)); // AI players are disabled
+      playerNames.slice(0, numPlayers).forEach((name, index) => {
         queryParams.set(`player${index + 1}`, name);
       });
       router.push(`/game?${queryParams.toString()}`);
@@ -88,36 +82,21 @@ export default function JoinGamePage() {
           <form onSubmit={handleStartGame}>
             <CardHeader>
               <CardTitle className="font-headline text-3xl">Setup a Game</CardTitle>
-              <CardDescription>Configure players for your new game.</CardDescription>
+              <CardDescription>Configure players for your new game. This is a local hot-seat game.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <Label>Human Players</Label>
-                        <Select value={String(numPlayers)} onValueChange={handleNumPlayersChange}>
-                            <SelectTrigger>
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {[...Array(MAX_PLAYERS)].map((_, i) => (
-                                    <SelectItem key={i+1} value={String(i+1)}>{i+1}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div className="space-y-2">
-                        <Label>AI Players</Label>
-                         <Select value={String(numAiPlayers)} onValueChange={(val) => setNumAiPlayers(parseInt(val))}>
-                            <SelectTrigger>
-                                <SelectValue/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                {[...Array(MAX_PLAYERS - numPlayers + 1)].map((_, i) => (
-                                    <SelectItem key={i} value={String(i)} disabled={numPlayers + i < 2}>{i}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
+                <div className="space-y-2">
+                    <Label>Human Players</Label>
+                    <Select value={String(numPlayers)} onValueChange={handleNumPlayersChange}>
+                        <SelectTrigger>
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {[...Array(MAX_PLAYERS - 1)].map((_, i) => (
+                                <SelectItem key={i+2} value={String(i+2)}>{i+2}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                 </div>
 
               {[...Array(numPlayers)].map((_, index) => (
@@ -134,7 +113,7 @@ export default function JoinGamePage() {
               ))}
             </CardContent>
             <CardFooter className="flex-col gap-4">
-              <Button type="submit" className="w-full" disabled={playerNames.some(name => name.trim() === '') || totalPlayers < 2 || totalPlayers > MAX_PLAYERS}>
+              <Button type="submit" className="w-full" disabled={playerNames.slice(0, numPlayers).some(name => name.trim() === '')}>
                 Start New Game
               </Button>
             </CardFooter>
@@ -148,5 +127,3 @@ export default function JoinGamePage() {
     </main>
   );
 }
-
-    

@@ -6,16 +6,12 @@ import type { GameState, Player, Card as CardType } from '@/lib/types';
 import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { SuggestionProvider } from '@/components/game/SuggestionProvider';
-import { AskForCard } from '@/components/game/AskForCard';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
 import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, HelpCircle, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { findMatchingCardAction, getAiPlayerActionAction, verifyHistSetAction } from './actions';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
 
@@ -29,19 +25,26 @@ function shuffle(array: any[]) {
 }
 
 const WINNING_SET_COUNT = 2;
-const AI_NAMES = ['Ada Lovelace', 'Nikola Tesla', 'Marie Curie', 'Isaac Newton', 'Galileo Galilei'];
 const LOCAL_GAME_KEY = 'go-hist-local-game';
+
+interface VerificationRequest {
+  player: Player;
+  cards: CardType[];
+  explanation: string;
+}
 
 function GamePageContent() {
   const searchParams = useSearchParams();
   
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
+  const [verifiedSet, setVerifiedSet] = useState<CardType[] | null>(null);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showAskDialog, setShowAskDialog] = useState(false);
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [hasTakenAction, setHasTakenAction] = useState(false);
+  const [verificationRequest, setVerificationRequest] = useState<VerificationRequest | null>(null);
 
 
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
@@ -79,18 +82,11 @@ function GamePageContent() {
     if (!players || !currentPlayer) return [];
     return players.filter(p => p.id !== currentPlayer.id);
   }, [players, currentPlayer]);
-  
-  const humanPlayerIds = useMemo(() => {
-    if (!players) return [];
-    return players.filter(p => p.isHuman).map(p => p.id);
-  }, [players]);
-
 
   const startNewGame = useCallback(() => {
     if (!searchParams) return;
     
-    const numPlayers = parseInt(searchParams.get('numPlayers') || '1', 10);
-    const numAi = parseInt(searchParams.get('numAi') || '1', 10);
+    const numPlayers = parseInt(searchParams.get('numPlayers') || '2', 10);
     
     const humanPlayers: Player[] = [];
     for (let i = 0; i < numPlayers; i++) {
@@ -98,13 +94,7 @@ function GamePageContent() {
         humanPlayers.push({ id: `player${i+1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
-    const aiPlayers: Player[] = [];
-    const shuffledAiNames = shuffle(AI_NAMES);
-    for (let i = 0; i < numAi; i++) {
-        aiPlayers.push({ id: `ai${i+1}`, name: shuffledAiNames[i], hand: [], histSets: [], isHuman: false });
-    }
-
-    const players = shuffle([...humanPlayers, ...aiPlayers]);
+    const players = shuffle(humanPlayers);
 
     const shuffledDeck = shuffle(DECK);
     
@@ -123,7 +113,7 @@ function GamePageContent() {
       discardPile: [shuffledDeck.pop()!],
       currentPlayerId: firstPlayer.id,
       turnPhase: 'action' as 'action' | 'discard',
-      log: [`New game started with ${numPlayers} human(s) and ${numAi} AI(s).`],
+      log: [`New game started with ${numPlayers} players.`],
     };
     
     updateGameState(newGameState);
@@ -159,25 +149,24 @@ function GamePageContent() {
 
   const handleSelectCard = (card: CardType) => {
     if (winner) return;
+
+    // Clear blue highlight when a new card is selected
+    if(verifiedSet) setVerifiedSet(null);
+    
     setSelectedCards(prev => {
       const isSelected = prev.find(c => c.id === card.id);
       if (isSelected) {
-        // If the card is already selected, unselect it and any others
-        return [];
+        return prev.filter(c => c.id !== card.id);
       }
       
       if (turnPhase === 'action') {
-        // In action phase, allow up to 4 cards to be selected for forming a set,
-        // but the suggestion provider will only use the first one.
         if (prev.length < 4) {
             return [...prev, card];
         } else {
-            // If 4 are already selected, replace the selection with the new card
             return [card];
         }
       }
       if (turnPhase === 'discard') {
-        // In discard phase, only one card can be selected
         return [card];
       }
       return prev;
@@ -194,6 +183,7 @@ function GamePageContent() {
       
       setHasTakenAction(false);
       setSelectedCards([]);
+      setVerifiedSet(null);
 
       return {
         ...prev,
@@ -254,38 +244,13 @@ function GamePageContent() {
     if (!opponent) return;
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
-
-    const opponentHandForAI = opponent.hand.map(({ id, name, type, description }) => ({ id, name, type, description, imageUrl: '', hint: '' }));
-    const result = await findMatchingCardAction({ request, opponentHand: opponentHandForAI });
-    const askedCard = opponent.hand.find(c => c.id === result.cardId);
-
-    if (askedCard) {
-      addToLog(`${opponent.name} had "${askedCard.name}"! ${currentPlayer.name} takes it and gets to take another action.`);
-      
-      const cardToTransfer = askedCard;
-
-      updateGameState(prev => {
-        if (!prev) return null;
-        let newPlayers = [...prev.players];
-
-        const opponentIndex = newPlayers.findIndex(p => p.id === opponentId);
-        const playerIndex = newPlayers.findIndex(p => p.id === currentPlayer!.id);
-
-        if(opponentIndex === -1 || playerIndex === -1) return prev;
-
-        const newOpponentHand = newPlayers[opponentIndex].hand.filter(c => c.id !== cardToTransfer.id);
-        const newPlayerHand = [...newPlayers[playerIndex].hand, cardToTransfer];
-        
-        newPlayers[opponentIndex] = {...newPlayers[opponentIndex], hand: newOpponentHand };
-        newPlayers[playerIndex] = {...newPlayers[playerIndex], hand: newPlayerHand };
-        
-        // Player gets another action, so hasTakenAction is NOT set to true
-        return { ...prev, players: newPlayers, turnPhase: 'action' };
-      });
-    } else {
-      addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
-      setShowGoHistDialog(true);
-    }
+    
+    // In local multiplayer, we just have to trust the other player.
+    // For simplicity, we'll assume "Go Hist!" happens every time for now.
+    // A more advanced version could show a dialog to the other player.
+    
+    addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
+    setShowGoHistDialog(true);
   };
 
   const handleGoHistDraw = () => {
@@ -313,21 +278,45 @@ function GamePageContent() {
       });
   }
   
-  const handleFormHistSet = (cardsToSet: CardType[], explanation?: string) => {
-    if (!currentPlayer || !gameState || winner) return;
-
-    if (explanation) {
-      addToLog(`${currentPlayer.name} declares a Hist Set with the explanation: "${explanation}"`);
-    }
-
-    setShowHistSetDialog(false);
+  const handleDeclareSet = (cards: CardType[], explanation: string) => {
+    if(!currentPlayer) return;
     
+    const hasPersonCard = cards.some(card => card.type === 'Person');
+    if (!hasPersonCard) {
+        addToLog('The proposed set is invalid because it does not contain at least one "Person" card.');
+        setShowHistSetDialog(false);
+        return;
+    }
+    
+    addToLog(`${currentPlayer.name} is proposing a Hist Set. Other players, please verify.`);
+    setVerificationRequest({ player: currentPlayer, cards, explanation });
+    setShowHistSetDialog(false);
+  }
+
+  const handleVerificationVote = (isValid: boolean) => {
+    if (!verificationRequest) return;
+
+    const { player, cards } = verificationRequest;
+
+    if (isValid) {
+      addToLog(`The set proposed by ${player.name} was accepted!`);
+      handleFormHistSet(player, cards);
+    } else {
+      addToLog(`The set proposed by ${player.name} was rejected by the other players.`);
+    }
+    setVerificationRequest(null);
+  };
+
+
+  const handleFormHistSet = (player: Player, cardsToSet: CardType[]) => {
+    if (!gameState || winner) return;
+
     updateGameState(prev => {
-      if(!prev || !currentPlayer) return prev;
+      if(!prev) return prev;
 
       let winningPlayer: Player | null = null;
       const newDeck = [...prev.deck];
-      let newHand = [...(currentPlayer.hand || [])];
+      let newHand = [...(player.hand || [])];
       newHand = newHand.filter(c => !cardsToSet.find(sc => sc.id === c.id));
       
       for(let i=0; i<4; i++) {
@@ -338,7 +327,7 @@ function GamePageContent() {
       }
       
       const newPlayers = prev.players.map(p => {
-        if (p.id === currentPlayer.id) {
+        if (p.id === player.id) {
             const updatedPlayer = {
                 ...p,
                 hand: newHand,
@@ -353,9 +342,9 @@ function GamePageContent() {
         return p;
       });
 
-      addToLog(`${currentPlayer.name} successfully formed a Hist Set! They draw 4 cards.`);
+      addToLog(`${player.name} successfully formed a Hist Set! They draw 4 cards.`);
       
-      const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
+      const updatedCurrentPlayer = newPlayers.find(p => p.id === player.id);
       
       if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
         return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
@@ -366,29 +355,18 @@ function GamePageContent() {
     });
   };
 
-  const handleDiscardCard = (cardToDiscard?: CardType) => {
+  const handleDiscardCard = () => {
     if (!currentPlayer || !gameState || turnPhase !== 'discard' || winner) return;
     
-    let card = cardToDiscard;
-
-    if (currentPlayer.isHuman) {
-      card = selectedCards[0];
-    } 
-    else if (!card) {
-      if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
-          card = currentPlayer.hand[currentPlayer.hand.length - 1];
-      }
-    }
+    const card = selectedCards[0];
     
     if (!card) {
       if (currentPlayer.hand.length <= INITIAL_HAND_SIZE) {
            endTurn();
            return;
       }
-      if (currentPlayer.isHuman) {
-        addToLog("You must select a card to discard.");
-        return;
-      }
+      addToLog("You must select a card to discard.");
+      return;
     }
 
     updateGameState(prev => {
@@ -396,31 +374,20 @@ function GamePageContent() {
 
         let newPlayers = prev.players;
         let newDiscardPile = prev.discardPile;
-        let logMessage = '';
-
-        const finalCardToDiscard = card;
-        if(finalCardToDiscard) {
-          newPlayers = prev.players.map(p => {
-              if (p.id === currentPlayer.id) {
-                  return { ...p, hand: p.hand.filter(c => c.id !== finalCardToDiscard.id) };
-              }
-              return p;
-          });
-          newDiscardPile = [...prev.discardPile, finalCardToDiscard];
-          logMessage = `${currentPlayer.name} discarded "${finalCardToDiscard.name}".`;
-          addToLog(logMessage);
-        }
+        
+        newPlayers = prev.players.map(p => {
+            if (p.id === currentPlayer.id) {
+                return { ...p, hand: p.hand.filter(c => c.id !== card.id) };
+            }
+            return p;
+        });
+        newDiscardPile = [...prev.discardPile, card];
+        addToLog(`${currentPlayer.name} discarded "${card.name}".`);
 
         const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
         if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
             setSelectedCards([]);
-            // Still needs to discard, stay in discard phase
-            return {
-                ...prev,
-                players: newPlayers,
-                discardPile: newDiscardPile,
-                turnPhase: 'discard',
-            };
+            return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
         }
         
         endTurn();
@@ -428,109 +395,15 @@ function GamePageContent() {
     });
   };
 
-  const handleAiTurn = useCallback(async () => {
-    if (!gameState || !currentPlayer || currentPlayer.isHuman || winner) {
-      return;
-    }
-  
-    addToLog(`${currentPlayer.name} is thinking...`);
-  
-    const otherPlayersInfo = gameState.players
-      .filter(p => p.id !== currentPlayer.id)
-      .map(p => ({
-        id: p.id,
-        name: p.name,
-        handSize: p.hand.length,
-        histSetCount: p.histSets.length,
-      }));
-  
-    const discardTopCard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : undefined;
-    const canWin = currentPlayer.histSets.length + 1 >= WINNING_SET_COUNT;
-  
-    const aiAction = await getAiPlayerActionAction({
-      playerName: currentPlayer.name,
-      hand: currentPlayer.hand,
-      histSetCount: currentPlayer.histSets.length,
-      otherPlayers: otherPlayersInfo,
-      discardTopCard,
-      canWin,
-    });
-  
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  
-    switch (aiAction.action) {
-      case 'formSet':
-        if (aiAction.cardIds && aiAction.explanation) {
-          const cardsToSet = currentPlayer.hand.filter(c => aiAction.cardIds!.includes(c.id));
-          if (cardsToSet.length === 4) {
-            const verification = await verifyHistSetAction({ cards: cardsToSet, explanation: aiAction.explanation });
-            if (verification.isValid) {
-              handleFormHistSet(cardsToSet, aiAction.explanation);
-            } else {
-              addToLog(`${currentPlayer.name} tried to form a set, but the historian deemed it invalid: ${verification.reason}. Drawing instead.`);
-              handleDrawFromDeck(); 
-            }
-          } else {
-             handleDrawFromDeck();
-          }
-        } else {
-           handleDrawFromDeck();
-        }
-        break;
-      case 'ask':
-        if (aiAction.opponentId && aiAction.request) {
-          await handleAskForCard(aiAction.opponentId, aiAction.request);
-        } else {
-           handleDrawFromDeck();
-        }
-        break;
-      case 'drawDeck':
-        addToLog(`${currentPlayer.name} decides to draw from the deck.`);
-        handleDrawFromDeck();
-        break;
-      case 'drawDiscard':
-         if (discardTopCard) {
-            addToLog(`${currentPlayer.name} decides to take "${discardTopCard.name}" from the discard pile.`);
-            handleDrawFromDiscard();
-        } else {
-            handleDrawFromDeck();
-        }
-        break;
-    }
-
-  }, [gameState, currentPlayer, winner, addToLog, handleAskForCard, handleDrawFromDeck, handleDrawFromDiscard, handleFormHistSet]);
-
-  useEffect(() => {
-    if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'action' && !hasTakenAction && !winner) {
-        const timer = setTimeout(() => handleAiTurn(), 2000);
-        return () => clearTimeout(timer);
-    }
-  }, [currentPlayer?.id, turnPhase, winner, handleAiTurn, hasTakenAction]);
-  
-  useEffect(() => {
-     if (currentPlayer && !currentPlayer.isHuman && turnPhase === 'discard' && !winner) {
-       setTimeout(() => {
-        handleDiscardCard();
-      }, 2000);
-    }
-  }, [currentPlayer?.id, turnPhase, winner, handleDiscardCard]);
-
   useEffect(() => {
     if (currentPlayer && hasTakenAction && turnPhase === 'action' && !winner) {
       if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
-        if (!currentPlayer.isHuman) {
-          handleDiscardCard();
-        } else {
-          updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
-        }
+        updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
       } else {
-        if (!currentPlayer.isHuman) {
-          endTurn();
-        }
+        // Player can optionally end turn now
       }
     }
-  }, [currentPlayer, hasTakenAction, turnPhase, updateGameState, endTurn, winner, handleDiscardCard]);
-
+  }, [currentPlayer, hasTakenAction, turnPhase, updateGameState, endTurn, winner]);
 
   if (!gameState || !currentPlayer) {
       return (
@@ -547,23 +420,20 @@ function GamePageContent() {
   const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
 
   const renderTurnSpecificControls = () => {
-    const isPlayerTurn = currentPlayer.isHuman;
-    if (!isPlayerTurn || winner) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for {currentPlayer.name}...</p>;
+    if (winner) return <p className="text-sm text-primary font-headline animate-pulse">Game Over!</p>;
+    if (verificationRequest) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for other players to verify the set...</p>;
 
     switch (turnPhase) {
       case 'action':
          return (
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => setShowAskDialog(true)} disabled={hasTakenAction}>
-                  <HelpCircle className="mr-2"/> Ask Player
-              </Button>
               <Button variant="outline" size="sm" onClick={handleDrawFromDeck} disabled={deck.length === 0 || hasTakenAction}>
                 <ArrowDownToLine className="mr-2"/> Draw Deck
               </Button>
               <Button variant="outline" size="sm" onClick={handleDrawFromDiscard} disabled={!topOfDiscard || hasTakenAction}>
                 <Trash2 className="mr-2"/> Take Discard
               </Button>
-              <Button variant="outline" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
+              <Button variant="outline" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={hasTakenAction || selectedCards.length !== 4}>
                   <BookOpenCheck className="w-4 h-4 mr-2" />
                   Declare Set
               </Button>
@@ -607,7 +477,7 @@ function GamePageContent() {
                 {players.map(p => (
                   <li key={p.id} className="flex justify-between items-center text-sm">
                     <span className={p.id === currentPlayer.id ? 'font-bold text-primary' : ''}>
-                      {p.name} {p.isHuman ? `(You)` : '(AI)'}
+                      {p.name}
                     </span>
                     <Badge variant="secondary">{p.histSets.length} Sets</Badge>
                   </li>
@@ -615,10 +485,11 @@ function GamePageContent() {
               </ul>
             </CardContent>
           </Card>
-           <Accordion type="single" collapsible className="w-full" defaultValue="item-2">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="font-headline text-xl">Game Log</AccordionTrigger>
-              <AccordionContent className="pt-4">
+          <Card>
+            <CardHeader>
+                <CardTitle className="font-headline text-xl">Game Log</CardTitle>
+            </CardHeader>
+            <CardContent>
                 <ScrollArea className="h-48 w-full rounded-md border p-2">
                   <ul className="space-y-1">
                     {log.map((entry, i) => (
@@ -626,15 +497,8 @@ function GamePageContent() {
                     ))}
                   </ul>
                 </ScrollArea>
-              </AccordionContent>
-            </AccordionItem>
-             <AccordionItem value="item-2">
-              <AccordionTrigger className="font-headline text-xl flex items-center gap-2"><Lightbulb /> Consult the Historian</AccordionTrigger>
-              <AccordionContent className="pt-4 space-y-4">
-                <SuggestionProvider selectedCards={selectedCards} />
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+            </CardContent>
+          </Card>
         </aside>
 
         <main className="flex-1 flex flex-col p-6">
@@ -643,23 +507,13 @@ function GamePageContent() {
               <div key={player.id}>
                 <h3 className="font-headline text-lg mb-2">{player.name}'s Hand ({player.hand.length})</h3>
                 <div className="flex items-end gap-2 p-2 bg-muted/20 rounded-lg min-h-[120px]">
-                  {!player.isHuman ? (
-                      player.hand.map((_, index) => (
-                        <GameCard
-                          key={`${player.id}-${index}`}
-                          card="back"
-                          isPlayerCard={false}
-                        />
-                      ))
-                  ) : (
-                      player.hand.map(card => (
-                        <GameCard
-                          key={card.id}
-                          card={card}
-                          isPlayerCard={false}
-                        />
-                      ))
-                  )}
+                  {player.hand.map(card => (
+                    <GameCard
+                      key={card.id}
+                      card={card}
+                      isPlayerCard={false}
+                    />
+                  ))}
                 </div>
               </div>
             ))}
@@ -699,6 +553,7 @@ function GamePageContent() {
                     key={card.id}
                     card={card}
                     isSelected={!!selectedCards.find(c => c.id === card.id)}
+                    isVerified={!!verifiedSet?.find(c => c.id === card.id)}
                     onSelect={handleSelectCard}
                     isPlayerCard={true}
                   />
@@ -730,36 +585,17 @@ function GamePageContent() {
           <AlertDialogHeader>
             <AlertDialogTitle className="font-headline text-2xl">Declare a Hist Set</AlertDialogTitle>
              <AlertDialogDescription>
-              You have selected four cards. Explain the historical connection between them to the Historian AI.
-              If the connection is valid, the cards will form a new set.
+              You have selected four cards. Explain the historical connection between them. The other players will then vote on its validity.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <HistSetVerifier 
             selectedCards={selectedCards} 
-            onVerified={(explanation: string) => handleFormHistSet(selectedCards, explanation)}
+            onVerified={(explanation) => handleDeclareSet(selectedCards, explanation)}
           />
            <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
-      <AlertDialog open={showAskDialog} onOpenChange={setShowAskDialog}>
-          <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className="font-headline text-2xl">Ask for a Card</AlertDialogTitle>
-                <AlertDialogDescription>
-                    Ask another player for a card you need to complete a set.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AskForCard
-                  otherPlayers={otherPlayers}
-                  onAsk={handleAskForCard}
-                  disabled={!currentPlayer.isHuman || !!winner || hasTakenAction}
-              />
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-              </AlertDialogFooter>
-          </AlertDialogContent>
       </AlertDialog>
       <AlertDialog open={showGoHistDialog} onOpenChange={setShowGoHistDialog}>
         <AlertDialogContent>
@@ -775,6 +611,34 @@ function GamePageContent() {
                 handleGoHistDraw();
               }}>OK</AlertDialogAction>
             </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <AlertDialog open={!!verificationRequest} onOpenChange={(open) => !open && setVerificationRequest(null)}>
+        <AlertDialogContent className="max-w-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-headline text-2xl">{verificationRequest?.player.name} Proposes a Set</AlertDialogTitle>
+            <AlertDialogDescription>
+              Review the proposed set and the explanation below. Is this a valid historical connection?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-4">
+              <div className="grid grid-cols-4 gap-2">
+                {verificationRequest?.cards.map(card => (
+                    <div key={card.id} className="border rounded-md p-2 text-center bg-muted/50">
+                        <p className="text-xs font-semibold">{card.name}</p>
+                        <p className="text-xs text-muted-foreground">{card.type}</p>
+                    </div>
+                ))}
+              </div>
+              <div className="p-4 border rounded-lg bg-background">
+                <p className="font-semibold">Explanation:</p>
+                <p className="text-muted-foreground">"{verificationRequest?.explanation}"</p>
+              </div>
+          </div>
+          <AlertDialogFooter>
+            <Button variant="destructive" onClick={() => handleVerificationVote(false)}>Reject Set</Button>
+            <Button variant="default" onClick={() => handleVerificationVote(true)}>Accept Set</Button>
+          </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </>

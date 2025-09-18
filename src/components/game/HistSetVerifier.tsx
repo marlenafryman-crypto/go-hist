@@ -4,17 +4,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { verifyHistSetAction } from '@/app/game/actions';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import type { Card as CardType } from '@/lib/types';
-import type { VerifyHistSetOutput } from '@/ai/flows/types';
 
 const formSchema = z.object({
-  explanation: z.string().min(20, 'Explanation must be at least 20 characters.'),
+  explanation: z.string().min(10, 'Explanation must be at least 10 characters.'),
 });
 
 interface HistSetVerifierProps {
@@ -24,8 +21,6 @@ interface HistSetVerifierProps {
 
 export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<VerifyHistSetOutput | null>(null);
-  const [explanation, setExplanation] = useState('');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,17 +29,9 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    setResult(null);
-    setExplanation(values.explanation);
-
-    const aiCards = selectedCards.map(({ id, name, type, description }) => ({ id, name, type, description }));
-    const verificationResult = await verifyHistSetAction({
-        cards: aiCards,
-        explanation: values.explanation
-    });
-    setResult(verificationResult);
+    onVerified(values.explanation);
     setIsLoading(false);
   }
   
@@ -72,24 +59,12 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isLoading || (!!result && result.isValid)}>
+          <Button type="submit" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Verify Set
+            Propose Set to Players
           </Button>
         </form>
       </Form>
-      {result && (
-        <Alert variant={result.isValid ? 'default' : 'destructive'} className="mt-4 bg-background/80">
-          {result.isValid ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-          <AlertTitle className="font-headline">{result.isValid ? 'Set Verified!' : 'Set Invalid'}</AlertTitle>
-          <AlertDescription>
-            <p className="mb-4">{result.reason}</p>
-            {result.isValid && (
-                <Button onClick={() => onVerified(explanation)}>Form This Set</Button>
-            )}
-          </AlertDescription>
-        </Alert>
-      )}
     </div>
   );
 }

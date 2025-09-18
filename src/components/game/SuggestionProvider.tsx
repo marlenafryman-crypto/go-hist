@@ -1,11 +1,9 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
-import { getHistoricalSuggestionsAction } from '@/app/game/actions';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, Lightbulb, XCircle } from 'lucide-react';
+import { Lightbulb, XCircle } from 'lucide-react';
 import type { Card as CardType } from '@/lib/types';
 import { Badge } from '../ui/badge';
 
@@ -14,40 +12,9 @@ interface SuggestionProviderProps {
 }
 
 export function SuggestionProvider({ selectedCards }: SuggestionProviderProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>("The AI Historian is currently disabled because no API key was provided. The rest of the game is fully functional.");
   
   const selectedCard = selectedCards[0];
-
-  useEffect(() => {
-    // Clear suggestions when card selection changes
-    setSuggestions([]);
-    setError(null);
-  }, [selectedCard]);
-
-  async function getSuggestions() {
-    if (!selectedCard) return;
-
-    setIsLoading(true);
-    setSuggestions([]);
-    setError(null);
-    
-    try {
-      const result = await getHistoricalSuggestionsAction({ cardDescription: selectedCard.description });
-      if (result.error) {
-        setError(result.error);
-      } else if (result.suggestions && result.suggestions.length > 0) {
-        setSuggestions(result.suggestions);
-      } else {
-        setError("The historian couldn't find any specific suggestions for this card.");
-      }
-    } catch (e) {
-        setError('A critical error occurred while communicating with the historian AI. Please try again later.');
-    } finally {
-        setIsLoading(false);
-    }
-  }
 
   return (
     <div className="space-y-4">
@@ -60,31 +27,19 @@ export function SuggestionProvider({ selectedCards }: SuggestionProviderProps) {
         )}
       </div>
       
-      <Button onClick={getSuggestions} disabled={isLoading || !selectedCard}>
-        {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Lightbulb className="mr-2"/>}
+      <Button disabled>
+        <Lightbulb className="mr-2"/>
         Get Suggestions
       </Button>
       
       {error && (
         <Alert variant="destructive" className="mt-4">
           <XCircle className="h-4 w-4" />
-          <AlertTitle className="font-headline">Error</AlertTitle>
+          <AlertTitle className="font-headline">AI Unavailable</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
 
-      {suggestions.length > 0 && (
-        <div className="space-y-2 pt-2">
-            <h4 className="font-headline text-md">Suggestions:</h4>
-            <div className="flex flex-wrap gap-2">
-                {suggestions.map((suggestion, index) => (
-                    <Badge key={index} variant="secondary" className="text-wrap text-left">
-                        {suggestion}
-                    </Badge>
-                ))}
-            </div>
-        </div>
-      )}
     </div>
   );
 }

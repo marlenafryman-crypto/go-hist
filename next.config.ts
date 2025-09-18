@@ -40,16 +40,6 @@ const nextConfig = {
       },
     ],
   },
-   async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/api/flows/:path*',
-          destination: 'http://localhost:21000/api/flows/:path*',
-        },
-      ],
-    };
-  },
 };
 
 export default nextConfig;
