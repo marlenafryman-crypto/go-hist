@@ -85,5 +85,6 @@ export const GetAiPlayerActionOutputSchema = z.object({
   explanation: z.string().optional().describe("The explanation for the Hist Set. Only present if action is 'formSet'."),
   opponentId: z.string().optional().describe("The ID of the opponent to ask for a card. Only present if action is 'ask'."),
   request: z.string().optional().describe("The card being requested from the opponent. Only present if action is 'ask'."),
+  error: z.string().optional().describe("An error message if the AI feature is disabled."),
 });
 export type GetAiPlayerActionOutput = z.infer<typeof GetAiPlayerActionOutputSchema>;

@@ -35,7 +35,9 @@ export function SuggestionProvider({ selectedCards }: SuggestionProviderProps) {
     
     try {
       const result = await getHistoricalSuggestionsAction({ cardDescription: selectedCard.description });
-      if (result.suggestions && result.suggestions.length > 0) {
+      if (result.error) {
+        setError(result.error);
+      } else if (result.suggestions && result.suggestions.length > 0) {
         setSuggestions(result.suggestions);
       } else {
         setError("The historian couldn't find any specific suggestions for this card.");
