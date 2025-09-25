@@ -7,7 +7,7 @@ export const DECK: Card[] = [
     name: 'Leonardo da Vinci',
     type: 'Person',
     description: 'A true Renaissance man, excelling in painting, sculpture, architecture, music, science, and more.',
-    imageUrl: 'https://i.ibb.co/MydM0hhV/Untitled-design-2025-09-03-T152801-642.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMWbONALIefO3XhFfvESFZKA38gn7MNHxV8_9-3xIsI6jRfP0T5UwUCARiAvOsy1pNsYt-Kn0tldl5-SMfbq4Aw-plXNIgdUDsbXmNArCpPTIC-uHKTtw9dThjsVSHR7139iHzZfezU3BZ5L9gOsiT8=w500-h500-s-no-gm?authuser=0',
     hint: 'renaissance artist',
   },
   {
@@ -71,7 +71,7 @@ export const DECK: Card[] = [
     name: 'Albert Einstein',
     type: 'Person',
     description: 'Developed the theory of relativity, one of the two pillars of modern physics.',
-    imageUrl: 'https://i.ibb.co/wFxrbfCg/Untitled-design-2025-09-03-T150827-710.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM7aCvE5T4GF78JOaq5e1tKd-1A7HfSMMAboHzVHcaPikVR4Bye-teJZPBDfeOL-Xv57PfoaTur_hm0utBCOZA7JGlzLYzk3TKGbLtYss8CEgOi0wm5X269Y-3_IT7n-DmkX5xwBmQY_WwVyLNdp6kY=w500-h500-s-no-gm?authuser=0',
     hint: 'modern physicist',
   },
   {
@@ -135,7 +135,7 @@ export const DECK: Card[] = [
     name: 'War of the Currents',
     type: 'Event',
     description: 'A series of events surrounding the introduction of competing electric power transmission systems in the late 1880s and early 1990s.',
-    imageUrl: 'https://i.ibb.co/j9kr3jXF/Untitled-design-2025-09-03-T153314-600.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNNK5lvDLIaphBzehzJacPzG5bM9sJ4otxSKLSdAYXYlFeB_pspJ37W5v6tWeVsBAvPEeEQwa3lp3NU9J_qB_xgH7nwg-f1C7bH3GBPZrF3uuMboIRR-RWPorZTkueCs_GS6fE1HpLZRUeO5g600M2a=w500-h500-s-no-gm?authuser=0',
     hint: 'technological rivalry',
   },
   {
@@ -414,7 +414,7 @@ export const DECK: Card[] = [
     name: 'Napoleon Bonaparte',
     type: 'Person',
     description: 'A French statesman and military leader who rose to prominence during the French Revolution and led several successful campaigns during the French Revolutionary Wars.',
-    imageUrl: 'https://i.ibb.co/rfnLq6g/Untitled-design-60.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN5EkriZTuDnQWVL1Axg2IgYTExOe28tPqfgbkcOwiNSC8LBDs4h15gr-CIwryWA1UOXOG5kFTGgOon_HWL6Ok96zKtZfcJvvoS-Y6f5fwW4enGFJ9747H2g0d-DtSWKt1YjLwrORnCDjf2wAhc93_P=w500-h500-s-no-gm?authuser=0',
     hint: 'french emperor',
   },
   {
@@ -422,7 +422,7 @@ export const DECK: Card[] = [
     name: 'The Napoleonic Wars',
     type: 'Event',
     description: 'A series of major conflicts pitting the French Empire and its allies, led by Napoleon I, against a fluctuating array of European powers formed into various coalitions.',
-    imageUrl: 'https://i.ibb.co/0VvYkmM/Untitled-design-85.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNqfRrqf0VxxoUkD_oG0PM8oX9PMOgaxjbyupz2a-JxwKzrGnruZ-GD5SrvuoeIGxRBtpqdXWAPSMmXL_pLKZj-bnQ1v3yuFjKf8L10yAxSlw6nUacDTnW1lSFvDbo27ZvGMPX7pdcohAphyd5G_-1T=w500-h500-s-no-gm?authuser=0',
     hint: 'european conflict',
   },
   {
@@ -542,7 +542,7 @@ export const DECK: Card[] = [
     name: 'Alexander Hamilton',
     type: 'Person',
     description: 'An American statesman and one of the Founding Fathers of the United States. He was an influential interpreter and promoter of the U.S. Constitution.',
-    imageUrl: 'https://i.ibb.co/SJBJGz8/Untitled-design-66.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPJ9Dvk152uOjeSiY8qhkjbgHHXmMP32UzYhEufHv07EdTnPaJ3_X8aXWN_ug8xGmKzDToBFzE6G1SZwe399hzFmwrTgdKMD8EdxkYnidN0zwvNHW0n7MFtGW_STKamN2-aQ1fH69UmJzzL_-BeMf_4=w500-h500-s-no-gm?authuser=0',
     hint: 'founding father',
   },
   {
