@@ -127,7 +127,7 @@ export const DECK: Card[] = [
     name: 'Nikola Tesla',
     type: 'Person',
     description: 'A Serbian-American inventor and engineer best known for his contributions to the design of the modern AC electricity system.',
-    imageUrl: 'https://photos.app.goo.gl/AfXcYDhPcedovcsf8',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOzjY-WB4yAb2-_qOHtVgRvtaPaqAJGGpEM5Udt-_Zbet63OeB9gIIny5NR1eHgj3W0PfatbaNtTjETuyi68cvcV_wYlK0ka-8y3nHXHkuqHUcqPII0TrTM96O2QUvsZ5kN2fZeQY7J31XikgLlfm-i=w500-h500-s-no-gm',
     hint: 'inventor engineer',
   },
   {
@@ -990,6 +990,7 @@ export const DECK: Card[] = [
     
 
     
+
 
 
 
