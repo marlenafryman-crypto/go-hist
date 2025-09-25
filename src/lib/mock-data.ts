@@ -111,7 +111,7 @@ export const DECK: Card[] = [
     name: 'March on Washington',
     type: 'Event',
     description: 'A massive protest march in August 1963, where Martin Luther King Jr. delivered his famous "I Have a Dream" speech.',
-    imageUrl: 'https://i.ibb.co/BSpr5b3/Untitled-design-97.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN8K0G-qh0IjrjVJaqhnRYgZsUTqdQnWK_uLQ-afmBvje1vqiXBwXk-EfihEzwZ5hUNHVHRXjDLNCV-Y-ze8Qqj3YU_yPR5jFDZYG11KKWCwUmJdjalTbPR7dMbOhn_x5se20dj5je_Xo4d1nb9Yn3n=w500-h500-s-no-gm?authuser=0',
     hint: 'protest march',
   },
   {
@@ -303,7 +303,7 @@ export const DECK: Card[] = [
     name: 'Sojourner Truth',
     type: 'Person',
     description: "An African-American abolitionist and women's rights activist. Truth was born into slavery but escaped with her infant daughter to freedom in 1826.",
-    imageUrl: 'https://i.ibb.co/L5Bw0wL/Untitled-design-48.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMMyKYegi5n3uNoA7Vjcc6nfZBir2fGH0nSlFrQDm178ogNRUb-HMzkPznk_J40cua4qaGa9pezDezMVev85u-a2kEILfY9tjMYGBW7PUDhCO6Qhf7GqV6cuLkvLlWBFTngDykwbMfpbsT48aBUfZDf=w500-h500-s-no-gm?authuser=0',
     hint: 'abolitionist activist',
   },
   {
@@ -343,7 +343,7 @@ export const DECK: Card[] = [
     name: 'Apartheid',
     type: 'Event',
     description: 'A system of institutionalized racial segregation that existed in South Africa and South West Africa from 1948 until the early 1990s.',
-    imageUrl: 'https://i.ibb.co/9V0ZJrk/Untitled-design-94.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPhfxqu8nyYQCWTqj0diXcNYACz3EBpd1LbMcwp6mrUcpP8u5kbx8-cBP3l4FMpXDqfa3PGAKaNEM8fJfen-yPv3eiHvXhq4N4sS5BMs69ohGCIa8nk-9uXljW0OW4SzqwxLDjb7gTrUu1pM3VbFMdU=w500-h500-s-no-gm?authuser=0',
     hint: 'racial segregation',
   },
   {
@@ -599,7 +599,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: "An American social reformer and women's rights activist who played a pivotal role in the women's suffrage movement.",
-    imageUrl: 'https://i.ibb.co/wJgTqG8/Untitled-design-69.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOWdLabYaFzcDLIu94JwClBtbN-kJ82AoUmgXMpKTVvYnKfTjHmejqW_CDHehb6l_UU37-KGV_gvMcwulCe4hJR8wQVWh2DtXVphL2DF8B26RoXF4q0sOiR1COC4jsXwd5zIzgyMJVQILAkWgewXRrs=w500-h500-s-no-gm?authuser=0',
     hint: 'suffrage activist',
   },
   {
@@ -797,7 +797,7 @@ export const DECK: Card[] = [
   {
     id: 'e58',
     name: 'French Revolution',
-    type: 'Event',
+    type_of: 'Event',
     description: 'A period of far-reaching social and political upheaval in France and its colonies beginning in 1789.',
     imageUrl: 'https://picsum.photos/seed/frenchrev/600/900',
     hint: 'french history',
@@ -857,6 +857,46 @@ export const DECK: Card[] = [
     description: 'A series of religious wars initiated, supported, and sometimes directed by the Latin Church in the medieval period.',
     imageUrl: 'https://picsum.photos/seed/crusades/600/900',
     hint: 'religious wars',
+  },
+  {
+    id: 'p47',
+    name: 'Sacagawea',
+    type: 'Person',
+    description: 'A Lemhi Shoshone woman who, in her teens, helped the Lewis and Clark Expedition in achieving their chartered mission objectives by exploring the Louisiana Territory.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP-KD14KOU4n0dln7qxoVfhpLhVquu1IUlM8jUCGwyifZcJVA9Qe9SxAk8RaATrrsZar1BWnIq5Uv7O7zvlwbZCyBEf56A5bX7MoM1mGpjsGhSVUOe_YATjD_DmtTCuwtKrRfPZH57TJQAz4ljFnB2Y=w500-h500-s-no-gm?authuser=0',
+    hint: 'native american guide',
+  },
+  {
+    id: 'p48',
+    name: 'Rosa Parks',
+    type: 'Person',
+    description: 'An activist in the civil rights movement best known for her pivotal role in the Montgomery bus boycott.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMcpZiTUA_0rosZIlKk3vfSpqhWz4Bwp5VmLwa5Gbrj6JbypnZ9AOao-BR4eo8Y7AxQOVq92C4iH8aJzsh6fgg32RZCW8o1jLLedvvhJPqyKBseFO64tjdfwP5BEPmJHyaR357VlW5OL3IYoKhGBXpb=w500-h500-s-no-gm?authuser=0',
+    hint: 'civil rights',
+  },
+  {
+    id: 'p49',
+    name: 'President',
+    type: 'Person',
+    description: 'This person served as the President of a country, holding the highest office in the executive branch.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMuS9s8VqbPymzTqECLsmkoH5sOfTSTd46gF6o6dEA5fqZAdLKtcIC_3lL9C-D-ASq00-C__ZlaYUFc3YXcwH2wnysxeF5DJ7wLUGODYvJV1P6pxYwib8EklZl89n7_GeO5FnyEySNrZ7fuXWzNBCEz=w500-h500-s-no-gm?authuser=0',
+    hint: 'head of state',
+  },
+  {
+    id: 'e66',
+    name: 'I Have a Dream Speech',
+    type: 'Event',
+    description: 'A public speech that was delivered by American civil rights activist Martin Luther King Jr. during the March on Washington for Jobs and Freedom on August 28, 1963.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN8K0G-qh0IjrjVJaqhnRYgZsUTqdQnWK_uLQ-afmBvje1vqiXBwXk-EfihEzwZ5hUNHVHRXjDLNCV-Y-ze8Qqj3YU_yPR5jFDZYG11KKWCwUmJdjalTbPR7dMbOhn_x5se20dj5je_Xo4d1nb9Yn3n=w500-h500-s-no-gm?authuser=0',
+    hint: 'civil rights speech',
+  },
+  {
+    id: 'p50',
+    name: 'Betsy Ross',
+    type: 'Person',
+    description: 'An American upholsterer who was credited by her relatives in 1870 with making the first American flag, known as the Betsy Ross flag.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczODK4LkQDkK7TRIMoXYGPG-qpo5_4WoLNrJAW1D28DvsPmz9IBtao6AWAwO88-Z69vqGsOQ0U_RMGT8qLSw2hrXAdJskJ-WT6CjG_deIc1FO0xlxNmJS9A4bQv48cnbVPWfBR0t9nTeFFKl-C7sbwJy=w500-h500-s-no-gm?authuser=0',
+    hint: 'american flag',
   }
 ];
 
