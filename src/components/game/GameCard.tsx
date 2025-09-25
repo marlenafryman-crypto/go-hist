@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Card as CardType } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { User, History, Feather } from 'lucide-react';
+import { User, History } from 'lucide-react';
 import { ScrollArea } from '../ui/scroll-area';
 
 interface GameCardProps {
@@ -21,11 +21,8 @@ interface GameCardProps {
 export function GameCard({ card, isSelected, isVerified, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
   if (card === 'back') {
     return (
-      <Card className={cn("bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
-        <div className="flex flex-col items-center justify-center opacity-50">
-            <Feather className="w-12 h-12 text-white/80" />
-            <p className="font-headline text-white/80 text-lg mt-2">Go Hist</p>
-        </div>
+      <Card className={cn("bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden relative", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
+        <Image src="https://lh3.googleusercontent.com/pw/AP1GczOJwObsxW0ycrF9G5h3V8rbhzsfwoAuLS2IaA97XOxcLmxMlBm_ljnH=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" layout="fill" objectFit="contain" className="p-4 opacity-80" />
       </Card>
     );
   }
