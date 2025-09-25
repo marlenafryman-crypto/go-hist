@@ -387,14 +387,6 @@ export const DECK: Card[] = [
     hint: 'dna scientist',
   },
   {
-    id: 'e27',
-    name: 'Structure of DNA',
-    type: 'Event',
-    description: 'The discovery in the 1950s of the double helix, the twisted-ladder structure of deoxyribonucleic acid (DNA), by James Watson and Francis Crick.',
-    imageUrl: 'https://i.ibb.co/yprqgq4/Untitled-design-80.png',
-    hint: 'scientific discovery',
-  },
-  {
     id: 'p25',
     name: 'Hedy Lamarr',
     type: 'Person',
@@ -627,14 +619,6 @@ export const DECK: Card[] = [
     hint: 'english novelist',
   },
   {
-    id: 'e41',
-    name: 'Regency Era',
-    type: 'Event',
-    description: 'A period in British history, from 1811 to 1820. The era was distinctive for its elegance and achievements in the fine arts and architecture.',
-    imageUrl: 'https://i.ibb.co/k8B0Jg2/Untitled-design-100.png',
-    hint: 'british history',
-  },
-  {
     id: 'p41',
     name: 'Charles Darwin',
     type: 'Person',
@@ -724,4 +708,5 @@ export const DECK: Card[] = [
   }
 ];
 
+    
     
