@@ -87,7 +87,7 @@ export const DECK: Card[] = [
     name: 'Isaac Newton',
     type: 'Person',
     description: 'An English mathematician, physicist, and astronomer, widely recognized as one of the most influential scientists of all time.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNHOY6BKw5GO85ESIZooeGQeHOl5F-0m_wWvlvguAAR6wafp0-_C7JlFRiWHZpcsIqBcgQ7IOygkOYwV3UatpGl5Q6uBt0F_FMPFczOykfXZWeGi5b4n4GSXvdzSNg3cwU8Iguus74zuGPU2ZEf1-kv=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://i.ibb.co/Ggcv9m8/Untitled-design-2025-09-03-T154044-845.png',
     hint: 'influential scientist',
   },
   {
@@ -191,7 +191,7 @@ export const DECK: Card[] = [
     name: 'Treaty of Paris (1783)',
     type: 'Event',
     description: 'The peace agreement that officially ended the American Revolution. Britain recognized American independence and cede territory to the new United States.',
-    imageUrl: 'https://i.ibb.co/qLC67Sgg/Untitled-design-10.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP_c9fkBPWDiLK4uA72ez0BU8iDYOd4Day9JfqPpf8LlqhOAcmAmg5LM4hQIiSi8lVEFAAMjwAvXi2VvI5qvCnYhImiSEEJMabSdgVSItmN5H7FGvbwIgxByOhROlOyN4kef5PnFZzXVjF0Mkux1QXI=w500-h500-s-no-gm?authuser=0',
     hint: 'peace treaty',
   },
   {
@@ -199,7 +199,7 @@ export const DECK: Card[] = [
     name: 'Boston Tea Party',
     type: 'Event',
     description: 'In December 1773, American colonists disguised as Mohawk Indians dumped tea into Boston Harbor to protest the Tea Act and British taxation without representation.',
-    imageUrl: 'https://i.ibb.co/Y7mpf3wz/Untitled-design-9.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOEb5iFaRv1_OhXgchi2EgL0VM8IuR8QDmhIytgGANMQb8IAM7e2u3KhwbIdMt60gUGYz4p8dVf8I9wkxvEC2qGUX_dqarIXKHK1BC_8TqA5Y_4fs4zml925KMegEejqTsk8E9hwsNFwNMQ4u1QnFM4=w500-h500-s-no-gm?authuser=0',
     hint: 'american revolution',
   },
   {
@@ -287,7 +287,7 @@ export const DECK: Card[] = [
     name: 'Fireside Chats',
     type: 'Event',
     description: 'A series of evening radio addresses given by U.S. President Franklin D. Roosevelt between 1933 and 1944.',
-    imageUrl: 'https://i.ibb.co/TB5dxXyC/Untitled-design-3.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczONt42noIQ73Hnv6IU-OapaMBP-sCkc2tnppW4qCSn4jk7_sXmpqzsYe2pULMTXPH9qXtCkfaMaULiiHFvzPTmrI0maJ4ynfG9Fa0ek_Q-c6A_Wa2fen8XV5Z220jvUWYeluQzdKBQIYUCOmrym2OXl=w500-h500-s-no-gm?authuser=0',
     hint: 'radio address',
   },
   {
@@ -807,7 +807,7 @@ export const DECK: Card[] = [
     name: 'Patron of Exploration',
     type: 'Event',
     description: 'This leader supported voyages and discoveries to expand trade and land ownership.',
-    imageUrl: 'https://picsum.photos/seed/exploration/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNwXRbUsEDDL1YET6z_mIAlz_KkrGCd8B3QLcyQI8BymeJY5K2SECMYj7YS3gYU8ao9iXp12wFY9vs0_08zUE8DLRqgQcBvt-TtgPY18hxAJ7cRLspfKawRIskaW4zHJIG7_wG0cBlzl8eA8oJYZkAi=w500-h500-s-no-gm?authuser=0',
     hint: 'discovery voyage',
   },
   {
@@ -887,7 +887,7 @@ export const DECK: Card[] = [
     name: 'I Have a Dream Speech',
     type: 'Event',
     description: 'A public speech that was delivered by American civil rights activist Martin Luther King Jr. during the March on Washington for Jobs and Freedom on August 28, 1963.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN8K0G-qh0IjrjVJaqhnRYgZsUTqdQnWK_uLQ-afmBvje1vqiXBwXk-EfihEzwZ5hUNHVHRXjDLNCV-Y-ze8Qqj3YU_yPR5jFDZYG11KKWCwUmJdjalTbPR7dMbOhn_x5se20dj5je_Xo4d1nb9Yn3n=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://i.ibb.co/6y1y0pM/Untitled-design-2025-09-03-T150650-618.png',
     hint: 'civil rights speech',
   },
   {
@@ -897,7 +897,56 @@ export const DECK: Card[] = [
     description: 'An American upholsterer who was credited by her relatives in 1870 with making the first American flag, known as the Betsy Ross flag.',
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczODK4LkQDkK7TRIMoXYGPG-qpo5_4WoLNrJAW1D28DvsPmz9IBtao6AWAwO88-Z69vqGsOQ0U_RMGT8qLSw2hrXAdJskJ-WT6CjG_deIc1FO0xlxNmJS9A4bQv48cnbVPWfBR0t9nTeFFKl-C7sbwJy=w500-h500-s-no-gm?authuser=0',
     hint: 'american flag',
+  },
+  {
+    id: 'p51',
+    name: 'Aaron Burr',
+    type: 'Person',
+    description: 'An American politician and adventurer. He was a principal antagonist of Alexander Hamilton and served as the third Vice President of the United States.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPDCigBj_sUHmG8NuU5XN8EzkhfRa8RUJiz-FCgUfHqGGhdWcI3PFpBXrtS-Q1pphyGwS0v2rS7AW-NrVlkcf2_K-bUgXuaoDHXiVXrqsEYANIns7TebaxwhgVAIhtjzWwAFB4FGOrKPuGec5aKyH-c=w500-h500-s-no-gm?authuser=0',
+    hint: 'american politician',
+  },
+  {
+    id: 'e67',
+    name: 'Federal Reserve Creation',
+    type: 'Event',
+    description: 'The establishment of the central banking system of the United States in 1913 to create a more stable and secure financial system.',
+    imageUrl: 'https://picsum.photos/seed/fed/600/900',
+    hint: 'financial system',
+  },
+  {
+    id: 'e68',
+    name: 'Emancipation Proclamation',
+    type: 'Event',
+    description: 'A presidential proclamation and executive order issued by United States President Abraham Lincoln on January 1, 1863. It changed the federal legal status of more than 3.5 million enslaved African Americans in the designated areas of the South from slave to free.',
+    imageUrl: 'https://picsum.photos/seed/ep/600/900',
+    hint: 'abolition slavery',
+  },
+  {
+    id: 'p52',
+    name: 'George III',
+    type: 'Person',
+    description: 'King of Great Britain and Ireland from 1760 until his death in 1820. His reign was marked by a series of military conflicts involving his kingdoms, much of the rest of Europe, and places farther afield in Africa, the Americas and Asia.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPS0h-nJ-o_Ym_d_5n5y8z7w9j5X4Y1xY7qB7z9s8M7n8f4c2k1s5w7g5h4j3k2l1m0n9v8c7b6a5e4d3c2b1a0=w500-h500-s-no-gm?authuser=0',
+    hint: 'british king',
+  },
+  {
+    id: 'p53',
+    name: 'Dolley Madison',
+    type: 'Person',
+    description: 'The wife of James Madison, President of the United States from 1809 to 1817. She was noted for her social graces, which boosted her husband’s popularity as President.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPHAa-bIs08GFSzMiVVrYvTy57RtKRj7uA5pwHONCzQt0lPfVkFuukfFi3oeDYv2t4t1zh_QQ24MyWlFSncFVFVJBo2_iweVMCCOGSIbBT0pOcikjW7t-_kPRjFhDWYQeE-XWXYRGxvJyPfZq_WFH_X=w500-h500-s-no-gm?authuser=0',
+    hint: 'first lady',
+  },
+  {
+    id: 'p54',
+    name: 'James Madison',
+    type: 'Person',
+    description: 'An American statesman, diplomat, expansionist, philosopher, and Founding Father who served as the fourth president of the United States from 1809 to 1817.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMKl4Yc2pL1y8f3d8a7Z6e5g4f3h2j1k0l9m8n7v6p5o4i3u2w1q0z9x8y7w6v5u4t3s2r1q0p9o8n7m6l5=w500-h500-s-no-gm?authuser=0',
+    hint: 'us president',
   }
 ];
 
     
+
