@@ -47,7 +47,7 @@ export const DECK: Card[] = [
     name: 'Crossing the Rubicon',
     type: 'Event',
     description: 'A pivotal moment in 49 BC when Julius Caesar\'s army crossed the river, marking a point of no return.',
-    imageUrl: 'https://i.ibb.co/Z6Xn6mKq/Untitled-design-2025-09-03-T154442-644.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMLzJ38auDQU-SvQN1k9ppOyNUYvx7Ij2f18Vo6o7pVRzZYXZx6CBUWFU2BE8JYGhJij0B3Gx_HDld2qIVjk3hqMLEXUtiPQioZm7eYI7XkpxXLxxCZ4obYakO8xBN3sUSFXHmWVTdWsQP3zjClv3Le=w500-h500-s-no-gm?authuser=0',
     hint: 'ancient battle',
   },
   {
@@ -208,6 +208,7 @@ export const DECK: Card[] = [
     description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
     imageUrl: 'https://i.ibb.co/G3RTdBn3/Untitled-design-82.png',
     type: 'Event',
+    hint: 'revolutionary war',
   },
   {
     id: 'p14',
@@ -310,7 +311,7 @@ export const DECK: Card[] = [
     name: 'Abolitionist Movement',
     type: 'Event',
     description: 'The movement to end slavery, this term can be used both formally and informally.',
-    imageUrl: 'https://i.ibb.co/mSg2f8p/Untitled-design-77.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO9XNW9u4BC1yW-lfYO3JByHNxz0clZJqvNMDspDqzOb_bFCrFIjSEXEZ_JuZ7HEaVhvoahIM4eGedrtgx63GY7YOkgFnezTmTEgr5XAbyCrKqS4xUHvXeblTBGhteqCCfB3CmRJhPAqEW4z_Z_NpxE=w729-h911-s-no-gm?authuser=0',
     hint: 'anti-slavery movement',
   },
   {
@@ -398,7 +399,7 @@ export const DECK: Card[] = [
     name: 'Hedy Lamarr',
     type: 'Person',
     description: 'An Austrian-American actress, and inventor. At the beginning of WWII, she co-invented an early technique for spread spectrum communications, a key to modern wireless communication.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO12lnQfGRep1hvkCS1kw7IAet_qWQp6PSRln4zdZqJXpci0fnt2dWQXfKRzRIfaC-Jb1tzQy2Y3bENSPd326VO3yS2fiQA0munVvMSCQkswxX2fnKwE1p_mRbpYSehHXOaAeJRdbPgi5RK9fqYil_D=w729-h911-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNbnOo_nczMdUJ7UlkGjBv25jY7Z31WbNxNjyavA1bnkhwdnFxbD7zoS5Blnd7ySDTvQAYzaeHSdj5Fa5HJvDLd8acOSE_3ax1pSqge2Rckz2kxeiyP5ey9vujd7rV6jH0xqSn-C_dv5g4JPYATFZcG=w729-h911-s-no-gm?authuser=0',
     hint: 'actress inventor',
   },
   {
@@ -446,7 +447,7 @@ export const DECK: Card[] = [
     name: 'Ferdinand Magellan',
     type: 'Person',
     description: 'A Portuguese explorer who organised the Spanish expedition to the East Indies from 1519 to 1522, resulting in the first circumnavigation of the Earth.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPjZzifYrXNqjP6HrOw-DLfuc8yHoYg2boCpDbfAO0MwE_2NJS3GQU0jqxEaQGxFoMmQnMJEsrZqWISFuMjoLUo2UB9_6YzgxXLhvHJHbn8HObG_Zns9EQ8EtVkP-H_Pu0fEShq9z2cFMb9TVaubl4H=w729-h911-s-no-gm?authuser=0',
+    imageUrl: 'https://i.ibb.co/YyCjR8G/Untitled-design-2025-09-03-T154627-147.png',
     hint: 'portuguese explorer',
   },
   {
@@ -510,7 +511,7 @@ export const DECK: Card[] = [
     name: 'Golden Age of Aviation',
     type: 'Event',
     description: 'The period in the history of aviation between the end of World War I and the beginning of World War II.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPfl0YCsAwANxAQSzcOGZaC0pZ5EVvQbaCTweIGVyKujuvoenEVxm0DBeQoaep9U7eWLPwImdLla5Sz1L-q5wK8SBfQ-iQ-MiFycX35WipTsmhIrDuMEaToRuBxq8M6Htl7K9q3u4FtY31tnBm-6JSu=w729-h911-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPZzm27_hvMHtURzzN25DTE5lfoYlZHCaco1gqBcY-QB7_oYURNZ2oh5ijGmZcCsO9nWFVwNjCUk1hQEdnIkyOW4kqlv4lNgW7sS-vzDiN8JmQP5huY1XSBixXMOHw6U15AtfH0QtY5TNapYvyBu_xt=w729-h911-s-no-gm?authuser=0',
     hint: 'aviation history',
   },
   {
@@ -688,5 +689,39 @@ export const DECK: Card[] = [
     description: 'The process of interaction and integration among people, companies, and governments worldwide.',
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMD1xbKIjSWiZLNZTvxsZAsmGiRz4ozhM9XfX7av4fWf-EcrxDXxe2H9yxiU-gD7NDZG5gjjNRKM_1Ax8C8E6OMQMfmn4LPTDp9RKl_HPuyzuJiJzlyVrjFmDqfPBKWcSca5fImUK45cMKzbpGjUM4u=w500-h500-s-no-gm?authuser=0',
     hint: 'global integration',
+  },
+  {
+    id: 'e46',
+    name: 'Montgomery Bus Boycott',
+    type: 'Event',
+    description: 'A seminal event in the Civil Rights Movement, this was a political and social protest campaign against the policy of racial segregation on the public transit system of Montgomery, Alabama.',
+    imageUrl: 'https://i.ibb.co/kM1N7Dk/Untitled-design-105.png',
+    hint: 'civil rights',
+  },
+  {
+    id: 'p44',
+    name: 'Catherine the Great',
+    type: 'Person',
+    description: 'Empress of Russia from 1762 until 1796, the country\'s longest-ruling female leader. She came to power following a coup that overthrew her husband, Peter III.',
+    imageUrl: 'https://i.ibb.co/3sMQpsG/Untitled-design-2025-09-03-T150917-190.png',
+    hint: 'russian empress',
+  },
+  {
+    id: 'p45',
+    name: 'Eleanor Roosevelt',
+    type: 'Person',
+    description: 'Description needed for this card.',
+    imageUrl: 'https://picsum.photos/seed/er/600/900',
+    hint: 'first lady',
+  },
+  {
+    id: 'e47',
+    name: 'Imprisonment and Resistance',
+    type: 'Event',
+    description: 'A card representing the struggles against unjust imprisonment and the fight for freedom, often linked to political prisoners and resistance movements.',
+    imageUrl: 'https://i.ibb.co/QvzB9HhK/Untitled-design-2025-09-03-T145400-628.png',
+    hint: 'freedom fight',
   }
 ];
+
+    
