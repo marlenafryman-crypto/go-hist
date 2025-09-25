@@ -21,7 +21,7 @@ interface GameCardProps {
 export function GameCard({ card, isSelected, isVerified, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
   if (card === 'back') {
     return (
-      <Card className={cn("bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className)}>
+      <Card className={cn("bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[120px] h-[180px]')}>
         <div className="relative w-full h-full">
             <Image
               src="https://i.ibb.co/LddKckY6/Untitled-design-81.png"
@@ -43,12 +43,12 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
   
   const isInteractive = !!onSelect;
 
-  const cardBaseSize = isPlayerCard ? 'w-[150px] h-[225px]' : 'w-[120px] h-[180px]';
-  const cardTitleSize = isPlayerCard ? 'text-sm' : 'text-xs';
-  const iconSize = isPlayerCard ? 'w-3 h-3' : 'w-3 h-3';
-  const cardDescriptionSize = isPlayerCard ? 'text-xs' : 'text-[10px]';
-  const imageSize = isPlayerCard ? 'h-[60px]' : 'h-[80px]';
-  const textContentSize = isPlayerCard ? 'text-[10px]' : 'text-[9px]';
+  const cardBaseSize = isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[120px] h-[180px]';
+  const cardTitleSize = isPlayerCard ? 'text-base' : 'text-xs';
+  const iconSize = isPlayerCard ? 'w-4 h-4' : 'w-3 h-3';
+  const cardDescriptionSize = isPlayerCard ? 'text-sm' : 'text-[10px]';
+  const imageSize = isPlayerCard ? 'h-[120px]' : 'h-[80px]';
+  const textContentSize = isPlayerCard ? 'text-sm' : 'text-[9px]';
 
 
   return (
