@@ -15,7 +15,7 @@ export const DECK: Card[] = [
     name: 'The Renaissance',
     type: 'Event',
     description: 'A period of great cultural change and achievement in Europe that spanned from the 14th to the 17th century.',
-    imageUrl: 'https://i.ibb.co/Kcjt4Xjv/Untitled-design-2025-09-03-T151504-628.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMA8iWkqwS3FW8_8ssL9HP3xrlaC9R1NUUMWElh7siDUseVY2n_DAVVojIMozKWObh2k4Er1SiNeBh3DQurYTAPSvBZhpRE9dzQ098XBKX_E1QwMA5lrptenozQ-II6XFRfxnXScIaNU0tWpFcpZLlD=w500-h500-s-no-gm?authuser=0',
     hint: 'historical period',
   },
   {
@@ -63,7 +63,7 @@ export const DECK: Card[] = [
     name: 'Ptolemaic Dynasty',
     type: 'Event',
     description: 'A Hellenistic kingdom based in ancient Egypt, founded by Ptolemy I Soter, a companion of Alexander the Great.',
-    imageUrl: 'https://i.ibb.co/rRRKmx3v/Untitled-design-2025-09-03-T154101-622.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOJtbBKzgkOKWBYFagJluFoa2MYGcTOlc0Zc43guWWP2q6f-e0X2e0djoekiw_1oIgseQvHuWiM0r3tQmv1oj9lvlqhVF3uMBvQZXwz52xf_qlnGqKxmbEf17l_r3ZMrR9rXO6xEn_2ed1BlJCM15I0=w500-h500-s-no-gm?authuser=0',
     hint: 'ancient dynasty',
   },
   {
@@ -87,7 +87,7 @@ export const DECK: Card[] = [
     name: 'Isaac Newton',
     type: 'Person',
     description: 'An English mathematician, physicist, and astronomer, widely recognized as one of the most influential scientists of all time.',
-    imageUrl: 'https://i.ibb.co/Fqx97nc2/Untitled-design-2025-09-03-T154353-257.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNHOY6BKw5GO85ESIZooeGQeHOl5F-0m_wWvlvguAAR6wafp0-_C7JlFRiWHZpcsIqBcgQ7IOygkOYwV3UatpGl5Q6uBt0F_FMPFczOykfXZWeGi5b4n4GSXvdzSNg3cwU8Iguus74zuGPU2ZEf1-kv=w500-h500-s-no-gm?authuser=0',
     hint: 'influential scientist',
   },
   {
@@ -398,7 +398,7 @@ export const DECK: Card[] = [
     name: 'Hedy Lamarr',
     type: 'Person',
     description: 'An Austrian-American actress, and inventor. At the beginning of WWII, she co-invented an early technique for spread spectrum communications, a key to modern wireless communication.',
-    imageUrl: 'https://i.ibb.co/Hq2Lw2w/Untitled-design-61.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO12lnQfGRep1hvkCS1kw7IAet_qWQp6PSRln4zdZqJXpci0fnt2dWQXfKRzRIfaC-Jb1tzQy2Y3bENSPd326VO3yS2fiQA0munVvMSCQkswxX2fnKwE1p_mRbpYSehHXOaAeJRdbPgi5RK9fqYil_D=w729-h911-s-no-gm?authuser=0',
     hint: 'actress inventor',
   },
   {
@@ -446,7 +446,7 @@ export const DECK: Card[] = [
     name: 'Ferdinand Magellan',
     type: 'Person',
     description: 'A Portuguese explorer who organised the Spanish expedition to the East Indies from 1519 to 1522, resulting in the first circumnavigation of the Earth.',
-    imageUrl: 'https://i.ibb.co/GPPXNdX/Untitled-design-58.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPjZzifYrXNqjP6HrOw-DLfuc8yHoYg2boCpDbfAO0MwE_2NJS3GQU0jqxEaQGxFoMmQnMJEsrZqWISFuMjoLUo2UB9_6YzgxXLhvHJHbn8HObG_Zns9EQ8EtVkP-H_Pu0fEShq9z2cFMb9TVaubl4H=w729-h911-s-no-gm?authuser=0',
     hint: 'portuguese explorer',
   },
   {
@@ -510,7 +510,7 @@ export const DECK: Card[] = [
     name: 'Golden Age of Aviation',
     type: 'Event',
     description: 'The period in the history of aviation between the end of World War I and the beginning of World War II.',
-    imageUrl: 'https://i.ibb.co/7jZq4sC/Untitled-design-90.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPfl0YCsAwANxAQSzcOGZaC0pZ5EVvQbaCTweIGVyKujuvoenEVxm0DBeQoaep9U7eWLPwImdLla5Sz1L-q5wK8SBfQ-iQ-MiFycX35WipTsmhIrDuMEaToRuBxq8M6Htl7K9q3u4FtY31tnBm-6JSu=w729-h911-s-no-gm?authuser=0',
     hint: 'aviation history',
   },
   {
@@ -534,7 +534,7 @@ export const DECK: Card[] = [
     name: 'The Silk Road',
     type: 'Event',
     description: 'A network of trade routes which connected the East and West, and was central to cultural interaction between them for centuries.',
-    imageUrl: 'https://i.ibb.co/f4B20J2/Untitled-design-91.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM90GRZBhCnUyfjmx49rn6D-QTwP4GgooV4vefxWp5IDfvkuE_aosw3W3It0UuG887LgOSoaAt8Go_mPc---byaTELlCnA9cgntf7fqqAelsKCDEc3Ol_l9rkt22shXLjw1IX17XIOQOn8OjNmaqDh0=w729-h911-s-no-gm?authuser=0',
     hint: 'ancient trade-route',
   },
   {
@@ -558,7 +558,7 @@ export const DECK: Card[] = [
     name: 'Thomas Jefferson',
     type: 'Person',
     description: 'An American statesman, diplomat, lawyer, architect, philosopher, and Founding Father who served as the third president of the United States from 1801 to 1809.',
-    imageUrl: 'https://i.ibb.co/jGGs45q/Untitled-design-67.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPnptV1KqchrFPsAW1hL0LPQB3Tux0EdN_sqBYqyRkNnImR2JDAuKgjl3yT-G3A2i_CMgPGgkccga6iHb-X-F-uZJBy3TR8NlCrAzIWDwRJmXRkwe-S1E1f4I9jTxmFyljjd6nHNCKIRg59RKWlrM2L=w500-h500-s-no-gm?authuser=0',
     hint: 'us president',
   },
   {
@@ -582,7 +582,7 @@ export const DECK: Card[] = [
     name: 'The American Civil War',
     type: 'Event',
     description: 'A war fought in the United States from 1861 to 1865, between the North (the Union) and the South (the Confederacy).',
-    imageUrl: 'https://i.ibb.co/2vBnLqW/Untitled-design-96.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPSlI5MhFKEfs4op938sZxGiPVreNzGX2Pu0_bDrCCo8TYP7N9PbfdJYRINV9uiy2widCNNd87zy2h3c56j_lKnWW5VswJ3hjzUhxzpUWiSVC4lJiRG435i0IGLy9hD6dGYZsKC5XVMtr9GhPq4kQA5=w500-h500-s-no-gm?authuser=0',
     hint: 'us civil-war',
   },
   {
@@ -614,7 +614,7 @@ export const DECK: Card[] = [
     name: 'Women\'s Suffrage Movement',
     type: 'Event',
     description: 'A decades-long fight to win the right to vote for women in the United States.',
-    imageUrl: 'https://i.ibb.co/YyYF6M3/Untitled-design-99.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNTOoAkL0PxKs2FXD-ZznZMcdCBkuHTkURSKo9-88a1g72Aq9BFXRSAfTU578Nekyhh3fI02epGqVdzXEBOk_mKGz1-sgl38k2NfFuAfG5izxvqE53PKjEfzY566EcHgIsnDFRwvwlciX2hOVaw60BN=w500-h500-s-no-gm?authuser=0',
     hint: 'womens rights',
   },
   {
@@ -646,7 +646,7 @@ export const DECK: Card[] = [
     name: 'Theory of Evolution',
     type: 'Event',
     description: 'The process by which different kinds of living organisms are thought to have developed and diversified from earlier forms during the history of the earth.',
-    imageUrl: 'https://i.ibb.co/q0tLwD4/Untitled-design-101.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMAeb0I-e2TgQd18zBIYUB-ih-BvGqkWmBzveqZk_2O_ZOe8SJq27Q1pNQuMdfz9shhT9icAm7d188ihrr_f6eyw7scFpYlb0iz7FhcJFqhOtl70FOxNwpvIViT7CKbk-vWh85RCTC9BCtKgnQ4nuYw=w729-h911-s-no-gm?authuser=0',
     hint: 'natural selection',
   },
   {
