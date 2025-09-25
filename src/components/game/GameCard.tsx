@@ -21,10 +21,10 @@ interface GameCardProps {
 export function GameCard({ card, isSelected, isVerified, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
   if (card === 'back') {
     return (
-      <Card className={cn("bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[120px] h-[180px]')}>
+      <Card className={cn("bg-card flex items-center justify-center border-4 border-card/50 shadow-lg overflow-hidden", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
         <div className="relative w-full h-full">
             <Image
-              src="https://i.ibb.co/LddKckY6/Untitled-design-81.png"
+              src="https://lh3.googleusercontent.com/pw/AP1GczPQDkjfYTgBMaPMoiVpyJRWMl0hkIgEVmHsR9PvQ8SzLWuK35dV3oV-n9CVeMEWMWBGbyRD03h7WJ2YiJildf0T49O_VOnNxxq0NCqKW-zF0rgFq6BOwNdYoeL6TPEl1dWnQJN7K8HU_4hpwQTMFzp8=w607-h911-s-no-gm?authuser=0"
               alt="Go Hist Card Back"
               fill
               className="object-cover"
@@ -43,11 +43,11 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
   
   const isInteractive = !!onSelect;
 
-  const cardBaseSize = isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[120px] h-[180px]';
+  const cardBaseSize = isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]';
   const cardTitleSize = isPlayerCard ? 'text-base' : 'text-xs';
   const iconSize = isPlayerCard ? 'w-4 h-4' : 'w-3 h-3';
   const cardDescriptionSize = isPlayerCard ? 'text-sm' : 'text-[10px]';
-  const imageSize = isPlayerCard ? 'h-[120px]' : 'h-[80px]';
+  const imageSize = isPlayerCard ? 'h-[150px]' : 'h-[60px]';
   const textContentSize = isPlayerCard ? 'text-sm' : 'text-[9px]';
 
 
