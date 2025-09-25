@@ -22,7 +22,7 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
   if (card === 'back') {
     return (
       <Card className={cn("bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden relative", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
-        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" layout="fill" objectFit="contain" className="p-4 opacity-80" />
+        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" layout="fill" objectFit="cover" />
       </Card>
     );
   }
