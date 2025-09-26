@@ -103,7 +103,7 @@ export const DECK: Card[] = [
     name: 'Martin Luther King Jr.',
     type: 'Person',
     description: 'An American Baptist minister and activist who became the most visible spokesperson in the civil rights movement.',
-    imageUrl: 'https://picsum.photos/seed/civil%20rights/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMu1_-AGo5SYzC9g6EsZebIuKxj1G_CWPmYPe698lVzezCVemAWDLmHeykpyLr8CK_9ExtV8vvwoG17nyZ5pjHY7EhNp15le7NeITa67tBwKOQGLMXYMYzy8CWRP9WRbIzOC7dVx_kAYXK-nG9tJAIL=w500-h500-s-no-gm?authuser=0',
     hint: 'civil rights',
   },
   {
@@ -175,7 +175,7 @@ export const DECK: Card[] = [
     name: 'Joan of Arc',
     type: 'Person',
     description: 'A peasant girl who, believing that she was acting under divine guidance, led the French army in a momentous victory at Orléans.',
-    imageUrl: 'https://picsum.photos/seed/french%20heroine/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPd79dvKZCTtCs5zoRygg-TibkXVcX7n2uQ1VtMkuSME7Z0p_mApybQ_Qz33P44pZiVcOOlVppoU1Uy5YdOFELtx3_sZl6GDTVNeFd_Ju4MoRibQTax9G3eGH_lHcVQ_Pi-wWry5NoScMMbmP0K5Chk=w500-h500-s-no-gm?authuser=0',
     hint: 'french heroine',
   },
   {
@@ -183,7 +183,7 @@ export const DECK: Card[] = [
     name: '100 Years War',
     type: 'Event',
     description: 'A series of conflicts from 1337 to 1453 between the House of Plantagenet of England and the House of Valois of France.',
-    imageUrl: 'https://picsum.photos/seed/medieval%20war/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMStTX_oEZmk2vRTwZLFuUGIRCOYas3VFZHnjPkDiIOMu8UmHFgEcDDhtO88ebmZWYgbgYf1M4tuCnNfK6pDIx5_mgs-0TpbpCdUCF3d-46Zx17u6FopmfMrYV3VwYgVatiapciQzREAjOLkvdKPsSF=w500-h500-s-no-gm?authuser=0',
     hint: 'medieval war',
   },
   {
@@ -599,7 +599,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: "An American social reformer and women's rights activist who played a pivotal role in the women's suffrage movement.",
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOWdLabYaFzcDLIu94JwClBtbN-kJ82AoUmgXMpKTVvYnKfTjHmejqW_CDHehb6l_UU37-KGV_gvMcwulCe4hJR8wQVWh2DtXVphL2DF8B26RoXF4q0sOiR1COC4jsXwd5zIzgyMJVQILAkWgewXRrs=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM0FcyKLiXIveHjYVSCAJS4S3wItpNvnbEGK3aAWbegaya_G6aRwsx0mPHh0a2tFwJyrpQK80jF_LnyNXj1g1DCmD1_hGIhnH5vRQdLWqPzDL5_ayqrmbfw6IGILZct8Sue3fTGzIGSeKTcbPhs2iZ5=w500-h500-s-no-gm?authuser=0',
     hint: 'suffrage activist',
   },
   {
