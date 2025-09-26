@@ -87,7 +87,7 @@ export const DECK: Card[] = [
     name: 'Isaac Newton',
     type: 'Person',
     description: 'An English mathematician, physicist, and astronomer, widely recognized as one of the most influential scientists of all time.',
-    imageUrl: 'https://picsum.photos/seed/influential%20scientist/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPcbU_JeBeIUecgKRqe-rUKQnABnyjgwGRrG2Rd4vWO722ig-QwjybCkVQWFxEdDCIBd_x45QHP-wFJycWQdrM5QYScc18Q2UCSHSZRg7pdVW7BCGpBYbqkDwKEVp28h7Nj2BoNIaFfIvr4ynlyrYjb=w500-h500-s-no-gm?authuser=0',
     hint: 'influential scientist',
   },
   {
