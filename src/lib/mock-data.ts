@@ -31,7 +31,7 @@ export const DECK: Card[] = [
     name: 'Discovery of Radium',
     type: 'Event',
     description: 'The 1898 discovery by Marie and Pierre Curie, which revolutionized science and medicine.',
-    imageUrl: 'https://i.ibb.co/DPZWVyxv/Untitled-design-2025-09-03-T152633-753.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOZ51Pt8D8EPcNv4YoVt0kdkLcicLnYWX5M49fQgWh5dh8x3BPXV2LbiYLrxyw8kjT_YGMKztYpIk0UT2uBsPDBg4ru_6fwswAO5HaTFaX2qmBYAyMXDEamHstj-UGWLfS0Gq71fawccuOW5RHk3H6J=w500-h500-s-no-gm?authuser=0',
     hint: 'scientific breakthrough',
   },
   {
@@ -39,7 +39,7 @@ export const DECK: Card[] = [
     name: 'Julius Caesar',
     type: 'Person',
     description: 'A Roman general and statesman who played a critical role in the events that led to the demise of the Roman Republic.',
-    imageUrl: 'https://i.ibb.co/TBmkw4r9/Untitled-design-2025-09-03-T153503-604.png',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPIyg7hIjVv8DH_wQBilhaQNNNqF9mdvUjm44QPXLf2_HKF6UICPrxZzRxHTeMDZM_U6HCTUjbFZ2vwvkWdFbVVgcpEVsZ94R6qQNQwt2A1wYJGquv4XvgZG5mvFTI1_mYzf4q1L2sRj61EEvau1niU=w500-h500-s-no-gm?authuser=0',
     hint: 'roman emperor',
   },
   {
@@ -55,7 +55,7 @@ export const DECK: Card[] = [
     name: 'Cleopatra',
     type: 'Person',
     description: 'The last active ruler of the Ptolemaic Kingdom of Egypt, known for her intelligence and political acumen.',
-    imageUrl: 'https://i.ibb.co/TxkYvb1k/Untitled-design-5.png',
+    imageUrl: 'https://picsum.photos/seed/egyptian%20queen/600/900',
     hint: 'egyptian queen',
   },
   {
@@ -79,7 +79,7 @@ export const DECK: Card[] = [
     name: 'Manhattan Project',
     type: 'Event',
     description: 'A top-secret research and development undertaking during World War II that produced the first nuclear weapons.',
-    imageUrl: 'https://i.ibb.co/0jPv3jQg/Untitled-design-2025-09-03-T153603-905.png',
+    imageUrl: 'https://picsum.photos/seed/wartime%20project/600/900',
     hint: 'wartime project',
   },
   {
@@ -87,7 +87,7 @@ export const DECK: Card[] = [
     name: 'Isaac Newton',
     type: 'Person',
     description: 'An English mathematician, physicist, and astronomer, widely recognized as one of the most influential scientists of all time.',
-    imageUrl: 'https://i.ibb.co/Ggcv9m8/Untitled-design-2025-09-03-T154044-845.png',
+    imageUrl: 'https://picsum.photos/seed/influential%20scientist/600/900',
     hint: 'influential scientist',
   },
   {
@@ -95,7 +95,7 @@ export const DECK: Card[] = [
     name: 'Scientific Revolution',
     type: 'Event',
     description: 'A series of events that marked the emergence of modern science during the early modern period.',
-    imageUrl: 'https://i.ibb.co/fJvKzJ8/Untitled-design-2025-09-03-T154246-629.png',
+    imageUrl: 'https://picsum.photos/seed/intellectual%20movement/600/900',
     hint: 'intellectual movement',
   },
   {
@@ -103,7 +103,7 @@ export const DECK: Card[] = [
     name: 'Martin Luther King Jr.',
     type: 'Person',
     description: 'An American Baptist minister and activist who became the most visible spokesperson in the civil rights movement.',
-    imageUrl: 'https://i.ibb.co/BRp399Z/Untitled-design-51.png',
+    imageUrl: 'https://picsum.photos/seed/civil%20rights/600/900',
     hint: 'civil rights',
   },
   {
@@ -143,7 +143,7 @@ export const DECK: Card[] = [
     name: 'Ada Lovelace',
     type: 'Person',
     description: "An English mathematician and writer, chiefly known for her work on Charles Babbage's proposed mechanical computer.",
-    imageUrl: 'https://i.ibb.co/jS5nfLy/Untitled-design-2025-09-03-T153410-595.png',
+    imageUrl: 'https://picsum.photos/seed/computer%20pioneer/600/900',
     hint: 'computer pioneer',
   },
   {
@@ -151,7 +151,7 @@ export const DECK: Card[] = [
     name: 'Analytical Engine',
     type: 'Event',
     description: 'A proposed mechanical general-purpose computer designed by English mathematician and computer pioneer Charles Babbage.',
-    imageUrl: 'https://i.ibb.co/8LKbF9wt/Untitled-design-2025-09-03-T154533-645.png',
+    imageUrl: 'https://picsum.photos/seed/early%20computer/600/900',
     hint: 'early computer',
   },
   {
@@ -175,7 +175,7 @@ export const DECK: Card[] = [
     name: 'Joan of Arc',
     type: 'Person',
     description: 'A peasant girl who, believing that she was acting under divine guidance, led the French army in a momentous victory at Orléans.',
-    imageUrl: 'https://i.ibb.co/5hB8mc47/Untitled-design-46.png',
+    imageUrl: 'https://picsum.photos/seed/french%20heroine/600/900',
     hint: 'french heroine',
   },
   {
@@ -183,7 +183,7 @@ export const DECK: Card[] = [
     name: '100 Years War',
     type: 'Event',
     description: 'A series of conflicts from 1337 to 1453 between the House of Plantagenet of England and the House of Valois of France.',
-    imageUrl: 'https://i.ibb.co/Vcr2M4qn/Untitled-design-74.png',
+    imageUrl: 'https://picsum.photos/seed/medieval%20war/600/900',
     hint: 'medieval war',
   },
   {
@@ -206,7 +206,7 @@ export const DECK: Card[] = [
     id: 'e15',
     name: 'Shot Heard Round the World',
     description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
-    imageUrl: 'https://i.ibb.co/G3RTdBn3/Untitled-design-82.png',
+    imageUrl: 'https://picsum.photos/seed/revolutionary%20war/600/900',
     type: 'Event',
     hint: 'revolutionary war',
   },
@@ -215,7 +215,7 @@ export const DECK: Card[] = [
     name: 'Paul Revere',
     type: 'Person',
     description: 'An American silversmith and Patriot in the American Revolution, famous for his midnight ride to alert colonial militia of British forces.',
-    imageUrl: 'https://i.ibb.co/hQbfBWP/Untitled-design-29.png',
+    imageUrl: 'https://picsum.photos/seed/american%20patriot/600/900',
     hint: 'american patriot',
   },
   {
@@ -223,7 +223,7 @@ export const DECK: Card[] = [
     name: 'Henry VIII',
     type: 'Person',
     description: 'King of England from 1509 until his death, famously married six times and was a central figure in the English Reformation.',
-    imageUrl: 'https://i.ibb.co/HfpLcVs6/Untitled-design-11.png',
+    imageUrl: 'https://picsum.photos/seed/english%20king/600/900',
     hint: 'english king',
   },
   {
@@ -231,7 +231,7 @@ export const DECK: Card[] = [
     name: 'Human Rights Movement',
     type: 'Event',
     description: 'A social movement dedicated to securing and protecting the fundamental rights and freedoms for all individuals.',
-    imageUrl: 'https://i.ibb.co/yBdB6Hr1/Untitled-design-2025-09-03-T153845-636.png',
+    imageUrl: 'https://picsum.photos/seed/human%20rights%20protest/600/900',
     hint: 'human rights protest',
   },
   {
@@ -239,7 +239,7 @@ export const DECK: Card[] = [
     name: 'Social Influence',
     type: 'Event',
     description: 'Influenced political life',
-    imageUrl: 'https://i.ibb.co/HDDqDFs3/Untitled-design-43.png',
+    imageUrl: 'https://picsum.photos/seed/political%20influence/600/900',
     hint: 'political influence',
   },
   {
@@ -247,7 +247,7 @@ export const DECK: Card[] = [
     name: 'Conservation',
     type: 'Event',
     description: 'Creates national parks and preserves natural resources.',
-    imageUrl: 'https://i.ibb.co/j9wNN5HM/Untitled-design-4.png',
+    imageUrl: 'https://picsum.photos/seed/nature%20conservation/600/900',
     hint: 'nature conservation',
   },
   {
@@ -255,7 +255,7 @@ export const DECK: Card[] = [
     name: 'Panama Canal',
     type: 'Event',
     description: 'Canal connecting the Atlantic and Pacific Oceans to boost trade.',
-    imageUrl: 'https://i.ibb.co/VW52khDh/Untitled-design-2.png',
+    imageUrl: 'https://picsum.photos/seed/canal%20trade/600/900',
     hint: 'canal trade',
   },
   {
@@ -263,7 +263,7 @@ export const DECK: Card[] = [
     name: 'Universal Declaration of Human Rights',
     type: 'Event',
     description: 'Global document guaranteeing basic human rights.',
-    imageUrl: 'https://i.ibb.co/Kpcq4dz0/Untitled-design-37.png',
+    imageUrl: 'https://picsum.photos/seed/human%20rights/600/900',
     hint: 'human rights',
   },
   {
@@ -271,7 +271,7 @@ export const DECK: Card[] = [
     name: 'Abraham Lincoln',
     type: 'Person',
     description: '16th President of the United States, who led the country through the Civil War and abolished slavery.',
-    imageUrl: 'https://i.ibb.co/TB28Jt1Q/Untitled-design-44.png',
+    imageUrl: 'https://picsum.photos/seed/us%20president/600/900',
     hint: 'us president',
   },
   {
@@ -279,7 +279,7 @@ export const DECK: Card[] = [
     name: 'Frederick Douglass',
     type: 'Person',
     description: 'An American social reformer, abolitionist, orator, writer, and statesman. After escaping from slavery, he became a national leader of the abolitionist movement.',
-    imageUrl: 'https://i.ibb.co/tMtykZvF/Untitled-design-1.png',
+    imageUrl: 'https://picsum.photos/seed/abolitionist%20leader/600/900',
     hint: 'abolitionist leader',
   },
   {
@@ -295,7 +295,7 @@ export const DECK: Card[] = [
     name: 'Alexander the Great',
     type: 'Person',
     description: 'A king of the ancient Greek kingdom of Macedon, he created one of the largest empires of the ancient world.',
-    imageUrl: 'https://i.ibb.co/xv24Q6v/Untitled-design-6.png',
+    imageUrl: 'https://picsum.photos/seed/ancient%20conqueror/600/900',
     hint: 'ancient conqueror',
   },
   {
@@ -319,7 +319,7 @@ export const DECK: Card[] = [
     name: 'Harriet Tubman',
     type: 'Person',
     description: 'An American abolitionist and political activist. Born into slavery, Tubman escaped and subsequently made some thirteen missions to rescue approximately seventy enslaved people.',
-    imageUrl: 'https://i.ibb.co/vVRvNqX/Untitled-design-52.png',
+    imageUrl: 'https://picsum.photos/seed/underground%20railroad/600/900',
     hint: 'underground railroad',
   },
   {
@@ -327,7 +327,7 @@ export const DECK: Card[] = [
     name: 'The Underground Railroad',
     type: 'Event',
     description: 'A network of secret routes and safe houses established in the United States during the mid-19th century, used by enslaved African-Americans to escape into free states and Canada.',
-    imageUrl: 'https://i.ibb.co/vHYbNqL/Untitled-design-78.png',
+    imageUrl: 'https://picsum.photos/seed/escape%20network/600/900',
     hint: 'escape network',
   },
   {
@@ -335,7 +335,7 @@ export const DECK: Card[] = [
     name: 'Nelson Mandela',
     type: 'Person',
     description: 'A South African anti-apartheid revolutionary, political leader, and philanthropist who served as President of South Africa from 1994 to 1999.',
-    imageUrl: 'https://i.ibb.co/HDCp2M1/Untitled-design-53.png',
+    imageUrl: 'https://picsum.photos/seed/anti-apartheid%20leader/600/900',
     hint: 'anti-apartheid leader',
   },
   {
@@ -351,7 +351,7 @@ export const DECK: Card[] = [
     name: 'Winston Churchill',
     type: 'Person',
     description: 'A British statesman, army officer, and writer. He was Prime Minister of the United Kingdom from 1940 to 1945, during the Second World War, and again from 1951 to 1955.',
-    imageUrl: 'https://i.ibb.co/C0W2wN1/Untitled-design-54.png',
+    imageUrl: 'https://picsum.photos/seed/wartime%20prime-minister/600/900',
     hint: 'wartime prime-minister',
   },
   {
@@ -359,7 +359,7 @@ export const DECK: Card[] = [
     name: 'World War II',
     type: 'Event',
     description: "A global war that lasted from 1939 to 1945. It involved the vast majority of the world's countries—including all of the great powers.",
-    imageUrl: 'https://i.ibb.co/51Jd7jM/Untitled-design-93.png',
+    imageUrl: 'https://picsum.photos/seed/global%20war/600/900',
     hint: 'global war',
   },
   {
@@ -367,7 +367,7 @@ export const DECK: Card[] = [
     name: 'Genghis Khan',
     type: 'Person',
     description: 'The founder and first Great Khan of the Mongol Empire, which became the largest contiguous empire in history after his death.',
-    imageUrl: 'https://i.ibb.co/sKk3VvY/Untitled-design-55.png',
+    imageUrl: 'https://picsum.photos/seed/mongol%20emperor/600/900',
     hint: 'mongol emperor',
   },
   {
@@ -375,7 +375,7 @@ export const DECK: Card[] = [
     name: 'The Mongol Empire',
     type: 'Event',
     description: 'The largest contiguous land empire in history, which existed during the 13th and 14th centuries.',
-    imageUrl: 'https://i.ibb.co/v441SWM/Untitled-design-79.png',
+    imageUrl: 'https://picsum.photos/seed/vast%20empire/600/900',
     hint: 'vast empire',
   },
   {
@@ -383,7 +383,7 @@ export const DECK: Card[] = [
     name: 'Rosalind Franklin',
     type: 'Person',
     description: 'An English chemist and X-ray crystallographer whose work was central to the understanding of the molecular structures of DNA.',
-    imageUrl: 'https://i.ibb.co/8YjN10d/Untitled-design-56.png',
+    imageUrl: 'https://picsum.photos/seed/dna%20scientist/600/900',
     hint: 'dna scientist',
   },
   {
@@ -399,7 +399,7 @@ export const DECK: Card[] = [
     name: 'Frequency Hopping',
     type: 'Event',
     description: 'A method of transmitting radio signals by rapidly switching a carrier among many frequency channels, used as a method of securing communications.',
-    imageUrl: 'https://i.ibb.co/mBkwfVd/Untitled-design-84.png',
+    imageUrl: 'https://picsum.photos/seed/radio%20technology/600/900',
     hint: 'radio technology',
   },
   {
@@ -423,7 +423,7 @@ export const DECK: Card[] = [
     name: 'William Shakespeare',
     type: 'Person',
     description: "An English playwright, poet, and actor, widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.",
-    imageUrl: 'https://i.ibb.co/dGt0D0t/Untitled-design-59.png',
+    imageUrl: 'https://picsum.photos/seed/english%20playwright/600/900',
     hint: 'english playwright',
   },
   {
@@ -431,7 +431,7 @@ export const DECK: Card[] = [
     name: 'The Globe Theatre',
     type: 'Event',
     description: "A theatre in London associated with William Shakespeare. It was built in 1599 by Shakespeare's playing company, the Lord Chamberlain's Men.",
-    imageUrl: 'https://i.ibb.co/7C9CPhn/Untitled-design-86.png',
+    imageUrl: 'https://picsum.photos/seed/historic%20theatre/600/900',
     hint: 'historic theatre',
   },
   {
@@ -439,7 +439,7 @@ export const DECK: Card[] = [
     name: 'Ferdinand Magellan',
     type: 'Person',
     description: 'A Portuguese explorer who organised the Spanish expedition to the East Indies from 1519 to 1522, resulting in the first circumnavigation of the Earth.',
-    imageUrl: 'https://i.ibb.co/YyCjR8G/Untitled-design-2025-09-03-T154627-147.png',
+    imageUrl: 'https://picsum.photos/seed/portuguese%20explorer/600/900',
     hint: 'portuguese explorer',
   },
   {
@@ -447,7 +447,7 @@ export const DECK: Card[] = [
     name: 'Age of Discovery',
     type: 'Event',
     description: 'A period of European global exploration that started in the early 15th century. It marks the time in which extensive overseas exploration emerged as a powerful factor in European culture.',
-    imageUrl: 'https://i.ibb.co/1Mp1QMX/Untitled-design-87.png',
+    imageUrl: 'https://picsum.photos/seed/exploration%20era/600/900',
     hint: 'exploration era',
   },
   {
@@ -455,7 +455,7 @@ export const DECK: Card[] = [
     name: 'Christopher Columbus',
     type: 'Person',
     description: 'An Italian explorer and navigator who completed four voyages across the Atlantic Ocean, opening the way for the widespread European exploration and colonization of the Americas.',
-    imageUrl: 'https://i.ibb.co/pX1g1z1/Untitled-design-57.png',
+    imageUrl: 'https://picsum.photos/seed/italian%20explorer/600/900',
     hint: 'italian explorer',
   },
   {
@@ -471,7 +471,7 @@ export const DECK: Card[] = [
     name: 'The Space Race',
     type: 'Event',
     description: 'A 20th-century competition between two Cold War rivals, the Soviet Union (USSR) and the United States (US), for supremacy in spaceflight capability.',
-    imageUrl: 'https://i.ibb.co/P9gbc3N/Untitled-design-88.png',
+    imageUrl: 'https://picsum.photos/seed/cold%20war%20competition/600/900',
     hint: 'cold war competition',
   },
   {
@@ -479,7 +479,7 @@ export const DECK: Card[] = [
     name: 'Neil Armstrong',
     type: 'Person',
     description: 'An American astronaut and aeronautical engineer, and the first person to walk on the Moon.',
-    imageUrl: 'https://i.ibb.co/BGCg0TN/Untitled-design-62.png',
+    imageUrl: 'https://picsum.photos/seed/astronaut%20moon/600/900',
     hint: 'astronaut moon',
   },
   {
@@ -487,7 +487,7 @@ export const DECK: Card[] = [
     name: 'Apollo 11 Mission',
     type: 'Event',
     description: 'The spaceflight that first landed humans on the Moon. Commander Neil Armstrong and lunar module pilot Buzz Aldrin formed the American crew that landed the Apollo Lunar Module Eagle on July 20, 1969.',
-    imageUrl: 'https://i.ibb.co/PtbG3t9/Untitled-design-89.png',
+    imageUrl: 'https://picsum.photos/seed/moon%20landing/600/900',
     hint: 'moon landing',
   },
   {
@@ -495,7 +495,7 @@ export const DECK: Card[] = [
     name: 'Amelia Earhart',
     type: 'Person',
     description: 'An American aviation pioneer and author. Earhart was the first female aviator to fly solo across the Atlantic Ocean.',
-    imageUrl: 'https://i.ibb.co/f2P8v4V/Untitled-design-63.png',
+    imageUrl: 'https://picsum.photos/seed/aviation%20pioneer/600/900',
     hint: 'aviation pioneer',
   },
   {
@@ -511,7 +511,7 @@ export const DECK: Card[] = [
     name: 'The Wright Brothers',
     type: 'Person',
     description: "Two American aviation pioneers generally credited with inventing, building, and flying the world's first successful motor-operated airplane.",
-    imageUrl: 'https://i.ibb.co/yQJmH0R/Untitled-design-64.png',
+    imageUrl: 'https://picsum.photos/seed/aviation%20pioneers/600/900',
     hint: 'aviation pioneers',
   },
   {
@@ -519,7 +519,7 @@ export const DECK: Card[] = [
     name: 'Marco Polo',
     type: 'Person',
     description: 'A Venetian merchant, explorer, and writer who travelled through Asia along the Silk Road between 1271 and 1295.',
-    imageUrl: 'https://i.ibb.co/Jqj8cFP/Untitled-design-65.png',
+    imageUrl: 'https://picsum.photos/seed/venetian%20explorer/600/900',
     hint: 'venetian explorer',
   },
   {
@@ -543,7 +543,7 @@ export const DECK: Card[] = [
     name: 'The Federalist Papers',
     type: 'Event',
     description: 'A collection of 85 articles and essays written by Alexander Hamilton, James Madison, and John Jay under the pseudonym "Publius" to promote the ratification of the United States Constitution.',
-    imageUrl: 'https://i.ibb.co/K7915Y6/Untitled-design-92.png',
+    imageUrl: 'https://picsum.photos/seed/us%20constitution/600/900',
     hint: 'us constitution',
   },
   {
@@ -559,7 +559,7 @@ export const DECK: Card[] = [
     name: 'Louisiana Purchase',
     type: 'Event',
     description: 'The acquisition of the territory of Louisiana by the United States from France in 1803.',
-    imageUrl: 'https://i.ibb.co/C9M6bJn/Untitled-design-95.png',
+    imageUrl: 'https://picsum.photos/seed/territory%20acquisition/600/900',
     hint: 'territory acquisition',
   },
   {
@@ -583,7 +583,7 @@ export const DECK: Card[] = [
     name: 'Franklin D. Roosevelt',
     type: 'Person',
     description: 'An American politician who served as the 32nd president of the United States from 1933 until his death in 1945.',
-    imageUrl: 'https://i.ibb.co/y4p1g3P/Untitled-design-68.png',
+    imageUrl: 'https://picsum.photos/seed/us%20president/600/900',
     hint: 'us president',
   },
   {
@@ -591,7 +591,7 @@ export const DECK: Card[] = [
     name: 'The New Deal',
     type: 'Event',
     description: 'A series of programs, public work projects, financial reforms, and regulations enacted by President Franklin D. Roosevelt in the United States between 1933 and 1939.',
-    imageUrl: 'https://i.ibb.co/bJCqHhX/Untitled-design-98.png',
+    imageUrl: 'https://picsum.photos/seed/economic%20reform/600/900',
     hint: 'economic reform',
   },
   {
@@ -615,7 +615,7 @@ export const DECK: Card[] = [
     name: 'Jane Austen',
     type: 'Person',
     description: 'An English novelist known primarily for her six major novels, which interpret, critique and comment upon the British landed gentry at the end of the 18th century.',
-    imageUrl: 'https://i.ibb.co/w6Gz8z8/Untitled-design-70.png',
+    imageUrl: 'https://picsum.photos/seed/english%20novelist/600/900',
     hint: 'english novelist',
   },
   {
@@ -623,7 +623,7 @@ export const DECK: Card[] = [
     name: 'Charles Darwin',
     type: 'Person',
     description: 'An English naturalist, geologist and biologist, best known for his contributions to the science of evolution.',
-    imageUrl: 'https://i.ibb.co/xGLC2F8/Untitled-design-71.png',
+    imageUrl: 'https://picsum.photos/seed/naturalist%20biologist/600/900',
     hint: 'naturalist biologist',
   },
   {
@@ -639,7 +639,7 @@ export const DECK: Card[] = [
     name: 'Vincent van Gogh',
     type: 'Person',
     description: 'A Dutch Post-Impressionist painter who is among the most famous and influential figures in the history of Western art.',
-    imageUrl: 'https://i.ibb.co/7C9m1S6/Untitled-design-72.png',
+    imageUrl: 'https://picsum.photos/seed/dutch%20painter/600/900',
     hint: 'dutch painter',
   },
   {
@@ -647,7 +647,7 @@ export const DECK: Card[] = [
     name: 'Post-Impressionism',
     type: 'Event',
     description: 'A predominantly French art movement that developed roughly between 1886 and 1905, from the last Impressionist exhibition to the birth of Fauvism.',
-    imageUrl: 'https://i.ibb.co/qjM7gP6/Untitled-design-102.png',
+    imageUrl: 'https://picsum.photos/seed/art%20movement/600/900',
     hint: 'art movement',
   },
   {
@@ -655,7 +655,7 @@ export const DECK: Card[] = [
     name: 'Theodore Roosevelt',
     type: 'Person',
     description: 'An American statesman, conservationist, naturalist, historian, and writer who served as the 26th president of the United States from 1901 to 1909.',
-    imageUrl: 'https://i.ibb.co/SskC0yF/Untitled-design-73.png',
+    imageUrl: 'https://picsum.photos/seed/us%20president/600/900',
     hint: 'us president',
   },
   {
@@ -663,7 +663,7 @@ export const DECK: Card[] = [
     name: 'The Progressive Era',
     type: 'Event',
     description: 'A period of widespread social activism and political reform across the United States, from the 1890s to the 1920s.',
-    imageUrl: 'https://i.ibb.co/M8Vz746/Untitled-design-103.png',
+    imageUrl: 'https://picsum.photos/seed/social%20reform/600/900',
     hint: 'social reform',
   },
   {
@@ -679,7 +679,7 @@ export const DECK: Card[] = [
     name: 'Montgomery Bus Boycott',
     type: 'Event',
     description: 'A seminal event in the Civil Rights Movement, this was a political and social protest campaign against the policy of racial segregation on the public transit system of Montgomery, Alabama.',
-    imageUrl: 'https://i.ibb.co/kM1N7Dk/Untitled-design-105.png',
+    imageUrl: 'https://picsum.photos/seed/civil%20rights/600/900',
     hint: 'civil rights',
   },
   {
@@ -687,7 +687,7 @@ export const DECK: Card[] = [
     name: 'Catherine the Great',
     type: 'Person',
     description: "Empress of Russia from 1762 until 1796, the country's longest-ruling female leader. She came to power following a coup that overthrew her husband, Peter III.",
-    imageUrl: 'https://i.ibb.co/3sMQpsG/Untitled-design-2025-09-03-T150917-190.png',
+    imageUrl: 'https://picsum.photos/seed/russian%20empress/600/900',
     hint: 'russian empress',
   },
   {
@@ -703,7 +703,7 @@ export const DECK: Card[] = [
     name: 'Imprisonment and Resistance',
     type: 'Event',
     description: 'A card representing the struggles against unjust imprisonment and the fight for freedom, often linked to political prisoners and resistance movements.',
-    imageUrl: 'https://i.ibb.co/QvzB9HhK/Untitled-design-2025-09-03-T145400-628.png',
+    imageUrl: 'https://picsum.photos/seed/freedom%20fight/600/900',
     hint: 'freedom fight',
   },
   {
@@ -887,7 +887,7 @@ export const DECK: Card[] = [
     name: 'I Have a Dream Speech',
     type: 'Event',
     description: 'A public speech that was delivered by American civil rights activist Martin Luther King Jr. during the March on Washington for Jobs and Freedom on August 28, 1963.',
-    imageUrl: 'https://i.ibb.co/6y1y0pM/Untitled-design-2025-09-03-T150650-618.png',
+    imageUrl: 'https://picsum.photos/seed/civil%20rights%20speech/600/900',
     hint: 'civil rights speech',
   },
   {
@@ -949,4 +949,5 @@ export const DECK: Card[] = [
 ];
 
     
+
 
