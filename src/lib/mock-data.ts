@@ -55,7 +55,7 @@ export const DECK: Card[] = [
     name: 'Cleopatra',
     type: 'Person',
     description: 'The last active ruler of the Ptolemaic Kingdom of Egypt, known for her intelligence and political acumen.',
-    imageUrl: 'https://picsum.photos/seed/egyptian%20queen/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOi7-45hsVDnsG9qKjDCsxy1Ip5Dh_cFIgIEzxwGuClQsBI0vSbcMHYtSZCpTntagcbgHgJchdx5-PVF3fJSzmlwd4iBB0qPV0pQoGpy7It_aqJaYRQbYTSXIp82XukCxPbPgrLUgvHtBWuoiMnwr3q=w500-h500-s-no-gm?authuser=0',
     hint: 'egyptian queen',
   },
   {
@@ -79,7 +79,7 @@ export const DECK: Card[] = [
     name: 'Manhattan Project',
     type: 'Event',
     description: 'A top-secret research and development undertaking during World War II that produced the first nuclear weapons.',
-    imageUrl: 'https://picsum.photos/seed/wartime%20project/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMPZp3qBDEx9euIjwu-IscWC1chlckCy_GXeFN5rMYMHue3L_VsVQrNQmRlYyKAlGuO1UIz4MimuSldk_nw_dm98rev8SswCaOVx1A-w9jr850fDHNrPfXKEzbIh5KfMRiVw9w8YfC3AFSLfmpB0k_U=w500-h500-s-no-gm?authuser=0',
     hint: 'wartime project',
   },
   {
@@ -951,3 +951,6 @@ export const DECK: Card[] = [
     
 
 
+
+
+    
