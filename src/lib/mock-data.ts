@@ -288,7 +288,7 @@ export const DECK: Card[] = [
     name: 'Ulysses S. Grant',
     type: 'Person',
     description: 'An American general and the 18th president of the United States (1869–1877). He led the Union Army as Commanding General of the United States Army in winning the American Civil War.',
-    imageUrl: 'https://picsum.photos/seed/american%20general/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM4SGG_2OF0H5oMK0fc8mx0gcdFbB__l8avW-cPCjghjy3SS6puVpzjDF3c1VwecR9lHN8hvM0s6Uro6DErgSu3goTyoRITUkme0LkMhJP4Gbdh3wpq2MHE_uRtvxzs6ZMKB1tcNx2Mra04nBQlyQib=w500-h500-s-no-gm?authuser=0',
     hint: 'american general',
   },
   {
