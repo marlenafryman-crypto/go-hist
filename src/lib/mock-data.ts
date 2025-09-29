@@ -206,7 +206,7 @@ export const DECK: Card[] = [
     id: 'e15',
     name: 'Shot Heard Round the World',
     description: 'The opening battles of the American Revolution in April 1775. British troops clashed with colonial militias at Lexington and Concord, marking the official start of the war.',
-    imageUrl: 'https://picsum.photos/seed/revolutionary%20war/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOENLmwU3zYxdpHCMGXgR10wxmmr88ZxUbd8tT_V6BD4LLSWhOE4QtphmWtf2mJHBn7juXdV22ArjKJE-3ymft2LgJOYxNAnAS3x4WxJCnACNgjO7rxw3grp9zedULvfP9N2N64oNCRNRw515ZdX_d9=w500-h500-s-no-gm?authuser=0',
     type: 'Event',
     hint: 'revolutionary war',
   },
@@ -247,7 +247,7 @@ export const DECK: Card[] = [
     name: 'Conservation',
     type: 'Event',
     description: 'Creates national parks and preserves natural resources.',
-    imageUrl: 'https://picsum.photos/seed/nature%20conservation/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOIsUyYt-PU-SMgcQt-o6fTHve5Zmnh_sSiZxWkmGsxeKM363UwNLkLXQ7EKgWw8l0BV0RCacnLY_vOtfCDBlQSz8P3BmjcAEAzSWco7qra8c3rvzW5C8sgUqM2MFBpKwRn_UoKe6eyjq3sl-w4uEU-=w500-h500-s-no-gm?authuser=0',
     hint: 'nature conservation',
   },
   {
@@ -255,7 +255,7 @@ export const DECK: Card[] = [
     name: 'Panama Canal',
     type: 'Event',
     description: 'Canal connecting the Atlantic and Pacific Oceans to boost trade.',
-    imageUrl: 'https://picsum.photos/seed/canal%20trade/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNFJ1vhJoDa-86jP9pwuPs_aQw821pfFvXxrXV8g0ooVul9wj8Ud7e9c2XJbdQrNsysk_yTFMWzyLXFUXzpveGUbQpkE8zpyXmGKNAPc4eQa4CRZxHIf6lZB2bWHAgrPLNJOtTgayeEW9UR17EZeYwq=w500-h500-s-no-gm?authuser=0',
     hint: 'canal trade',
   },
   {
@@ -797,7 +797,7 @@ export const DECK: Card[] = [
   {
     id: 'e58',
     name: 'French Revolution',
-    type_of: 'Event',
+    type: 'Event',
     description: 'A period of far-reaching social and political upheaval in France and its colonies beginning in 1789.',
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPkkaLf82AXE91-biTWRf0e5ej1dsnNjLtdJEyKumVa_ZQpShncARoftacP3zbBuRh5_9kjRu766_smTIya-rNOA1m9uJ9wWflQ79uRBDRraagkYhwYnprjjWB9LSNvs0phFjB1TAN-rQfRCex-bnQF=w500-h500-s-no-gm?authuser=0',
     hint: 'french history',
@@ -823,7 +823,7 @@ export const DECK: Card[] = [
     name: 'Native Resistance',
     type: 'Event',
     description: 'This card represents the movements and actions taken by indigenous peoples to resist colonization and protect their lands and cultures.',
-    imageUrl: 'https://picsum.photos/seed/resistance/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPKCxrou-JKBzqetuQb1tnRPZyfoiZ3trWFfUhdZmGDyjufK6Y-zfyRu8v8K0M30p5OhtCK1b9wgGmRYhflhUE6cpkFg-I5qoORJxLSqcVxMKFBAu30tKnfIZEVOMaLqCWfJR3gUsThcB1vsGidTbZk=w500-h500-s-no-gm?authuser=0',
     hint: 'indigenous rights',
   },
   {
@@ -954,6 +954,7 @@ export const DECK: Card[] = [
 
 
     
+
 
 
 
