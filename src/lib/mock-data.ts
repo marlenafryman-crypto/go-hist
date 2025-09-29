@@ -295,7 +295,7 @@ export const DECK: Card[] = [
     name: 'Alexander the Great',
     type: 'Person',
     description: 'A king of the ancient Greek kingdom of Macedon, he created one of the largest empires of the ancient world.',
-    imageUrl: 'https://picsum.photos/seed/ancient%20conqueror/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNfC7hojixc2RTtradO4Yy166eB8dGV84Ilcwip8Isyq_AsWZ9QHCHBIP3oOT9UCMn6if-bAEV7TTpq4Dx_VVJQCdLwBPNThWbilaKBBNEFuR0Yewn6qcAGjXF4O93UckPL6AzkbwtFc5OKvYCbagQF=w500-h500-s-no-gm?authuser=0',
     hint: 'ancient conqueror',
   },
   {
@@ -775,7 +775,7 @@ export const DECK: Card[] = [
     name: 'Monarch',
     type: 'Event',
     description: 'This person was a monarch, a sovereign head of state in a monarchy.',
-    imageUrl: 'https://picsum.photos/seed/monarch/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP2DKUCCRe4oyLF6IGJe3YtFf0-y4oKq6W0hFtRSpVnojSkx0zN6L9NbyfySNRGQJJE5e0FPdqfd5EMJI0Gr5JLijFkYOKKawN1dl5DjrWEaR5DZ3EAVM5BHkImjlnXrq4T0LiRvmHKEal9QUBZlsEt=w500-h500-s-no-gm?authuser=0',
     hint: 'king queen',
   },
   {
@@ -954,5 +954,6 @@ export const DECK: Card[] = [
 
 
     
+
 
 
