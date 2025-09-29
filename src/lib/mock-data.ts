@@ -134,7 +134,7 @@ export const DECK: Card[] = [
   {
     id: 'p17',
     name: 'Alexander the Great',
-    type 'Person',
+    type: 'Person',
     description: 'A king of the ancient Greek kingdom of Macedon, he created one of the largest empires of the ancient world.',
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMLzJ38auDQU-SvQN1k9ppOyNUYvx7Ij2f18Vo6o7pVRzZYXZx6CBUWFU2BE8JYGhJij0B3Gx_HDld2qIVjk3hqMLEXUtiPQioZm7eYI7XkpxXLxxCZ4obYakO8xBN3sUSFXHmWVTdWsQP3zjClv3Le=w500-h500-s-no-gm?authuser=0',
     hint: 'ancient conqueror',
