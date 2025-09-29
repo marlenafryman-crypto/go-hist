@@ -415,7 +415,7 @@ export const DECK: Card[] = [
     name: 'The Napoleonic Wars',
     type: 'Event',
     description: 'A series of major conflicts pitting the French Empire and its allies, led by Napoleon I, against a fluctuating array of European powers formed into various coalitions.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNqfRrqf0VxxoUkD_oG0PM8oX9PMOgaxjbyupz2a-JxwKzrGnruZ-GD5SrvuoeIGxRBtpqdXWAPSMmXL_pLKZj-bnQ1v3yuFjKf8L10yAxSlw6nUacDTnW1lSFvDbo27ZvGMPX7pdcohAphyd5G_-1T=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOjgvMuVhxXvUmjRAivqSzMGIw1AJS6SgQS4XXZBQ38nmqroQunVk1HsEIIvzAqFCtV88PUf1Fx4WIPvmP5Q98tyj1ygQ5S0Xnx49kj00ak2jkhj_OkxUhzuI1Zxp_7TpjxqRIdQl5lOOGYpYkE2RXw=w500-h500-s-no-gm?authuser=0',
     hint: 'european conflict',
   },
   {
@@ -783,15 +783,15 @@ export const DECK: Card[] = [
     name: 'Elizabethan Era',
     type: 'Event',
     description: 'The epoch in English history of Queen Elizabeth I\'s reign (1558–1603). Historians often depict it as the golden age in English history.',
-    imageUrl: 'https://picsum.photos/seed/elizabethan/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP4S2Scax7wi0oq_zEk_bG-M3lmmmw-yMvWeRSEoIriA8uOiayOSUrmzEYOAtbVg7TQ2qQkUys41rj2WrqptKhpAys6bLiVJomnrz1a6UbB6cmPieOZBlvKFgOrD39dZiXjJaRZjFMfGSnfR7lzOX5E=w500-h500-s-no-gm?authuser=0',
     hint: 'english history',
   },
   {
     id: 'e57',
     name: 'Revolution',
     type: 'Event',
-    description: 'This person was a pivotal figure in a revolution, either by leading the charge, providing ideological support, or instigating the change.',
-    imageUrl: 'https://picsum.photos/seed/revolution/600/900',
+    description: 'This Person was part of or assisted a Revolution',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNmmHogykoKWA8k3tfR6O2hysiWsJUIYP6HcA2hGED0BH8nP0rxak3giOFjJzDsNCR1VS0WYhJCMT6t9PGUbd4TA_FXNOGeK9at8RC9a3s4oIV9S2xLLVSG_gBugHRi1V7lL_bin7XNvzheAYunLb-Z=w500-h500-s-no-gm?authuser=0',
     hint: 'political upheaval',
   },
   {
@@ -799,7 +799,7 @@ export const DECK: Card[] = [
     name: 'French Revolution',
     type_of: 'Event',
     description: 'A period of far-reaching social and political upheaval in France and its colonies beginning in 1789.',
-    imageUrl: 'https://picsum.photos/seed/frenchrev/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPkkaLf82AXE91-biTWRf0e5ej1dsnNjLtdJEyKumVa_ZQpShncARoftacP3zbBuRh5_9kjRu766_smTIya-rNOA1m9uJ9wWflQ79uRBDRraagkYhwYnprjjWB9LSNvs0phFjB1TAN-rQfRCex-bnQF=w500-h500-s-no-gm?authuser=0',
     hint: 'french history',
   },
   {
@@ -911,7 +911,7 @@ export const DECK: Card[] = [
     name: 'Federal Reserve Creation',
     type: 'Event',
     description: 'The establishment of the central banking system of the United States in 1913 to create a more stable and secure financial system.',
-    imageUrl: 'https://picsum.photos/seed/fed/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOYZTrTDvwYjAq_DkyTppCWL9jq9SQxP9sgB7OcL_insVaupnlq2_SYDP4YIYbDc7tfZijLx5A-PTSGJ-f5AFZoTIciv_jXMD8U-nkoqhK8d5yH8LBNlbpB4Yqq91xBUlUuX57oJLAL7pJCi52Hv4OR=w500-h500-s-no-gm?authuser=0',
     hint: 'financial system',
   },
   {
@@ -919,7 +919,7 @@ export const DECK: Card[] = [
     name: 'Emancipation Proclamation',
     type: 'Event',
     description: 'A presidential proclamation and executive order issued by United States President Abraham Lincoln on January 1, 1863. It changed the federal legal status of more than 3.5 million enslaved African Americans in the designated areas of the South from slave to free.',
-    imageUrl: 'https://picsum.photos/seed/ep/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMTA6VivDg45uDh2e3oAHotRzi7euzbTMqTFrY-clejBRlhf3K706G-DNXS5a_SQD8ZsCE-MS0Lzxbdsj9Io-uoN9tdHKtTtMNET9TipGTHC99iktgMdeLp7Me_KdzDbgzbYUQX-lCyxyYv7qdr_3nd=w500-h500-s-no-gm?authuser=0',
     hint: 'abolition slavery',
   },
   {
@@ -954,3 +954,4 @@ export const DECK: Card[] = [
 
 
     
+
