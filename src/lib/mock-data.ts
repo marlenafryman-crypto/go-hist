@@ -759,7 +759,7 @@ export const DECK: Card[] = [
     name: 'Spanish Armada',
     type: 'Event',
     description: 'A Spanish fleet of 130 ships that sailed from Lisbon in late May 1588 under the command of the Duke of Medina Sidonia, with the purpose of escorting an army from Flanders to invade England.',
-    imageUrl: 'https://picsum.photos/seed/armada/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMn1oOjzMQ4uJSQxm6AlVhyx77qvKxyulYKaH20Aw3I7M-B3LWLXriJZody8fWrB0IBWPkOPSM_7FmsHXU2qKiIaD2j7wRcQ8tgLUl5mgpnccC1DlIwv6-mYXqFaRleT9tqjEwormuJmb09-RM1KWyy=w500-h500-s-no-gm?authuser=0',
     hint: 'spanish fleet',
   },
   {
@@ -791,7 +791,7 @@ export const DECK: Card[] = [
     name: 'Revolution',
     type: 'Event',
     description: 'This Person was part of or assisted a Revolution',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNmmHogykoKWA8k3tfR6O2hysiWsJUIYP6HcA2hGED0BH8nP0rxak3giOFjJzDsNCR1VS0WYhJCMT6t9PGUbd4TA_FXNOGeK9at8RC9a3s4oIV9S2xLLVSG_gBugHRi1V7lL_bin7XNvzheAYunLb-Z=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNmmHogykoKWA8k3tfR6O2hysiWsJUIYP6HcA2hGED0BH8nP0rxak3giOFjJzDsNCR1VS0WYhJCMT6t9PGUbd4TA_FXNOGeK9at8RC9a3s4oIV9S2xLLVSG_gBugHRi1V7lL_bin7XNvzheAYunLb-Z=w500-h_500-s-no-gm?authuser=0',
     hint: 'political upheaval',
   },
   {
@@ -954,4 +954,5 @@ export const DECK: Card[] = [
 
 
     
+
 
