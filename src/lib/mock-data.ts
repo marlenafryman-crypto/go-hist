@@ -352,7 +352,7 @@ export const DECK: Card[] = [
     name: 'Eleanor Roosevelt',
     type: 'Person',
     description: 'An American political figure, diplomat and activist. She served as the first lady of the United States from 1933 to 1945.',
-    imageUrl: 'https://picsum.photos/seed/first%20lady/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM_E8Rwd-ET69NJlL4KW7d7XizllP043plvzEgINEF_bPNvjALHUJ93-K9976ghRVKiGozN7Swfs0hnqtNOlTcrddLi0WxSvLA84kqmJWA-KrTQAEofTX2zy2F1nNb0INM6PSBqc_fYGRldjMwBBDkP=w500-h500-s-no-gm?authuser=0',
     hint: 'first lady',
   },
   {
@@ -426,6 +426,22 @@ export const DECK: Card[] = [
     description: 'King of Great Britain and Ireland from 25 October 1760 until the union of the two kingdoms on 1 January 1801, after which he was King of the United Kingdom of Great Britain and Ireland until his death in 2020.',
     imageUrl: 'https://picsum.photos/seed/british%20king/600/900',
     hint: 'british king',
+  },
+  {
+    id: 'p54',
+    name: 'Harry S Truman',
+    type: 'Person',
+    description: 'The 33rd president of the United States, serving from 1945 to 1953. He led the country through the final stages of World War II and the early years of the Cold War.',
+    imageUrl: 'https://picsum.photos/seed/33rd%20president/600/900',
+    hint: '33rd president',
+  },
+  {
+    id: 'p55',
+    name: 'George Washington',
+    type: 'Person',
+    description: 'The first President of the United States, Commander-in-Chief of the Continental Army during the American Revolutionary War, and one of the Founding Fathers.',
+    imageUrl: 'https://picsum.photos/seed/first%20president/600/900',
+    hint: 'first president',
   },
   // Events
   {
@@ -897,7 +913,7 @@ export const DECK: Card[] = [
     name: 'Emperor of France',
     type: 'Event',
     description: 'Title held by the monarchs of the First and Second French Empires.',
-    imageUrl: 'https://picsum.photos/seed/french%20monarch/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOd260mWuMWPbG7Gxzli7txP4sjNTBUFsPa-e17Tp9h3F42-sVYdDQeGaiWDFL6kGvQdfNkLY_jX49YZ9k4XFB1R7vWcDa9IszxrWHJmGnqhL2xmC_KTLzENa0qL_Ixr5qbVR4WS2ZMIVOK82qHtWJ_=w500-h500-s-no-gm?authuser=0',
     hint: 'french monarch',
   },
   {
@@ -1001,7 +1017,7 @@ export const DECK: Card[] = [
     name: 'Russian Empire Expansion',
     type: 'Event',
     description: 'The territorial growth of Russia from the 16th to the 20th century, covering vast areas of Eurasia.',
-    imageUrl: 'https://picsum.photos/seed/russian%20empire/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMQ-qvppRMO-ZaeLzzVY9s1ODb9UKEu437XqJPH_zNEWXnTN50O3nVXZmoPfO70vzRy-sA_8lVn_9ZgwzG4H_QOsZTL9TPBseyvOP_ehgYDQ2qUejUK1l6eBD86jsBXb27xb6jwlbWHoMMAG6XWV3_i=w500-h500-s-no-gm?authuser=0',
     hint: 'empire expansion',
   },
   {
@@ -1009,7 +1025,7 @@ export const DECK: Card[] = [
     name: 'Macedonian Conquests',
     type: 'Event',
     description: 'The military campaigns of Alexander the Great, which established one of the largest empires in the ancient world.',
-    imageUrl: 'https://picsum.photos/seed/macedonian%20conquests/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMhiZ_kAWlHaka84NitUvB87hfG_ShNmuEdnoAUp6-6IcGDgPPaQjQASKSgfnA9RGE3P0QBXAz7RGZ4_L6aWQEj4h6-dxTr3IZcxO1jVKyyYKh1KmzuhsntsD7s7zgYCal7cKodsB9UfnYMidovUbzA=w500-h500-s-no-gm?authuser=0',
     hint: 'ancient campaigns',
   },
   {
@@ -1115,5 +1131,29 @@ export const DECK: Card[] = [
     description: 'The complex and controversial decisions surrounding the use of atomic weapons during World War II, involving figures like Truman and Einstein.',
     imageUrl: 'https://picsum.photos/seed/atomic%20bomb/600/900',
     hint: 'atomic bomb',
+  },
+  {
+    id: 'e95',
+    name: 'Early Republic Politics',
+    type: 'Event',
+    description: 'The political landscape of the United States in its early years, marked by debates between Federalists and Democratic-Republicans.',
+    imageUrl: 'https://picsum.photos/seed/republic%20politics/600/900',
+    hint: 'republic politics',
+  },
+  {
+    id: 'e96',
+    name: 'Lewis and Clark Expedition',
+    type: 'Event',
+    description: 'The first American expedition to cross the western portion of the United States, departing in May 1804.',
+    imageUrl: 'https://picsum.photos/seed/lewis%20clark/600/900',
+    hint: 'lewis clark',
+  },
+  {
+    id: 'e97',
+    name: 'Famous Speech',
+    type: 'Event',
+    description: 'This person is famous for a speech they made.',
+    imageUrl: 'https://picsum.photos/seed/famous%20speech/600/900',
+    hint: 'famous speech',
   },
 ];
