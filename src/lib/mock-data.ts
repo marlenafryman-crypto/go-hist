@@ -443,6 +443,14 @@ export const DECK: Card[] = [
     imageUrl: 'https://picsum.photos/seed/first%20president/600/900',
     hint: 'first president',
   },
+  {
+    id: 'p56',
+    name: 'US President (generic)',
+    type: 'Person',
+    description: 'Represents any President of the United States. Their leadership and decisions shape the course of the nation.',
+    imageUrl: 'https://picsum.photos/seed/us%20president/600/900',
+    hint: 'us president',
+  },
   // Events
   {
     id: 'e01',
@@ -1155,5 +1163,13 @@ export const DECK: Card[] = [
     description: 'This person is famous for a speech they made.',
     imageUrl: 'https://picsum.photos/seed/famous%20speech/600/900',
     hint: 'famous speech',
+  },
+  {
+    id: 'e98',
+    name: 'American Revolution',
+    type: 'Event',
+    description: 'A colonial revolt that took place between 1765 and 1783. The American Patriots in the Thirteen Colonies won independence from Great Britain, becoming the United States of America.',
+    imageUrl: 'https://picsum.photos/seed/colonial%20revolt/600/900',
+    hint: 'colonial revolt',
   },
 ];
