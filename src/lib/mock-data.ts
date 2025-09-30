@@ -945,7 +945,7 @@ export const DECK: Card[] = [
     name: 'Federal Reserve Creation',
     type: 'Event',
     description: 'The establishment of the central banking system of the United States, which was created on December 23, 1913, with the enactment of the Federal Reserve Act.',
-    imageUrl: 'https://picsum.photos/seed/central%20banking/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOuo_CArBYN28KwE4IkdJmiP1XeX3b1ZLLS2R47VZA3OA3j80J8NoHxxYxEpGW6I1Opi2b5p9W0XdWXGOE_yX8Bt0e1XjZqL04Xum53OaCrtzqhzrMS4IEUsw8jz_jfynHcmNaGOVdDlF3VcJfcxhjd=w500-h500-s-no-gm?authuser=0',
     hint: 'central banking',
   },
   {
