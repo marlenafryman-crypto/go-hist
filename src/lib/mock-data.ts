@@ -969,7 +969,7 @@ export const DECK: Card[] = [
     name: 'Red Scare',
     type: 'Event',
     description: 'A period of widespread fear of a potential rise of communism or anarchism by a society or state. Two major Red Scares occurred in the United States.',
-    imageUrl: 'https://picsum.photos/seed/red%20scare/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNj4BvVyQNOzbd2KRV7atVyXrk_EEucaAh_wqFd46O6BtIUXv0wtLuWr6fmNfJDGlzdbu1PpOpoSYbKAh8VH7KJFktzs4_lMZVf00NCT-TLMKeqKLx97RF9tU3wSFHMxZ3_eiLBndoz5N5j1dVaZ8V5=w500-h500-s-no-gm?authuser=0',
     hint: 'communism fear',
   },
   {
