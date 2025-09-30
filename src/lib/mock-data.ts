@@ -825,7 +825,7 @@ export const DECK: Card[] = [
     name: 'Spanish Armada',
     type: 'Event',
     description: 'A Habsburg Spanish fleet of 130 ships that sailed from Corunna in late May 1588, with the purpose of escorting an army from Flanders to invade England.',
-    imageUrl: 'https://picsum.photos/seed/spanish%20fleet/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOyf_l_k_J_i_H_g_F_e_D_c_B_a_S_t_R_e_E_t_V_i_E_w_A_p_P=s600-no',
     hint: 'spanish fleet',
   },
   {
