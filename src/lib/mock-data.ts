@@ -569,7 +569,7 @@ export const DECK: Card[] = [
     name: 'Panama Canal',
     type: 'Event',
     description: 'A 48-mile artificial waterway in Panama that connects the Atlantic Ocean with the Pacific Ocean. The canal cuts across the Isthmus of Panama and is a conduit for maritime trade.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN_E_e_T_v_I_e_W_a_P_p_L_e_C_o_M_i_N_c_A_r_S_e_U_r_O_p_E_a_S_i_A_a_F_r_I_c_A_a_U_s_T_r_A_l_I_a_N_o_R_t_H_a_M_e_R=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP3q8NY9mbxxzBWqMex0x5MxKuKNJ1cGBMFZ6-H7SqPLe_WTGZIqPF_dWzKIiFhLkjCoEG8_h9EKPN6gyhrsuaRuMbB0-F0-j-a3OmGzLA45ViR9qzKc1Lf1eL_3ENGWKx0BtjXnTNVM0SDHpTQYnAi=w500-h500-s-no-gm?authuser=0',
     hint: 'maritime trade',
   },
   {
@@ -937,7 +937,7 @@ export const DECK: Card[] = [
     name: 'Emancipation Proclamation',
     type: 'Event',
     description: 'A presidential proclamation and executive order issued by United States President Abraham Lincoln on January 1, 1863.',
-    imageUrl: 'https://picsum.photos/seed/presidential%20proclamation/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNBFig8FxdCHYD7s756QwEk1g6ycx_k4YacVzXLr4xLBBBzwSNueUf3xtN-Hzu07zxBimQWAs4F-eBrf7fnqJTKr9tdvrEikC17jCX2_aPTLgV0-z_6vZ6_bTvx8sW7SDG0J4j8nWwP_FbcwIke3QWh=w500-h500-s-no-gm?authuser=0',
     hint: 'presidential proclamation',
   },
   {
