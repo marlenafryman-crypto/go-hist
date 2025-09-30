@@ -857,7 +857,7 @@ export const DECK: Card[] = [
     name: 'Revolution (generic)',
     type: 'Event',
     description: 'A fundamental and relatively sudden change in political power and political organization which occurs when the population revolts against the government.',
-    imageUrl: 'https://picsum.photos/seed/political%20revolt/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNRCU7XSIV4TnD8mt3IGh8JhObjEQcU5f9x5HQCjo_Kk5eH9ag3O53Lj9AN0Wsx76MRJdwNxOjIGVfTi66n0nwMEtIOlRlZoozdwZx1mC12uJyu8zY03EjBHia-8e-SDA-8hGYtgwz0JohrkvAVaPP-=w500-h500-s-no-gm?authuser=0',
     hint: 'political revolt',
   },
   {
@@ -889,7 +889,7 @@ export const DECK: Card[] = [
     name: 'Native Resistance',
     type: 'Event',
     description: 'The resistance of indigenous peoples to the European colonization.',
-    imageUrl: 'https://picsum.photos/seed/indigenous%20resistance/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP-iAcKGfEpDyTGt2_fA5ni6lsXZkCKEMsy_gveMkFcsCZ-SzKMJmALuh3ecOY7K9y41gZorNEGaVT_iNdviHF7uSQMKqxhCxDHlT4hoeerlxvKtRD8kdujzT8uipRPqg9IQaa0SSXbbLgORVyi0IrC=w500-h500-s-no-gm?authuser=0',
     hint: 'indigenous resistance',
   },
   {
@@ -1100,5 +1100,20 @@ export const DECK: Card[] = [
     imageUrl: 'https://picsum.photos/seed/cultural%20diffusion/600/900',
     hint: 'cultural diffusion',
   },
+  {
+    id: 'e93',
+    name: 'UN Advocacy',
+    type: 'Event',
+    description: 'Represents efforts to influence the United Nations on various global issues, from human rights to climate change.',
+    imageUrl: 'https://picsum.photos/seed/un%20advocacy/600/900',
+    hint: 'un advocacy',
+  },
+  {
+    id: 'e94',
+    name: 'Atomic Bomb Decisions',
+    type: 'Event',
+    description: 'The complex and controversial decisions surrounding the use of atomic weapons during World War II, involving figures like Truman and Einstein.',
+    imageUrl: 'https://picsum.photos/seed/atomic%20bomb/600/900',
+    hint: 'atomic bomb',
+  },
 ];
-
