@@ -451,6 +451,22 @@ export const DECK: Card[] = [
     imageUrl: 'https://picsum.photos/seed/us%20president/600/900',
     hint: 'us president',
   },
+  {
+    id: 'p57',
+    name: 'Mahatma Gandhi',
+    type: 'Person',
+    description: 'An Indian lawyer, anti-colonial nationalist, and political ethicist, who employed nonviolent resistance to lead the successful campaign for India\'s independence from British rule.',
+    imageUrl: 'https://picsum.photos/seed/indian%20leader/600/900',
+    hint: 'indian leader',
+  },
+  {
+    id: 'p58',
+    name: 'Chief Sitting Bull',
+    type: 'Person',
+    description: 'A Hunkpapa Lakota leader who led his people during years of resistance against United States government policies.',
+    imageUrl: 'https://picsum.photos/seed/lakota%20leader/600/900',
+    hint: 'lakota leader',
+  },
   // Events
   {
     id: 'e01',
@@ -1171,5 +1187,29 @@ export const DECK: Card[] = [
     description: 'A colonial revolt that took place between 1765 and 1783. The American Patriots in the Thirteen Colonies won independence from Great Britain, becoming the United States of America.',
     imageUrl: 'https://picsum.photos/seed/colonial%20revolt/600/900',
     hint: 'colonial revolt',
+  },
+  {
+    id: 'e99',
+    name: 'Constitution',
+    type: 'Event',
+    description: 'Represents the fundamental principles or established precedents according to which a state or other organization is acknowledged to be governed.',
+    imageUrl: 'https://picsum.photos/seed/historic%20constitution/600/900',
+    hint: 'historic constitution',
+  },
+  {
+    id: 'e100',
+    name: 'Duel',
+    type: 'Event',
+    description: 'An arranged engagement in combat between two individuals, with matched weapons in accordance with agreed-upon rules.',
+    imageUrl: 'https://picsum.photos/seed/combat%20duel/600/900',
+    hint: 'combat duel',
+  },
+  {
+    id: 'e101',
+    name: 'American Flag Creation',
+    type: 'Event',
+    description: 'The act of creating the first official flag of the United States, often attributed to Betsy Ross.',
+    imageUrl: 'https://picsum.photos/seed/flag%20creation/600/900',
+    hint: 'flag creation',
   },
 ];
