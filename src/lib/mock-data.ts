@@ -561,7 +561,7 @@ export const DECK: Card[] = [
     name: 'Conservation',
     type: 'Event',
     description: 'The movement to protect animals, plants, and natural resources.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO_r_E_e_T_v_I_e_W_a_P_p_L_e_C_o_M_i_N_c_A_r_S_e_U_r_O_p_E_a_S_i_A_a_F_r_I_c_A_a_U_s_T_r_A_l_I_a_N_o_R_t_H_a_M_e=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNlm_S7RaFz-Z-EVg4MOPysyCebdXNsprbtfFRX4fz_nEWXvzDeTlDnFvle4OO2JPgj3MJOXehGaeit3oSbSovIVa31GjUNScBpkncH0KQYmfSTE10Nz1pZ17voTaj3FV7Vp8rM7nEgjWcY9h7IXplB=w500-h500-s-no-gm?authuser=0',
     hint: 'nature protection',
   },
   {
@@ -905,7 +905,7 @@ export const DECK: Card[] = [
     name: 'Roman Alliances',
     type: 'Event',
     description: 'The political and military agreements between the Roman Republic/Empire and other states.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPj4ciwxwnCHmqChmecX5_E1S1hHLzPLdzZ4rgfkmkaOoa1_2kfm2sVG2c-ydFbR7D21LypKAhOw5NUIitLy5kC0-4tOUFVmIMmfy9098xl_Nu6fXa6ZTXdi4vQO-wjdxT-4dcmDkzdvRw6qt_TmOG0=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO81vxtOo3W1FOoVxTLTRm2JjyxpN-Lp35cX0SYCMtx3eHTHkn2QFLtUY-FtZy_s3RsrMbRnQ2x2gCqQLUutZcuwys5PYEpJSzMTMOqZRnhv3eHui02BlMfJtw6pKrl7DIa1NqgDvxqvLoXUJMHFITd=w500-h500-s-no-gm?authuser=0',
     hint: 'roman agreements',
   },
   {
@@ -1101,3 +1101,4 @@ export const DECK: Card[] = [
     hint: 'cultural diffusion',
   },
 ];
+
