@@ -817,7 +817,7 @@ export const DECK: Card[] = [
     name: 'World War I',
     type: 'Event',
     description: 'A global war originating in Europe that lasted from 28 July 1914 to 11 November 1918.',
-    imageUrl: 'https://picsum.photos/seed/global%20conflict/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOM7EgLrIYPAjO8tfcOKeyE7D7Rm4XzZeA9gaqZ7DMnEPMeyCthL8RC576op9-2Vr3ASTcbrQW8X5jdGdGcAjv6jaDZLXfpKoSTmPrU0I2DJ9Mt-g_YKPaLrwMPnXXfnQA565vMQXd50JUE2tMcgNr4=w500-h500-s-no-gm?authuser=0',
     hint: 'global conflict',
   },
   {
@@ -921,7 +921,7 @@ export const DECK: Card[] = [
     name: 'Crusades',
     type: 'Event',
     description: 'A series of religious wars initiated, supported, and sometimes directed by the Latin Church in the medieval period.',
-    imageUrl: 'https://picsum.photos/seed/religious%20wars/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNdgaE1DQODOwLMMGzHZsY_O17BSX-Xzh6DZJq3qhx6VMIWPwKwWPdCpFx2579d1KnvrD6IVeuu5G4PhGSBa1h6leFWW3kM0SoEsxSGsPPxGfxlXFR7RUGifmuK1zaCUijq307pQmVEqvl7znjAZ66l=w500-h500-s-no-gm?authuser=0',
     hint: 'religious wars',
   },
   {
