@@ -953,7 +953,7 @@ export const DECK: Card[] = [
     name: 'Vietnam War',
     type: 'Event',
     description: 'A long, costly and divisive conflict that pitted the communist government of North Vietnam against South Vietnam and its principal ally, the United States.',
-    imageUrl: 'https://picsum.photos/seed/vietnam%20war/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO9QXAr9LfkbzTispmbodYPLyKTY-9Pnm62DRzw1zSGJLBJIOJm1wSEdjs59I-ZrAuk_xESWwtLogF1TfrUNIL4heb-U7ym7hH68Bt5sLEJtGln7F7QIcT_AnhVI2SG0TgnVrDG6eqSfil3C2VPGNU4=w500-h500-s-no-gm?authuser=0',
     hint: 'cold war conflict',
   },
   {
@@ -961,7 +961,7 @@ export const DECK: Card[] = [
     name: 'Cuban Missile Crisis',
     type: 'Event',
     description: 'A 13-day confrontation between the United States and the Soviet Union in October 1962, which escalated the Cold War.',
-    imageUrl: 'https://picsum.photos/seed/cuban%20missile/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNU466bFTKwSx5k_BCMgHbM1IGQynD9i7Umdp7GkWx5VSb_VZnIOFbq_Mh4NSNqPxkH68lefSxWYYNYzEecYUVeNZ_ywA5fvhGyu5KslGaCpyrlyI2DdAt59uWs1vvTvj40XAau9RdOyrmMAFn5v9C7=w500-h500-s-no-gm?authuser=0',
     hint: 'cold war confrontation',
   },
   {
