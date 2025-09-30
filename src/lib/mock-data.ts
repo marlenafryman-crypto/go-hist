@@ -1212,4 +1212,20 @@ export const DECK: Card[] = [
     imageUrl: 'https://picsum.photos/seed/flag%20creation/600/900',
     hint: 'flag creation',
   },
+  {
+    id: 'e129',
+    name: 'Enlightenment Influence',
+    type: 'Event',
+    description: 'Represents the influence of the Enlightenment, a major intellectual and philosophical movement that dominated the world of ideas in Europe during the 17th and 18th centuries.',
+    imageUrl: 'https://picsum.photos/seed/enlightenment%20influence/600/900',
+    hint: 'intellectual movement',
+  },
+  {
+    id: 'e130',
+    name: 'Empire Building',
+    type: 'Event',
+    description: 'The process of forming and maintaining an empire through colonization, conquest, or economic domination.',
+    imageUrl: 'https://picsum.photos/seed/empire%20building/600/900',
+    hint: 'empire building',
+  },
 ];
