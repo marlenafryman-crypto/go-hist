@@ -423,7 +423,7 @@ export const DECK: Card[] = [
     id: 'p53',
     name: 'George III',
     type: 'Person',
-    description: 'King of Great Britain and Ireland from 25 October 1760 until the union of the two kingdoms on 1 January 1801, after which he was King of the United Kingdom of Great Britain and Ireland until his death in 1820.',
+    description: 'King of Great Britain and Ireland from 25 October 1760 until the union of the two kingdoms on 1 January 1801, after which he was King of the United Kingdom of Great Britain and Ireland until his death in 2020.',
     imageUrl: 'https://picsum.photos/seed/british%20king/600/900',
     hint: 'british king',
   },
@@ -977,7 +977,7 @@ export const DECK: Card[] = [
     name: 'Draft (generic)',
     type: 'Event',
     description: 'Compulsory recruitment for military service. It has been used in various countries and conflicts throughout history.',
-    imageUrl: 'https://picsum.photos/seed/military%20draft/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOobbBLZf_ER1FjFW77BSLWutPVZAPIjilJ9EXvQCtwFbSN2G7aLaa1Pc-0j51i9hIkS3yKUSIlhc8BHucZ6iBNCLjW9_WsZuPJHnV99zvnF5-8IcCabCAwgL5daXl_PTR0nRrqHEmctlxPZUihR4p-=w500-h500-s-no-gm?authuser=0',
     hint: 'military recruitment',
   },
 ];
