@@ -7,12 +7,15 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, HelpCircle, Lightbulb } from 'lucide-react';
+import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, HelpCircle, Lightbulb, Bot } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { SuggestionProvider } from '@/components/game/SuggestionProvider';
+import { AskForCard } from '@/components/game/AskForCard';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
 
 function shuffle(array: any[]) {
@@ -24,7 +27,7 @@ function shuffle(array: any[]) {
   return a;
 }
 
-const WINNING_SET_COUNT = 2;
+const WINNING_SET_COUNT = 5;
 const LOCAL_GAME_KEY = 'go-hist-local-game';
 
 interface VerificationRequest {
@@ -41,7 +44,6 @@ function GamePageContent() {
   const [verifiedSet, setVerifiedSet] = useState<CardType[] | null>(null);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
-  const [showAskDialog, setShowAskDialog] = useState(false);
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [hasTakenAction, setHasTakenAction] = useState(false);
   const [verificationRequest, setVerificationRequest] = useState<VerificationRequest | null>(null);
@@ -239,7 +241,6 @@ function GamePageContent() {
   const handleAskForCard = async (opponentId: string, request: string) => {
     if (!gameState || !currentPlayer || winner || hasTakenAction) return;
 
-    setShowAskDialog(false);
     const opponent = gameState.players.find(p => p.id === opponentId);
     if (!opponent) return;
 
@@ -419,49 +420,6 @@ function GamePageContent() {
 
   const topOfDiscard = gameState.discardPile.length > 0 ? gameState.discardPile[gameState.discardPile.length - 1] : null;
 
-  const renderTurnSpecificControls = () => {
-    if (winner) return <p className="text-sm text-primary font-headline animate-pulse">Game Over!</p>;
-    if (verificationRequest) return <p className="text-sm text-primary font-headline animate-pulse">Waiting for other players to verify the set...</p>;
-
-    switch (turnPhase) {
-      case 'action':
-         return (
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={handleDrawFromDeck} disabled={deck.length === 0 || hasTakenAction}>
-                <ArrowDownToLine className="mr-2"/> Draw Deck
-              </Button>
-              <Button variant="outline" size="sm" onClick={handleDrawFromDiscard} disabled={!topOfDiscard || hasTakenAction}>
-                <Trash2 className="mr-2"/> Take Discard
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={hasTakenAction || selectedCards.length !== 4}>
-                  <BookOpenCheck className="w-4 h-4 mr-2" />
-                  Declare Set
-              </Button>
-              { (hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE) &&
-                <Button variant="secondary" size="sm" onClick={endTurn}>
-                    End Turn
-                </Button>
-              }
-              { (hasTakenAction && currentPlayer.hand.length > INITIAL_HAND_SIZE) &&
-                <Button variant="destructive" size="sm" onClick={() => updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null)}>
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Go to Discard
-                </Button>
-              }
-            </div>
-         );
-      case 'discard':
-        return (
-            <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1}>
-                <Trash2 className="w-4 h-4 mr-2" />
-                Discard Selected Card
-            </Button>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <>
       <div className="flex h-screen bg-background text-foreground">
@@ -521,7 +479,7 @@ function GamePageContent() {
 
           <div className="flex items-end justify-center space-x-8 my-8">
               <div>
-                  <p className="text-center font-headline mb-2">Deck</p>
+                  <p className="text-center font-headline mb-2">Deck ({deck.length})</p>
                   <GameCard card="back" className="w-[120px] h-[180px]" />
               </div>
               <div>
@@ -541,25 +499,84 @@ function GamePageContent() {
           <div className="bg-card/50 p-4 rounded-lg border">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
-                <div className="flex items-center gap-4">
-                  <p className="text-sm text-muted-foreground font-headline">Turn: <span className="text-primary font-bold">{turnPhase.toUpperCase()}</span></p>
-                  {renderTurnSpecificControls()}
-                </div>
+                 <p className="text-sm text-muted-foreground font-headline">Turn: <span className="text-primary font-bold">{turnPhase.toUpperCase()}</span></p>
             </div>
-            <ScrollArea className="w-full whitespace-nowrap">
-              <div className="flex w-max items-end gap-4 p-4">
-                {currentPlayer.hand.map(card => (
-                  <GameCard
-                    key={card.id}
-                    card={card}
-                    isSelected={!!selectedCards.find(c => c.id === card.id)}
-                    isVerified={!!verifiedSet?.find(c => c.id === card.id)}
-                    onSelect={handleSelectCard}
-                    isPlayerCard={true}
-                  />
-                ))}
-              </div>
-            </ScrollArea>
+            
+            <Tabs defaultValue="hand">
+                <TabsList className="mb-4">
+                    <TabsTrigger value="hand">Hand</TabsTrigger>
+                    <TabsTrigger value="actions">Actions</TabsTrigger>
+                    <TabsTrigger value="ai-hint">AI Hint</TabsTrigger>
+                </TabsList>
+                <TabsContent value="hand">
+                  <ScrollArea className="w-full whitespace-nowrap">
+                    <div className="flex w-max items-end gap-4 p-4">
+                      {currentPlayer.hand.map(card => (
+                        <GameCard
+                          key={card.id}
+                          card={card}
+                          isSelected={!!selectedCards.find(c => c.id === card.id)}
+                          isVerified={!!verifiedSet?.find(c => c.id === card.id)}
+                          onSelect={handleSelectCard}
+                          isPlayerCard={true}
+                        />
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </TabsContent>
+                <TabsContent value="actions">
+                    <div className="p-4">
+                        {winner && <p className="text-lg text-primary font-headline animate-pulse">Game Over!</p>}
+                        {verificationRequest && <p className="text-sm text-primary font-headline animate-pulse">Waiting for other players to verify the set...</p>}
+
+                        {turnPhase === 'action' && !winner && !verificationRequest && (
+                             <div className="flex items-start gap-8">
+                                <div className="space-y-4">
+                                    <h3 className="font-headline text-xl">Basic Actions</h3>
+                                    <Button variant="outline" size="sm" onClick={handleDrawFromDeck} disabled={deck.length === 0 || hasTakenAction}>
+                                        <ArrowDownToLine className="mr-2"/> Draw From Deck
+                                    </Button>
+                                    <Button variant="outline" size="sm" onClick={handleDrawFromDiscard} disabled={!topOfDiscard || hasTakenAction}>
+                                        <Trash2 className="mr-2"/> Take From Discard
+                                    </Button>
+                                    { (hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE) &&
+                                        <Button variant="secondary" size="sm" onClick={endTurn}>
+                                            End Turn
+                                        </Button>
+                                    }
+                                </div>
+                                <div className="space-y-4">
+                                     <h3 className="font-headline text-xl">Set Actions</h3>
+                                     <Button variant="outline" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={hasTakenAction || selectedCards.length !== 4}>
+                                        <BookOpenCheck className="w-4 h-4 mr-2" />
+                                        Declare a Set
+                                    </Button>
+                                </div>
+                                <AskForCard 
+                                    otherPlayers={otherPlayers}
+                                    onAsk={handleAskForCard}
+                                    disabled={hasTakenAction}
+                                />
+                             </div>
+                        )}
+                         {turnPhase === 'discard' && (
+                            <div className="space-y-4">
+                                <h3 className="font-headline text-xl">Discard a Card</h3>
+                                <p className="text-muted-foreground">Your hand is over the limit. Select one card from your hand to discard.</p>
+                                <Button onClick={() => handleDiscardCard()} disabled={selectedCards.length !== 1}>
+                                    <Trash2 className="w-4 h-4 mr-2" />
+                                    Discard Selected Card
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                </TabsContent>
+                 <TabsContent value="ai-hint">
+                    <div className="p-4">
+                        <SuggestionProvider selectedCards={selectedCards} />
+                    </div>
+                </TabsContent>
+            </Tabs>
           </div>
         </main>
       </div>

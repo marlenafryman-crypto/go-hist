@@ -1,4 +1,4 @@
-export const INITIAL_HAND_SIZE = 7;
+export const INITIAL_HAND_SIZE = 5;
 
 export interface Card {
   id: string;
