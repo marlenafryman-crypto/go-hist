@@ -280,7 +280,7 @@ export const DECK: Card[] = [
     name: 'Thomas Jefferson',
     type: 'Person',
     description: 'An American statesman, diplomat, lawyer, architect, philosopher, and Founding Father who served as the third president of the United States from 1801 to 1809.',
-    imageUrl: 'https://picsum.photos/seed/american%20statesman/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN1bw58Jnaip_yKEmNeVnykqqhm8F0o23PkG0tVrNa3fVDC3B1CyMFJgjkYfz1p5GkbtrbPYXqXZcvTDH9ULrTjxeqG-pgTI3cFIR077YHnQbhL2_c2FEWgJCnyfwpdIyAfFaj6cb2xdRJ7gQve6DjM=w500-h500-s-no-gm?authuser=0',
     hint: 'american statesman',
   },
   {
@@ -857,7 +857,7 @@ export const DECK: Card[] = [
     name: 'World War I',
     type: 'Event',
     description: 'A global war originating in Europe that lasted from 28 July 1914 to 11 November 1918.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOM7EgLrIYPAjO8tfcOKeyE7D7Rm4XzZeA9gaqZ7DMnEPMeyCthL8RC576op9-2Vr3ASTcbrQW8X5jdGdGcAjv6jaDZLXfpKoSTmPrU0I2DJ9Mt-g_YKPaLrwMPnXXfnQA565vMQXd50JUE2tMcgNr4=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMqd2Uwfs7K7B-KaNRNggoXf5Fn3bbDfA5VT9yytGkilhJcaCg--6SZXlnksRKWiqQVCqCkqewxun0p9lTC6sLoCBivrsFDDaO-Zbr5hLQD8AA866r9VUQs-6B4zkxnYsd-rVVoNI7He_scQd1M6g-O=w500-h500-s-no-gm?authuser=0',
     hint: 'global conflict',
   },
   {
@@ -1151,7 +1151,7 @@ export const DECK: Card[] = [
   {
     id: 'e94',
     name: 'Atomic Bomb Decisions',
-    type 'Event',
+    type: 'Event',
     description: 'The complex and controversial decisions surrounding the use of atomic weapons during World War II, involving figures like Truman and Einstein.',
     imageUrl: 'https://picsum.photos/seed/atomic%20bomb/600/900',
     hint: 'atomic bomb',
