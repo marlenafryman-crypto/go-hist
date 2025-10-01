@@ -1177,7 +1177,7 @@ export const DECK: Card[] = [
     name: 'Famous Speech',
     type: 'Event',
     description: 'This person is famous for a speech they made.',
-    imageUrl: 'https://picsum.photos/seed/famous%20speech/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNQkhTJCy1CgowsGC0nlgx6Q4EgMfPhxaWVLEA6wIkRrpRZQ_LMxaNAuA7juDNJAdAGULAJWSV30j1erPiAjO6LzwAKk-NoSudfxkG5rYC2Ayv5VqsK3LmpydfKvHMuFl6XLEEKT1sGjljl7noE3AJP=w729-h911-s-no-gm?authuser=0',
     hint: 'famous speech',
   },
   {
@@ -1185,7 +1185,7 @@ export const DECK: Card[] = [
     name: 'American Revolution',
     type: 'Event',
     description: 'A colonial revolt that took place between 1765 and 183. The American Patriots in the Thirteen Colonies won independence from Great Britain, becoming the United States of America.',
-    imageUrl: 'https://picsum.photos/seed/colonial%20revolt/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP2KKHsLiMrZHRt8wmTjz6yg5UEMfY08YdkbEpVJVzr3KkxTtuhxqCKby7hWB1h6S1aoatm81uqX7KDx_EXuaB7K_O4tHNiCAPqR6E7btna1OiZ82aak6SGmBD2IKbHT5T-2DD2cUU8TeUOkKPZoz7q=w500-h500-s-no-gm?authuser=0',
     hint: 'colonial revolt',
   },
   {
@@ -1193,7 +1193,7 @@ export const DECK: Card[] = [
     name: 'Constitution',
     type: 'Event',
     description: 'Represents the fundamental principles or established precedents according to which a state or other organization is acknowledged to be governed.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPyDAsm4qY-bymmfsmGUXq1bE-NL9SvIm7PAi12dUjZBM40e7yNRfYtc_PG9s83ccx7u-CqYLzLsAsSs0e4IWQl13q_eDj6jCae1EYv1wMuOxmA-dzjTCXDxWQMcHa83ZtBYa8QXIQQ_fVgH0LNeTRQ=w729-h911-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPZkZwbyPh3s5odIUZP2hYY2CXZmTLCJD5lLfnJpWkSMfQeoDiVXbaMRSvlk2dSfknBaVdF3IxrSl6WUt1EUVbUjGHi2UfcJxpUm368-nXLjwTDXrZSEg4KKFXZ3nuHBEfV4Ba749ajwPqhZqv_UI_l=w729-h911-s-no-gm?authuser=0',
     hint: 'historic constitution',
   },
   {
