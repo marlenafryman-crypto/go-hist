@@ -184,7 +184,7 @@ export const DECK: Card[] = [
     name: 'Rosalind Franklin',
     type: 'Person',
     description: 'An English chemist and X-ray crystallographer whose work was central to the understanding of the molecular structures of DNA, RNA, viruses, coal, and graphite.',
-    imageUrl: 'https://picsum.photos/seed/english%20chemist/600/900',
+    imageUrl: 'https://picsum.photos/seed/english-chemist/600/900',
     hint: 'english chemist',
   },
   {
@@ -304,7 +304,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
-    imageUrl: 'https://picsum.photos/seed/social%20reformer/600/900',
+    imageUrl: 'https://picsum.photos/seed/social-reformer/600/900',
     hint: 'social reformer',
   },
   {
@@ -312,7 +312,7 @@ export const DECK: Card[] = [
     name: 'Jane Austen',
     type: 'Person',
     description: 'An English novelist known primarily for her six major novels, which interpret, critique and comment upon the British landed gentry at the end of the 18th century.',
-    imageUrl: 'https://picsum.photos/seed/english%20novelist/600/900',
+    imageUrl: 'https://picsum.photos/seed/english-novelist/600/900',
     hint: 'english novelist',
   },
   {
@@ -1246,6 +1246,7 @@ export const DECK: Card[] = [
     
 
     
+
 
 
 
