@@ -392,7 +392,7 @@ export const DECK: Card[] = [
     name: 'Betsy Ross',
     type: 'Person',
     description: 'An American upholsterer who was credited by her relatives in 1870 with making the first American flag.',
-    imageUrl: 'https://picsum.photos/seed/american%20flag/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO_jOwiu_mbVCIc6ab2ns6v8qNJhTublsLgLtbmMI5xtJSQIyi8QfLyPnjRz_SeWC6O8WMPqBTjP2pLE8ZMI3d0aOJg3BEXVwFo3BfXkq6YnOtJwxuQ9W0nMTpXUDiIMFYLWdnUtotQKRa1DDPglm5H=w500-h500-s-no-gm?authuser=0',
     hint: 'american flag',
   },
   {
@@ -873,7 +873,7 @@ export const DECK: Card[] = [
     name: 'English Reformation',
     type: 'Event',
     description: 'A series of events in 16th-century England by which the Church of England broke away from the authority of the Pope and the Roman Catholic Church.',
-    imageUrl: 'https://picsum.photos/seed/church%20breakaway/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNFo4WsvPHzY5HkCwD35fcQ69EU6dfPoo-i99Oa4r5ffe3WP5RGvW_YvcX7Ab0HK7Bl-zO4spb8iBGGZSYrYLF5HkpBBiNs4uwXQ56Or8-mkMchSRWvvIf9Dzvf_I1ZSXeU_0J55yu0KN4-VpLMDf8a=w500-h500-s-no-gm?authuser=0',
     hint: 'church breakaway',
   },
   {
@@ -881,7 +881,7 @@ export const DECK: Card[] = [
     name: 'Monarch (generic)',
     type: 'Event',
     description: 'Represents a sovereign head of state in a monarchy.',
-    imageUrl: 'https://picsum.photos/seed/sovereign%20ruler/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOCYHEXTm65znVehn9-eIMdBijUn_jZ14DeVJelzNXxAtXsjlzYGBeNMmqhjey4pILJs5C1tEm2uNEYSHB1KVvOSVHQ4QvPl3LOgsxqhbIXwrcQeIEfA2_4_lCM4hwxN79Bh4FLMoYWInmpf6_d8ZbL=w500-h500-s-no-gm?authuser=0',
     hint: 'sovereign ruler',
   },
   {
@@ -1025,7 +1025,7 @@ export const DECK: Card[] = [
     name: 'Indian Independence Movement',
     type: 'Event',
     description: 'A series of historic events with the ultimate aim of ending British rule in India. It lasted from 1857 to 1947.',
-    imageUrl: 'https://picsum.photos/seed/indian%20independence/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPk16PxC_ZSm2LP6yRGbUSxUvUvZmW4D7lvtosxmNQZ87UWtBQUzdl2xa-ebbAPQzxOO0PgBsEdQy_NUbkgVaI-LKKM16NkLaH3d_ReEJQLb8gK_kpnrkM9WRfaPa__Q1mGsY6iLV6-ThH5g26HB5Ij=w729-h911-s-no-gm?authuser=0',
     hint: 'indian independence',
   },
   {
@@ -1229,3 +1229,5 @@ export const DECK: Card[] = [
     hint: 'empire building',
   },
 ];
+
+    
