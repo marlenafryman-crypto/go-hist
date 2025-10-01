@@ -961,7 +961,7 @@ export const DECK: Card[] = [
     name: 'Crusades',
     type: 'Event',
     description: 'A series of religious wars initiated, supported, and sometimes directed by the Latin Church in the medieval period.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNdgaE1DQODOwLMMGzHZsY_O17BSX-Xzh6DZJq3qhx6VMIWPwKwWPdCpFx2579d1KnvrD6IVeuu5G4PhGSBa1h6leFWW3kM0SoEsxSGsPPxGfxlXFR7RUGifmuK1zaCUijq307pQmVEqvl7znjAZ66l=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNKMqowdRJJDvjMs8qZPDT9735R_iOv4kR5kgjGtZXmRFtrFfjDYv_lKqMRDrb2KYPwiKx3tdsMLu0pkG1wQ-092NhLO0XmP5XUc1CGB0cSK0KxhaJxCa-GxF_Dhwy8UjuWTdO2_fJb8K0S_nHi2pYp=w500-h500-s-no-gm?authuser=0',
     hint: 'religious wars',
   },
   {
@@ -985,7 +985,7 @@ export const DECK: Card[] = [
     name: 'Federal Reserve Creation',
     type: 'Event',
     description: 'The establishment of the central banking system of the United States, which was created on December 23, 1913, with the enactment of the Federal Reserve Act.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOuo_CArBYN28KwE4IkdJmiP1XeX3b1ZLLS2R47VZA3OA3j80J8NoHxxYxEpGW6I1Opi2b5p9W0XdWXGOE_yX8Bt0e1XjZqL04Xum53OaCrtzqhzrMS4IEUsw8jz_jfynHcmNaGOVdDlF3VcJfcxhjd=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNj-jij3JqQ6e0vSAZbgxfnsWM5Cm8lXEorfjChF2hxum9sDeVW4TV2qCgn4eeuGRqeXMiVcG0HOLg6IIlzBIV_babsxM4Zky0NGIwCsbiiMyiaMjfh3fEaPi0XqggjeMhx6EX9Zdm4DFq828mSHUj6=w729-h911-s-no-gm?authuser=0',
     hint: 'central banking',
   },
   {
@@ -1145,7 +1145,7 @@ export const DECK: Card[] = [
     name: 'UN Advocacy',
     type: 'Event',
     description: 'Represents efforts to influence the United Nations on various global issues, from human rights to climate change.',
-    imageUrl: 'https://picsum.photos/seed/un%20advocacy/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPXieHXtBKRMKAJFSE3hZHeYbrrRCJpS8SOWz52mKeUFZVKyutMznRrk_pHVgM1xxrnqhnp_cfdaVGf9nV0X8q0JfK69q5f7Vcggr2n_ToOzBIi-vP_x-dQKOLZ7TrtUxw7FCS-iIPP6a5qhrFv8FQ-=w729-h911-s-no-gm?authuser=0',
     hint: 'un advocacy',
   },
   {
@@ -1153,7 +1153,7 @@ export const DECK: Card[] = [
     name: 'Atomic Bomb Decisions',
     type: 'Event',
     description: 'The complex and controversial decisions surrounding the use of atomic weapons during World War II, involving figures like Truman and Einstein.',
-    imageUrl: 'https://picsum.photos/seed/atomic%20bomb/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOgPYx2jhr-9g7Vrnd4pKT0HZEpjO7qL84RTWPU8EPycjfUbuHBEABfEkCtJ5AbN5O1FBWBAUoKsm3bbmf0eYtGZcPMPVdotbtQuEslsxKo7UXYJpMA3z303oa7-GFcnFaZ6QFmmr-AeICuUEya2O6c=w729-h911-s-no-gm?authuser=0',
     hint: 'atomic bomb',
   },
   {
@@ -1161,7 +1161,7 @@ export const DECK: Card[] = [
     name: 'Early Republic Politics',
     type: 'Event',
     description: 'The political landscape of the United States in its early years, marked by debates between Federalists and Democratic-Republicans.',
-    imageUrl: 'https://picsum.photos/seed/republic%20politics/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOMs1hBLZBI0W8pzB5leUqNp61lfwilHMKyVtdssv1eLPvaxfdKd87lbbnoCjy_NJxhR_0LGj7riBkFSfXEGbxfV_jrFEcbnoyMYYNwmRcZeGRXm7eSTZpMY2CIxSuBKxpOpkwTzLJy4bJHHaWn2j4N=w729-h911-s-no-gm?authuser=0',
     hint: 'republic politics',
   },
   {
@@ -1240,6 +1240,8 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
 
