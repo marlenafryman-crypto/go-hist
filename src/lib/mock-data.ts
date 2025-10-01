@@ -272,7 +272,7 @@ export const DECK: Card[] = [
     name: 'Alexander Hamilton',
     type: 'Person',
     description: 'An American statesman, politician, legal scholar, military commander, lawyer, banker, and economist. He was one of the Founding Fathers of the United States.',
-    imageUrl: 'https://picsum.photos/seed/founding%20father/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczODNo_uTkkNPe-GOcMeGtjOd8cusFwYL4C9ie7jot6kJwo8s2HwV95cJARvttpxspH8axyfXoMxij0_u0L_nZWi6meDz-_yPyitE3kbDPdxIbPOyYSVH4a1FbVxO5YMffGJMLZAFpZyEiWD3WgaIGy3=w500-h500-s-no-gm?authuser=0',
     hint: 'founding father',
   },
   {
@@ -1009,7 +1009,7 @@ export const DECK: Card[] = [
     name: 'Red Scare',
     type: 'Event',
     description: 'A period of widespread fear of a potential rise of communism or anarchism by a society or state. Two major Red Scares occurred in the United States.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNj4BvVyQNOzbd2KRV7atVyXrk_EEucaAh_wqFd46O6BtIUXv0wtLuWr6fmNfJDGlzdbu1PpOpoSYbKAh8VH7KJFktzs4_lMZVf00NCT-TLMKeqKLx97RF9tU3wSFHMxZ3_eiLBndoz5N5j1dVaZ8V5=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPpo68RCw5Kw3NjoIIL4CzyRfnd4iI0a8mhhGxMQcO9b68hAT812BaohcsbjzLeUP-xw-IQ_xjlnaOl5E45_mS-22t4zbwqwWn-vOLhg3ShIA4E9ZuOFbYIRd4THvh6b8Wh610ABLgBteihCdU8blfO=w500-h500-s-no-gm?authuser=0',
     hint: 'communism fear',
   },
   {
