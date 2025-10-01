@@ -304,7 +304,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
-    imageUrl: 'https://picsum.photos/seed/social%20reformer/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNbveCtzHbl-UgMj5TQCSZke0KIpKeKQJTGLNXBy_Cgz7Mrf45lirEcz6-yuYH2P0WX7AQ1J0FQzdF9H3_iidvFhD7s49cd5zRPuKdN-WaV1sdiXpX5OwNJiGM2rfcWMvjGq_ibNDqVr_XnTZJUbHU1=w500-h500-s-no-gm?authuser=0',
     hint: 'social reformer',
   },
   {
@@ -825,7 +825,7 @@ export const DECK: Card[] = [
     name: 'Declaration of Independence',
     type: 'Event',
     description: 'The pronouncement adopted by the Second Continental Congress meeting in Philadelphia, Pennsylvania, on July 4, 1776.',
-    imageUrl: 'https://picsum.photos/seed/historic%20document/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN1wqPuOQztYojoW7KBjfd0yLpXNGntTav-F_48d5nuM9TnK3w5q3lxx-sIik80QCFnMWr25XlHyvG6il5A03x_uIi7_6LI9EfRtDk5yxPNzWwP7IVO-fiVSGm4u1IPoxh9GoTZsClyXP4CmC-i5QIS=w500-h500-s-no-gm?authuser=0',
     hint: 'historic document',
   },
   {
@@ -1033,7 +1033,7 @@ export const DECK: Card[] = [
     name: 'Salt March',
     type: 'Event',
     description: 'An act of nonviolent civil disobedience in colonial India led by Mahatma Gandhi.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOjPfOE3yRD-MlMrpE8RxUJL5d9uBKkWto1Yl7Qg0_IOUyDaA4Rbygh6n4BTBT7UChbANpg_jr12LLA3imrc9gmxl2ewh07uGzqPv01aQ_oeUIeVREXUrT6AjHPewdUL4TiM_UdeZXhD2gsajia7PdL=w500-hso-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOjPfOE3yRD-MlMrpE8RxUJL5d9uBKkWto1Yl7Qg0_IOUyDaA4Rbygh6n4BTBT7UChbANpg_jr12LLA3imrc9gmxl2ewh07uGzqPv01aQ_oeUIeVREXUrT6AjHPewdUL4TiM_UdeZXhD2gsajia7PdL=w500-h500-s-no-gm?authuser=0',
     hint: 'gandhi protest',
   },
   {
@@ -1169,7 +1169,7 @@ export const DECK: Card[] = [
     name: 'Lewis and Clark Expedition',
     type: 'Event',
     description: 'The first American expedition to cross the western portion of the United States, departing in May 1804.',
-    imageUrl: 'https://picsum.photos/seed/lewis%20clark/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPD1YEHs7ye7ZmSlYd_Le-GhlIrJaCehtwKHrMW9s4v5ljJEL3IYGMtGfycOEsPy8k3iY9qy20cT1nzpwxxgz-Z3TITfX6SA-iZwIGKqkEKOf85E2gQPsdM_hZq1kdT40gNSIAS3fFP1MLwpwGsWaqI=w500-h500-s-no-gm?authuser=0',
     hint: 'lewis clark',
   },
   {
