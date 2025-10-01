@@ -464,7 +464,7 @@ export const DECK: Card[] = [
     name: 'Chief Sitting Bull',
     type: 'Person',
     description: 'A Hunkpapa Lakota leader who led his people during years of resistance against United States government policies.',
-    imageUrl: 'https://picsum.photos/seed/lakota%20leader/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOxCiQorR6bHKClbNInGL9sZpLgWgT8wX62KSvCjm0oLQLoAi_C95siat333ZcRlWLYXcGFXhxkxu-kMOqkoaWb2zUOkXL_rNG5Ap_GcNzlt90hnocA2kTkzLi_NrUKQfn8dCVX1jRIHPrqiWP_6SqE=w500-h500-s-no-gm?authuser=0',
     hint: 'lakota leader',
   },
   // Events
@@ -761,7 +761,7 @@ export const DECK: Card[] = [
     name: 'The New Deal',
     type: 'Event',
     description: 'A series of programs, public work projects, financial reforms, and regulations enacted by President Franklin D. Roosevelt in the United States between 1933 and 1939.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN_E_C_o_M_i_N_c_A_r_S_e_U_r_O_p_E_a_S_i_A_a_F_r_I_c_A_a_U_s_T_r_A_l_I_a_N_o_R_t_H_a_M_e_R_i_C_a_S_o_U_t_H_a_M_e_R_i=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMeZweC_EWAStOZWCHZ2JcV_9Gu9oFzAMkdzAgzrjgWu0gF6FZY_Xsxmf7gfK2KR0y_EgFzhumuXxjStqP7GJI1emoAKjq7VNjkgO2pe7smrGL9fRj1HmwugcibhGWimVSKLk6DH7UEuqWsn0KQkEDl=w500-h500-s-no-gm?authuser=0',
     hint: 'public work',
   },
   {
@@ -1217,7 +1217,7 @@ export const DECK: Card[] = [
     name: 'Enlightenment Influence',
     type: 'Event',
     description: 'Represents the influence of the Enlightenment, a major intellectual and philosophical movement that dominated the world of ideas in Europe during the 17th and 18th centuries.',
-    imageUrl: 'https://picsum.photos/seed/enlightenment%20influence/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNxRxM5xTsNCPgM2ecVydvDffpFo51tg9MI2sX0g0fM5sc-evfsc8tLh0yxzDkS4ygw6Ag--K1WSID98xon_N-8spn4Yb31BMabZyOkCdIZtkhSyEe3MILmKSS7iaNfQLuoCXX8poBQna7a_NwVRhh0=w500-h500-s-no-gm?authuser=0',
     hint: 'intellectual movement',
   },
   {
@@ -1229,6 +1229,8 @@ export const DECK: Card[] = [
     hint: 'empire building',
   },
 ];
+
+    
 
     
 
