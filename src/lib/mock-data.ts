@@ -384,7 +384,7 @@ export const DECK: Card[] = [
     name: 'President (generic)',
     type: 'Person',
     description: 'Represents any President of a country. Their leadership and decisions can shape the course of history.',
-    imageUrl: 'https://picsum.photos/seed/generic%20president/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczP9eThCU5kXU6rnc4Ifu5KdjpAiyLzE4NegFVqCZ3hx6lklfo30yCmxdbmRxgNMQ0k3uzNodVIolV9fRk-xT3IsdjAApG-HGkixCrgpIZs5-r7Lnc85aJECeCMmKC2PPnYrlqk-kMDtw_wUQEOa1RS3=w500-h500-s-no-gm?authuser=0',
     hint: 'generic president',
   },
   {
@@ -649,7 +649,7 @@ export const DECK: Card[] = [
     name: 'Apartheid',
     type: 'Event',
     description: 'A system of institutionalised racial segregation that existed in South Africa and South West Africa from 1948 until the early 1990s.',
-    imageUrl: 'https://picsum.photos/seed/racial%20segregation/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMEudNanoWkmXUyLM5mdFM__U0QyIK6d8EhNIpXJeAbXdDi5Ul5D6iFU19dOte3outtfIgr009Ki43dO4k0nz2BQ1TVHlg7jVOjTImngYQaSDBIc3-lXc6TNGohr3vj13YbW5PdY3yIT7xqUl92JCyM=w729-h911-s-no-gm?authuser=0',
     hint: 'racial segregation',
   },
   {
@@ -833,7 +833,7 @@ export const DECK: Card[] = [
     name: 'Founding Fathers',
     type: 'Event',
     description: 'A group of American leaders who united the Thirteen Colonies, led the war for independence from Great Britain, and built a frame of government for the new United States of America.',
-    imageUrl: 'https://picsum.photos/seed/american%20leaders/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO1Cr1pHi9ru-81g9h1uJZe6tyImXazRgA3QLIWvb7TcJI5BzuVUQkSp3cDT2jVOx-KyOn9lVXW87eRf7a2iXn1kqd8JUZ4KR_q1n43mSyR7ArNHFvr8YwCvXDinnxa4smPW7wHBMZGLENvYBxRr1jB=w729-h911-s-no-gm?authuser=0',
     hint: 'american leaders',
   },
   {
@@ -953,7 +953,7 @@ export const DECK: Card[] = [
     name: 'Vice President (generic)',
     type: 'Event',
     description: 'An officer in government or business who is below a president in rank.',
-    imageUrl: 'https://picsum.photos/seed/government%20officer/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPptY94n5Z3MY88mcfQeQ25-Im2UeQ-0D9jTZM-ylQYe4AiulTDMChHqu6L_788bfvVoqVoApw8rumwRDIIHXKkvGIp25h2oN9kKCtpXrrfuvcJOdqQ6BRpsgSgevX_gObNUM4dx0Rr560bRNQa2ULB=w729-h911-s-no-gm?authuser=0',
     hint: 'government officer',
   },
   {
@@ -1184,7 +1184,7 @@ export const DECK: Card[] = [
     id: 'e98',
     name: 'American Revolution',
     type: 'Event',
-    description: 'A colonial revolt that took place between 1765 and 1783. The American Patriots in the Thirteen Colonies won independence from Great Britain, becoming the United States of America.',
+    description: 'A colonial revolt that took place between 1765 and 183. The American Patriots in the Thirteen Colonies won independence from Great Britain, becoming the United States of America.',
     imageUrl: 'https://picsum.photos/seed/colonial%20revolt/600/900',
     hint: 'colonial revolt',
   },
@@ -1193,7 +1193,7 @@ export const DECK: Card[] = [
     name: 'Constitution',
     type: 'Event',
     description: 'Represents the fundamental principles or established precedents according to which a state or other organization is acknowledged to be governed.',
-    imageUrl: 'https://picsum.photos/seed/historic%20constitution/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPyDAsm4qY-bymmfsmGUXq1bE-NL9SvIm7PAi12dUjZBM40e7yNRfYtc_PG9s83ccx7u-CqYLzLsAsSs0e4IWQl13q_eDj6jCae1EYv1wMuOxmA-dzjTCXDxWQMcHa83ZtBYa8QXIQQ_fVgH0LNeTRQ=w729-h911-s-no-gm?authuser=0',
     hint: 'historic constitution',
   },
   {
@@ -1240,5 +1240,7 @@ export const DECK: Card[] = [
 
 
 
+
+    
 
     
