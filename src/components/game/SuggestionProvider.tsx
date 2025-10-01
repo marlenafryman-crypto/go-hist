@@ -3,18 +3,38 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Lightbulb, XCircle } from 'lucide-react';
+import { Lightbulb, Loader2, XCircle } from 'lucide-react';
 import type { Card as CardType } from '@/lib/types';
 import { Badge } from '../ui/badge';
+import { getHistoricalSuggestionsAction } from '@/app/game/actions';
 
 interface SuggestionProviderProps {
   selectedCards: CardType[];
 }
 
 export function SuggestionProvider({ selectedCards }: SuggestionProviderProps) {
-  const [error, setError] = useState<string | null>("The AI Historian is currently disabled because no API key was provided. The rest of the game is fully functional.");
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
-  const selectedCard = selectedCards[0];
+  const selectedCard = selectedCards.length === 1 ? selectedCards[0] : null;
+
+  const handleGetSuggestions = async () => {
+    if (!selectedCard) return;
+
+    setIsLoading(true);
+    setError(null);
+    setSuggestions([]);
+    
+    const result = await getHistoricalSuggestionsAction({ cardDescription: selectedCard.description });
+
+    if (result.error) {
+      setError(result.error);
+    } else {
+      setSuggestions(result.suggestions);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className="space-y-4">
@@ -27,8 +47,8 @@ export function SuggestionProvider({ selectedCards }: SuggestionProviderProps) {
         )}
       </div>
       
-      <Button disabled>
-        <Lightbulb className="mr-2"/>
+      <Button onClick={handleGetSuggestions} disabled={!selectedCard || isLoading}>
+        {isLoading ? <Loader2 className="mr-2 animate-spin" /> : <Lightbulb className="mr-2"/>}
         Get Suggestions
       </Button>
       
@@ -40,6 +60,18 @@ export function SuggestionProvider({ selectedCards }: SuggestionProviderProps) {
         </Alert>
       )}
 
+      {suggestions.length > 0 && (
+        <div className="space-y-2">
+          <h4 className="font-headline text-lg">Connection Ideas:</h4>
+          <div className="flex flex-wrap gap-2">
+            {suggestions.map((suggestion, index) => (
+              <Badge key={index} variant="secondary">{suggestion}</Badge>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+    

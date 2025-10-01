@@ -7,7 +7,7 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, HelpCircle, Lightbulb, Bot } from 'lucide-react';
+import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -115,7 +115,7 @@ function GamePageContent() {
       discardPile: [shuffledDeck.pop()!],
       currentPlayerId: firstPlayer.id,
       turnPhase: 'action' as 'action' | 'discard',
-      log: [`New game started with ${numPlayers} players.`],
+      log: [`New game started with ${numPlayers} players. It is ${firstPlayer.name}'s turn.`],
     };
     
     updateGameState(newGameState);
@@ -480,7 +480,9 @@ function GamePageContent() {
           <div className="flex items-end justify-center space-x-8 my-8">
               <div>
                   <p className="text-center font-headline mb-2">Deck ({deck.length})</p>
-                  <GameCard card="back" className="w-[120px] h-[180px]" />
+                  <div className={(turnPhase === 'action' && !hasTakenAction) ? 'cursor-pointer' : 'cursor-not-allowed'} onClick={(turnPhase === 'action' && !hasTakenAction) ? handleDrawFromDeck : undefined}>
+                    <GameCard card="back" className="w-[120px] h-[180px]" />
+                  </div>
               </div>
               <div>
                   <p className="text-center font-headline mb-2">Discard</p>
@@ -669,3 +671,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    

@@ -25,3 +25,5 @@ export interface GameState {
   turnPhase: 'action' | 'discard';
   log: string[];
 }
+
+    
