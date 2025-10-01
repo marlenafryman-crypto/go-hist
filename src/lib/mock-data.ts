@@ -456,7 +456,7 @@ export const DECK: Card[] = [
     name: 'Mahatma Gandhi',
     type: 'Person',
     description: 'An Indian lawyer, anti-colonial nationalist, and political ethicist, who employed nonviolent resistance to lead the successful campaign for India\'s independence from British rule.',
-    imageUrl: 'https://picsum.photos/seed/indian%20leader/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM1ff_Go_Z9j97j7M9xO_LYl27JLzvchZ6TFsu6Y6SAyuv2dvvgUrbIVClBzphFqEcEkDEo3VH-Zm1sX81MqyfbguwWbxmhPcb0hKEdkkgWagXlXa67Y4ZMhg_t_3HcqEvK5VvYGR-j5KUWdAsD4Jdl=w500-h500-s-no-gm?authuser=0',
     hint: 'indian leader',
   },
   {
@@ -1105,7 +1105,7 @@ export const DECK: Card[] = [
     name: 'Reconciliation',
     type: 'Event',
     description: 'The process of restoring friendly relations, often after a period of conflict or war, such as post-apartheid South Africa.',
-    imageUrl: 'https://picsum.photos/seed/reconciliation%20peace/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNRTLCuLXzRXPtyOD4y-qeLuwtqWdXgKXxCFYeA8IFvsUR7ggGGg08bg8-_tR0vlbPVYnos7thpUfku07lUcSqINzAqxl0Y6WCCugK6bQxuaCuffoZU8pXwJQEhBG5IZHl7AeJQDOQ8QOJmdSp1p-Zx=w500-h500-s-no-gm?authuser=0',
     hint: 'restoring peace',
   },
   {
@@ -1113,7 +1113,7 @@ export const DECK: Card[] = [
     name: 'Cold War Influence',
     type: 'Event',
     description: 'Represents the global ideological, political, and economic influence exerted by the US and the Soviet Union after WWII.',
-    imageUrl: 'https://picsum.photos/seed/cold%20war/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPfSpNjXciBFsq-eUGv-sVGPAnG2P4ZYB9Km9ZZA-uh9F6RnGpwJlqhOQFBSiOvsX96PZ9JltPb1c0TTSr4e5Jvnx46iaIkEwMMvQbzAgtPhuSV29gk-DaVVfUGPiE3KqJsQ8n4xHP6WEVr-3z8o7oT=w500-h500-s-no-gm?authuser=0',
     hint: 'global influence',
   },
   {
@@ -1121,7 +1121,7 @@ export const DECK: Card[] = [
     name: 'Non-Violent Resistance',
     type: 'Event',
     description: 'The practice of achieving goals such as social change through symbolic protests, civil disobedience, or other methods, without using violence.',
-    imageUrl: 'https://picsum.photos/seed/non%20violence/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMYUj6yD1X49q53cO6xWEesnuI6A47tg9nW2wKUxxGx8ittOSc_uB7W3nOnXEf-64x0EuudWISvdhQ50kEPvBL7DjQxkr1thU3CqDq8_LdToy8b5KAvB0JNp7IcuQj7rlXFhuCL9ODvaIjwtldyADhZ=w500-h500-s-no-gm?authuser=0',
     hint: 'peaceful protest',
   },
   {
@@ -1235,4 +1235,5 @@ export const DECK: Card[] = [
     
 
     
+
 
