@@ -360,7 +360,7 @@ export const DECK: Card[] = [
     name: 'Benjamin Franklin',
     type: 'Person',
     description: 'One of the Founding Fathers of the United States. A polymath, he was a leading writer, printer, political philosopher, politician, Freemason, postmaster, scientist, inventor, humorist, civic activist, statesman, and diplomat.',
-    imageUrl: 'https://picsum.photos/seed/founding%20polymath/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMs1fpFMGaBJs9qDuegWVpaOfUiKZxJeSFTB_gzOmMdJt8KpXXU9CRRjjYiMyXAq5_Qep3UzWqZKJBMde5Fbo0c3agTiTyDhCciIi6jj7yQKNlQl0alCWQodjcf8RZGdwskRufB3sXtErlYK_wD0gXj=w729-h911-s-no-gm?authuser=0',
     hint: 'founding polymath',
   },
   {
@@ -440,7 +440,7 @@ export const DECK: Card[] = [
     name: 'George Washington',
     type: 'Person',
     description: 'The first President of the United States, Commander-in-Chief of the Continental Army during the American Revolutionary War, and one of the Founding Fathers.',
-    imageUrl: 'https://picsum.photos/seed/first%20president/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM81TaXaCC4xABtIktPIfvKXSFG1BEeBXXk8dGlX3BmO5ei8Luc9YIQvdZDGKSq2SHwfsXZS5C8UVXblhI4dvdu_TSAb_Qxw5yJYqIKQK8AxsXdx9OqH7e-kP2l-o4Yu91bEgyfhzmjfXZNQ4mGSKwt=w500-h500-s-no-gm?authuser=0',
     hint: 'first president',
   },
   {
@@ -448,7 +448,7 @@ export const DECK: Card[] = [
     name: 'US President (generic)',
     type: 'Person',
     description: 'Represents any President of the United States. Their leadership and decisions shape the course of the nation.',
-    imageUrl: 'https://picsum.photos/seed/us%20president/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMDCDlPywsMM839rtJWsxEeMlSL1AMz0W9IOgqm-U2WyKA9H4PHWs3lqVkKftpU7Ka7kV0a02kWTBYWMMIYOZxOD8XC2rfp12GAALiY8lq_Tb9o2i007D45Afu7255wuwNHR3VOEb6CoJ3cwpfokTnS=w500-h500-s-no-gm?authuser=0',
     hint: 'us president',
   },
   {
@@ -1235,3 +1235,4 @@ export const DECK: Card[] = [
     
 
     
+
