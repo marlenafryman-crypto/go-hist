@@ -705,7 +705,7 @@ export const DECK: Card[] = [
     name: 'The Space Race',
     type: 'Event',
     description: 'A 20th-century competition between two Cold War rivals, the Soviet Union (USSR) and the United States (US), for supremacy in spaceflight capability.',
-    imageUrl: 'https://picsum.photos/seed/space%20competition/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMZBkiJlWsjexqitspGuKkXDLxhWjvtRX_oJwZeaFOaZeraMEwg58m24TWFV1KHkyo0Clr6abYezYAN5wwXmbM9nDqeEim7PH8QiVCOZisXBEUmgxayrR-I4Ep2XyEvpLsXXpJKmrFxhK9oTue308wg=w729-h911-s-no-gm?authuser=0',
     hint: 'space competition',
   },
   {
@@ -817,7 +817,7 @@ export const DECK: Card[] = [
     name: 'Imprisonment and Resistance',
     type: 'Event',
     description: 'Represents the act of being confined as a punishment for a crime or for political opposition, and the struggle against such confinement.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM_N_c_A_r_S_e_U_r_O_p_E_a_S_i_A_a_F_r_I_c_A_a_U_s_T_r_A_l_I_a_N_o_R_t_H_a_M_e_R_i_C_a_S_o_U_t_H_a_M_e_R_i_C_a_N_a_D_a=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOY52n5GSRoPCv-0RrLINlHszG3FAplNH3wJhrRIX9GlpoDpSh0hRbeDIb6UOud0zCdN1oZiwuyZRts1OaCKhbJ855WQIu7XilQd0XHWQXutntWe15ekDF5RvLv1IIR7IuFKjWHUVmQ-78md-5NyzLm=w500-h500-s-no-gm?authuser=0',
     hint: 'political struggle',
   },
   {
@@ -1073,7 +1073,7 @@ export const DECK: Card[] = [
     name: 'Basic Religion',
     type: 'Event',
     description: 'Represents the fundamental principles and practices of a major world religion, influencing culture, law, and society.',
-    imageUrl: 'https://picsum.photos/seed/religion%20symbol/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOBcCLTgH9BQ4UrywdXqPLZnwF-PkBmLvpme7EDg0lZVcRlMn6iUfqnEdD-YHjvLvoY1WBVJo3dRTmaSqwF5qPoV3TMlLfS8Fzi6e_BGdPGTw8k8pgf-fvexAIA_A4_0Obufu5UPr-zhYNsglBriymH=w500-h500-s-no-gm?authuser=0',
     hint: 'religion symbol',
   },
   {
@@ -1081,7 +1081,7 @@ export const DECK: Card[] = [
     name: 'French Nationalism',
     type: 'Event',
     description: 'A political ideology that promotes the unity and interests of the French nation, often associated with the French Revolution and Napoleon.',
-    imageUrl: 'https://picsum.photos/seed/french%20nationalism/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMlnPp8vXxTJCp3nEFgHZ-RmcB-DYTdTZDFmb1pmRF7YtxiY7EEv2TXn8EDkFI1Fn3X5UvX3bdZYdNmTClOsJmqBO2dCZL4EB180-RG6Py3miRfD0lTZsUSqHaw-eBt3XLTARJ3cUWuFJQu0-hCAI-q=w500-h500-s-no-gm?authuser=0',
     hint: 'political ideology',
   },
   {
@@ -1089,7 +1089,7 @@ export const DECK: Card[] = [
     name: 'Tudor Dynasty',
     type: 'Event',
     description: 'A royal house of Welsh origin that ruled England from 1485 to 1603, including monarchs like Henry VIII and Elizabeth I.',
-    imageUrl: 'https://picsum.photos/seed/tudor%20dynasty/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNpYc88aT3j7oICQN1ObMLEViiUmQzvvrsprCJ-wb9N-sLoxq0oUUJqvlm_g0ib7zAGyroLJ1NZ41I10fDWNg0XoeuCBZ3k9ogl29sbZv_kEwRnZ-iuX0layGguKmKsxz9Ho14cfL1U3-BTSM4L58lf=w500-h500-s-no-gm?authuser=0',
     hint: 'royal house',
   },
   {
@@ -1097,7 +1097,7 @@ export const DECK: Card[] = [
     name: 'Monarchy Reforms',
     type: 'Event',
     description: 'Represents significant changes to the powers, structure, or role of a monarchy, often leading to constitutional monarchy.',
-    imageUrl: 'https://picsum.photos/seed/monarchy%20reform/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMT2Yul20VD4TQUv1uXniyprXOE05fLNRl6txtFQiHTx0FTQsq26ng4A1S1S-jDY3rtKw739qQsD8U6rd9f53edddOIj9cW3kM-S5w51_yyQqUEtkxjTpuMN832wJlL9sE25ez-HoCYIQdNMpDh4MEu=w500-h500-s-no-gm?authuser=0',
     hint: 'government reform',
   },
   {
@@ -1235,5 +1235,6 @@ export const DECK: Card[] = [
     
 
     
+
 
 
