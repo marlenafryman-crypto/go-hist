@@ -336,7 +336,7 @@ export const DECK: Card[] = [
     name: 'Theodore Roosevelt',
     type: 'Person',
     description: 'An American statesman, politician, conservationist, naturalist, and writer who served as the 26th president of the United States from 1901 to 1909.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO_V_i_E_w_A_p_P_l_E_c_O_m_I_n_C_a_R_s_E_u_R_o_P_e_A_s_I_a_A_f_R_i_C_a_A_u_S_t_R_a=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMmSEqJcKEr_gd3d05rXrq8l84hQCNMjPjWbT44JmwxmnLNVJqW6wQ5SeQUuf_YkH3B-3-UaV78j6CeX7PyKBwf1uMoYoHn4oNB7tNd9HGg5J1VAyze_UONomaHS0LxTjx9i8FgCnWuvcdp-Nbgzh_c=w729-h911-s-no-gm?authuser=0',
     hint: '26th president',
   },
   {
@@ -408,7 +408,7 @@ export const DECK: Card[] = [
     name: 'Dolley Madison',
     type: 'Person',
     description: 'The wife of James Madison, the fourth president of the United States. She was noted for her social graces, which boosted her husband\'s popularity as president.',
-    imageUrl: 'https://picsum.photos/seed/first%20lady/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM63PA35q7ODkZ_v6uT7QgFI_qTQhUljq3eRbA5WJCA6aFN1CQjt_yo05hl6eKhSHs73-YcWZZCvgYWKii13wP33gX2utDji6uvXflfgpfoqqLY6hIxiiImthv4IBN1oeSFG6FI8zacEt_B4shNd4qc=w500-h500-s-no-gm?authuser=0',
     hint: 'first lady',
   },
   {
@@ -416,7 +416,7 @@ export const DECK: Card[] = [
     name: 'James Madison',
     type: 'Person',
     description: 'An American statesman, diplomat, expansionist, philosopher, and Founding Father who served as the fourth president of the United States from 1809 to 1817.',
-    imageUrl: 'https://picsum.photos/seed/fourth%20president/600/900',
+    imageUrl: 'https://photos.app.goo.gl/Q2SbCJUsyKPeNYPS6',
     hint: 'fourth president',
   },
   {
@@ -432,7 +432,7 @@ export const DECK: Card[] = [
     name: 'Harry S Truman',
     type: 'Person',
     description: 'The 33rd president of the United States, serving from 1945 to 1953. He led the country through the final stages of World War II and the early years of the Cold War.',
-    imageUrl: 'https://picsum.photos/seed/33rd%20president/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNynyOF8UOU-5mO2Ko3cjxYQDxFuMeYXWrArfqFfqosWWYRDLkJASirkV0x4it5Ci3LB6_Ty8djMtQwHzjg0yi6Ia3OA_cjXLcaJ55Vuaq3xcj-vf6HwfGG_V8xCEqP7pfJ6AQvUN6H2rsHzUERP2fY=w500-h500-s-no-gm?authuser=0',
     hint: '33rd president',
   },
   {
@@ -793,7 +793,7 @@ export const DECK: Card[] = [
     name: 'The Progressive Era',
     type: 'Event',
     description: 'A period of widespread social activism and political reform across the United States that spanned the 1890s to the 1920s.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM_M_i_N_c_A_r_S_e_U_r_O_p_E_a_S_i_A_a_F_r_I_c_A_a_U_s_T_r_A_l_I_a_N_o_R_t_H_a_M_e_R_i_C_a_S_o_U_t_H_a_M_e_R_i_C_a_N_a=s600-no',
+    imageUrl: 'https://picsum.photos/seed/social%20activism/600/900',
     hint: 'social activism',
   },
   {
@@ -1223,7 +1223,7 @@ export const DECK: Card[] = [
   {
     id: 'e130',
     name: 'Empire Building',
-    type_desc: 'Event',
+    type: 'Event',
     description: 'The process of forming and maintaining an empire through colonization, conquest, or economic domination.',
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNW4JeYp6RPOR1X9ox8hTTKJlh0QZBfBKKzTt5NlS-r8ywCoqS9ScMmFZh8EG3mTOOx3257KGrwvxr0wM43tUx71MrYZFqFUUdOibKnBzJyvsE-l8mUGeB5QtV39cksuEjZ-Blm4MM_dzIL-Ih81Bbk=w500-h500-s-no-gm?authuser=0',
     hint: 'empire building',
