@@ -296,7 +296,7 @@ export const DECK: Card[] = [
     name: 'Franklin D. Roosevelt',
     type: 'Person',
     description: 'An American politician who served as the 32nd president of the United States from 1933 until his death in 1945.',
-    imageUrl: 'https://picsum.photos/seed/32nd%20president/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO0ezxvHPk-jaRDpB3ar8lJygzQzWMHeV0yxfoCulLajWLGzxpudXuFiBwCSh7d3rYhIaGVNgURg0e_ryZJkNRU5xAP3R0SptEtieprwSyk6UfIByAyhM35HefYb1POq67iRfa7BfZfBsQDRlnt6IRp=w729-h911-s-no-gm?authuser=0',
     hint: '32nd president',
   },
   {
@@ -849,7 +849,7 @@ export const DECK: Card[] = [
     name: 'Treasury System',
     type: 'Event',
     description: 'The system of financial management of a country, including the collection of revenue and the payment of government expenses.',
-    imageUrl: 'https://picsum.photos/seed/financial%20management/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMBGyJOG9sKDwRTFQGgf6meSdtFytyJXiBGdVnpYyduo0H5ile4UdyYZyGAP_HW13I-FISCpfqQDDR_9KKAo-i9LXX6-WAkA67eDJkvutn4-7w4CCAzQBjvorJpOy7XJXrEs2qe_4Q7XIDI_0btv-_n=w729-h911-s-no-gm?authuser=0',
     hint: 'financial management',
   },
   {
@@ -913,7 +913,7 @@ export const DECK: Card[] = [
     name: 'Patron of Exploration',
     type: 'Event',
     description: 'Represents a wealthy or powerful person who provides financial support to explorers.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOs7XvT6J4EbKpCIgYCb_TZRu_xcdkUPqU3gSFnasznnNgbmBIRHPsU0Y1OyH17LvCLR21d6tjnwIVMXG4K5jhbAsc8TBV_SVETkGJFNOV1MbCfbXpuPwqh6vai2kDoxlHkEr-8yhi4hrJ9NKZb39FH=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOqf9YGI9w0MilprrDUdNXe4wdsPBlW6go_0svTzAfZFO0Yxrmej2zQ41y2-czuInlvTKfXIbihB5uGigKlLvtooD5-m6FM7OATg3z5Iv_2C7QUZjbNfvCaCkthaFbuxpZk4-PDBZ04w4HfYM1b9LMw=w500-h500-s-no-gm?authuser=0',
     hint: 'explorer sponsor',
   },
   {
@@ -1246,3 +1246,4 @@ export const DECK: Card[] = [
     
 
     
+
