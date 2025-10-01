@@ -1033,7 +1033,7 @@ export const DECK: Card[] = [
     name: 'Salt March',
     type: 'Event',
     description: 'An act of nonviolent civil disobedience in colonial India led by Mahatma Gandhi.',
-    imageUrl: 'https://picsum.photos/seed/salt%20march/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOjPfOE3yRD-MlMrpE8RxUJL5d9uBKkWto1Yl7Qg0_IOUyDaA4Rbygh6n4BTBT7UChbANpg_jr12LLA3imrc9gmxl2ewh07uGzqPv01aQ_oeUIeVREXUrT6AjHPewdUL4TiM_UdeZXhD2gsajia7PdL=w500-hso-gm?authuser=0',
     hint: 'gandhi protest',
   },
   {
@@ -1223,7 +1223,7 @@ export const DECK: Card[] = [
   {
     id: 'e130',
     name: 'Empire Building',
-    type: 'Event',
+    type_desc: 'Event',
     description: 'The process of forming and maintaining an empire through colonization, conquest, or economic domination.',
     imageUrl: 'https://picsum.photos/seed/empire%20building/600/900',
     hint: 'empire building',
