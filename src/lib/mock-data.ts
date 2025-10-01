@@ -368,7 +368,7 @@ export const DECK: Card[] = [
     name: 'Sacagawea',
     type: 'Person',
     description: 'A Lemhi Shoshone woman who, at age 16, helped the Lewis and Clark Expedition in achieving their chartered mission objectives by exploring the Louisiana Territory.',
-    imageUrl: 'https://picsum.photos/seed/native%20american/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNA3cSt2GEkDnK3AsbKi396Wy-x6oKo88v79V1Xt32H3F67ExwivZH1APjJdu2l0X22GY59sZ2T49nyHBEGcAO1fmHUZc0WM9PanX0L5djSfZXTQNkmDotA15of-ixFlXvSHIqeIXwIqmO3td5gtT48=w500-h500-s-no-gm?authuser=0',
     hint: 'native american',
   },
   {
@@ -376,7 +376,7 @@ export const DECK: Card[] = [
     name: 'Rosa Parks',
     type: 'Person',
     description: 'An activist in the civil rights movement best known for her pivotal role in the Montgomery bus boycott.',
-    imageUrl: 'https://picsum.photos/seed/civil%20rights/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOCsnITnpz7C2oV2IzoqdvFmLdX2z6V4_mTNmAng3jY0-AznWk-aO4znC8cqoS5PtHoisjyd1x3fyAI9mB_5ZwOrtrJxg7aRejKNnKlFHGEtYMaHg6cVnHA6BHmrh1nvAIo8GrQZfoEVK3134aLNxXw=w500-h500-s-no-gm?authuser=0',
     hint: 'civil rights',
   },
   {
@@ -424,7 +424,7 @@ export const DECK: Card[] = [
     name: 'George III',
     type: 'Person',
     description: 'King of Great Britain and Ireland from 25 October 1760 until the union of the two kingdoms on 1 January 1801, after which he was King of the United Kingdom of Great Britain and Ireland until his death in 2020.',
-    imageUrl: 'https://picsum.photos/seed/british%20king/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOMUk9mtcuxlY0Y8LWUlmi3j_4xv3izN7y6gLAgKp8Z-7pUW5_chpplHlmur2VZJZohCXBup7uIJvn3QyKndO9XRq6IhCJ9pzfKSb8679AXWupJjz0wzUtZEvn98QbIbbo9_YhRLeBj688fZQPriRHk=w500-h500-s-no-gm?authuser=0',
     hint: 'british king',
   },
   {
@@ -913,7 +913,7 @@ export const DECK: Card[] = [
     name: 'Patron of Exploration',
     type: 'Event',
     description: 'Represents a wealthy or powerful person who provides financial support to explorers.',
-    imageUrl: 'https://picsum.photos/seed/explorer%20sponsor/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOs7XvT6J4EbKpCIgYCb_TZRu_xcdkUPqU3gSFnasznnNgbmBIRHPsU0Y1OyH17LvCLR21d6tjnwIVMXG4K5jhbAsc8TBV_SVETkGJFNOV1MbCfbXpuPwqh6vai2kDoxlHkEr-8yhi4hrJ9NKZb39FH=w500-h500-s-no-gm?authuser=0',
     hint: 'explorer sponsor',
   },
   {
@@ -1151,7 +1151,7 @@ export const DECK: Card[] = [
   {
     id: 'e94',
     name: 'Atomic Bomb Decisions',
-    type: 'Event',
+    type 'Event',
     description: 'The complex and controversial decisions surrounding the use of atomic weapons during World War II, involving figures like Truman and Einstein.',
     imageUrl: 'https://picsum.photos/seed/atomic%20bomb/600/900',
     hint: 'atomic bomb',
@@ -1201,7 +1201,7 @@ export const DECK: Card[] = [
     name: 'Duel',
     type: 'Event',
     description: 'An arranged engagement in combat between two individuals, with matched weapons in accordance with agreed-upon rules.',
-    imageUrl: 'https://picsum.photos/seed/combat%20duel/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO3GpbYgN1Mtza6ijl5IsrLFWQtd1wI8sdw-hbGFB7-KEa5wIPRDYCdAUCN1clggXsyC3DZ6YH5XDfWtT6wVjupoAZqegAymeVFqPNUVGx70_RwLQYcHrVgwtQANE73kQ9M0asG_RIehhh_vPQqC_Cf=w500-h500-s-no-gm?authuser=0',
     hint: 'combat duel',
   },
   {
@@ -1209,7 +1209,7 @@ export const DECK: Card[] = [
     name: 'American Flag Creation',
     type: 'Event',
     description: 'The act of creating the first official flag of the United States, often attributed to Betsy Ross.',
-    imageUrl: 'https://picsum.photos/seed/flag%20creation/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPWsVoHyOdJ9WRzIaQ98Ego4INckmNL1gjafGYhsI8LjxBQmkR-GpgQD79tlj1-OW0L-BMu-I-825qNZD-5GYOn-TAXUsqcFZ_CDTbDAiDZ7BzgY1PLwSnFNDXVBb0LmyXh_IpPbzyMMSX8QfTC7-A0=w500-h500-s-no-gm?authuser=0',
     hint: 'flag creation',
   },
   {
