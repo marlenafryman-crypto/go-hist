@@ -841,7 +841,7 @@ export const DECK: Card[] = [
     name: 'War (generic)',
     type: 'Event',
     description: 'A state of armed conflict between different nations or states or different groups within a nation or state.',
-    imageUrl: 'https://picsum.photos/seed/armed%20conflict/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOof-F19uHFyJmj9Q7okg4WyfQtnqVolowJ1gaRcB2SDAte04EkXYws753RP6feQav3kYyyHA4dN-Xocvf_VFAq9AYfhppDEgZYR8z5H8ia2lujbPT4dK1WHs8tnqoqm47P5wD4jr_TMF99re30d2Ct=w729-h911-s-no-gm?authuser=0',
     hint: 'armed conflict',
   },
   {
@@ -897,7 +897,7 @@ export const DECK: Card[] = [
     name: 'Revolution (generic)',
     type: 'Event',
     description: 'A fundamental and relatively sudden change in political power and political organization which occurs when the population revolts against the government.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNRCU7XSIV4TnD8mt3IGh8JhObjEQcU5f9x5HQCjo_Kk5eH9ag3O53Lj9AN0Wsx76MRJdwNxOjIGVfTi66n0nwMEtIOlRlZoozdwZx1mC12uJyu8zY03EjBHia-8e-SDA-8hGYtgwz0JohrkvAVaPP-=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMUr1x1SRwh-_4XVOd2wxpXI7hyxwh0R-UnDlIAGOmUnN3inGj41uaYeM6JNGjpfp_VbOLucTfFMpeKMjyseaB_jbblrQEwyAXgqfzl0sZvIEohR1XLpEQUz1kjjdn47ED77HNLwErkkjA6U0AN4E-n=w729-h911-s-no-gm?authuser=0',
     hint: 'political revolt',
   },
   {
@@ -905,7 +905,7 @@ export const DECK: Card[] = [
     name: 'French Revolution',
     type: 'Event',
     description: 'A period of far-reaching social and political upheaval in France and its colonies beginning in 1789.',
-    imageUrl: 'https://picsum.photos/seed/social%20upheaval/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMQghZG_cNS_-fsFrZTUL2yq70PE51E_Ey-UhV5EdMQnIp8uU-qvwoTDL9MZtAyBGsiCoxZeZIY7Lnz5D56cm8z1fc9OMTZd1YEJxpCIXlKZQ1VWJJiJLnJA4XAPc_8h6yo3rhAxO9EYYHwX8b46h5m=w729-h911-s-no-gm?authuser=0',
     hint: 'social upheaval',
   },
   {
@@ -1246,4 +1246,5 @@ export const DECK: Card[] = [
     
 
     
+
 
