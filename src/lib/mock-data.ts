@@ -809,7 +809,7 @@ export const DECK: Card[] = [
     name: 'Montgomery Bus Boycott',
     type: 'Event',
     description: 'A political and social protest campaign against the policy of racial segregation on the public transit system of Montgomery, Alabama.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN_i_N_c_A_r_S_e_U_r_O_p_E_a_S_i_A_a_F_r_I_c_A_a_U_s_T_r_A_l_I_a_N_o_R_t_H_a_M_e_R_i_C_a_S_o_U_t_H_a_M_e_R_i_C_a_N_a_D=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNRiAFJ-DW0RRNO3oca1vbLIyZHJnoE6dc11OOAL9y3x2PWiN1-u5tCknzR9roXkClxdesLJS-5X9S5mcaEFR0pOY_tbYxng51omiTjpOpZo1YgcmlkteBOz08uD6zVzXpwzMn4CMT52JIY-x80Nq8j=w500-h500-s-no-gm?authuser=0',
     hint: 'protest campaign',
   },
   {
@@ -1239,3 +1239,6 @@ export const DECK: Card[] = [
 
 
 
+
+
+    
