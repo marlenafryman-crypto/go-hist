@@ -1129,7 +1129,7 @@ export const DECK: Card[] = [
     name: 'Cultural Power',
     type: 'Event',
     description: 'Represents the influence of a nation\'s or region\'s culture on others, often referred to as "soft power".',
-    imageUrl: 'https://picsum.photos/seed/cultural%20influence/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMhL5YkHHakCmA_eiNzgXfaC1GHxzgZKn7dpgC1CcKlsNtCqulShM9CoYv3tHWgz76Hn97fczJ3rnWn8dBPIYEtBcir4kS0eECOfpCxfmpJAFKzHYaw-0NmH4kNlAP1Cxe3FYzfajwY5LTKvEEKy1Ef=w500-h500-s-no-gm?authuser=0',
     hint: 'cultural influence',
   },
   {
@@ -1229,5 +1229,7 @@ export const DECK: Card[] = [
     hint: 'empire building',
   },
 ];
+
+    
 
     
