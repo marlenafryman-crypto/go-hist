@@ -921,7 +921,7 @@ export const DECK: Card[] = [
     name: 'European Conquest',
     type: 'Event',
     description: 'The period of European colonization of the Americas, Africa, and Asia.',
-    imageUrl: 'https://picsum.photos/seed/european%20colonization/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOS-6MZpc8JOTIXKajSL_Y0fN3cE_gFhdqyCnBimqY48AVgFlZT0rIYvD_i7oMxCm93z2Us5cILSNH6HuIBTR1TfaqElhuwR3xMrySPSItQJr-I-aKUJQuONk6fXoCA8jFZNbi3yiJlEZgXy4ghj8HA=w500-h500-s-no-gm?authuser=0',
     hint: 'european colonization',
   },
   {
@@ -937,7 +937,7 @@ export const DECK: Card[] = [
     name: 'Emperor of France',
     type: 'Event',
     description: 'Title held by the monarchs of the First and Second French Empires.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOd260mWuMWPbG7Gxzli7txP4sjNTBUFsPa-e17Tp9h3F42-sVYdDQeGaiWDFL6kGvQdfNkLY_jX49YZ9k4XFB1R7vWcDa9IszxrWHJmGnqhL2xmC_KTLzENa0qL_Ixr5qbVR4WS2ZMIVOK82qHtWJ_=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMUGeXbbuocnGUO7VD-fLMcrcKmf9P2K-ybl0ZSN7pvxyZCPcLuADJoAKKH0Rq10IHL6Mm6Uqi1u-zryww10QZU3BF7EO5s3klTFO_RtTRdG5S80b3Jsyx2sDQEKxOhu0xX7WK4zdUm1POF7RsJdZV-=w500-h500-s-no-gm?authuser=0',
     hint: 'french monarch',
   },
   {
@@ -1065,7 +1065,7 @@ export const DECK: Card[] = [
     name: 'Church of England',
     type: 'Event',
     description: 'The established church of England, which separated from the Roman Catholic Church during the English Reformation.',
-    imageUrl: 'https://picsum.photos/seed/church%20of%20england/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOguzqtaaaYz-WqjzZBN4RsXB2W6GFPcIM52AAIIlUwVV7gz2Dt-pqLT_BtjJgBpVW-XJnMe0DnsuVKnnQTIfacjWL6QPF2nOkUePwDtetwMtWe66BUJqtHsTnAf_QtoWeGEhfpezPP4I4RQuU53ML3=w500-h500-s-no-gm?authuser=0',
     hint: 'english church',
   },
   {
@@ -1137,7 +1137,7 @@ export const DECK: Card[] = [
     name: 'Cultural Spread',
     type: 'Event',
     description: 'The expansion and adoption of cultural elements, such as ideas, styles, religions, technologies, and languages.',
-    imageUrl: 'https://picsum.photos/seed/cultural%20diffusion/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOdMPEIYJU4aR15UdxBJz1T_FQEt6141sFlUokOaxnPlwY6E9QnaEoz46osKZzjbNLAylN3UXgdtJ0zqqVE9S7jjSkW2HxAv8vdWGc02O4XQPEf_sicRFCNdyBoF9xZPQVNZTU7rAwEnDdkbrZ9YV9i=w500-h500-s-no-gm?authuser=0',
     hint: 'cultural diffusion',
   },
   {
@@ -1225,7 +1225,7 @@ export const DECK: Card[] = [
     name: 'Empire Building',
     type_desc: 'Event',
     description: 'The process of forming and maintaining an empire through colonization, conquest, or economic domination.',
-    imageUrl: 'https://picsum.photos/seed/empire%20building/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNW4JeYp6RPOR1X9ox8hTTKJlh0QZBfBKKzTt5NlS-r8ywCoqS9ScMmFZh8EG3mTOOx3257KGrwvxr0wM43tUx71MrYZFqFUUdOibKnBzJyvsE-l8mUGeB5QtV39cksuEjZ-Blm4MM_dzIL-Ih81Bbk=w500-h500-s-no-gm?authuser=0',
     hint: 'empire building',
   },
 ];
