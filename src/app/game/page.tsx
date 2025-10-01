@@ -14,7 +14,6 @@ import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { SuggestionProvider } from '@/components/game/SuggestionProvider';
 import { AskForCard } from '@/components/game/AskForCard';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
 
@@ -508,7 +507,6 @@ function GamePageContent() {
                 <TabsList className="mb-4">
                     <TabsTrigger value="hand">Hand</TabsTrigger>
                     <TabsTrigger value="actions">Actions</TabsTrigger>
-                    <TabsTrigger value="ai-hint">AI Hint</TabsTrigger>
                 </TabsList>
                 <TabsContent value="hand">
                   <ScrollArea className="w-full whitespace-nowrap">
@@ -571,11 +569,6 @@ function GamePageContent() {
                                 </Button>
                             </div>
                         )}
-                    </div>
-                </TabsContent>
-                 <TabsContent value="ai-hint">
-                    <div className="p-4">
-                        <SuggestionProvider selectedCards={selectedCards} />
                     </div>
                 </TabsContent>
             </Tabs>
