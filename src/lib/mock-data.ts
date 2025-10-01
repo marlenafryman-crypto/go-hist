@@ -889,7 +889,7 @@ export const DECK: Card[] = [
     name: 'Elizabethan Era',
     type: 'Event',
     description: 'The epoch in the Tudor period of the history of England during the reign of Queen Elizabeth I (1558–1603).',
-    imageUrl: 'https://picsum.photos/seed/tudor%20period/600/900',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczMCKisSwPAwZ-2MgqQaprP7CtYQod4hiBD8NeLYYSttTCDqYnWOsdamGYzYHROj8S3XQDwPJFmibUXmcoXOwuhtMfFHfXJeG8tar6ORmZB1cm_LkRdX37FLZ_fUYkTG61YfMcTqOeot6hqkAHYLLO5w=w500-h500-s-no-gm?authuser=0',
     hint: 'tudor period',
   },
   {
@@ -969,7 +969,7 @@ export const DECK: Card[] = [
     name: 'I Have a Dream Speech',
     type: 'Event',
     description: 'A public speech that was delivered by American civil rights activist Martin Luther King Jr. during the March on Washington for Jobs and Freedom on August 28, 1963.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOaQHN5XNIZvj_f8kY4M4G3L2C1B0A9E8D7C6B5A4B3E2D1C0F9E8D7C6B5A4B3E2D1C0F9E8D7C6B5A4B3E2=s600-no',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO324RlCAvmRADniJthaJtJ8BXHnw2EzJojuuydcspG5uD_OTfagi71E-9IXMmZcOrlAcsEqXcwToY92z_WPPYMYUILXsJzhvL797-rYRyoNTcPPA6oCD9NWrPeJ6htAPrIw0Ykwp8hJjsQ7ZBov5aP=w500-h500-s-no-gm?authuser=0',
     hint: 'public speech',
   },
   {
