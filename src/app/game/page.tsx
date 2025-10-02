@@ -95,10 +95,10 @@ function GamePageContent() {
         humanPlayers.push({ id: `player${i+1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
-    const players = shuffle(humanPlayers);
+    const players = humanPlayers;
 
     // Create a new shuffled deck each time
-    const shuffledDeck = [...DECK].sort(() => Math.random() - 0.5);
+    const shuffledDeck = shuffle([...DECK]);
     
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of players) {
