@@ -97,7 +97,8 @@ function GamePageContent() {
 
     const players = shuffle(humanPlayers);
 
-    const shuffledDeck = shuffle(DECK);
+    // Create a new shuffled deck each time
+    const shuffledDeck = [...DECK].sort(() => Math.random() - 0.5);
     
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of players) {
