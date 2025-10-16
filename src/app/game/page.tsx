@@ -47,6 +47,7 @@ function GamePageContent() {
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [hasTakenAction, setHasTakenAction] = useState(false);
   const [verificationRequest, setVerificationRequest] = useState<VerificationRequest | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
 
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
@@ -126,10 +127,12 @@ function GamePageContent() {
   }, [searchParams, updateGameState]);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    setIsClient(true);
+  }, []);
 
-    // This ensures Math.random() is re-seeded on the client
-    // and shuffle will produce different results.
+  useEffect(() => {
+    if (!isClient) return;
+
     const savedGame = window.localStorage.getItem(LOCAL_GAME_KEY);
     if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
       try {
@@ -150,7 +153,7 @@ function GamePageContent() {
     } else if (searchParams && searchParams.get('numPlayers')) {
       startNewGame();
     }
-  }, [startNewGame, searchParams]);
+  }, [isClient, startNewGame, searchParams]);
 
   const handleSelectCard = (card: CardType) => {
     if (winner) return;
@@ -668,5 +671,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
