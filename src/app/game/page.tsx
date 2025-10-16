@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -127,6 +128,8 @@ function GamePageContent() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // This ensures Math.random() is re-seeded on the client
+    // and shuffle will produce different results.
     const savedGame = window.localStorage.getItem(LOCAL_GAME_KEY);
     if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
       try {
@@ -665,3 +668,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
