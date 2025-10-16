@@ -18,8 +18,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AskForCard } from '@/components/game/AskForCard';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
 
-function shuffle(array: any[]) {
-  const a = [...array];
+function createShuffledDeck() {
+  const a = [...DECK];
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
@@ -99,8 +99,7 @@ function GamePageContent() {
 
     const players = humanPlayers;
 
-    // Create a new shuffled deck each time
-    const shuffledDeck = shuffle([...DECK]);
+    const shuffledDeck = createShuffledDeck();
     
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of players) {
@@ -153,12 +152,11 @@ function GamePageContent() {
     } else if (searchParams && searchParams.get('numPlayers')) {
       startNewGame();
     }
-  }, [isClient, startNewGame, searchParams]);
+  }, [isClient, searchParams, startNewGame]);
 
   const handleSelectCard = (card: CardType) => {
     if (winner) return;
 
-    // Clear blue highlight when a new card is selected
     if(verifiedSet) setVerifiedSet(null);
     
     setSelectedCards(prev => {
@@ -251,10 +249,6 @@ function GamePageContent() {
     if (!opponent) return;
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
-    
-    // In local multiplayer, we just have to trust the other player.
-    // For simplicity, we'll assume "Go Hist!" happens every time for now.
-    // A more advanced version could show a dialog to the other player.
     
     addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
     setShowGoHistDialog(true);
@@ -671,3 +665,5 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
