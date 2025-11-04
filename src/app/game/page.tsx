@@ -56,16 +56,18 @@ function GamePageContent() {
   const log = useMemo(() => gameState?.log || [], [gameState?.log]);
   const deck = useMemo(() => gameState?.deck || [], [gameState?.deck]);
 
-  const updateGameState = useCallback((newState: GameState | null) => {
-    setGameState(newState);
+  const updateGameState = useCallback((newState: GameState | null | ((prevState: GameState | null) => GameState | null)) => {
+    const updatedState = typeof newState === 'function' ? (gameState ? newState(gameState) : null) : newState;
+    setGameState(updatedState);
     if (typeof window !== 'undefined') {
-      if (newState) {
-        window.localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(newState));
+      if (updatedState) {
+        window.localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(updatedState));
       } else {
         window.localStorage.removeItem(LOCAL_GAME_KEY);
       }
     }
-  }, []);
+  }, [gameState]);
+
 
    const addToLog = useCallback((message: string) => {
     updateGameState(prev => {
@@ -87,7 +89,7 @@ function GamePageContent() {
   }, [players, currentPlayer]);
 
   const startNewGame = useCallback(() => {
-    if (!searchParams) return;
+    if (!searchParams || typeof window === 'undefined') return;
     
     const numPlayers = parseInt(searchParams.get('numPlayers') || '2', 10);
     
@@ -113,7 +115,7 @@ function GamePageContent() {
     const newGameState = {
       players,
       deck: shuffledDeck,
-      discardPile: [shuffledDeck.pop()!],
+      discardPile: shuffledDeck.length > 0 ? [shuffledDeck.pop()!] : [],
       currentPlayerId: firstPlayer.id,
       turnPhase: 'action' as 'action' | 'discard',
       log: [`New game started with ${numPlayers} players. It is ${firstPlayer.name}'s turn.`],
@@ -626,12 +628,13 @@ function GamePageContent() {
             </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <AlertDialog open={!!verificationRequest} onOpenChange={(open) => !open && setVerificationRequest(null)}>
+       <AlertDialog open={!!verificationRequest} onOpenChange={(open) => !open && setVerificationRequest(null)}>
         <AlertDialogContent className="max-w-2xl">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-headline text-2xl">{verificationRequest?.player.name} Proposes a Set</AlertDialogTitle>
             <AlertDialogDescription>
               Review the proposed set and the explanation below. Is this a valid historical connection?
+              {currentPlayer?.id === verificationRequest?.player.id && " (You cannot vote on your own set.)"}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-4">
@@ -649,8 +652,8 @@ function GamePageContent() {
               </div>
           </div>
           <AlertDialogFooter>
-            <Button variant="destructive" onClick={() => handleVerificationVote(false)}>Reject Set</Button>
-            <Button variant="default" onClick={() => handleVerificationVote(true)}>Accept Set</Button>
+            <Button variant="destructive" onClick={() => handleVerificationVote(false)} disabled={currentPlayer?.id === verificationRequest?.player.id}>Reject Set</Button>
+            <Button variant="default" onClick={() => handleVerificationVote(true)} disabled={currentPlayer?.id === verificationRequest?.player.id}>Accept Set</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
