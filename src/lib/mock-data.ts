@@ -673,7 +673,7 @@ export const DECK: Card[] = [
     name: 'Frequency Hopping',
     type: 'Event',
     description: 'The method of changing communication frequencies to prevent interception, co-invented by Hedy Lamarr.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN-T-v_f-x_Z_n-p_o_q_w_Y_u_v_z-x_A_Q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczN-T-v_f-x_Z_n-p_o_q_w_Y_u_v_z-x_A_Q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z=w500-h500-s-no-gm?authuser=0',
     hint: 'radio technology',
   },
   {
@@ -1235,5 +1235,13 @@ export const DECK: Card[] = [
     description: 'A period at the end of the Georgian era, during which King George III was deemed unfit to rule and his son ruled as his proxy as Prince Regent.',
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPAMlSXg7Rg2Jf43VNxYfYwViHUtTVnWwdLj3_iUTOK1KQF9n9NTE0ai8TWTDgbMFBdLphZVy8JsmdTJcHP60qawx7a5yDN5JsyLEftF5OfRHVSHyiQ2oUG6VScz4mNLG9MKQd0N0khKSrK20s0dviU=w500-h500-s-no-gm?authuser=0',
     hint: 'georgian era',
+  },
+  {
+    id: 'e132',
+    name: 'Structure of DNA',
+    type: 'Event',
+    description: 'The discovery of the double helix structure of DNA, a monumental breakthrough in the history of science.',
+    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNk1-zbKjrnqlHnySR_cmSrsfBHDMP8Z7ZoEBWMISqRxf8Tw9xdxQOUfXy06EfxIfj3XHl6145g_9pGrUrBNyKtJyqL5mglBwDQqE9vfmqOytQsJhEk2MYC9fWhZpn5sB3FwrZC5HWlul6pR7SBqclI=w500-h500-s-no-gm?authuser=0',
+    hint: 'dna discovery',
   },
 ];
