@@ -405,10 +405,6 @@ function GamePageContent() {
       if (winningPlayer) {
         return { ...prev, players: newPlayers, deck: newDeck };
       }
-
-      if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
-        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
-      }
       
       endTurn();
       return { ...prev, players: newPlayers, deck: newDeck };
@@ -710,5 +706,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    

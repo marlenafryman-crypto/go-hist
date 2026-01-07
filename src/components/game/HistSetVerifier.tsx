@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -16,7 +17,7 @@ const formSchema = z.object({
 
 interface HistSetVerifierProps {
   selectedCards: CardType[];
-  onVerified: (explanation: string) => void;
+  onVerified: (explanation: string) => Promise<void>;
 }
 
 export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierProps) {
