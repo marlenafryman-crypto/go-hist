@@ -57,16 +57,18 @@ function GamePageContent() {
   const deck = useMemo(() => gameState?.deck || [], [gameState?.deck]);
 
   const updateGameState = useCallback((newState: GameState | null | ((prevState: GameState | null) => GameState | null)) => {
-    const updatedState = typeof newState === 'function' ? (gameState ? newState(gameState) : null) : newState;
-    setGameState(updatedState);
-    if (typeof window !== 'undefined') {
-      if (updatedState) {
-        window.localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(updatedState));
-      } else {
-        window.localStorage.removeItem(LOCAL_GAME_KEY);
+    setGameState(prevState => {
+      const updatedState = typeof newState === 'function' ? newState(prevState) : newState;
+      if (typeof window !== 'undefined') {
+        if (updatedState) {
+          window.localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(updatedState));
+        } else {
+          window.localStorage.removeItem(LOCAL_GAME_KEY);
+        }
       }
-    }
-  }, [gameState]);
+      return updatedState;
+    });
+  }, []);
 
 
    const addToLog = useCallback((message: string) => {
@@ -87,6 +89,27 @@ function GamePageContent() {
     if (!players || !currentPlayer) return [];
     return players.filter(p => p.id !== currentPlayer.id);
   }, [players, currentPlayer]);
+  
+  const endTurn = useCallback(() => {
+    updateGameState(prev => {
+      if (!prev) return null;
+      const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
+      const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
+      const nextPlayer = prev.players[nextPlayerIndex];
+      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
+      
+      setHasTakenAction(false);
+      setSelectedCards([]);
+      setVerifiedSet(null);
+
+      return {
+        ...prev,
+        log: newLog,
+        currentPlayerId: nextPlayer.id,
+        turnPhase: 'action',
+      };
+    });
+  }, [updateGameState]);
 
   const startNewGame = useCallback(() => {
     if (!searchParams || typeof window === 'undefined') return;
@@ -181,26 +204,6 @@ function GamePageContent() {
     });
   };
   
-  const endTurn = useCallback(() => {
-    updateGameState(prev => {
-      if (!prev) return null;
-      const currentPlayerIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
-      const nextPlayerIndex = (currentPlayerIndex + 1) % prev.players.length;
-      const nextPlayer = prev.players[nextPlayerIndex];
-      const newLog = [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20);
-      
-      setHasTakenAction(false);
-      setSelectedCards([]);
-      setVerifiedSet(null);
-
-      return {
-        ...prev,
-        log: newLog,
-        currentPlayerId: nextPlayer.id,
-        turnPhase: 'action',
-      };
-    });
-  }, [updateGameState]);
 
    const handleDrawFromDeck = () => {
     if (!gameState || !currentPlayer || turnPhase !== 'action' || winner || hasTakenAction) return;
@@ -219,6 +222,12 @@ function GamePageContent() {
       
       addToLog(`${currentPlayer.name} drew "${drawnCard.name}" from the deck.`);
       setHasTakenAction(true);
+
+      const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
+      if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
+        return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+      }
+
       return { ...prev, players: newPlayers, deck: newDeck };
     });
   };
@@ -240,6 +249,12 @@ function GamePageContent() {
 
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from the discard pile.`);
       setHasTakenAction(true);
+      
+      const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
+      if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
+        return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
+      }
+      
       return { ...prev, players: newPlayers, discardPile: newDiscardPile };
     });
   };
@@ -277,6 +292,12 @@ function GamePageContent() {
         }
         
         setHasTakenAction(true);
+
+        const updatedCurrentPlayer = newPlayers.find(p => p.id === currentPlayer.id);
+        if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
+            return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
+        }
+
         return { ...prev, players: newPlayers, deck: newDeck };
       });
   }
@@ -397,16 +418,6 @@ function GamePageContent() {
         return { ...prev, players: newPlayers, discardPile: newDiscardPile };
     });
   };
-
-  useEffect(() => {
-    if (currentPlayer && hasTakenAction && turnPhase === 'action' && !winner) {
-      if (currentPlayer.hand.length > INITIAL_HAND_SIZE) {
-        updateGameState(prev => prev ? {...prev, turnPhase: 'discard'} : null);
-      } else {
-        // Player can optionally end turn now
-      }
-    }
-  }, [currentPlayer, hasTakenAction, turnPhase, updateGameState, endTurn, winner]);
 
   if (!gameState || !currentPlayer) {
       return (
@@ -668,5 +679,7 @@ export default function GamePage() {
     </Suspense>
   );
 }
+
+    
 
     
