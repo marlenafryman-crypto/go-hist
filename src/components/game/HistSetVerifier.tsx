@@ -7,7 +7,7 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import type { Card as CardType } from '@/lib/types';
 
 const formSchema = z.object({
@@ -29,9 +29,9 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    onVerified(values.explanation);
+    await onVerified(values.explanation);
     setIsLoading(false);
   }
   
@@ -61,7 +61,8 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
           />
           <Button type="submit" disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Propose Set to Players
+            { !isLoading && <Sparkles className="mr-2 h-4 w-4" />}
+            Verify with AI
           </Button>
         </form>
       </Form>

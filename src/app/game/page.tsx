@@ -8,7 +8,7 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine } from 'lucide-react';
+import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -17,6 +17,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AskForCard } from '@/components/game/AskForCard';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
+import { askForCard, verifyHistSet } from './actions';
+import { useToast } from '@/hooks/use-toast';
 
 function createShuffledDeck() {
   const a = [...DECK];
@@ -30,25 +32,24 @@ function createShuffledDeck() {
 const WINNING_SET_COUNT = 5;
 const LOCAL_GAME_KEY = 'go-hist-local-game';
 
-interface VerificationRequest {
-  player: Player;
-  cards: CardType[];
-  explanation: string;
+interface VerificationResult {
+    isValid: boolean;
+    reason: string;
+    isDeclaringPlayer: boolean;
 }
 
 function GamePageContent() {
   const searchParams = useSearchParams();
+  const { toast } = useToast();
   
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [selectedCards, setSelectedCards] = useState<CardType[]>([]);
-  const [verifiedSet, setVerifiedSet] = useState<CardType[] | null>(null);
   const [winner, setWinner] = useState<Player | null>(null);
   const [showHistSetDialog, setShowHistSetDialog] = useState(false);
   const [showGoHistDialog, setShowGoHistDialog] = useState(false);
   const [hasTakenAction, setHasTakenAction] = useState(false);
-  const [verificationRequest, setVerificationRequest] = useState<VerificationRequest | null>(null);
   const [isClient, setIsClient] = useState(false);
-
+  const [verificationResult, setVerificationResult] = useState<VerificationResult | null>(null);
 
   const players = useMemo(() => gameState?.players || [], [gameState?.players]);
   const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
@@ -70,8 +71,7 @@ function GamePageContent() {
     });
   }, []);
 
-
-   const addToLog = useCallback((message: string) => {
+  const addToLog = useCallback((message: string) => {
     updateGameState(prev => {
       if (!prev) return null;
       const newLog = [message, ...prev.log].slice(0, 20);
@@ -100,7 +100,6 @@ function GamePageContent() {
       
       setHasTakenAction(false);
       setSelectedCards([]);
-      setVerifiedSet(null);
 
       return {
         ...prev,
@@ -133,7 +132,7 @@ function GamePageContent() {
       }
     }
 
-    const firstPlayer = players[0];
+    const firstPlayer = players[Math.floor(Math.random() * players.length)];
 
     const newGameState = {
       players,
@@ -181,8 +180,6 @@ function GamePageContent() {
 
   const handleSelectCard = (card: CardType) => {
     if (winner) return;
-
-    if(verifiedSet) setVerifiedSet(null);
     
     setSelectedCards(prev => {
       const isSelected = prev.find(c => c.id === card.id);
@@ -194,7 +191,7 @@ function GamePageContent() {
         if (prev.length < 4) {
             return [...prev, card];
         } else {
-            return [card];
+            return [...prev.slice(1), card];
         }
       }
       if (turnPhase === 'discard') {
@@ -267,8 +264,32 @@ function GamePageContent() {
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
     
-    addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
-    setShowGoHistDialog(true);
+    const result = await askForCard(opponent.hand, request);
+    
+    if(result.hasCard) {
+        updateGameState(prev => {
+            if (!prev) return null;
+            const cardToGive = opponent.hand.find(c => c.id === result.cardId);
+            if (!cardToGive) return prev;
+
+            const newPlayers = prev.players.map(p => {
+                if (p.id === currentPlayer.id) {
+                    return {...p, hand: [...p.hand, cardToGive]};
+                }
+                if (p.id === opponentId) {
+                    return {...p, hand: p.hand.filter(c => c.id !== result.cardId)};
+                }
+                return p;
+            });
+
+            addToLog(`${opponent.name} had "${cardToGive.name}" and gave it to ${currentPlayer.name}.`);
+            setHasTakenAction(true);
+            return { ...prev, players: newPlayers };
+        });
+    } else {
+        addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
+        setShowGoHistDialog(true);
+    }
   };
 
   const handleGoHistDraw = () => {
@@ -302,35 +323,46 @@ function GamePageContent() {
       });
   }
   
-  const handleDeclareSet = (cards: CardType[], explanation: string) => {
+  const handleDeclareSet = async (cards: CardType[], explanation: string) => {
     if(!currentPlayer) return;
     
     const hasPersonCard = cards.some(card => card.type === 'Person');
     if (!hasPersonCard) {
-        addToLog('The proposed set is invalid because it does not contain at least one "Person" card.');
-        setShowHistSetDialog(false);
+        toast({
+            variant: "destructive",
+            title: "Invalid Set",
+            description: "The proposed set must contain at least one 'Person' card.",
+        });
         return;
     }
     
-    addToLog(`${currentPlayer.name} is proposing a Hist Set. Other players, please verify.`);
-    setVerificationRequest({ player: currentPlayer, cards, explanation });
+    addToLog(`${currentPlayer.name} is proposing a Hist Set...`);
     setShowHistSetDialog(false);
-  }
+    
+    try {
+        const result = await verifyHistSet(cards, explanation);
+        addToLog(`AI says: ${result.reason}`);
+        if(result.isValid) {
+            handleFormHistSet(currentPlayer, cards);
+        } else {
+            setHasTakenAction(true);
+        }
+        setVerificationResult({
+            ...result,
+            isDeclaringPlayer: true
+        });
 
-  const handleVerificationVote = (isValid: boolean) => {
-    if (!verificationRequest) return;
-
-    const { player, cards } = verificationRequest;
-
-    if (isValid) {
-      addToLog(`The set proposed by ${player.name} was accepted!`);
-      handleFormHistSet(player, cards);
-    } else {
-      addToLog(`The set proposed by ${player.name} was rejected by the other players.`);
+    } catch (error) {
+        console.error("AI verification failed:", error);
+        addToLog("AI verification failed. The turn continues.");
+        toast({
+            variant: "destructive",
+            title: "AI Error",
+            description: "Could not verify the set with the AI.",
+        });
+        setHasTakenAction(true);
     }
-    setVerificationRequest(null);
-  };
-
+  }
 
   const handleFormHistSet = (player: Player, cardsToSet: CardType[]) => {
     if (!gameState || winner) return;
@@ -370,6 +402,10 @@ function GamePageContent() {
       
       const updatedCurrentPlayer = newPlayers.find(p => p.id === player.id);
       
+      if (winningPlayer) {
+        return { ...prev, players: newPlayers, deck: newDeck };
+      }
+
       if (updatedCurrentPlayer && updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE) {
         return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
       }
@@ -389,7 +425,11 @@ function GamePageContent() {
            endTurn();
            return;
       }
-      addToLog("You must select a card to discard.");
+      toast({
+            variant: "destructive",
+            title: "No card selected",
+            description: "You must select a card to discard.",
+      });
       return;
     }
 
@@ -478,10 +518,10 @@ function GamePageContent() {
               <div key={player.id}>
                 <h3 className="font-headline text-lg mb-2">{player.name}'s Hand ({player.hand.length})</h3>
                 <div className="flex items-end gap-2 p-2 bg-muted/20 rounded-lg min-h-[120px]">
-                  {player.hand.map(card => (
+                  {player.hand.map((card, index) => (
                     <GameCard
-                      key={card.id}
-                      card={card}
+                      key={`${card.id}-${index}`}
+                      card="back"
                       isPlayerCard={false}
                     />
                   ))}
@@ -530,7 +570,6 @@ function GamePageContent() {
                           key={card.id}
                           card={card}
                           isSelected={!!selectedCards.find(c => c.id === card.id)}
-                          isVerified={!!verifiedSet?.find(c => c.id === card.id)}
                           onSelect={handleSelectCard}
                           isPlayerCard={true}
                         />
@@ -541,9 +580,8 @@ function GamePageContent() {
                 <TabsContent value="actions">
                     <div className="p-4">
                         {winner && <p className="text-lg text-primary font-headline animate-pulse">Game Over!</p>}
-                        {verificationRequest && <p className="text-sm text-primary font-headline animate-pulse">Waiting for other players to verify the set...</p>}
 
-                        {turnPhase === 'action' && !winner && !verificationRequest && (
+                        {turnPhase === 'action' && !winner && (
                              <div className="flex items-start gap-8">
                                 <div className="space-y-4">
                                     <h3 className="font-headline text-xl">Basic Actions</h3>
@@ -611,7 +649,7 @@ function GamePageContent() {
           <AlertDialogHeader>
             <AlertDialogTitle className="font-headline text-2xl">Declare a Hist Set</AlertDialogTitle>
              <AlertDialogDescription>
-              You have selected four cards. Explain the historical connection between them. The other players will then vote on its validity.
+              You have selected four cards. Explain the historical connection to the AI for verification.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <HistSetVerifier 
@@ -639,32 +677,25 @@ function GamePageContent() {
             </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-       <AlertDialog open={!!verificationRequest} onOpenChange={(open) => !open && setVerificationRequest(null)}>
-        <AlertDialogContent className="max-w-2xl">
+      <AlertDialog open={!!verificationResult} onOpenChange={(open) => !open && setVerificationResult(null)}>
+        <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-headline text-2xl">{verificationRequest?.player.name} Proposes a Set</AlertDialogTitle>
+            <AlertDialogTitle className="flex items-center gap-2 font-headline text-2xl">
+                <Sparkles className={`w-6 h-6 ${verificationResult?.isValid ? 'text-green-500' : 'text-red-500'}`} />
+                Set Verification Result
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              Review the proposed set and the explanation below. Is this a valid historical connection?
-              {currentPlayer?.id === verificationRequest?.player.id && " (You cannot vote on your own set.)"}
+              {verificationResult?.isDeclaringPlayer ? "The AI has reviewed your set." : `The AI has reviewed ${currentPlayer?.name}'s set.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-4">
-              <div className="grid grid-cols-4 gap-2">
-                {verificationRequest?.cards.map(card => (
-                    <div key={card.id} className="border rounded-md p-2 text-center bg-muted/50">
-                        <p className="text-xs font-semibold">{card.name}</p>
-                        <p className="text-xs text-muted-foreground">{card.type}</p>
-                    </div>
-                ))}
-              </div>
-              <div className="p-4 border rounded-lg bg-background">
-                <p className="font-semibold">Explanation:</p>
-                <p className="text-muted-foreground">"{verificationRequest?.explanation}"</p>
+              <div className={`p-4 border rounded-lg ${verificationResult?.isValid ? 'bg-green-500/10 border-green-500/50' : 'bg-red-500/10 border-red-500/50'}`}>
+                <p className="font-semibold">{verificationResult?.isValid ? "Set Accepted!" : "Set Rejected"}</p>
+                <p className="text-muted-foreground">"{verificationResult?.reason}"</p>
               </div>
           </div>
           <AlertDialogFooter>
-            <Button variant="destructive" onClick={() => handleVerificationVote(false)} disabled={currentPlayer?.id === verificationRequest?.player.id}>Reject Set</Button>
-            <Button variant="default" onClick={() => handleVerificationVote(true)} disabled={currentPlayer?.id === verificationRequest?.player.id}>Accept Set</Button>
+            <AlertDialogAction onClick={() => setVerificationResult(null)}>Close</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -679,7 +710,3 @@ export default function GamePage() {
     </Suspense>
   );
 }
-
-    
-
-    

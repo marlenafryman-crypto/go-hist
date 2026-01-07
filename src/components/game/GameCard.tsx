@@ -11,18 +11,16 @@ import { ScrollArea } from '../ui/scroll-area';
 interface GameCardProps {
   card: CardType | 'back';
   isSelected?: boolean;
-  isVerified?: boolean;
   onSelect?: (card: CardType) => void;
   className?: string;
   isPlayerCard?: boolean;
-  inSet?: boolean;
 }
 
-export function GameCard({ card, isSelected, isVerified, onSelect, className, isPlayerCard, inSet }: GameCardProps) {
+export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }: GameCardProps) {
   if (card === 'back') {
     return (
       <Card className={cn("bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden relative", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
-        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" layout="fill" objectFit="cover" />
+        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" fill objectFit="cover" />
       </Card>
     );
   }
@@ -35,11 +33,11 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
   
   const isInteractive = !!onSelect;
 
-  const cardBaseSize = isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]';
+  const cardBaseSize = isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[120px] h-[180px]';
   const cardTitleSize = isPlayerCard ? 'text-base' : 'text-xs';
   const iconSize = isPlayerCard ? 'w-4 h-4' : 'w-3 h-3';
   const cardDescriptionSize = isPlayerCard ? 'text-sm' : 'text-[10px]';
-  const imageSize = isPlayerCard ? 'h-[150px]' : 'h-[60px]';
+  const imageSize = isPlayerCard ? 'h-[150px]' : 'h-[90px]';
   const textContentSize = isPlayerCard ? 'text-sm' : 'text-[9px]';
 
 
@@ -50,9 +48,7 @@ export function GameCard({ card, isSelected, isVerified, onSelect, className, is
         className={cn(
           "w-full h-full flex flex-col shadow-lg border-4 transition-all duration-200",
           isSelected ? 'border-primary shadow-2xl scale-105' : 'border-card',
-          isVerified ? 'border-blue-500 shadow-2xl scale-105' : '',
           isInteractive ? 'cursor-pointer' : 'cursor-default',
-          inSet ? 'border-green-500' : ''
         )}
       >
         <CardHeader className="p-2">
