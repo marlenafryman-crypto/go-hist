@@ -1,4 +1,3 @@
-
 import type { Card } from './types';
 
 export const DECK: Card[] = [

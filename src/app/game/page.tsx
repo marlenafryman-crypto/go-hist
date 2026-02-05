@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -149,16 +148,16 @@ function GamePageContent() {
 
   useEffect(() => {
     setIsClient(true);
-    const savedGame = window.localStorage.getItem(LOCAL_GAME_KEY);
-    if (!savedGame || savedGame === 'undefined' || savedGame === 'null') {
-      startNewGame();
-    }
-  }, [startNewGame]);
+  }, []);
 
   useEffect(() => {
     if (!isClient) return;
     const savedGame = window.localStorage.getItem(LOCAL_GAME_KEY);
-    if (savedGame && savedGame !== 'undefined' && savedGame !== 'null') {
+    const forceNew = searchParams?.get('new') === 'true';
+
+    if (forceNew || !savedGame || savedGame === 'undefined' || savedGame === 'null') {
+      startNewGame();
+    } else {
       try {
         const savedGameState = JSON.parse(savedGame);
         if (savedGameState && savedGameState.players) {
@@ -173,7 +172,7 @@ function GamePageContent() {
         startNewGame();
       }
     }
-  }, [isClient, startNewGame]);
+  }, [isClient, startNewGame, searchParams]);
 
   const handleSelectCard = useCallback((card: CardType) => {
     if (winner) return;
