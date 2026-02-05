@@ -192,7 +192,7 @@ export const DECK: Card[] = [
     name: 'Hedy Lamarr',
     type: 'Person',
     description: 'An Austrian-born American actress, inventor, and film producer. She was a co-inventor of an early version of frequency-hopping spread spectrum communication.',
-    imageUrl: 'https://picsum.photos/seed/hedy/500/500',
+    imageUrl: 'https://picsum.photos/seed/hedy1/500/500',
     hint: 'actress inventor',
   },
   {
@@ -304,7 +304,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
-    imageUrl: 'https://picsum.photos/seed/susanb/500/500',
+    imageUrl: 'https://picsum.photos/seed/susanb2/500/500',
     hint: 'social reformer',
   },
   {
@@ -673,7 +673,7 @@ export const DECK: Card[] = [
     name: 'Frequency Hopping',
     type: 'Event',
     description: 'The method of changing communication frequencies to prevent interception, co-invented by Hedy Lamarr.',
-    imageUrl: 'https://picsum.photos/seed/freqhopping/500/500',
+    imageUrl: 'https://picsum.photos/seed/freqhopping1/500/500',
     hint: 'radio technology',
   },
   {
@@ -1233,7 +1233,7 @@ export const DECK: Card[] = [
     name: 'Regency Era',
     type: 'Event',
     description: 'A period at the end of the Georgian era, during which King George III was deemed unfit to rule and his son ruled as his proxy as Prince Regent.',
-    imageUrl: 'https://picsum.photos/seed/regency/500/500',
+    imageUrl: 'https://picsum.photos/seed/regency2/500/500',
     hint: 'georgian era',
   },
   {
@@ -1241,7 +1241,7 @@ export const DECK: Card[] = [
     name: 'Structure of DNA',
     type: 'Event',
     description: 'The discovery of the double helix structure of DNA, a monumental breakthrough in the history of science.',
-    imageUrl: 'https://picsum.photos/seed/dna/500/500',
+    imageUrl: 'https://picsum.photos/seed/dna2/500/500',
     hint: 'dna discovery',
   },
 ];

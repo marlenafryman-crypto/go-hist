@@ -110,14 +110,14 @@ function GamePageContent() {
   }, [updateGameState]);
 
   const startNewGame = useCallback(() => {
-    if (!searchParams || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
     
-    const numPlayers = parseInt(searchParams.get('numPlayers') || '2', 10);
+    const numPlayers = parseInt(searchParams?.get('numPlayers') || '2', 10);
     const shuffledDeck = createShuffledDeck();
     const humanPlayers: Player[] = [];
     
     for (let i = 0; i < numPlayers; i++) {
-        const playerName = searchParams.get(`player${i+1}`) || `Player ${i+1}`;
+        const playerName = searchParams?.get(`player${i+1}`) || `Player ${i+1}`;
         humanPlayers.push({ id: `player${i+1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
@@ -150,7 +150,7 @@ function GamePageContent() {
   useEffect(() => {
     setIsClient(true);
     const savedGame = window.localStorage.getItem(LOCAL_GAME_KEY);
-    if (!savedGame) {
+    if (!savedGame || savedGame === 'undefined' || savedGame === 'null') {
       startNewGame();
     }
   }, [startNewGame]);
@@ -170,9 +170,10 @@ function GamePageContent() {
         }
       } catch (e) {
         console.error("Failed to parse saved game state:", e);
+        startNewGame();
       }
     }
-  }, [isClient]);
+  }, [isClient, startNewGame]);
 
   const handleSelectCard = useCallback((card: CardType) => {
     if (winner) return;
@@ -211,7 +212,8 @@ function GamePageContent() {
       addToLog(`${currentPlayer.name} drew a card.`);
       setHasTakenAction(true);
 
-      if (newPlayers.find(p => p.id === currentPlayer.id)!.hand.length > INITIAL_HAND_SIZE) {
+      const playerHand = newPlayers.find(p => p.id === currentPlayer.id)!.hand;
+      if (playerHand.length > INITIAL_HAND_SIZE) {
         return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
       }
 
@@ -237,7 +239,8 @@ function GamePageContent() {
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from discard.`);
       setHasTakenAction(true);
       
-      if (newPlayers.find(p => p.id === currentPlayer.id)!.hand.length > INITIAL_HAND_SIZE) {
+      const playerHand = newPlayers.find(p => p.id === currentPlayer.id)!.hand;
+      if (playerHand.length > INITIAL_HAND_SIZE) {
         return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
       }
       
@@ -253,27 +256,36 @@ function GamePageContent() {
 
     addToLog(`${currentPlayer.name} asks ${opponent.name}: "${request}"`);
     
-    const result = await askForCard(opponent.hand, request);
-    
-    if(result.hasCard) {
-        updateGameState(prev => {
-            if (!prev) return null;
-            const cardToGive = opponent.hand.find(c => c.id === result.cardId);
-            if (!cardToGive) return prev;
+    try {
+        const result = await askForCard(opponent.hand, request);
+        
+        if(result.hasCard) {
+            updateGameState(prev => {
+                if (!prev) return null;
+                const cardToGive = opponent.hand.find(c => c.id === result.cardId);
+                if (!cardToGive) return prev;
 
-            const newPlayers = prev.players.map(p => {
-                if (p.id === currentPlayer.id) return {...p, hand: [...p.hand, cardToGive]};
-                if (p.id === opponentId) return {...p, hand: p.hand.filter(c => c.id !== result.cardId)};
-                return p;
+                const newPlayers = prev.players.map(p => {
+                    if (p.id === currentPlayer.id) return {...p, hand: [...p.hand, cardToGive]};
+                    if (p.id === opponentId) return {...p, hand: p.hand.filter(c => c.id !== result.cardId)};
+                    return p;
+                });
+
+                addToLog(`${opponent.name} gave "${cardToGive.name}" to ${currentPlayer.name}.`);
+                setHasTakenAction(true);
+                return { ...prev, players: newPlayers };
             });
-
-            addToLog(`${opponent.name} gave "${cardToGive.name}" to ${currentPlayer.name}.`);
-            setHasTakenAction(true);
-            return { ...prev, players: newPlayers };
+        } else {
+            addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
+            setShowGoHistDialog(true);
+        }
+    } catch (e) {
+        console.error("AI request failed:", e);
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "AI failed to process your request. Please try again.",
         });
-    } else {
-        addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
-        setShowGoHistDialog(true);
     }
   };
 
@@ -295,7 +307,8 @@ function GamePageContent() {
         
         setHasTakenAction(true);
 
-        if (newPlayers.find(p => p.id === currentPlayer.id)!.hand.length > INITIAL_HAND_SIZE) {
+        const playerHand = newPlayers.find(p => p.id === currentPlayer.id)!.hand;
+        if (playerHand.length > INITIAL_HAND_SIZE) {
             return { ...prev, players: newPlayers, deck: newDeck, turnPhase: 'discard' };
         }
 
@@ -330,6 +343,11 @@ function GamePageContent() {
         setVerificationResult({ ...result, isDeclaringPlayer: true });
     } catch (error) {
         console.error("AI verification failed:", error);
+        toast({
+            variant: "destructive",
+            title: "AI Error",
+            description: "Verification system is temporarily unavailable.",
+        });
         setHasTakenAction(true);
     }
   }
@@ -381,7 +399,8 @@ function GamePageContent() {
         const newDiscardPile = [...prev.discardPile, card];
         addToLog(`${currentPlayer.name} discarded "${card.name}".`);
 
-        if (newPlayers.find(p => p.id === currentPlayer.id)!.hand.length > INITIAL_HAND_SIZE) {
+        const playerHand = newPlayers.find(p => p.id === currentPlayer.id)!.hand;
+        if (playerHand.length > INITIAL_HAND_SIZE) {
             setSelectedCards([]);
             return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
         }
@@ -508,7 +527,7 @@ function GamePageContent() {
                                 </div>
                                 <div className="space-y-4">
                                      <h3 className="font-headline text-lg">Sets</h3>
-                                     <Button variant="primary" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={hasTakenAction || selectedCards.length !== 4}>
+                                     <Button variant="default" size="sm" onClick={() => setShowHistSetDialog(true)} disabled={hasTakenAction || selectedCards.length !== 4}>
                                         <BookOpenCheck className="w-4 h-4 mr-2" /> Declare a Set
                                     </Button>
                                 </div>
