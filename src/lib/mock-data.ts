@@ -183,7 +183,7 @@ export const DECK: Card[] = [
     name: 'Rosalind Franklin',
     type: 'Person',
     description: 'An English chemist and X-ray crystallographer whose work was central to the understanding of the molecular structures of DNA, RNA, viruses, coal, and graphite.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczNk1-zbKjrnqlHnySR_cmSrsfBHDMP8Z7ZoEBWMISqRxf8Tw9xdxQOUfXy06EfxIfj3XHl6145g_9pGrUrBNyKtJyqL5mglBwDQqE9vfmqOytQsJhEk2MYC9fWhZpn5sB3FwrZC5HWlul6pR7SBqclI=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://picsum.photos/seed/rosalind_franklin/500/500',
     hint: 'english chemist',
   },
   {
@@ -191,7 +191,7 @@ export const DECK: Card[] = [
     name: 'Hedy Lamarr',
     type: 'Person',
     description: 'An Austrian-born American actress, inventor, and film producer. She was a co-inventor of an early version of frequency-hopping spread spectrum communication.',
-    imageUrl: 'https://picsum.photos/seed/hedy1/500/500',
+    imageUrl: 'https://picsum.photos/seed/hedy_lamarr/500/500',
     hint: 'actress inventor',
   },
   {
@@ -207,7 +207,7 @@ export const DECK: Card[] = [
     name: 'William Shakespeare',
     type: 'Person',
     description: 'An English playwright, poet, and actor, widely regarded as the greatest writer in the English language and the world\'s greatest dramatist.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPz8rX8d_R_K_I_L_J_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://picsum.photos/seed/shakespeare/500/500',
     hint: 'english playwright',
   },
   {
@@ -255,7 +255,7 @@ export const DECK: Card[] = [
     name: 'The Wright Brothers',
     type: 'Person',
     description: 'Two American aviation pioneers generally credited with inventing, building, and flying the world\'s first successful motor-operated airplane.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczO6bX6Q_C-zR_b_V_F_H_J_L_N_P_R_T_V_X_Z_a_c_e_g_i_k_m_o_q_s_u_w_y_A_C_E_G_I_K_M_O_Q_S_U_W_Y_a_c_e_g_i_k_m_o_q_s_u_w_y_A_C_E_G_I_K_M_O_Q_S_U_W_Y_a_c_e_g_i_k_m_o_q_s_u_w_y_A_C_E_G_I_K_M_O_Q_S_U_W_Y=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://picsum.photos/seed/wright_brothers/500/500',
     hint: 'aviation pioneers',
   },
   {
@@ -303,7 +303,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
-    imageUrl: 'https://picsum.photos/seed/susanb2/500/500',
+    imageUrl: 'https://picsum.photos/seed/susan_b_anthony/500/500',
     hint: 'social reformer',
   },
   {
@@ -463,7 +463,7 @@ export const DECK: Card[] = [
     name: 'Chief Sitting Bull',
     type: 'Person',
     description: 'A Hunkpapa Lakota leader who led his people during years of resistance against United States government policies.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczOxCiQorR6bHKClbNInGL9sZpLgWgT8wX62KSvCjm0oLQLoAi_C95siat333ZcRlWLYXcGFXhxkxu-kMOqkoaWb2zUOkXL_rNG5Ap_GcNzlt90hnocA2kTkzLi_NrUKQfn8dCVX1jRIHPrqiWP_6SqE=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://picsum.photos/seed/sitting_bull/500/500',
     hint: 'lakota leader',
   },
   // Events
@@ -672,7 +672,7 @@ export const DECK: Card[] = [
     name: 'Frequency Hopping',
     type: 'Event',
     description: 'The method of changing communication frequencies to prevent interception, co-invented by Hedy Lamarr.',
-    imageUrl: 'https://picsum.photos/seed/freqhopping1/500/500',
+    imageUrl: 'https://picsum.photos/seed/freq_hopping/500/500',
     hint: 'radio technology',
   },
   {
@@ -688,7 +688,7 @@ export const DECK: Card[] = [
     name: 'The Globe Theatre',
     type: 'Event',
     description: 'A theatre in London associated with William Shakespeare. It was built in 1599 by Shakespeare\'s playing company, the Lord Chamberlain\'s Men.',
-    imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczPz8rX8d_R_K_I_L_J_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z_a_b_c_d_e_f_g_h_i_j_k_l_m_n_o_p_q_r_s_t_u_v_w_x_y_z_A_B_C_D_E_F_G_H_I_J_K_L_M_N_O_P_Q_R_S_T_U_V_W_X_Y_Z=w500-h500-s-no-gm?authuser=0',
+    imageUrl: 'https://picsum.photos/seed/globe_theatre/500/500',
     hint: 'london theatre',
   },
   {
@@ -1232,7 +1232,7 @@ export const DECK: Card[] = [
     name: 'Regency Era',
     type: 'Event',
     description: 'A period at the end of the Georgian era, during which King George III was deemed unfit to rule and his son ruled as his proxy as Prince Regent.',
-    imageUrl: 'https://picsum.photos/seed/regency2/500/500',
+    imageUrl: 'https://picsum.photos/seed/regency_era/500/500',
     hint: 'georgian era',
   },
   {
@@ -1240,7 +1240,7 @@ export const DECK: Card[] = [
     name: 'Structure of DNA',
     type: 'Event',
     description: 'The discovery of the double helix structure of DNA, a monumental breakthrough in the history of science.',
-    imageUrl: 'https://picsum.photos/seed/dna2/500/500',
+    imageUrl: 'https://picsum.photos/seed/structure_of_dna/500/500',
     hint: 'dna discovery',
   },
 ];

@@ -25,14 +25,11 @@ export default function JoinGamePage() {
   const router = useRouter();
   const [playerNames, setPlayerNames] = useState<string[]>(['', '']);
   const [numPlayers, setNumPlayers] = useState(2);
-  const [numAiPlayers, setNumAiPlayers] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  const totalPlayers = numPlayers + numAiPlayers;
 
   const handlePlayerNameChange = (index: number, name: string) => {
     const newPlayerNames = [...playerNames];
@@ -59,7 +56,7 @@ export default function JoinGamePage() {
       const queryParams = new URLSearchParams();
       queryParams.set('code', code);
       queryParams.set('numPlayers', String(numPlayers));
-      queryParams.set('numAi', String(0)); // AI players are disabled
+      queryParams.set('new', 'true');
       playerNames.slice(0, numPlayers).forEach((name, index) => {
         queryParams.set(`player${index + 1}`, name);
       });
@@ -72,7 +69,7 @@ export default function JoinGamePage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-8 bg-background">
       <div className="hidden md:flex md:w-1/2 lg:w-2/5 justify-center items-center">
-        <Image src="https://lh3.googleusercontent.com/pw/AP1GczNE0DqshCbF8NOdepWMDTTUOWx-cYIR45PDQ2Zc57jmu4tHuzBe49bw9s7ANRt-5ax_CXBGg6FtKzwrPyzLLsS6BpEi6b0tJHl-rw_yuwkjvZgle4lCwzuql1-wZ1uj7CbYMdbwXMVWktv8j05BynjT=w500-h500-s-no-gm?authuser=0" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" />
+        <Image src="https://lh3.googleusercontent.com/pw/AP1GczNE0DqshCbF8NOdepWMDTTUOWx-cYIR45PDQ2Zc57jmu4tHuzBe49bw9s7ANRt-5ax_CXBGg6FtKzwrPyzLLsS6BpEi6b0tJHl-rw_yuwkjvZgle4lCwzuql1-wZ1uj7CbYMdbwXMVWktv8j05BynjT=w500-h500-s-no-gm?authuser=0" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" priority />
       </div>
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center space-x-4 mb-8 md:hidden">
