@@ -23,10 +23,11 @@ const HistSetVerificationOutputSchema = z.object({
 });
 
 const verifyHistSetPrompt = ai.definePrompt({
-    name: 'verifyHistSetPrompt',
-    input: { schema: HistSetVerificationInputSchema },
-    output: { schema: HistSetVerificationOutputSchema },
-    prompt: `You are an AI expert in history for the card game "Go Hist". Your role is to determine if a player's proposed set of 4 cards has a valid historical connection based on their explanation.
+  name: 'verifyHistSetPrompt',
+  model: 'googleai/gemini-1.5-flash',
+  input: { schema: HistSetVerificationInputSchema },
+  output: { schema: HistSetVerificationOutputSchema },
+  prompt: `You are an AI expert in history for the card game "Go Hist". Your role is to determine if a player's proposed set of 4 cards has a valid historical connection based on their explanation.
 
 The player has proposed the following set:
 {{#each cards}}
@@ -44,9 +45,8 @@ Rules for a valid set:
 Analyze the explanation and the cards. Is the connection valid based on these rules? Provide a clear "yes" or "no" and a brief, one-sentence justification for your decision.`,
 });
 
-
 export async function verifyHistSet(cards: Card[], explanation: string) {
-  const {output} = await verifyHistSetPrompt({
+  const { output } = await verifyHistSetPrompt({
     cards: cards.map(({ name, type, description }) => ({ name, type, description })),
     explanation,
   });
@@ -54,20 +54,22 @@ export async function verifyHistSet(cards: Card[], explanation: string) {
   return output!;
 }
 
-
 const AskForCardOutputSchema = z.object({
   hasCard: z.boolean().describe("Whether the opponent's hand contains a card matching the request."),
   cardId: z.string().optional().describe("The ID of the card that matches the request, if any."),
 });
 
 const askForCardPrompt = ai.definePrompt({
-    name: 'askForCardPrompt',
-    input: { schema: z.object({
-        hand: z.array(z.object({ id: z.string(), name: z.string(), type: z.string(), description: z.string() })),
-        request: z.string(),
-    })},
-    output: { schema: AskForCardOutputSchema },
-    prompt: `You are an AI for the card game "Go Hist". A player is asking an opponent for a card.
+  name: 'askForCardPrompt',
+  model: 'googleai/gemini-1.5-flash',
+  input: {
+    schema: z.object({
+      hand: z.array(z.object({ id: z.string(), name: z.string(), type: z.string(), description: z.string() })),
+      request: z.string(),
+    })
+  },
+  output: { schema: AskForCardOutputSchema },
+  prompt: `You are an AI for the card game "Go Hist". A player is asking an opponent for a card.
 Player's request: "{{request}}"
 
 Opponent's hand:
@@ -83,9 +85,9 @@ If there are no matching cards, return hasCard: false.`,
 });
 
 export async function askForCard(hand: Card[], request: string) {
-    if (hand.length === 0) {
-        return { hasCard: false };
-    }
-    const {output} = await askForCardPrompt({ hand, request });
-    return output!;
+  if (hand.length === 0) {
+    return { hasCard: false };
+  }
+  const { output } = await askForCardPrompt({ hand, request });
+  return output!;
 }

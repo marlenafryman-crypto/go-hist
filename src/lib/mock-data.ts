@@ -42,7 +42,7 @@ export const DECK: Card[] = [
     imageUrl: 'https://lh3.googleusercontent.com/pw/AP1GczM7aCvE5T4GF78JOaq5e1tKd-1A7HfSMMAboHzVHcaPikVR4Bye-teJZPBDfeOL-Xv57PfoaTur_hm0utBCOZA7JGlzLYzk3TKGbLtYss8CEgOi0wm5X269Y-3_IT7n-DmkX5xwBmQY_WwVyLNdp6kY=w500-h500-s-no-gm?authuser=0',
     hint: 'modern physicist',
   },
-   {
+  {
     id: 'p06',
     name: 'Isaac Newton',
     type: 'Person',
@@ -183,7 +183,7 @@ export const DECK: Card[] = [
     name: 'Rosalind Franklin',
     type: 'Person',
     description: 'An English chemist and X-ray crystallographer whose work was central to the understanding of the molecular structures of DNA, RNA, viruses, coal, and graphite.',
-    imageUrl: 'https://picsum.photos/seed/rosalind_franklin/500/500',
+    imageUrl: 'https://picsum.photos/seed/rosalind_franklin_science/500/500',
     hint: 'english chemist',
   },
   {
@@ -191,7 +191,7 @@ export const DECK: Card[] = [
     name: 'Hedy Lamarr',
     type: 'Person',
     description: 'An Austrian-born American actress, inventor, and film producer. She was a co-inventor of an early version of frequency-hopping spread spectrum communication.',
-    imageUrl: 'https://picsum.photos/seed/hedy_lamarr/500/500',
+    imageUrl: 'https://picsum.photos/seed/hedy_lamarr_inventor/500/500',
     hint: 'actress inventor',
   },
   {
@@ -207,7 +207,7 @@ export const DECK: Card[] = [
     name: 'William Shakespeare',
     type: 'Person',
     description: 'An English playwright, poet, and actor, widely regarded as the greatest writer in the English language and the world\'s greatest dramatist.',
-    imageUrl: 'https://picsum.photos/seed/shakespeare/500/500',
+    imageUrl: 'https://picsum.photos/seed/shakespeare_writer/500/500',
     hint: 'english playwright',
   },
   {
@@ -255,7 +255,7 @@ export const DECK: Card[] = [
     name: 'The Wright Brothers',
     type: 'Person',
     description: 'Two American aviation pioneers generally credited with inventing, building, and flying the world\'s first successful motor-operated airplane.',
-    imageUrl: 'https://picsum.photos/seed/wright_brothers/500/500',
+    imageUrl: 'https://picsum.photos/seed/wright_brothers_aviation/500/500',
     hint: 'aviation pioneers',
   },
   {
@@ -303,7 +303,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
-    imageUrl: 'https://picsum.photos/seed/1038/500/500',
+    imageUrl: 'https://picsum.photos/seed/susan_b_anthony_rights/500/500',
     hint: 'social reformer',
   },
   {
@@ -463,7 +463,7 @@ export const DECK: Card[] = [
     name: 'Chief Sitting Bull',
     type: 'Person',
     description: 'A Hunkpapa Lakota leader who led his people during years of resistance against United States government policies.',
-    imageUrl: 'https://picsum.photos/seed/sitting_bull/500/500',
+    imageUrl: 'https://picsum.photos/seed/sitting_bull_leader/500/500',
     hint: 'lakota leader',
   },
   // Events
@@ -672,7 +672,7 @@ export const DECK: Card[] = [
     name: 'Frequency Hopping',
     type: 'Event',
     description: 'The method of changing communication frequencies to prevent interception, co-invented by Hedy Lamarr.',
-    imageUrl: 'https://picsum.photos/seed/freq_hopping/500/500',
+    imageUrl: 'https://picsum.photos/seed/freq_hopping_radio/500/500',
     hint: 'radio technology',
   },
   {
@@ -688,7 +688,7 @@ export const DECK: Card[] = [
     name: 'The Globe Theatre',
     type: 'Event',
     description: 'A theatre in London associated with William Shakespeare. It was built in 1599 by Shakespeare\'s playing company, the Lord Chamberlain\'s Men.',
-    imageUrl: 'https://picsum.photos/seed/globe_theatre/500/500',
+    imageUrl: 'https://picsum.photos/seed/globe_theatre_london/500/500',
     hint: 'london theatre',
   },
   {
@@ -1232,7 +1232,7 @@ export const DECK: Card[] = [
     name: 'Regency Era',
     type: 'Event',
     description: 'A period at the end of the Georgian era, during which King George III was deemed unfit to rule and his son ruled as his proxy as Prince Regent.',
-    imageUrl: 'https://picsum.photos/seed/1131/500/500',
+    imageUrl: 'https://picsum.photos/seed/regency_era_georgian/500/500',
     hint: 'georgian era',
   },
   {
@@ -1240,7 +1240,7 @@ export const DECK: Card[] = [
     name: 'Structure of DNA',
     type: 'Event',
     description: 'The discovery of the double helix structure of DNA, a monumental breakthrough in the history of science.',
-    imageUrl: 'https://picsum.photos/seed/1132/500/500',
+    imageUrl: 'https://picsum.photos/seed/dna_structure_helix/500/500',
     hint: 'dna discovery',
   },
 ];
