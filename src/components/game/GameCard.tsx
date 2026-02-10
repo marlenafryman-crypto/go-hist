@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Card as CardType } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { User, History } from 'lucide-react';
+import { User, History, Sparkles } from 'lucide-react';
 
 interface GameCardProps {
   card: CardType | 'back';
@@ -51,7 +51,13 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
         <CardHeader className="p-2">
           <CardTitle className={cn("font-headline leading-tight whitespace-normal", cardTitleSize)}>{card.name}</CardTitle>
           <div className="flex items-center space-x-2">
-            {card.type === 'Person' ? <User className={cn(iconSize, "text-muted-foreground")} /> : <History className={cn(iconSize, "text-muted-foreground")} />}
+            {card.type === 'Person' ? (
+              <User className={cn(iconSize, "text-muted-foreground")} />
+            ) : card.type === 'Event' ? (
+              <History className={cn(iconSize, "text-muted-foreground")} />
+            ) : (
+              <Sparkles className={cn(iconSize, "text-primary")} />
+            )}
             <CardDescription className={cardDescriptionSize}>{card.type}</CardDescription>
           </div>
         </CardHeader>

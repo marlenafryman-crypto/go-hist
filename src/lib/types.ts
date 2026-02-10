@@ -3,7 +3,7 @@ export const INITIAL_HAND_SIZE = 5;
 export interface Card {
   id: string;
   name: string;
-  type: 'Person' | 'Event';
+  type: 'Person' | 'Event' | 'Wildcard';
   description: string;
   imageUrl: string;
   hint: string;

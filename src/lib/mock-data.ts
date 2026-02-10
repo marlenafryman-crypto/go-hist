@@ -1243,4 +1243,37 @@ export const DECK: Card[] = [
     imageUrl: 'https://picsum.photos/seed/dna_structure_helix/500/500',
     hint: 'dna discovery',
   },
+  // Wildcards
+  {
+    id: 'w01',
+    name: 'Chrono-Wildcard',
+    type: 'Wildcard',
+    description: 'A rift in time. Use this card as any historical Person or Event to complete your Hist Set.',
+    imageUrl: 'https://picsum.photos/seed/chrono_wildcard_1/500/500',
+    hint: 'mysterious magic',
+  },
+  {
+    id: 'w02',
+    name: 'Chrono-Wildcard',
+    type: 'Wildcard',
+    description: 'A rift in time. Use this card as any historical Person or Event to complete your Hist Set.',
+    imageUrl: 'https://picsum.photos/seed/chrono_wildcard_2/500/500',
+    hint: 'mysterious magic',
+  },
+  {
+    id: 'w03',
+    name: 'Chrono-Wildcard',
+    type: 'Wildcard',
+    description: 'A rift in time. Use this card as any historical Person or Event to complete your Hist Set.',
+    imageUrl: 'https://picsum.photos/seed/chrono_wildcard_3/500/500',
+    hint: 'mysterious magic',
+  },
+  {
+    id: 'w04',
+    name: 'Chrono-Wildcard',
+    type: 'Wildcard',
+    description: 'A rift in time. Use this card as any historical Person or Event to complete your Hist Set.',
+    imageUrl: 'https://picsum.photos/seed/chrono_wildcard_4/500/500',
+    hint: 'mysterious magic',
+  },
 ];

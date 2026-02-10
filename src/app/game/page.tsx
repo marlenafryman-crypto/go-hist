@@ -296,9 +296,9 @@ function GamePageContent() {
   const handleDeclareSet = async (cards: CardType[], explanation: string) => {
     if (!currentPlayer) return;
 
-    const hasPersonCard = cards.some(card => card.type === 'Person');
-    if (!hasPersonCard) {
-      toast({ variant: "destructive", title: "Invalid Set", description: "Must include at least one 'Person'." });
+    const hasPersonOrWildcard = cards.some(card => card.type === 'Person' || card.type === 'Wildcard');
+    if (!hasPersonOrWildcard) {
+      toast({ variant: "destructive", title: "Invalid Set", description: "Must include at least one 'Person' (or Wildcard used as such)." });
       return;
     }
 
@@ -535,7 +535,7 @@ function GamePageContent() {
         <AlertDialogContent className="max-w-2xl">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-headline text-2xl">Propose a Historical Set</AlertDialogTitle>
-            <AlertDialogDescription>Explain why these four cards are connected. One must be a Person.</AlertDialogDescription>
+            <AlertDialogDescription>Explain why these four cards are connected. One must be a Person or a Wildcard used as one.</AlertDialogDescription>
           </AlertDialogHeader>
           <HistSetVerifier selectedCards={selectedCards} onVerified={(explanation) => handleDeclareSet(selectedCards, explanation)} />
           <AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel></AlertDialogFooter>

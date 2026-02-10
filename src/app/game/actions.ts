@@ -34,13 +34,15 @@ The player has proposed the following set:
 - {{name}} ({{type}}): {{description}}
 {{/each}}
 
+SPECIAL RULE: 'Wildcard' cards can represent ANY historical person, place, or event as defined by the player in their explanation. The AI must accept the player's definition of the wildcard as long as the resulting connection is historically valid and plausible based on the rest of the cards.
+
 Their explanation for the connection is: "{{explanation}}"
 
 Rules for a valid set:
 1. The connection must be historically accurate and plausible.
 2. The connection cannot be trivial (e.g., "they are all people" or "they all existed before 1900"). It must be a specific, meaningful link.
-3. At least one card in the set must be a 'Person' card. (This is pre-validated, but keep it in mind).
-4. All four cards must be connected. It's not enough for three to be connected and one to be an outlier.
+3. At least one card in the set must represent a 'Person' (Wildcards used as a Person satisfy this rule).
+4. All four cards must be meaningfully connected.
 
 Analyze the explanation and the cards. Is the connection valid based on these rules? Provide a clear "yes" or "no" and a brief, one-sentence justification for your decision.`,
 });
