@@ -303,7 +303,7 @@ export const DECK: Card[] = [
     name: 'Susan B. Anthony',
     type: 'Person',
     description: 'An American social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.',
-    imageUrl: 'https://picsum.photos/seed/susan_b_anthony/500/500',
+    imageUrl: 'https://picsum.photos/seed/1038/500/500',
     hint: 'social reformer',
   },
   {
@@ -1232,7 +1232,7 @@ export const DECK: Card[] = [
     name: 'Regency Era',
     type: 'Event',
     description: 'A period at the end of the Georgian era, during which King George III was deemed unfit to rule and his son ruled as his proxy as Prince Regent.',
-    imageUrl: 'https://picsum.photos/seed/regency_era/500/500',
+    imageUrl: 'https://picsum.photos/seed/1131/500/500',
     hint: 'georgian era',
   },
   {
@@ -1240,7 +1240,7 @@ export const DECK: Card[] = [
     name: 'Structure of DNA',
     type: 'Event',
     description: 'The discovery of the double helix structure of DNA, a monumental breakthrough in the history of science.',
-    imageUrl: 'https://picsum.photos/seed/structure_of_dna/500/500',
+    imageUrl: 'https://picsum.photos/seed/1132/500/500',
     hint: 'dna discovery',
   },
 ];

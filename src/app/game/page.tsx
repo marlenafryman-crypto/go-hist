@@ -12,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AskForCard } from '@/components/game/AskForCard';
 import { INITIAL_HAND_SIZE } from '@/lib/types';
@@ -118,19 +117,19 @@ function GamePageContent() {
         humanPlayers.push({ id: `player${i+1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
-    const players = humanPlayers;
+    const playersList = humanPlayers;
     
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
-      for (const player of players) {
+      for (const player of playersList) {
         const card = shuffledDeck.pop();
         if (card) player.hand.push(card);
       }
     }
 
-    const firstPlayer = players[0];
+    const firstPlayer = playersList[0];
 
     const newGameState: GameState = {
-      players,
+      players: playersList,
       deck: shuffledDeck,
       discardPile: [],
       currentPlayerId: firstPlayer.id,

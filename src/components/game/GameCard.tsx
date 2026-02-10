@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -6,7 +5,6 @@ import { Card as CardType } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { User, History } from 'lucide-react';
-import { ScrollArea } from '../ui/scroll-area';
 
 interface GameCardProps {
   card: CardType | 'back';
@@ -20,7 +18,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
   if (card === 'back') {
     return (
       <Card className={cn("bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden relative", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
-        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" fill objectFit="cover" />
+        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" fill className="object-cover" />
       </Card>
     );
   }
@@ -39,7 +37,6 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
   const cardDescriptionSize = isPlayerCard ? 'text-sm' : 'text-[10px]';
   const imageSize = isPlayerCard ? 'h-[150px]' : 'h-[90px]';
   const textContentSize = isPlayerCard ? 'text-sm' : 'text-[9px]';
-
 
   return (
     <div className={cn('relative shrink-0', cardBaseSize, className)}>
@@ -68,9 +65,9 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
               data-ai-hint={card.hint}
             />
           </div>
-          <ScrollArea className="flex-grow">
+          <div className="flex-grow overflow-y-auto">
             <p className={cn("p-2 text-foreground/80 leading-snug", textContentSize)}>{card.description}</p>
-          </ScrollArea>
+          </div>
         </CardContent>
       </Card>
     </div>
