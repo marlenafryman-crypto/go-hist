@@ -1,4 +1,3 @@
-
 import type { Card } from './types';
 import images from '@/app/lib/placeholder-images.json';
 

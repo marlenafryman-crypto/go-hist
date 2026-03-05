@@ -7,7 +7,7 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { Users, BookOpenCheck, ChevronLeft, Trophy, Trash2, ArrowDownToLine, Sparkles, HelpCircle } from 'lucide-react';
+import { BookOpenCheck, ChevronLeft, Trash2, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -117,6 +117,7 @@ function GamePageContent() {
     setWinner(null);
     setSelectedCards([]);
     setHasTakenAction(false);
+    localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(newGameState));
   }, [searchParams]);
 
   useEffect(() => {
@@ -240,7 +241,7 @@ function GamePageContent() {
         addToLog(`GO HIST! ${opponent.name} has no matching card.`);
         setShowGoHistDialog(true);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({ variant: "destructive", title: "Error", description: "AI failed to process request." });
     }
   };
@@ -273,7 +274,7 @@ function GamePageContent() {
       } else {
         setHasTakenAction(true);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({ variant: "destructive", title: "AI Error", description: "Verification failed." });
     }
   };
@@ -286,7 +287,9 @@ function GamePageContent() {
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: p.hand.filter(c => c.id !== card.id) } : p);
       const newDiscard = [...prev.discardPile, card];
       const updatedPlayer = newPlayers.find(p => p.id === currentPlayer.id)!;
-      if (updatedPlayer.hand.length <= INITIAL_HAND_SIZE) setTimeout(endTurn, 100);
+      if (updatedPlayer.hand.length <= INITIAL_HAND_SIZE) {
+          setTimeout(endTurn, 100);
+      }
       return { ...prev, players: newPlayers, discardPile: newDiscard, log: [`${currentPlayer.name} discarded ${card.name}.`, ...prev.log].slice(0, 20) };
     });
   };
@@ -303,7 +306,7 @@ function GamePageContent() {
         <Card className="flex-1 min-h-0"><CardHeader className="p-3"><CardTitle className="text-sm">Log</CardTitle></CardHeader><CardContent className="p-3 pt-0 overflow-y-auto h-[300px]"><ul className="space-y-1">{log.map((m, i) => (<li key={i} className="text-[10px] text-muted-foreground">{m}</li>))}</ul></CardContent></Card>
       </aside>
 
-      <main className="flex-1 flex flex-col p-4 overflow-hidden">
+      <main className="flex-1 flex flex-col p-4 overflow-hidden relative">
         <div className="flex-1 overflow-y-auto space-y-6">
           {otherPlayers.map(p => (
             <div key={p.id}>
@@ -312,21 +315,21 @@ function GamePageContent() {
             </div>
           ))}
           <div className="flex justify-center gap-4">
-            <div onClick={handleDrawFromDeck} className="cursor-pointer text-center"><p className="text-[10px] mb-1">Deck ({deck.length})</p><GameCard card="back" className="w-[80px] h-[120px]" /></div>
-            <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center"><p className="text-[10px] mb-1">Discard</p>{gameState.discardPile.length > 0 ? <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[80px] h-[120px]" /> : <div className="w-[80px] h-[120px] border-2 border-dashed rounded-lg bg-muted/20" />}</div>
+            <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group"><p className="text-[10px] mb-1">Deck ({deck.length})</p><GameCard card="back" className="w-[80px] h-[120px] group-hover:ring-4 ring-primary" /></div>
+            <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center group"><p className="text-[10px] mb-1">Discard</p>{gameState.discardPile.length > 0 ? <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[80px] h-[120px] group-hover:ring-4 ring-primary" /> : <div className="w-[80px] h-[120px] border-2 border-dashed rounded-lg bg-muted/20" />}</div>
           </div>
         </div>
 
-        <div className="bg-card/50 p-4 rounded-t-xl border-t shadow-2xl space-y-4">
+        <div className="bg-card/90 p-4 rounded-t-xl border-t shadow-[0_-10px_20px_rgba(0,0,0,0.1)] space-y-4 z-10 backdrop-blur-sm">
           <div className="flex justify-between items-center">
             <h3 className="font-headline text-lg">{currentPlayer.name}'s Hand</h3>
             <div className="flex gap-2">
-              {turnPhase === 'action' && selectedCards.length === 4 && <Button size="sm" onClick={() => setShowHistSetDialog(true)}><BookOpenCheck className="mr-1 w-4 h-4" /> Declare Set</Button>}
+              {selectedCards.length === 4 && <Button size="sm" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90"><BookOpenCheck className="mr-1 w-4 h-4" /> Declare Set</Button>}
               {turnPhase === 'discard' && selectedCards.length === 1 && <Button size="sm" variant="destructive" onClick={handleDiscardCard}><Trash2 className="mr-1 w-4 h-4" /> Discard</Button>}
               {turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && <Button size="sm" variant="outline" onClick={endTurn}>End Turn</Button>}
             </div>
           </div>
-          <div className="flex gap-4 overflow-x-auto p-2 min-h-[160px]">
+          <div className="flex gap-4 overflow-x-auto p-2 min-h-[160px] scrollbar-hide">
             {currentPlayer.hand.map(c => (<GameCard key={c.id} card={c} isPlayerCard isSelected={!!selectedCards.find(sc => sc.id === c.id)} onSelect={handleSelectCard} />))}
           </div>
           {turnPhase === 'action' && !hasTakenAction && (
