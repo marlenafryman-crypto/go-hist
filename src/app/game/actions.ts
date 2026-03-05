@@ -1,4 +1,3 @@
-
 'use server';
 
 import { ai } from '@/ai/genkit';
@@ -35,7 +34,7 @@ The player has proposed the following set:
 - {{name}} ({{type}}): {{description}}
 {{/each}}
 
-SPECIAL RULE: 'Wildcard' cards can represent ANY historical person, place, or event as defined by the player in their explanation.
+SPECIAL RULE: 'Wildcard' cards (Chrono-Wildcard) can represent ANY historical person, place, or event as defined by the player in their explanation.
 
 Their explanation for the connection is: "{{explanation}}"
 

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -137,7 +136,7 @@ function GamePageContent() {
         } else {
           startNewGame();
         }
-      } catch (e) {
+      } catch (error) {
         startNewGame();
       }
     }
@@ -241,7 +240,7 @@ function GamePageContent() {
         addToLog(`GO HIST! ${opponent.name} has no matching card.`);
         setShowGoHistDialog(true);
       }
-    } catch (e) {
+    } catch (error) {
       toast({ variant: "destructive", title: "Error", description: "AI failed to process request." });
     }
   };
