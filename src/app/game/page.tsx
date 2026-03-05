@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -69,7 +70,6 @@ function GamePageContent() {
       humanPlayers.push({ id: `player${i + 1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
-    // Deal cards
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of humanPlayers) {
         const card = shuffledDeck.pop();
