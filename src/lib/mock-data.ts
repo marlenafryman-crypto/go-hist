@@ -59,6 +59,14 @@ export const DECK: Card[] = [
     hint: 'regency period history',
   },
   {
+    id: 'p05',
+    name: 'Albert Einstein',
+    type: 'Person',
+    description: 'Developed the theory of relativity, a pillar of modern physics.',
+    imageUrl: images.einstein,
+    hint: 'scientist albert einstein',
+  },
+  {
     id: 'w01',
     name: 'Chrono-Wildcard',
     type: 'Wildcard',
@@ -89,13 +97,5 @@ export const DECK: Card[] = [
     description: 'A rift in time. Can be used as any historical Person or Event.',
     imageUrl: images.wildcard,
     hint: 'abstract history rift',
-  },
-  {
-    id: 'p05',
-    name: 'Albert Einstein',
-    type: 'Person',
-    description: 'Developed the theory of relativity, a pillar of modern physics.',
-    imageUrl: images.einstein,
-    hint: 'scientist albert einstein',
   }
 ];

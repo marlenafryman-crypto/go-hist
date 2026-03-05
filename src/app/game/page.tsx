@@ -47,22 +47,9 @@ function GamePageContent() {
   const [isClient, setIsClient] = useState(false);
   const [verificationResult, setVerificationResult] = useState<VerificationResult | null>(null);
 
-  const players = useMemo(() => gameState?.players || [], [gameState?.players]);
-  const currentPlayerId = useMemo(() => gameState?.currentPlayerId, [gameState?.currentPlayerId]);
-  const turnPhase = useMemo(() => gameState?.turnPhase, [gameState?.turnPhase]);
-  const log = useMemo(() => gameState?.log || [], [gameState?.log]);
-  const deck = useMemo(() => gameState?.deck || [], [gameState?.deck]);
-
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  // Handle local storage side effects
-  useEffect(() => {
-    if (gameState && isClient) {
-      localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(gameState));
-    }
-  }, [gameState, isClient]);
 
   const updateGameState = useCallback((newState: GameState | null | ((prevState: GameState | null) => GameState | null)) => {
     setGameState(prevState => {
@@ -77,6 +64,12 @@ function GamePageContent() {
       return { ...prev, log: [message, ...prev.log].slice(0, 20) };
     });
   }, [updateGameState]);
+
+  const players = gameState?.players || [];
+  const currentPlayerId = gameState?.currentPlayerId;
+  const turnPhase = gameState?.turnPhase;
+  const log = gameState?.log || [];
+  const deck = gameState?.deck || [];
 
   const currentPlayer = useMemo(() => {
     if (!players || !currentPlayerId) return null;
@@ -98,7 +91,6 @@ function GamePageContent() {
       humanPlayers.push({ id: `player${i + 1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
-    // Deal cards
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of humanPlayers) {
         const card = shuffledDeck.pop();
@@ -133,8 +125,6 @@ function GamePageContent() {
         const savedGameState = JSON.parse(savedGame);
         if (savedGameState && savedGameState.players) {
           setGameState(savedGameState);
-          const winningPlayer = savedGameState.players.find((p: Player) => p.histSets.length >= 5);
-          if (winningPlayer) setWinner(winningPlayer);
         } else {
           startNewGame();
         }
@@ -143,6 +133,12 @@ function GamePageContent() {
       }
     }
   }, [isClient, startNewGame, searchParams]);
+
+  useEffect(() => {
+    if (gameState && isClient) {
+      localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(gameState));
+    }
+  }, [gameState, isClient]);
 
   const endTurn = useCallback(() => {
     updateGameState(prev => {
@@ -160,13 +156,6 @@ function GamePageContent() {
       };
     });
   }, [updateGameState]);
-
-  // Monitor hand size for automatic turn ending after discard
-  useEffect(() => {
-    if (turnPhase === 'discard' && currentPlayer && currentPlayer.hand.length <= INITIAL_HAND_SIZE) {
-        endTurn();
-    }
-  }, [currentPlayer?.hand.length, turnPhase, endTurn, currentPlayer]);
 
   const handleSelectCard = useCallback((card: CardType) => {
     if (winner) return;
@@ -249,7 +238,7 @@ function GamePageContent() {
         addToLog(`GO HIST! ${opponent.name} has no matching card.`);
         setShowGoHistDialog(true);
       }
-    } catch (error: any) {
+    } catch (e) {
       toast({ variant: "destructive", title: "Error", description: "AI failed to process request." });
     }
   };
@@ -282,7 +271,7 @@ function GamePageContent() {
       } else {
         setHasTakenAction(true);
       }
-    } catch (error: any) {
+    } catch (e) {
       toast({ variant: "destructive", title: "AI Error", description: "Verification failed." });
     }
   };
@@ -294,8 +283,11 @@ function GamePageContent() {
       if (!prev) return null;
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: p.hand.filter(c => c.id !== card.id) } : p);
       const newDiscard = [...prev.discardPile, card];
-      return { ...prev, players: newPlayers, discardPile: newDiscard, log: [`${currentPlayer.name} discarded ${card.name}.`, ...prev.log].slice(0, 20) };
+      const updatedPlayer = newPlayers.find(p => p.id === currentPlayer.id)!;
+      const nextPhase = updatedPlayer.hand.length <= INITIAL_HAND_SIZE ? 'action' : 'discard';
+      return { ...prev, players: newPlayers, discardPile: newDiscard, turnPhase: nextPhase, log: [`${currentPlayer.name} discarded ${card.name}.`, ...prev.log].slice(0, 20) };
     });
+    setSelectedCards([]);
   };
 
   if (!gameState || !currentPlayer) return <div className="flex items-center justify-center min-h-screen font-headline">Loading history...</div>;
@@ -336,7 +328,7 @@ function GamePageContent() {
               {turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && <Button size="sm" variant="outline" onClick={endTurn}>End Turn</Button>}
             </div>
           </div>
-          <div className="flex gap-4 overflow-x-auto p-2 min-h-[160px] scrollbar-hide">
+          <div className="flex gap-4 overflow-x-auto p-2 min-h-[160px]">
             {currentPlayer.hand.map(c => (<GameCard key={c.id} card={c} isPlayerCard isSelected={!!selectedCards.find(sc => sc.id === c.id)} onSelect={handleSelectCard} />))}
           </div>
           {turnPhase === 'action' && !hasTakenAction && (
