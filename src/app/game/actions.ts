@@ -1,3 +1,4 @@
+
 'use server';
 
 import { ai } from '@/ai/genkit';
@@ -34,17 +35,16 @@ The player has proposed the following set:
 - {{name}} ({{type}}): {{description}}
 {{/each}}
 
-SPECIAL RULE: 'Wildcard' cards can represent ANY historical person, place, or event as defined by the player in their explanation. The AI must accept the player's definition of the wildcard as long as the resulting connection is historically valid and plausible based on the rest of the cards.
+SPECIAL RULE: 'Wildcard' cards can represent ANY historical person, place, or event as defined by the player in their explanation.
 
 Their explanation for the connection is: "{{explanation}}"
 
 Rules for a valid set:
 1. The connection must be historically accurate and plausible.
-2. The connection cannot be trivial (e.g., "they are all people" or "they all existed before 1900"). It must be a specific, meaningful link.
-3. At least one card in the set must represent a 'Person' (Wildcards used as a Person satisfy this rule).
-4. All four cards must be meaningfully connected.
+2. At least one card in the set must represent a 'Person' (Wildcards used as a Person satisfy this rule).
+3. All four cards must be meaningfully connected.
 
-Analyze the explanation and the cards. Is the connection valid based on these rules? Provide a clear "yes" or "no" and a brief, one-sentence justification for your decision.`,
+Provide a clear "yes" or "no" and a brief, one-sentence justification.`,
 });
 
 export async function verifyHistSet(cards: Card[], explanation: string) {
@@ -52,7 +52,6 @@ export async function verifyHistSet(cards: Card[], explanation: string) {
     cards: cards.map(({ name, type, description }) => ({ name, type, description })),
     explanation,
   });
-
   return output!;
 }
 
@@ -79,17 +78,13 @@ Opponent's hand:
 - (ID: {{id}}) {{name}} ({{type}}): {{description}}
 {{/each}}
 
-Analyze the opponent's hand. Does any card in the hand match the player's request? A match can be about the card's name, type, description, or historical context.
-For example, if the request is for "a scientist", Marie Curie would be a match. If the request is for "something from the Renaissance", Leonardo da Vinci would be a match.
-
-If there is a match, identify the single best matching card. Return hasCard: true and the ID of that card.
-If there are no matching cards, return hasCard: false.`,
+Identify the single best matching card based on historical context. 
+If there is a match, return hasCard: true and the ID. 
+If no match, return hasCard: false.`,
 });
 
 export async function askForCard(hand: Card[], request: string) {
-  if (hand.length === 0) {
-    return { hasCard: false };
-  }
+  if (hand.length === 0) return { hasCard: false };
   const { output } = await askForCardPrompt({ hand, request });
   return output!;
 }
