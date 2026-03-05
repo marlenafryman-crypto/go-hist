@@ -16,7 +16,7 @@ export const DECK: Card[] = [
     type: 'Person',
     description: 'Pioneering researcher on radioactivity and first woman to win a Nobel Prize.',
     imageUrl: images.marie_curie,
-    hint: 'scientist radioactivity',
+    hint: 'scientist marie curie',
   },
   {
     id: 'p03',
@@ -24,7 +24,7 @@ export const DECK: Card[] = [
     type: 'Person',
     description: 'Roman general and statesman who led the demise of the Roman Republic.',
     imageUrl: images.julius_caesar,
-    hint: 'roman leader',
+    hint: 'roman julius caesar',
   },
   {
     id: 'p04',
@@ -32,7 +32,7 @@ export const DECK: Card[] = [
     type: 'Person',
     description: 'Pivotal leader in the women\'s suffrage movement in the United States.',
     imageUrl: images.susan_b_anthony,
-    hint: 'suffrage leader',
+    hint: 'historical susan anthony',
   },
   {
     id: 'e01',
@@ -40,7 +40,7 @@ export const DECK: Card[] = [
     type: 'Event',
     description: 'Period of great cultural achievement in Europe from the 14th to 17th century.',
     imageUrl: images.renaissance,
-    hint: 'historical period',
+    hint: 'renaissance history',
   },
   {
     id: 'e02',
@@ -48,7 +48,7 @@ export const DECK: Card[] = [
     type: 'Event',
     description: 'The discovery of the double helix structure, a breakthrough in genetic science.',
     imageUrl: images.dna_structure,
-    hint: 'science discovery',
+    hint: 'dna helix science',
   },
   {
     id: 'e03',
@@ -56,7 +56,7 @@ export const DECK: Card[] = [
     type: 'Event',
     description: 'A period in British history (1811–1820) known for its distinctive architecture and literature.',
     imageUrl: images.regency_era,
-    hint: 'british history',
+    hint: 'regency period history',
   },
   {
     id: 'w01',
@@ -64,7 +64,7 @@ export const DECK: Card[] = [
     type: 'Wildcard',
     description: 'A rift in time. Can be used as any historical Person or Event.',
     imageUrl: images.wildcard,
-    hint: 'mysterious magic',
+    hint: 'abstract history rift',
   },
   {
     id: 'w02',
@@ -72,7 +72,7 @@ export const DECK: Card[] = [
     type: 'Wildcard',
     description: 'A rift in time. Can be used as any historical Person or Event.',
     imageUrl: images.wildcard,
-    hint: 'mysterious magic',
+    hint: 'abstract history rift',
   },
   {
     id: 'w03',
@@ -80,7 +80,7 @@ export const DECK: Card[] = [
     type: 'Wildcard',
     description: 'A rift in time. Can be used as any historical Person or Event.',
     imageUrl: images.wildcard,
-    hint: 'mysterious magic',
+    hint: 'abstract history rift',
   },
   {
     id: 'w04',
@@ -88,7 +88,7 @@ export const DECK: Card[] = [
     type: 'Wildcard',
     description: 'A rift in time. Can be used as any historical Person or Event.',
     imageUrl: images.wildcard,
-    hint: 'mysterious magic',
+    hint: 'abstract history rift',
   },
   {
     id: 'p05',
@@ -96,6 +96,6 @@ export const DECK: Card[] = [
     type: 'Person',
     description: 'Developed the theory of relativity, a pillar of modern physics.',
     imageUrl: images.einstein,
-    hint: 'modern physicist',
+    hint: 'scientist albert einstein',
   }
 ];

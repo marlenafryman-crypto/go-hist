@@ -18,6 +18,8 @@ import { askForCard, verifyHistSet } from './actions';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
+const LOCAL_GAME_KEY = 'go-hist-local-game';
+
 function createShuffledDeck() {
   const a = [...DECK];
   for (let i = a.length - 1; i > 0; i--) {
@@ -26,8 +28,6 @@ function createShuffledDeck() {
   }
   return a;
 }
-
-const LOCAL_GAME_KEY = 'go-hist-local-game';
 
 interface VerificationResult {
   isValid: boolean;
@@ -57,6 +57,7 @@ function GamePageContent() {
     setIsClient(true);
   }, []);
 
+  // Handle local storage side effects
   useEffect(() => {
     if (gameState && isClient) {
       localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(gameState));
@@ -97,6 +98,7 @@ function GamePageContent() {
       humanPlayers.push({ id: `player${i + 1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
+    // Deal cards
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of humanPlayers) {
         const card = shuffledDeck.pop();
@@ -117,7 +119,6 @@ function GamePageContent() {
     setWinner(null);
     setSelectedCards([]);
     setHasTakenAction(false);
-    localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(newGameState));
   }, [searchParams]);
 
   useEffect(() => {
@@ -159,6 +160,13 @@ function GamePageContent() {
       };
     });
   }, [updateGameState]);
+
+  // Monitor hand size for automatic turn ending after discard
+  useEffect(() => {
+    if (turnPhase === 'discard' && currentPlayer && currentPlayer.hand.length <= INITIAL_HAND_SIZE) {
+        endTurn();
+    }
+  }, [currentPlayer?.hand.length, turnPhase, endTurn, currentPlayer]);
 
   const handleSelectCard = useCallback((card: CardType) => {
     if (winner) return;
@@ -286,10 +294,6 @@ function GamePageContent() {
       if (!prev) return null;
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: p.hand.filter(c => c.id !== card.id) } : p);
       const newDiscard = [...prev.discardPile, card];
-      const updatedPlayer = newPlayers.find(p => p.id === currentPlayer.id)!;
-      if (updatedPlayer.hand.length <= INITIAL_HAND_SIZE) {
-          setTimeout(endTurn, 100);
-      }
       return { ...prev, players: newPlayers, discardPile: newDiscard, log: [`${currentPlayer.name} discarded ${card.name}.`, ...prev.log].slice(0, 20) };
     });
   };
@@ -322,9 +326,12 @@ function GamePageContent() {
 
         <div className="bg-card/90 p-4 rounded-t-xl border-t shadow-[0_-10px_20px_rgba(0,0,0,0.1)] space-y-4 z-10 backdrop-blur-sm">
           <div className="flex justify-between items-center">
-            <h3 className="font-headline text-lg">{currentPlayer.name}'s Hand</h3>
+            <div className="flex flex-col">
+                <h3 className="font-headline text-lg">{currentPlayer.name}'s Hand</h3>
+                <p className="text-[10px] text-muted-foreground">{turnPhase === 'discard' ? 'Discard a card to end your turn.' : 'Select 4 cards for a set or draw/ask.'}</p>
+            </div>
             <div className="flex gap-2">
-              {selectedCards.length === 4 && <Button size="sm" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90"><BookOpenCheck className="mr-1 w-4 h-4" /> Declare Set</Button>}
+              {selectedCards.length === 4 && turnPhase === 'action' && <Button size="sm" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90"><BookOpenCheck className="mr-1 w-4 h-4" /> Declare Set</Button>}
               {turnPhase === 'discard' && selectedCards.length === 1 && <Button size="sm" variant="destructive" onClick={handleDiscardCard}><Trash2 className="mr-1 w-4 h-4" /> Discard</Button>}
               {turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && <Button size="sm" variant="outline" onClick={endTurn}>End Turn</Button>}
             </div>
