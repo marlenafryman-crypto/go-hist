@@ -5,6 +5,7 @@ import { Card as CardType } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { User, History, Sparkles } from 'lucide-react';
+import images from '@/app/lib/placeholder-images.json';
 
 interface GameCardProps {
   card: CardType | 'back';
@@ -17,8 +18,18 @@ interface GameCardProps {
 export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }: GameCardProps) {
   if (card === 'back') {
     return (
-      <Card className={cn("bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden relative", className, isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]')}>
-        <Image src="https://lh3.googleusercontent.com/pw/AP1GczO7lrMLnNVh799s7EniLM3nbZQe7TaLpdQLaw5onIdgdBj4H2ajTVegOmUdma9DWQxLCZJAC0p68oxm5tNFXMORz5VvkRD6WbQbt3n5qElQPIJbCaHTVt1AMPcbE6T22A5KCRJtW0j_OqWxzjeFXYgo=w607-h911-s-no-gm?authuser=0" alt="Go Hist Card Back" fill className="object-cover" />
+      <Card className={cn(
+        "bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center border-4 border-yellow-200/50 shadow-lg overflow-hidden relative", 
+        className, 
+        isPlayerCard ? 'w-[200px] h-[300px]' : 'w-[80px] h-[120px]'
+      )}>
+        <Image 
+          src={images.card_back} 
+          alt="Go Hist Card Back" 
+          fill 
+          className="object-cover" 
+          priority
+        />
       </Card>
     );
   }
@@ -39,30 +50,30 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
   const textContentSize = isPlayerCard ? 'text-sm' : 'text-[9px]';
 
   return (
-    <div className={cn('relative shrink-0', cardBaseSize, className)}>
+    <div className={cn('relative shrink-0 transition-transform duration-200', isInteractive && 'hover:-translate-y-2', cardBaseSize, className)}>
       <Card
         onClick={handleSelect}
         className={cn(
           "w-full h-full flex flex-col shadow-lg border-4 transition-all duration-200",
-          isSelected ? 'border-primary shadow-2xl scale-105' : 'border-card',
+          isSelected ? 'border-primary ring-4 ring-primary/30 shadow-2xl scale-105 z-10' : 'border-card',
           isInteractive ? 'cursor-pointer' : 'cursor-default',
         )}
       >
-        <CardHeader className="p-2">
-          <CardTitle className={cn("font-headline leading-tight whitespace-normal", cardTitleSize)}>{card.name}</CardTitle>
+        <CardHeader className="p-2 space-y-0.5">
+          <CardTitle className={cn("font-headline leading-tight whitespace-normal truncate", cardTitleSize)}>{card.name}</CardTitle>
           <div className="flex items-center space-x-2">
             {card.type === 'Person' ? (
-              <User className={cn(iconSize, "text-muted-foreground")} />
+              <User className={cn(iconSize, "text-primary")} />
             ) : card.type === 'Event' ? (
-              <History className={cn(iconSize, "text-muted-foreground")} />
+              <History className={cn(iconSize, "text-blue-500")} />
             ) : (
-              <Sparkles className={cn(iconSize, "text-primary")} />
+              <Sparkles className={cn(iconSize, "text-amber-500")} />
             )}
-            <CardDescription className={cardDescriptionSize}>{card.type}</CardDescription>
+            <CardDescription className={cn("font-medium", cardDescriptionSize)}>{card.type}</CardDescription>
           </div>
         </CardHeader>
         <CardContent className="p-0 flex-grow flex flex-col min-h-0">
-          <div className={cn("relative w-full", imageSize)}>
+          <div className={cn("relative w-full border-y", imageSize)}>
             <Image
               src={card.imageUrl}
               alt={card.name}
@@ -71,11 +82,16 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
               data-ai-hint={card.hint}
             />
           </div>
-          <div className="flex-grow overflow-y-auto">
-            <p className={cn("p-2 text-foreground/80 leading-snug", textContentSize)}>{card.description}</p>
+          <div className="flex-grow overflow-y-auto bg-background/30 p-2">
+            <p className={cn("text-foreground/80 leading-snug italic", textContentSize)}>{card.description}</p>
           </div>
         </CardContent>
       </Card>
+      {isSelected && (
+        <div className="absolute -top-2 -right-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center shadow-lg border-2 border-white z-20">
+          ✓
+        </div>
+      )}
     </div>
   );
 }

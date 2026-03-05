@@ -60,6 +60,8 @@ export default function JoinGamePage() {
       playerNames.slice(0, numPlayers).forEach((name, index) => {
         queryParams.set(`player${index + 1}`, name);
       });
+      // Clear local storage to force a fresh shuffle on the game page
+      localStorage.removeItem('go-hist-local-game');
       router.push(`/game?${queryParams.toString()}`);
     }
   };
@@ -69,7 +71,15 @@ export default function JoinGamePage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-8 bg-background">
       <div className="hidden md:flex md:w-1/2 lg:w-2/5 justify-center items-center">
-        <Image src="https://lh3.googleusercontent.com/pw/AP1GczNE0DqshCbF8NOdepWMDTTUOWx-cYIR45PDQ2Zc57jmu4tHuzBe49bw9s7ANRt-5ax_CXBGg6FtKzwrPyzLLsS6BpEi6b0tJHl-rw_yuwkjvZgle4lCwzuql1-wZ1uj7CbYMdbwXMVWktv8j05BynjT=w500-h500-s-no-gm?authuser=0" alt="Go Hist Logo" width={400} height={600} data-ai-hint="logo" priority />
+        <Image 
+          src="https://lh3.googleusercontent.com/pw/AP1GczNE0DqshCbF8NOdepWMDTTUOWx-cYIR45PDQ2Zc57jmu4tHuzBe49bw9s7ANRt-5ax_CXBGg6FtKzwrPyzLLsS6BpEi6b0tJHl-rw_yuwkjvZgle4lCwzuql1-wZ1uj7CbYMdbwXMVWktv8j05BynjT=w500-h500-s-no-gm?authuser=0" 
+          alt="Go Hist Logo" 
+          width={400} 
+          height={400} 
+          data-ai-hint="historical logo" 
+          priority 
+          className="rounded-full shadow-2xl"
+        />
       </div>
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center space-x-4 mb-8 md:hidden">

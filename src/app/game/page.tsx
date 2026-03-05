@@ -7,7 +7,7 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { BookOpenCheck, ChevronLeft, Trash2, HelpCircle } from 'lucide-react';
+import { BookOpenCheck, ChevronLeft, Trash2, HelpCircle, History as HistoryIcon, User } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -51,38 +51,16 @@ function GamePageContent() {
     setIsClient(true);
   }, []);
 
-  const updateGameState = useCallback((newState: GameState | null | ((prevState: GameState | null) => GameState | null)) => {
-    setGameState(prevState => {
-      const updated = typeof newState === 'function' ? newState(prevState) : newState;
-      return updated;
-    });
-  }, []);
-
   const addToLog = useCallback((message: string) => {
-    updateGameState(prev => {
+    setGameState(prev => {
       if (!prev) return null;
       return { ...prev, log: [message, ...prev.log].slice(0, 20) };
     });
-  }, [updateGameState]);
-
-  const players = gameState?.players || [];
-  const currentPlayerId = gameState?.currentPlayerId;
-  const turnPhase = gameState?.turnPhase;
-  const log = gameState?.log || [];
-  const deck = gameState?.deck || [];
-
-  const currentPlayer = useMemo(() => {
-    if (!players || !currentPlayerId) return null;
-    return players.find(p => p.id === currentPlayerId);
-  }, [players, currentPlayerId]);
-
-  const otherPlayers = useMemo(() => {
-    if (!players || !currentPlayer) return [];
-    return players.filter(p => p.id !== currentPlayer.id);
-  }, [players, currentPlayer]);
+  }, []);
 
   const startNewGame = useCallback(() => {
-    const numPlayers = parseInt(searchParams?.get('numPlayers') || '2', 10);
+    const numPlayersString = searchParams?.get('numPlayers');
+    const numPlayers = numPlayersString ? parseInt(numPlayersString, 10) : 2;
     const shuffledDeck = createShuffledDeck();
     const humanPlayers: Player[] = [];
 
@@ -91,6 +69,7 @@ function GamePageContent() {
       humanPlayers.push({ id: `player${i + 1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
+    // Deal cards
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
       for (const player of humanPlayers) {
         const card = shuffledDeck.pop();
@@ -140,8 +119,18 @@ function GamePageContent() {
     }
   }, [gameState, isClient]);
 
+  const currentPlayer = useMemo(() => {
+    if (!gameState) return null;
+    return gameState.players.find(p => p.id === gameState.currentPlayerId);
+  }, [gameState]);
+
+  const otherPlayers = useMemo(() => {
+    if (!gameState || !currentPlayer) return [];
+    return gameState.players.filter(p => p.id !== currentPlayer.id);
+  }, [gameState, currentPlayer]);
+
   const endTurn = useCallback(() => {
-    updateGameState(prev => {
+    setGameState(prev => {
       if (!prev) return null;
       const currentIndex = prev.players.findIndex(p => p.id === prev.currentPlayerId);
       const nextIndex = (currentIndex + 1) % prev.players.length;
@@ -155,22 +144,22 @@ function GamePageContent() {
         log: [`It is now ${nextPlayer.name}'s turn.`, ...prev.log].slice(0, 20),
       };
     });
-  }, [updateGameState]);
+  }, []);
 
   const handleSelectCard = useCallback((card: CardType) => {
-    if (winner) return;
+    if (winner || !gameState) return;
     setSelectedCards(prev => {
       const isSelected = prev.find(c => c.id === card.id);
       if (isSelected) return prev.filter(c => c.id !== card.id);
-      if (turnPhase === 'action') return prev.length < 4 ? [...prev, card] : [...prev.slice(1), card];
-      if (turnPhase === 'discard') return [card];
+      if (gameState.turnPhase === 'action') return prev.length < 4 ? [...prev, card] : [...prev.slice(1), card];
+      if (gameState.turnPhase === 'discard') return [card];
       return prev;
     });
-  }, [winner, turnPhase]);
+  }, [winner, gameState]);
 
   const handleDrawFromDeck = () => {
-    if (!gameState || !currentPlayer || turnPhase !== 'action' || hasTakenAction) return;
-    updateGameState(prev => {
+    if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || hasTakenAction) return;
+    setGameState(prev => {
       if (!prev) return prev;
       const newDeck = [...prev.deck];
       const drawnCard = newDeck.pop();
@@ -189,8 +178,8 @@ function GamePageContent() {
   };
 
   const handleDrawFromDiscard = () => {
-    if (!gameState || !currentPlayer || turnPhase !== 'action' || hasTakenAction || gameState.discardPile.length === 0) return;
-    updateGameState(prev => {
+    if (!gameState || !currentPlayer || gameState.turnPhase !== 'action' || hasTakenAction || gameState.discardPile.length === 0) return;
+    setGameState(prev => {
       if (!prev) return prev;
       const newDiscard = [...prev.discardPile];
       const drawnCard = newDiscard.pop();
@@ -216,7 +205,7 @@ function GamePageContent() {
     try {
       const result = await askForCard(opponent.hand, request);
       if (result.hasCard) {
-        updateGameState(prev => {
+        setGameState(prev => {
           if (!prev) return null;
           const card = opponent.hand.find(c => c.id === result.cardId);
           if (!card) return prev;
@@ -238,7 +227,7 @@ function GamePageContent() {
         addToLog(`GO HIST! ${opponent.name} has no matching card.`);
         setShowGoHistDialog(true);
       }
-    } catch (e) {
+    } catch (e: any) {
       toast({ variant: "destructive", title: "Error", description: "AI failed to process request." });
     }
   };
@@ -250,7 +239,7 @@ function GamePageContent() {
       const result = await verifyHistSet(cards, explanation);
       setVerificationResult(result);
       if (result.isValid) {
-        updateGameState(prev => {
+        setGameState(prev => {
           if (!prev) return prev;
           const newDeck = [...prev.deck];
           let newHand = currentPlayer.hand.filter(c => !cards.find(sc => sc.id === c.id));
@@ -271,15 +260,15 @@ function GamePageContent() {
       } else {
         setHasTakenAction(true);
       }
-    } catch (e) {
+    } catch (e: any) {
       toast({ variant: "destructive", title: "AI Error", description: "Verification failed." });
     }
   };
 
   const handleDiscardCard = () => {
-    if (!currentPlayer || turnPhase !== 'discard' || selectedCards.length !== 1) return;
+    if (!currentPlayer || gameState?.turnPhase !== 'discard' || selectedCards.length !== 1) return;
     const card = selectedCards[0];
-    updateGameState(prev => {
+    setGameState(prev => {
       if (!prev) return null;
       const newPlayers = prev.players.map(p => p.id === currentPlayer.id ? { ...p, hand: p.hand.filter(c => c.id !== card.id) } : p);
       const newDiscard = [...prev.discardPile, card];
@@ -294,55 +283,132 @@ function GamePageContent() {
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
-      <aside className="w-80 bg-card border-r hidden lg:flex flex-col p-4 space-y-4">
-        <h2 className="font-headline text-2xl text-primary flex justify-between">Go Hist <Link href="/"><ChevronLeft /></Link></h2>
-        <Card className="shrink-0"><CardHeader className="p-3"><CardTitle className="text-sm">Players</CardTitle></CardHeader><CardContent className="p-3 pt-0">
-          <ul className="space-y-1">{players.map(p => (<li key={p.id} className={cn("text-xs flex justify-between", p.id === currentPlayerId && "font-bold text-primary")}><span>{p.name}</span><Badge variant="secondary">{p.histSets.length}</Badge></li>))}</ul>
-        </CardContent></Card>
-        <Card className="flex-1 min-h-0"><CardHeader className="p-3"><CardTitle className="text-sm">Log</CardTitle></CardHeader><CardContent className="p-3 pt-0 overflow-y-auto h-[300px]"><ul className="space-y-1">{log.map((m, i) => (<li key={i} className="text-[10px] text-muted-foreground">{m}</li>))}</ul></CardContent></Card>
+      <aside className="w-80 bg-card border-r hidden lg:flex flex-col p-4 space-y-4 shadow-xl">
+        <h2 className="font-headline text-2xl text-primary flex items-center justify-between">
+          Go Hist
+          <Link href="/"><ChevronLeft className="w-6 h-6 hover:text-primary/70 transition-colors" /></Link>
+        </h2>
+        <Card className="shrink-0 bg-background/50">
+          <CardHeader className="p-3"><CardTitle className="text-sm font-headline">Players</CardTitle></CardHeader>
+          <CardContent className="p-3 pt-0">
+            <ul className="space-y-2">
+              {gameState.players.map(p => (
+                <li key={p.id} className={cn("text-xs flex justify-between items-center p-2 rounded-lg transition-colors", p.id === gameState.currentPlayerId ? "bg-primary text-primary-foreground font-bold" : "bg-muted/50")}>
+                  <div className="flex items-center gap-2">
+                    <User className="w-3 h-3" />
+                    <span>{p.name}</span>
+                  </div>
+                  <Badge variant={p.id === gameState.currentPlayerId ? "secondary" : "outline"} className="font-mono">{p.histSets.length}/5</Badge>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+        <Card className="flex-1 min-h-0 bg-background/50">
+          <CardHeader className="p-3"><CardTitle className="text-sm font-headline">Historical Log</CardTitle></CardHeader>
+          <CardContent className="p-3 pt-0 h-full overflow-hidden">
+            <div className="overflow-y-auto h-full pr-2">
+              <ul className="space-y-1">
+                {gameState.log.map((m, i) => (
+                  <li key={i} className="text-[11px] text-muted-foreground border-l-2 border-primary/20 pl-2 py-1 bg-muted/20 rounded-r-sm">{m}</li>
+                ))}
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
       </aside>
 
       <main className="flex-1 flex flex-col p-4 overflow-hidden relative">
-        <div className="flex-1 overflow-y-auto space-y-6">
+        <div className="flex-1 overflow-y-auto space-y-8 pb-40">
           {otherPlayers.map(p => (
-            <div key={p.id}>
-              <h3 className="text-xs font-bold mb-2">{p.name}'s Hand ({p.hand.length})</h3>
-              <div className="flex gap-1 overflow-x-auto pb-2">{p.hand.map((_, i) => (<GameCard key={i} card="back" />))}</div>
+            <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm">
+              <h3 className="text-xs font-bold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
+                <User className="w-3 h-3" />
+                {p.name}'s Hand ({p.hand.length})
+              </h3>
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {p.hand.map((_, i) => (<GameCard key={i} card="back" className="w-[70px] h-[100px]" />))}
+              </div>
             </div>
           ))}
-          <div className="flex justify-center gap-4">
-            <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group"><p className="text-[10px] mb-1">Deck ({deck.length})</p><GameCard card="back" className="w-[80px] h-[120px] group-hover:ring-4 ring-primary" /></div>
-            <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center group"><p className="text-[10px] mb-1">Discard</p>{gameState.discardPile.length > 0 ? <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[80px] h-[120px] group-hover:ring-4 ring-primary" /> : <div className="w-[80px] h-[120px] border-2 border-dashed rounded-lg bg-muted/20" />}</div>
+          <div className="flex justify-center items-center gap-8 py-4">
+            <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
+              <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Deck ({gameState.deck.length})</p>
+              <GameCard card="back" className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all" />
+            </div>
+            <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
+              <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Discard Pile</p>
+              {gameState.discardPile.length > 0 ? (
+                <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all" />
+              ) : (
+                <div className="w-[100px] h-[150px] border-2 border-dashed rounded-lg bg-muted/20 flex items-center justify-center">
+                  <Trash2 className="text-muted-foreground/30 w-8 h-8" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="bg-card/90 p-4 rounded-t-xl border-t shadow-[0_-10px_20px_rgba(0,0,0,0.1)] space-y-4 z-10 backdrop-blur-sm">
-          <div className="flex justify-between items-center">
-            <div className="flex flex-col">
-                <h3 className="font-headline text-lg">{currentPlayer.name}'s Hand</h3>
-                <p className="text-[10px] text-muted-foreground">{turnPhase === 'discard' ? 'Discard a card to end your turn.' : 'Select 4 cards for a set or draw/ask.'}</p>
+        <div className="absolute bottom-0 left-0 right-0 bg-card/95 p-6 rounded-t-3xl border-t-2 border-primary/20 shadow-[0_-20px_40px_rgba(0,0,0,0.2)] z-10 backdrop-blur-md">
+          <div className="max-w-6xl mx-auto space-y-6">
+            <div className="flex justify-between items-end">
+              <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <HistoryIcon className="w-5 h-5 text-primary" />
+                    <h3 className="font-headline text-2xl">{currentPlayer.name}'s Turn</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground font-medium">
+                    {gameState.turnPhase === 'discard' 
+                      ? '⚠️ Your hand is too full! Select 1 card to discard.' 
+                      : (selectedCards.length === 4 
+                          ? '✨ You have 4 cards! Declare your set now!' 
+                          : 'Draw from deck/discard or ask an opponent for a specific card.')}
+                  </p>
+              </div>
+              <div className="flex gap-3">
+                {selectedCards.length === 4 && gameState.turnPhase === 'action' && (
+                  <Button size="lg" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90 shadow-lg animate-pulse hover:animate-none">
+                    <BookOpenCheck className="mr-2 w-5 h-5" /> Declare Set
+                  </Button>
+                )}
+                {gameState.turnPhase === 'discard' && selectedCards.length === 1 && (
+                  <Button size="lg" variant="destructive" onClick={handleDiscardCard} className="shadow-lg">
+                    <Trash2 className="mr-2 w-5 h-5" /> Discard to End Turn
+                  </Button>
+                )}
+                {gameState.turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && (
+                  <Button size="lg" variant="outline" onClick={endTurn} className="border-primary text-primary hover:bg-primary/10">
+                    End Turn
+                  </Button>
+                )}
+              </div>
             </div>
-            <div className="flex gap-2">
-              {selectedCards.length === 4 && turnPhase === 'action' && <Button size="sm" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90"><BookOpenCheck className="mr-1 w-4 h-4" /> Declare Set</Button>}
-              {turnPhase === 'discard' && selectedCards.length === 1 && <Button size="sm" variant="destructive" onClick={handleDiscardCard}><Trash2 className="mr-1 w-4 h-4" /> Discard</Button>}
-              {turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && <Button size="sm" variant="outline" onClick={endTurn}>End Turn</Button>}
+
+            <div className="flex gap-4 overflow-x-auto pb-4 pt-2 -mx-2 px-2 scroll-smooth">
+              {currentPlayer.hand.map(c => (
+                <GameCard 
+                  key={c.id} 
+                  card={c} 
+                  isPlayerCard 
+                  isSelected={!!selectedCards.find(sc => sc.id === c.id)} 
+                  onSelect={handleSelectCard} 
+                />
+              ))}
             </div>
+
+            {gameState.turnPhase === 'action' && !hasTakenAction && (
+              <div className="border-t pt-4">
+                <AskForCard otherPlayers={otherPlayers} onAsk={handleAskForCard} />
+              </div>
+            )}
           </div>
-          <div className="flex gap-4 overflow-x-auto p-2 min-h-[160px]">
-            {currentPlayer.hand.map(c => (<GameCard key={c.id} card={c} isPlayerCard isSelected={!!selectedCards.find(sc => sc.id === c.id)} onSelect={handleSelectCard} />))}
-          </div>
-          {turnPhase === 'action' && !hasTakenAction && (
-            <div className="border-t pt-4">
-              <AskForCard otherPlayers={otherPlayers} onAsk={handleAskForCard} />
-            </div>
-          )}
         </div>
       </main>
 
-      <AlertDialog open={!!winner}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Trophy! {winner?.name} wins!</AlertDialogTitle></AlertDialogHeader><AlertDialogFooter><AlertDialogAction onClick={startNewGame}>New Game</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+      <AlertDialog open={!!winner}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>🏆 History Hero! {winner?.name} wins!</AlertDialogTitle><AlertDialogDescription>You successfully formed 5 historical sets first!</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogAction onClick={startNewGame}>Play Again</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
       <AlertDialog open={showHistSetDialog} onOpenChange={setShowHistSetDialog}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Declare Historical Set</AlertDialogTitle></AlertDialogHeader><HistSetVerifier selectedCards={selectedCards} onVerified={(exp) => handleDeclareSet(selectedCards, exp)} /><AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel></AlertDialogFooter></AlertDialogContent></AlertDialog>
-      <AlertDialog open={showGoHistDialog} onOpenChange={setShowGoHistDialog}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>GO HIST!</AlertDialogTitle><AlertDialogDescription>They don't have it. Draw a card to continue.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogAction onClick={() => { setShowGoHistDialog(false); handleDrawFromDeck(); }}>Draw</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
-      <AlertDialog open={!!verificationResult} onOpenChange={() => setVerificationResult(null)}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>{verificationResult?.isValid ? 'Set Accepted' : 'Set Rejected'}</AlertDialogTitle><AlertDialogDescription>{verificationResult?.reason}</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogAction onClick={() => setVerificationResult(null)}>OK</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+      <AlertDialog open={showGoHistDialog} onOpenChange={setShowGoHistDialog}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>GO HIST!</AlertDialogTitle><AlertDialogDescription>Your opponent doesn't have a matching card. You must draw from the deck.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogAction onClick={() => { setShowGoHistDialog(false); handleDrawFromDeck(); }}>Draw Card</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
+      <AlertDialog open={!!verificationResult} onOpenChange={() => setVerificationResult(null)}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>{verificationResult?.isValid ? '✅ Set Accepted' : '❌ Set Rejected'}</AlertDialogTitle><AlertDialogDescription className="text-base mt-2">{verificationResult?.reason}</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogAction onClick={() => setVerificationResult(null)}>Continue</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
     </div>
   );
 }
