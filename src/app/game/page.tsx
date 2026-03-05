@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -7,7 +8,7 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { BookOpenCheck, ChevronLeft, Trash2, History as HistoryIcon, User } from 'lucide-react';
+import { BookOpenCheck, ChevronLeft, Trash2, History as HistoryIcon, User, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -62,33 +63,36 @@ function GamePageContent() {
     const numPlayersString = searchParams?.get('numPlayers');
     const numPlayers = numPlayersString ? parseInt(numPlayersString, 10) : 2;
     const shuffledDeck = createShuffledDeck();
-    const humanPlayers: Player[] = [];
+    const players: Player[] = [];
 
     for (let i = 0; i < numPlayers; i++) {
       const playerName = searchParams?.get(`player${i + 1}`) || `Player ${i + 1}`;
-      humanPlayers.push({ id: `player${i + 1}`, name: playerName, hand: [], histSets: [], isHuman: true });
+      players.push({ id: `player${i + 1}`, name: playerName, hand: [], histSets: [], isHuman: true });
     }
 
     for (let i = 0; i < INITIAL_HAND_SIZE; i++) {
-      for (const player of humanPlayers) {
+      for (const player of players) {
         const card = shuffledDeck.pop();
         if (card) player.hand.push(card);
       }
     }
 
     const newGameState: GameState = {
-      players: humanPlayers,
+      players,
       deck: shuffledDeck,
       discardPile: [],
-      currentPlayerId: humanPlayers[0].id,
+      currentPlayerId: players[0].id,
       turnPhase: 'action',
-      log: [`New game started. It is ${humanPlayers[0].name}'s turn.`],
+      log: [`New game started. It is ${players[0].name}'s turn.`],
     };
 
     setGameState(newGameState);
     setWinner(null);
     setSelectedCards([]);
     setHasTakenAction(false);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(LOCAL_GAME_KEY, JSON.stringify(newGameState));
+    }
   }, [searchParams]);
 
   useEffect(() => {
@@ -256,6 +260,7 @@ function GamePageContent() {
           });
           return { ...prev, players: newPlayers, deck: newDeck, log: [`${currentPlayer.name} formed a Hist Set!`, ...prev.log].slice(0, 20) };
         });
+        setSelectedCards([]);
       }
     } catch (e: any) {
       toast({ variant: "destructive", title: "AI Error", description: "Verification failed." });

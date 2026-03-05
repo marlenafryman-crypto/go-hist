@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -61,7 +62,9 @@ export default function JoinGamePage() {
         queryParams.set(`player${index + 1}`, name);
       });
       // Clear local storage to force a fresh shuffle on the game page
-      localStorage.removeItem('go-hist-local-game');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('go-hist-local-game');
+      }
       router.push(`/game?${queryParams.toString()}`);
     }
   };
