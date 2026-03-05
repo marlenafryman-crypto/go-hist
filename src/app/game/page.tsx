@@ -66,7 +66,8 @@ function GamePageContent() {
 
   const updateGameState = useCallback((newState: GameState | null | ((prevState: GameState | null) => GameState | null)) => {
     setGameState(prevState => {
-      return typeof newState === 'function' ? newState(prevState) : newState;
+      const updated = typeof newState === 'function' ? newState(prevState) : newState;
+      return updated;
     });
   }, []);
 
@@ -201,11 +202,13 @@ function GamePageContent() {
       addToLog(`${currentPlayer.name} drew a card.`);
       setHasTakenAction(true);
 
+      const nextPhase = updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action';
+
       return {
         ...prev,
         players: newPlayers,
         deck: newDeck,
-        turnPhase: updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action'
+        turnPhase: nextPhase
       };
     });
   };
@@ -225,11 +228,13 @@ function GamePageContent() {
       addToLog(`${currentPlayer.name} took "${drawnCard.name}" from discard.`);
       setHasTakenAction(true);
 
+      const nextPhase = updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action';
+
       return {
         ...prev,
         players: newPlayers,
         discardPile: newDiscardPile,
-        turnPhase: updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action'
+        turnPhase: nextPhase
       };
     });
   };
@@ -259,7 +264,11 @@ function GamePageContent() {
 
           addToLog(`${opponent.name} gave "${cardToGive.name}" to ${currentPlayer.name}.`);
           setHasTakenAction(true);
-          return { ...prev, players: newPlayers };
+
+          const updatedCurrentPlayer = newPlayers.find(pl => pl.id === currentPlayer.id)!;
+          const nextPhase = updatedCurrentPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action';
+
+          return { ...prev, players: newPlayers, turnPhase: nextPhase };
         });
       } else {
         addToLog(`Go Hist! ${opponent.name} did not have a matching card.`);
@@ -284,11 +293,13 @@ function GamePageContent() {
       addToLog(`${currentPlayer.name} drew from deck.`);
       setHasTakenAction(true);
 
+      const nextPhase = updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action';
+
       return {
         ...prev,
         players: newPlayers,
         deck: newDeck,
-        turnPhase: updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action'
+        turnPhase: nextPhase
       };
     });
   }
@@ -342,9 +353,12 @@ function GamePageContent() {
       });
 
       addToLog(`${player.name} formed a Hist Set!`);
-      return { ...prev, players: newPlayers, deck: newDeck };
+      const nextPlayer = newPlayers.find(pl => pl.id === player.id)!;
+      const nextPhase = nextPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action';
+
+      return { ...prev, players: newPlayers, deck: newDeck, turnPhase: nextPhase };
     });
-    endTurn();
+    // Turn continues if they formed a set, unless hand too large
   };
 
   const handleDiscardCard = () => {
@@ -362,11 +376,9 @@ function GamePageContent() {
       addToLog(`${currentPlayer.name} discarded "${card.name}".`);
       setSelectedCards([]);
 
-      if (updatedPlayer.hand.length > INITIAL_HAND_SIZE) {
-        return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'discard' };
-      }
+      const nextPhase = updatedPlayer.hand.length > INITIAL_HAND_SIZE ? 'discard' : 'action';
 
-      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: 'action' };
+      return { ...prev, players: newPlayers, discardPile: newDiscardPile, turnPhase: nextPhase };
     });
 
     const currentHandSize = currentPlayer.hand.length - 1;
@@ -450,7 +462,19 @@ function GamePageContent() {
 
           <div className="bg-card/50 p-4 rounded-lg border mt-4 shrink-0">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
+              <div className="flex items-center gap-4">
+                <h3 className="font-headline text-xl">{currentPlayer.name}'s Hand ({currentPlayer.hand.length})</h3>
+                {selectedCards.length === 4 && turnPhase === 'action' && !winner && (
+                  <Button 
+                    variant="default" 
+                    size="sm" 
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 animate-pulse"
+                    onClick={() => setShowHistSetDialog(true)}
+                  >
+                    <BookOpenCheck className="w-4 h-4 mr-2" /> Declare a Set!
+                  </Button>
+                )}
+              </div>
               <Badge variant="outline" className="font-headline px-3 py-1">PHASE: {turnPhase.toUpperCase()}</Badge>
             </div>
 
@@ -492,7 +516,7 @@ function GamePageContent() {
                       </div>
                       <div className="space-y-4">
                         <h3 className="font-headline text-lg border-b pb-1">Sets</h3>
-                        <Button variant="default" className="w-full" onClick={() => setShowHistSetDialog(true)} disabled={hasTakenAction || selectedCards.length !== 4}>
+                        <Button variant="default" className="w-full" onClick={() => setShowHistSetDialog(true)} disabled={selectedCards.length !== 4}>
                           <BookOpenCheck className="w-4 h-4 mr-2" /> Declare a Set (4 cards)
                         </Button>
                       </div>
