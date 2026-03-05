@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -280,7 +279,7 @@ function GamePageContent() {
     setSelectedCards([]);
   };
 
-  if (!gameState || !currentPlayer) return <div className="flex items-center justify-center min-h-screen font-headline">Loading history...</div>;
+  if (!gameState || !currentPlayer) return <div className="flex items-center justify-center min-h-screen font-headline text-primary">Loading history...</div>;
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
@@ -356,7 +355,7 @@ function GamePageContent() {
               <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <HistoryIcon className="w-5 h-5 text-primary" />
-                    <h3 className="font-headline text-2xl">{currentPlayer.name}'s Turn</h3>
+                    <h3 className="font-headline text-2xl text-primary">{currentPlayer.name}'s Turn</h3>
                   </div>
                   <p className="text-xs text-muted-foreground font-medium">
                     {gameState.turnPhase === 'discard' 
@@ -368,7 +367,7 @@ function GamePageContent() {
               </div>
               <div className="flex gap-3">
                 {selectedCards.length === 4 && gameState.turnPhase === 'action' && (
-                  <Button size="lg" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90 shadow-lg animate-pulse hover:animate-none">
+                  <Button size="lg" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90 shadow-lg animate-pulse hover:animate-none text-primary-foreground">
                     <BookOpenCheck className="mr-2 w-5 h-5" /> Declare Set
                   </Button>
                 )}
