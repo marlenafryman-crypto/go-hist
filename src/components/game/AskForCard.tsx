@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -5,15 +6,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { HelpCircle, Loader2 } from 'lucide-react';
 import type { Player } from '@/lib/types';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const formSchema = z.object({
-  opponentId: z.string().min(1, 'You must select an opponent.'),
-  request: z.string().min(3, 'Your request must be at least 3 characters long.'),
+  opponentId: z.string().min(1, 'Select an opponent.'),
+  request: z.string().min(3, 'Min 3 chars.'),
 });
 
 interface AskForCardProps {
@@ -24,6 +26,7 @@ interface AskForCardProps {
 
 export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,28 +40,29 @@ export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
     setIsLoading(true);
     await onAsk(values.opponentId, values.request);
     setIsLoading(false);
+    setOpen(false);
     form.reset();
   }
   
   return (
-    <div className="space-y-4">
-      <h3 className="font-headline text-xl flex items-center gap-2">
-        <HelpCircle className="w-5 h-5 text-primary" />
-        Ask for a Card
-      </h3>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <fieldset disabled={disabled || isLoading} className="space-y-4">
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10">
+          <HelpCircle className="mr-2 h-5 w-5" /> Ask Opponent
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80 p-4" align="end">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="opponentId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Opponent</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select an opponent" />
+                        <SelectValue placeholder="Opponent" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -78,21 +82,20 @@ export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
               name="request"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Request</FormLabel>
                   <FormControl>
-                      <Input placeholder="e.g., 'a scientist' or 'an event from the 1800s'" {...field} />
+                      <Input placeholder="e.g., 'a scientist'" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={disabled || isLoading}>
+            <Button type="submit" className="w-full" disabled={disabled || isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Ask
+              Send Request
             </Button>
-          </fieldset>
-        </form>
-      </Form>
-    </div>
+          </form>
+        </Form>
+      </PopoverContent>
+    </Popover>
   );
 }

@@ -8,7 +8,7 @@ import { DECK } from '@/lib/mock-data';
 import { GameCard } from '@/components/game/GameCard';
 import { Button } from '@/components/ui/button';
 import { HistSetVerifier } from '@/components/game/HistSetVerifier';
-import { BookOpenCheck, ChevronLeft, Trash2, History as HistoryIcon, User } from 'lucide-react';
+import { BookOpenCheck, ChevronLeft, Trash2, History as HistoryIcon, User, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -258,8 +258,6 @@ function GamePageContent() {
           });
           return { ...prev, players: newPlayers, deck: newDeck, log: [`${currentPlayer.name} formed a Hist Set!`, ...prev.log].slice(0, 20) };
         });
-      } else {
-        setHasTakenAction(true);
       }
     } catch (e: any) {
       toast({ variant: "destructive", title: "AI Error", description: "Verification failed." });
@@ -320,7 +318,7 @@ function GamePageContent() {
       </aside>
 
       <main className="flex-1 flex flex-col p-4 overflow-hidden relative">
-        <div className="flex-1 overflow-y-auto space-y-8 pb-40">
+        <div className="flex-1 overflow-y-auto space-y-8 pb-48">
           {otherPlayers.map(p => (
             <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm">
               <h3 className="text-xs font-bold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
@@ -352,7 +350,7 @@ function GamePageContent() {
 
         <div className="absolute bottom-0 left-0 right-0 bg-card/95 p-6 rounded-t-3xl border-t-2 border-primary/20 shadow-[0_-20px_40px_rgba(0,0,0,0.2)] z-10 backdrop-blur-md">
           <div className="max-w-6xl mx-auto space-y-6">
-            <div className="flex justify-between items-end">
+            <div className="flex justify-between items-start">
               <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <HistoryIcon className="w-5 h-5 text-primary" />
@@ -362,13 +360,14 @@ function GamePageContent() {
                     {gameState.turnPhase === 'discard' 
                       ? '⚠️ Your hand is too full! Select 1 card to discard.' 
                       : (selectedCards.length === 4 
-                          ? '✨ You have 4 cards! Declare your set now!' 
-                          : 'Draw from deck/discard or ask an opponent for a specific card.')}
+                          ? '✨ 4 cards selected! Declare your set!' 
+                          : 'Draw from deck/discard or ask an opponent.')}
                   </p>
               </div>
-              <div className="flex gap-3">
+              
+              <div className="flex gap-2 flex-wrap justify-end">
                 {selectedCards.length === 4 && gameState.turnPhase === 'action' && (
-                  <Button size="lg" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90 shadow-lg animate-pulse hover:animate-none text-primary-foreground">
+                  <Button size="lg" onClick={() => setShowHistSetDialog(true)} className="bg-primary hover:bg-primary/90 shadow-lg animate-pulse hover:animate-none">
                     <BookOpenCheck className="mr-2 w-5 h-5" /> Declare Set
                   </Button>
                 )}
@@ -378,9 +377,12 @@ function GamePageContent() {
                   </Button>
                 )}
                 {gameState.turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && (
-                  <Button size="lg" variant="outline" onClick={endTurn} className="border-primary text-primary hover:bg-primary/10">
+                  <Button size="lg" variant="outline" onClick={endTurn} className="border-primary text-primary">
                     End Turn
                   </Button>
+                )}
+                {gameState.turnPhase === 'action' && !hasTakenAction && (
+                  <AskForCard otherPlayers={otherPlayers} onAsk={handleAskForCard} />
                 )}
               </div>
             </div>
@@ -396,12 +398,6 @@ function GamePageContent() {
                 />
               ))}
             </div>
-
-            {gameState.turnPhase === 'action' && !hasTakenAction && (
-              <div className="border-t pt-4">
-                <AskForCard otherPlayers={otherPlayers} onAsk={handleAskForCard} />
-              </div>
-            )}
           </div>
         </div>
       </main>
