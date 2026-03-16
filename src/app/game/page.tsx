@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -343,7 +342,7 @@ function GamePageContent() {
           </div>
 
           <div className="flex-1 relative overflow-hidden bg-background">
-            <TabsContent value="game" className="absolute inset-0 flex flex-col overflow-hidden p-0 m-0 data-[state=inactive]:hidden">
+            <TabsContent value="game" className="h-full flex flex-col overflow-hidden p-0 m-0 data-[state=inactive]:hidden">
               <div className="flex-1 overflow-y-auto p-4 space-y-8 pb-72">
                 <div className="flex justify-center items-center gap-12 py-6 bg-muted/10 rounded-2xl border-2 border-dashed border-primary/10">
                   <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
@@ -378,7 +377,7 @@ function GamePageContent() {
               </div>
             </TabsContent>
 
-            <TabsContent value="reference" className="absolute inset-0 overflow-y-auto p-6 m-0 bg-background/50 data-[state=inactive]:hidden">
+            <TabsContent value="reference" className="h-full overflow-y-auto p-6 m-0 bg-background/50 data-[state=inactive]:hidden">
               <div className="max-w-7xl mx-auto pb-96">
                 <h3 className="text-2xl font-headline text-primary mb-6">Complete Card Collection</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pb-20">
