@@ -4,8 +4,8 @@ import images from '@/app/lib/placeholder-images.json';
 
 export const DECK: Card[] = [
   // PEOPLE
-  { id: 'p01', name: 'Leonardo da Vinci', type: 'Person', description: 'Renaissance polymath: painter, sculptor, architect, inventor, and scientist.', imageUrl: images.renaissance, hint: 'renaissance polymath' },
-  { id: 'p02', name: 'Marie Sklodowska-Curie', type: 'Person', description: 'Physicist and chemist who conducted pioneering research on radioactivity.', imageUrl: images.discovery_radium, hint: 'scientist marie curie' },
+  { id: 'p01', name: 'Leonardo da Vinci', type: 'Person', description: 'Renaissance polymath: painter, sculptor, architect, inventor, and scientist.', imageUrl: images.leonardo_da_vinci, hint: 'renaissance polymath' },
+  { id: 'p02', name: 'Marie Sklodowska-Curie', type: 'Person', description: 'Physicist and chemist who conducted pioneering research on radioactivity.', imageUrl: images.marie_curie, hint: 'scientist marie curie' },
   { id: 'p03', name: 'Julius Caesar', type: 'Person', description: 'Roman general and statesman who played a critical role in the demise of the Roman Republic.', imageUrl: images.julius_caesar, hint: 'roman julius caesar' },
   { id: 'p04', name: 'Susan B. Anthony', type: 'Person', description: 'Social reformer and women\'s rights activist who played a pivotal role in the women\'s suffrage movement.', imageUrl: images.susan_b_anthony, hint: 'suffrage leader anthony' },
   { id: 'p05', name: 'Albert Einstein', type: 'Person', description: 'Theoretical physicist who developed the theory of relativity, one of the two pillars of modern physics.', imageUrl: images.einstein, hint: 'physicist albert einstein' },
@@ -33,7 +33,7 @@ export const DECK: Card[] = [
   { id: 'p27', name: 'Thomas Jefferson', type: 'Person', description: 'Founding Father and the third President of the United States.', imageUrl: images.thomas_jefferson, hint: 'president thomas jefferson' },
   { id: 'p28', name: 'Benjamin Franklin', type: 'Person', description: 'Founding Father, polymath, and key figure in the American Enlightenment.', imageUrl: images.benjamin_franklin, hint: 'founding father franklin' },
   { id: 'p29', name: 'Theodore Roosevelt', type: 'Person', description: '26th President of the US, known for progressive reforms and conservation.', imageUrl: images.theodore_roosevelt, hint: 'president theo roosevelt' },
-  { id: 'p30', name: 'James Madison', type: 'Person', description: 'Founding Father and the fourth President of the United States.', imageUrl: images.james_madison, hint: 'president james madison' },
+  { id: 'p30', name: 'James Madison', type: 'Person', description: 'Founding Father and the fourth President of the United States.', imageUrl: images.george_washington, hint: 'president james madison' },
   { id: 'p31', name: 'Dolley Madison', type: 'Person', description: 'First Lady known for her social influence and saving historical artifacts.', imageUrl: images.dolley_madison, hint: 'first lady dolley' },
   { id: 'p32', name: 'US President', type: 'Person', description: 'Representation of the executive office of the United States government.', imageUrl: images.us_president, hint: 'us president office' },
   { id: 'p33', name: 'Betsy Ross', type: 'Person', description: 'Credited with making the first official flag of the United States.', imageUrl: images.betsy_ross, hint: 'flag maker ross' },
