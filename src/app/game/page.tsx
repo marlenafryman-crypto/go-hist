@@ -344,7 +344,6 @@ function GamePageContent() {
 
           <TabsContent value="game" className="flex-1 flex flex-col overflow-hidden p-0 m-0">
             <div className="flex-1 overflow-y-auto p-4 space-y-8 pb-72">
-              {/* Play Area: Deck and Discard moved to top for visibility */}
               <div className="flex justify-center items-center gap-12 py-6 bg-muted/10 rounded-2xl border-2 border-dashed border-primary/10">
                 <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
                   <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Draw Deck ({gameState.deck.length})</p>
@@ -362,7 +361,6 @@ function GamePageContent() {
                 </div>
               </div>
 
-              {/* Opponent Hands */}
               <div className="space-y-6">
                 {otherPlayers.map(p => (
                   <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm shadow-sm">
@@ -391,7 +389,6 @@ function GamePageContent() {
           </TabsContent>
         </Tabs>
 
-        {/* Persistent Action Panel */}
         <div className="absolute bottom-0 left-0 right-0 bg-card/95 p-6 rounded-t-3xl border-t-2 border-primary/20 shadow-[0_-20px_40px_rgba(0,0,0,0.3)] z-20 backdrop-blur-md">
           <div className="max-w-6xl mx-auto space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
