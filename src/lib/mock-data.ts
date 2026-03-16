@@ -220,6 +220,14 @@ export const DECK: Card[] = [
     hint: 'french revolution history',
   },
   {
+    id: 'e15',
+    name: 'The Manhattan Project',
+    type: 'Event',
+    description: 'A research and development undertaking during WWII that produced the first nuclear weapons.',
+    imageUrl: images.manhattan_project,
+    hint: 'nuclear research project',
+  },
+  {
     id: 'w01',
     name: 'Chrono-Wildcard',
     type: 'Wildcard',
