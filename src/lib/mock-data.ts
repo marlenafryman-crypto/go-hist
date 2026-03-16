@@ -40,7 +40,7 @@ export const DECK: Card[] = [
   { id: 'p34', name: 'Jane Austen', type: 'Person', description: 'English novelist known for her realism, biting irony, and social commentary.', imageUrl: images.jane_austen, hint: 'novelist jane austen' },
   { id: 'p35', name: 'Charles Darwin', type: 'Person', description: 'Naturalist best known for his contributions to the science of evolution.', imageUrl: images.charles_darwin, hint: 'scientist charles darwin' },
   { id: 'p36', name: 'Vincent van Gogh', type: 'Person', description: 'Post-Impressionist painter who is among the most influential in Western art.', imageUrl: images.renaissance, hint: 'painter vincent gogh' },
-  { id: 'p37', name: 'Rosa Parks', type: 'Person', description: 'Civil rights activist whose arrest sparked the Montgomery Bus Boycott.', imageUrl: images.montgomery_bus_boycott, hint: 'civil rights parks' },
+  { id: 'p37', name: 'Rosa Parks', type: 'Person', description: 'Civil rights activist whose arrest sparked the Montgomery Bus Boycott.', imageUrl: images.rosa_parks, hint: 'civil rights parks' },
   { id: 'p38', name: 'Sacagawea', type: 'Person', description: 'Lemhi Shoshone woman who helped the Lewis and Clark Expedition.', imageUrl: images.lewis_clark, hint: 'guide sacagawea historical' },
   { id: 'p39', name: 'George III', type: 'Person', description: 'King of Great Britain and Ireland during the American Revolution.', imageUrl: images.shot_heard_round_world, hint: 'king george iii' },
   { id: 'p40', name: 'Franklin D. Roosevelt', type: 'Person', description: '32nd US President, who led through the Great Depression and WWII.', imageUrl: images.franklin_roosevelt, hint: 'president fdr leader' },
