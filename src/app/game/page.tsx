@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, Suspense, useCallback } from 'react';
@@ -276,7 +275,6 @@ function GamePageContent() {
       const newDiscard = [...prev.discardPile, card];
       const updatedPlayer = newPlayers.find(p => p.id === currentPlayer.id)!;
       
-      // If we've reached the limit, allow finishing the turn
       const nextPhase = updatedPlayer.hand.length <= INITIAL_HAND_SIZE ? 'action' : 'discard';
       
       return { 
@@ -378,22 +376,19 @@ function GamePageContent() {
               </div>
               
               <div className="flex gap-3 items-center">
-                {gameState.turnPhase === 'action' && (
-                  <>
-                    <AskForCard otherPlayers={otherPlayers} onAsk={handleAskForCard} disabled={hasTakenAction} />
-                    <Button 
-                      size="lg" 
-                      onClick={() => setShowHistSetDialog(true)} 
-                      disabled={selectedCards.length !== 4}
-                      className={cn(
-                        "transition-all duration-300",
-                        selectedCards.length === 4 ? "bg-primary animate-pulse scale-105" : "bg-muted"
-                      )}
-                    >
-                      <BookOpenCheck className="mr-2 w-5 h-5" /> Declare Set
-                    </Button>
-                  </>
-                )}
+                <AskForCard otherPlayers={otherPlayers} onAsk={handleAskForCard} disabled={hasTakenAction || gameState.turnPhase !== 'action'} />
+                
+                <Button 
+                  size="lg" 
+                  onClick={() => setShowHistSetDialog(true)} 
+                  disabled={selectedCards.length !== 4 || gameState.turnPhase !== 'action'}
+                  className={cn(
+                    "transition-all duration-300",
+                    selectedCards.length === 4 && gameState.turnPhase === 'action' ? "bg-primary animate-pulse scale-105" : "bg-muted"
+                  )}
+                >
+                  <BookOpenCheck className="mr-2 w-5 h-5" /> Declare Set
+                </Button>
                 
                 {gameState.turnPhase === 'discard' && (
                   <Button size="lg" variant="destructive" onClick={handleDiscardCard} disabled={selectedCards.length !== 1} className="shadow-lg">
@@ -401,7 +396,7 @@ function GamePageContent() {
                   </Button>
                 )}
 
-                {gameState.turnPhase === 'action' && hasTakenAction && currentPlayer.hand.length <= INITIAL_HAND_SIZE && (
+                {hasTakenAction && gameState.turnPhase === 'action' && currentPlayer.hand.length <= INITIAL_HAND_SIZE && (
                   <Button size="lg" variant="secondary" onClick={endTurn} className="border-2 border-primary/20">
                     End Turn <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
