@@ -112,7 +112,7 @@ export const DECK: Card[] = [
     name: 'Paul Revere',
     type: 'Person',
     description: 'American silversmith and patriot best known for his midnight ride.',
-    imageUrl: images.paul_revere,
+    imageUrl: images.paul_revere || "https://picsum.photos/seed/revere/500/500",
     hint: 'patriot paul revere',
   },
   {
@@ -120,7 +120,7 @@ export const DECK: Card[] = [
     name: 'Henry VIII',
     type: 'Person',
     description: 'King of England known for his six marriages and the English Reformation.',
-    imageUrl: images.henry_viii,
+    imageUrl: images.henry_viii || "https://picsum.photos/seed/henry/500/500",
     hint: 'tudor king henry',
   },
   {
@@ -136,7 +136,7 @@ export const DECK: Card[] = [
     name: 'Harriet Tubman',
     type: 'Person',
     description: 'Abolitionist and political activist who escaped slavery and led others to freedom.',
-    imageUrl: images.harriet_tubman,
+    imageUrl: images.harriet_tubman || "https://picsum.photos/seed/tubman/500/500",
     hint: 'abolitionist tubman',
   },
   {
@@ -144,7 +144,7 @@ export const DECK: Card[] = [
     name: 'Nelson Mandela',
     type: 'Person',
     description: 'Anti-apartheid revolutionary and first black head of state in South Africa.',
-    imageUrl: images.nelson_mandela,
+    imageUrl: images.nelson_mandela || "https://picsum.photos/seed/mandela/500/500",
     hint: 'mandela south africa',
   },
   {
@@ -152,7 +152,7 @@ export const DECK: Card[] = [
     name: 'Winston Churchill',
     type: 'Person',
     description: 'Prime Minister of the UK who led the country to victory in WWII.',
-    imageUrl: images.winston_churchill,
+    imageUrl: images.winston_churchill || "https://picsum.photos/seed/churchill/500/500",
     hint: 'churchill uk leader',
   },
   {
@@ -160,7 +160,7 @@ export const DECK: Card[] = [
     name: 'Genghis Khan',
     type: 'Person',
     description: 'Founder and first Great Khan of the Mongol Empire.',
-    imageUrl: images.genghis_khan,
+    imageUrl: images.genghis_khan || "https://picsum.photos/seed/genghis/500/500",
     hint: 'mongol leader genghis',
   },
   {
@@ -168,7 +168,7 @@ export const DECK: Card[] = [
     name: 'Rosalind Franklin',
     type: 'Person',
     description: 'Chemist whose work was central to the understanding of DNA structure.',
-    imageUrl: images.rosalind_franklin,
+    imageUrl: images.rosalind_franklin || "https://picsum.photos/seed/franklin/500/500",
     hint: 'chemist rosalind franklin',
   },
   {
@@ -176,7 +176,7 @@ export const DECK: Card[] = [
     name: 'William Shakespeare',
     type: 'Person',
     description: 'Playwright and poet widely regarded as the greatest writer in the English language.',
-    imageUrl: images.shakespeare,
+    imageUrl: images.shakespeare || "https://picsum.photos/seed/shakespeare/500/500",
     hint: 'writer shakespeare',
   },
   {
@@ -184,7 +184,7 @@ export const DECK: Card[] = [
     name: 'Ferdinand Magellan',
     type: 'Person',
     description: 'Portuguese explorer who organized the first circumnavigation of the Earth.',
-    imageUrl: images.magellan,
+    imageUrl: images.magellan || "https://picsum.photos/seed/magellan/500/500",
     hint: 'explorer magellan',
   },
   {
@@ -192,7 +192,7 @@ export const DECK: Card[] = [
     name: 'Christopher Columbus',
     type: 'Person',
     description: 'Italian explorer who completed four voyages across the Atlantic Ocean.',
-    imageUrl: images.columbus,
+    imageUrl: images.columbus || "https://picsum.photos/seed/columbus/500/500",
     hint: 'explorer columbus',
   },
   {
@@ -200,7 +200,7 @@ export const DECK: Card[] = [
     name: 'Neil Armstrong',
     type: 'Person',
     description: 'Astronaut and the first person to walk on the Moon.',
-    imageUrl: images.neil_armstrong,
+    imageUrl: images.neil_armstrong || "https://picsum.photos/seed/armstrong/500/500",
     hint: 'astronaut neil armstrong',
   },
   {
@@ -208,7 +208,7 @@ export const DECK: Card[] = [
     name: 'Amelia Earhart',
     type: 'Person',
     description: 'Aviation pioneer and the first female aviator to fly solo across the Atlantic.',
-    imageUrl: images.amelia_earhart,
+    imageUrl: images.amelia_earhart || "https://picsum.photos/seed/earhart/500/500",
     hint: 'aviator amelia earhart',
   },
   {
@@ -216,7 +216,7 @@ export const DECK: Card[] = [
     name: 'Wright Brothers',
     type: 'Person',
     description: 'American inventors who built and flew the world\'s first successful motor-operated airplane.',
-    imageUrl: images.wright_brothers,
+    imageUrl: images.wright_brothers || "https://picsum.photos/seed/wright/500/500",
     hint: 'wright brothers plane',
   },
   {
@@ -224,7 +224,7 @@ export const DECK: Card[] = [
     name: 'Marco Polo',
     type: 'Person',
     description: 'Venetian merchant and explorer who travelled across Asia along the Silk Road.',
-    imageUrl: images.marco_polo,
+    imageUrl: images.marco_polo || "https://picsum.photos/seed/marco/500/500",
     hint: 'merchant marco polo',
   },
   {
@@ -232,7 +232,7 @@ export const DECK: Card[] = [
     name: 'Jane Austen',
     type: 'Person',
     description: 'English novelist known for her social commentary and realism.',
-    imageUrl: images.jane_austen,
+    imageUrl: images.jane_austen || "https://picsum.photos/seed/austen/500/500",
     hint: 'novelist jane austen',
   },
   {
@@ -240,7 +240,7 @@ export const DECK: Card[] = [
     name: 'Charles Darwin',
     type: 'Person',
     description: 'Naturalist best known for his contributions to the theory of evolution.',
-    imageUrl: images.darwin,
+    imageUrl: images.darwin || "https://picsum.photos/seed/darwin/500/500",
     hint: 'naturalist charles darwin',
   },
   {
@@ -248,7 +248,7 @@ export const DECK: Card[] = [
     name: 'Vincent van Gogh',
     type: 'Person',
     description: 'Post-Impressionism painter who is among the most famous figures in Western art history.',
-    imageUrl: images.van_gogh,
+    imageUrl: images.van_gogh || "https://picsum.photos/seed/gogh/500/500",
     hint: 'painter van gogh',
   },
   {
@@ -256,7 +256,7 @@ export const DECK: Card[] = [
     name: 'Theodore Roosevelt',
     type: 'Person',
     description: '26th President of the US known for his progressive policies and conservation.',
-    imageUrl: images.theodore_roosevelt,
+    imageUrl: images.theodore_roosevelt || "https://picsum.photos/seed/troosevelt/500/500",
     hint: 'president roosevelt',
   },
   {
@@ -264,7 +264,7 @@ export const DECK: Card[] = [
     name: 'Catherine the Great',
     type: 'Person',
     description: 'Empress of Russia who led the country to become a great European power.',
-    imageUrl: images.catherine_great,
+    imageUrl: images.catherine_great || "https://picsum.photos/seed/catherine/500/500",
     hint: 'empress catherine russia',
   },
   {
@@ -272,7 +272,7 @@ export const DECK: Card[] = [
     name: 'Benjamin Franklin',
     type: 'Person',
     description: 'Polymath and one of the Founding Fathers of the United States.',
-    imageUrl: images.benjamin_franklin,
+    imageUrl: images.benjamin_franklin || "https://picsum.photos/seed/benfranklin/500/500",
     hint: 'founding father franklin',
   },
   {
@@ -280,7 +280,7 @@ export const DECK: Card[] = [
     name: 'Monarch (generic)',
     type: 'Person',
     description: 'A sovereign head of state, especially a king, queen, or emperor.',
-    imageUrl: images.monarch_generic,
+    imageUrl: images.monarchy,
     hint: 'sovereign monarch',
   },
   {
@@ -288,7 +288,7 @@ export const DECK: Card[] = [
     name: 'Emperor of France',
     type: 'Person',
     description: 'Title held by Napoleon Bonaparte, who reshaped European history.',
-    imageUrl: images.emperor_france,
+    imageUrl: images.emperor_france || "https://picsum.photos/seed/napoleon/500/500",
     hint: 'emperor napoleon',
   },
   {
@@ -296,7 +296,7 @@ export const DECK: Card[] = [
     name: 'Vice President (generic)',
     type: 'Person',
     description: 'An official or executive who ranks second to a president.',
-    imageUrl: images.vice_president,
+    imageUrl: images.vice_president || "https://picsum.photos/seed/vp/500/500",
     hint: 'executive official',
   },
   {
@@ -336,7 +336,7 @@ export const DECK: Card[] = [
     name: 'Hedy Lamarr',
     type: 'Person',
     description: 'Film actress and inventor who co-developed the frequency-hopping technology used in Wi-Fi and Bluetooth.',
-    imageUrl: images.hedy_lamarr,
+    imageUrl: images.hedy_lamarr || "https://picsum.photos/seed/hedy/500/500",
     hint: 'actress inventor hedy',
   },
   {
@@ -432,7 +432,7 @@ export const DECK: Card[] = [
     name: 'Fall of the Berlin Wall',
     type: 'Event',
     description: 'Pivotal event marking the falling of the Iron Curtain.',
-    imageUrl: images.berlin_wall,
+    imageUrl: images.berlin_wall || "https://picsum.photos/seed/berlin/500/500",
     hint: 'berlin wall history',
   },
   {
@@ -440,7 +440,7 @@ export const DECK: Card[] = [
     name: 'Apollo 11 Moon Landing',
     type: 'Event',
     description: 'The spaceflight that first landed humans on the Moon.',
-    imageUrl: images.moon_landing,
+    imageUrl: images.moon_landing || "https://picsum.photos/seed/moon/500/500",
     hint: 'moon landing apollo',
   },
   {
@@ -448,7 +448,7 @@ export const DECK: Card[] = [
     name: 'French Revolution',
     type: 'Event',
     description: 'Period of social and political upheaval in France beginning in 1789.',
-    imageUrl: images.french_rev,
+    imageUrl: images.french_revolution,
     hint: 'french revolution history',
   },
   {
@@ -464,7 +464,7 @@ export const DECK: Card[] = [
     name: 'Scientific Revolution',
     type: 'Event',
     description: 'The emergence of modern science during the early modern period.',
-    imageUrl: images.scientific_rev,
+    imageUrl: images.scientific_rev || "https://picsum.photos/seed/sci/500/500",
     hint: 'science revolution',
   },
   {
@@ -472,7 +472,7 @@ export const DECK: Card[] = [
     name: 'Human Rights Movement',
     type: 'Event',
     description: 'Social movement concerned with the issues of human rights.',
-    imageUrl: images.human_rights_mov,
+    imageUrl: images.human_rights_mov || "https://picsum.photos/seed/humanrights/500/500",
     hint: 'human rights history',
   },
   {
@@ -480,7 +480,7 @@ export const DECK: Card[] = [
     name: 'Social Influence',
     type: 'Event',
     description: 'The process by which individuals change their thoughts or actions as a result of interaction.',
-    imageUrl: images.social_influence,
+    imageUrl: images.social_influence || "https://picsum.photos/seed/social/500/500",
     hint: 'social interaction',
   },
   {
@@ -504,7 +504,7 @@ export const DECK: Card[] = [
     name: 'Universal Declaration of Human Rights',
     type: 'Event',
     description: 'Document adopted by the UN General Assembly in 1948.',
-    imageUrl: images.universal_rights,
+    imageUrl: images.universal_rights || "https://picsum.photos/seed/universal/500/500",
     hint: 'un human rights',
   },
   {
@@ -512,7 +512,7 @@ export const DECK: Card[] = [
     name: 'Underground Railroad',
     type: 'Event',
     description: 'Network of secret routes used by enslaved people to escape to free states.',
-    imageUrl: images.underground_railroad,
+    imageUrl: images.underground_railroad || "https://picsum.photos/seed/underground/500/500",
     hint: 'secret routes escape',
   },
   {
@@ -520,7 +520,7 @@ export const DECK: Card[] = [
     name: 'World War II',
     type: 'Event',
     description: 'Global war that lasted from 1939 to 1945.',
-    imageUrl: images.wwii,
+    imageUrl: images.wwii || "https://picsum.photos/seed/wwii/500/500",
     hint: 'global conflict wwii',
   },
   {
@@ -528,7 +528,7 @@ export const DECK: Card[] = [
     name: 'Mongol Empire',
     type: 'Event',
     description: 'The largest contiguous land empire in history.',
-    imageUrl: images.mongol_empire,
+    imageUrl: images.mongol_empire || "https://picsum.photos/seed/mongol/500/500",
     hint: 'mongol empire history',
   },
   {
@@ -536,7 +536,7 @@ export const DECK: Card[] = [
     name: 'Frequency Hopping',
     type: 'Event',
     description: 'Method of transmitting radio signals by rapidly switching a carrier among many frequency channels.',
-    imageUrl: images.frequency_hopping,
+    imageUrl: images.frequency_hopping || "https://picsum.photos/seed/freq/500/500",
     hint: 'radio signal tech',
   },
   {
@@ -544,7 +544,7 @@ export const DECK: Card[] = [
     name: 'The Globe Theatre',
     type: 'Event',
     description: 'Theatre in London associated with William Shakespeare.',
-    imageUrl: images.globe_theatre,
+    imageUrl: images.globe_theatre || "https://picsum.photos/seed/globe/500/500",
     hint: 'shakespeare globe theatre',
   },
   {
@@ -552,7 +552,7 @@ export const DECK: Card[] = [
     name: 'Age of Discovery',
     type: 'Event',
     description: 'Period from the 15th to the 17th century where Europeans explored regions across the globe.',
-    imageUrl: images.age_of_discovery,
+    imageUrl: images.age_of_discovery || "https://picsum.photos/seed/age/500/500",
     hint: 'exploration era',
   },
   {
@@ -560,7 +560,7 @@ export const DECK: Card[] = [
     name: 'Apollo 11 Mission',
     type: 'Event',
     description: 'The first spaceflight that landed humans on the Moon.',
-    imageUrl: images.apollo_11_mission,
+    imageUrl: images.apollo_11_mission || "https://picsum.photos/seed/apollo/500/500",
     hint: 'apollo 11 moon',
   },
   {
@@ -568,7 +568,7 @@ export const DECK: Card[] = [
     name: 'Federalist Papers',
     type: 'Event',
     description: 'Collection of 85 articles promoting the ratification of the US Constitution.',
-    imageUrl: images.federalist_papers,
+    imageUrl: images.federalist_papers || "https://picsum.photos/seed/fed/500/500",
     hint: 'federalist papers history',
   },
   {
@@ -576,7 +576,7 @@ export const DECK: Card[] = [
     name: 'Louisiana Purchase',
     type: 'Event',
     description: 'The acquisition of the territory of Louisiana by the US from France in 1803.',
-    imageUrl: images.louisiana_purchase,
+    imageUrl: images.louisiana_purchase || "https://picsum.photos/seed/louisiana/500/500",
     hint: 'louisiana territory purchase',
   },
   {
@@ -584,7 +584,7 @@ export const DECK: Card[] = [
     name: 'Post-Impressionism',
     type: 'Event',
     description: 'Predominantly French art movement that developed between 1886 and 1905.',
-    imageUrl: images.post_impressionism,
+    imageUrl: images.post_impressionism || "https://picsum.photos/seed/post/500/500",
     hint: 'art movement history',
   },
   {
@@ -592,7 +592,7 @@ export const DECK: Card[] = [
     name: 'Progressive Era',
     type: 'Event',
     description: 'Period of widespread social activism and political reform across the US.',
-    imageUrl: images.progressive_era,
+    imageUrl: images.progressive_era || "https://picsum.photos/seed/prog/500/500",
     hint: 'reform era history',
   },
   {
@@ -600,7 +600,7 @@ export const DECK: Card[] = [
     name: 'I Have a Dream Speech',
     type: 'Event',
     description: 'Public speech delivered by MLK during the March on Washington.',
-    imageUrl: images.i_have_a_dream,
+    imageUrl: images.i_have_a_dream || "https://picsum.photos/seed/dream/500/500",
     hint: 'mlk dream speech',
   },
   {
@@ -608,7 +608,7 @@ export const DECK: Card[] = [
     name: 'Declaration of Independence',
     type: 'Event',
     description: 'The pronouncement adopted by the Continental Congress on July 4, 1776.',
-    imageUrl: images.declaration_of_independence,
+    imageUrl: images.declaration_of_independence || "https://picsum.photos/seed/decl/500/500",
     hint: 'declaration independence history',
   },
   {
@@ -616,7 +616,7 @@ export const DECK: Card[] = [
     name: 'Founding Fathers',
     type: 'Event',
     description: 'Group of leaders who united the Thirteen Colonies and led the war for independence.',
-    imageUrl: images.founding_fathers,
+    imageUrl: images.founding_fathers || "https://picsum.photos/seed/found/500/500",
     hint: 'us founding fathers',
   },
   {
@@ -624,7 +624,7 @@ export const DECK: Card[] = [
     name: 'War (generic)',
     type: 'Event',
     description: 'State of armed conflict between different countries or different groups within a country.',
-    imageUrl: images.war_generic,
+    imageUrl: images.war_generic || "https://picsum.photos/seed/war/500/500",
     hint: 'armed conflict',
   },
   {
@@ -632,7 +632,7 @@ export const DECK: Card[] = [
     name: 'Treasury System',
     type: 'Event',
     description: 'System of financial management and public funds.',
-    imageUrl: images.treasury_system,
+    imageUrl: images.treasury_system || "https://picsum.photos/seed/treas/500/500",
     hint: 'financial system',
   },
   {
@@ -640,7 +640,7 @@ export const DECK: Card[] = [
     name: 'World War I',
     type: 'Event',
     description: 'Global war originating in Europe that lasted from 1914 to 1918.',
-    imageUrl: images.wwi,
+    imageUrl: images.wwi || "https://picsum.photos/seed/wwi/500/500",
     hint: 'global conflict wwi',
   },
   {
@@ -648,7 +648,7 @@ export const DECK: Card[] = [
     name: 'English Reformation',
     type: 'Event',
     description: 'Series of events in 16th-century England by which the Church of England broke away from the authority of the Pope.',
-    imageUrl: images.english_reformation,
+    imageUrl: images.english_reformation || "https://picsum.photos/seed/refor/500/500",
     hint: 'church reformation england',
   },
   {
@@ -664,7 +664,7 @@ export const DECK: Card[] = [
     name: 'Revolution (generic)',
     type: 'Event',
     description: 'Forcible overthrow of a government or social order in favor of a new system.',
-    imageUrl: images.revolution_generic,
+    imageUrl: images.revolution_generic || "https://picsum.photos/seed/rev/500/500",
     hint: 'social revolution',
   },
   {
@@ -672,7 +672,7 @@ export const DECK: Card[] = [
     name: 'European Conquest',
     type: 'Event',
     description: 'The expansion and domination of European powers across various continents.',
-    imageUrl: images.european_conquest,
+    imageUrl: images.european_conquest || "https://picsum.photos/seed/conq/500/500",
     hint: 'colonial conquest',
   },
   {
@@ -688,7 +688,7 @@ export const DECK: Card[] = [
     name: 'Roman Alliances',
     type: 'Event',
     description: 'The diplomatic and military agreements formed by the Roman Republic and Empire.',
-    imageUrl: images.roman_alliances,
+    imageUrl: images.roman_alliances || "https://picsum.photos/seed/roma/500/500",
     hint: 'roman diplomacy',
   },
   {
@@ -696,7 +696,7 @@ export const DECK: Card[] = [
     name: 'Crusades',
     type: 'Event',
     description: 'Series of religious wars initiated, supported, and sometimes directed by the Latin Church.',
-    imageUrl: images.crusades,
+    imageUrl: images.crusades || "https://picsum.photos/seed/cru/500/500",
     hint: 'religious wars crusades',
   },
   {
