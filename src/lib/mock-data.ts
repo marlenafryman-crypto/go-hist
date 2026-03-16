@@ -8,7 +8,7 @@ export const DECK: Card[] = [
     name: 'Leonardo da Vinci',
     type: 'Person',
     description: 'A true Renaissance man, excelling in painting, sculpture, architecture, and science.',
-    imageUrl: images.leonardo_da_vinci,
+    imageUrl: images.renaissance,
     hint: 'renaissance artist',
   },
   {
@@ -16,7 +16,7 @@ export const DECK: Card[] = [
     name: 'Marie Sklodowska-Curie',
     type: 'Person',
     description: 'Pioneering researcher on radioactivity and first woman to win a Nobel Prize.',
-    imageUrl: images.marie_curie,
+    imageUrl: images.discovery_radium,
     hint: 'scientist marie curie',
   },
   {
