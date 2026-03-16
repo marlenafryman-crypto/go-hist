@@ -247,7 +247,7 @@ export const DECK: Card[] = [
     id: 'p31',
     name: 'Vincent van Gogh',
     type: 'Person',
-    description: 'Post-Impressionist painter who is among the most famous figures in Western art history.',
+    description: 'Post-Impressionism painter who is among the most famous figures in Western art history.',
     imageUrl: images.van_gogh,
     hint: 'painter van gogh',
   },
@@ -656,7 +656,7 @@ export const DECK: Card[] = [
     name: 'Elizabethan Era',
     type: 'Event',
     description: 'Epoch in English history of Queen Elizabeth I\'s reign.',
-    imageUrl: images.elizabethan_era,
+    imageUrl: images.elizabethan_era_lh3,
     hint: 'elizabethan period england',
   },
   {
@@ -740,6 +740,14 @@ export const DECK: Card[] = [
     hint: '100 years war',
   },
   {
+    id: 'e51',
+    name: 'Napoleonic Wars',
+    type: 'Event',
+    description: 'A series of major global conflicts pitting the French Empire led by Napoleon I against a rotating array of European powers.',
+    imageUrl: images.napoleonic_wars,
+    hint: 'napoleon wars',
+  },
+  {
     id: 'w01',
     name: 'Chrono-Wildcard',
     type: 'Wildcard',
@@ -749,11 +757,11 @@ export const DECK: Card[] = [
   },
   {
     id: 'w02',
-    name: 'Chrono-Wildcard',
+    name: 'Revolution Wildcard',
     type: 'Wildcard',
-    description: 'A rift in time. Can be used as ANY historical Person or Event in a set.',
-    imageUrl: images.wildcard,
-    hint: 'abstract time rift',
+    description: 'This Person was part of or assisted a Revolution. Can represent any person involved in historical upheaval.',
+    imageUrl: images.wildcard_revolution,
+    hint: 'revolution wildcard',
   },
   {
     id: 'w03',
