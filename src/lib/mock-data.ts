@@ -277,11 +277,11 @@ export const DECK: Card[] = [
   },
   {
     id: 'p35',
-    name: 'Monarch (generic)',
+    name: 'Ulysses S. Grant',
     type: 'Person',
-    description: 'A sovereign head of state, especially a king, queen, or emperor.',
-    imageUrl: images.monarchy,
-    hint: 'sovereign monarch',
+    description: '18th President of the US and commanding general of the Union Army during the Civil War.',
+    imageUrl: images.ulysses_s_grant,
+    hint: 'general ulysses grant',
   },
   {
     id: 'p36',
@@ -317,7 +317,7 @@ export const DECK: Card[] = [
   },
   {
     id: 'p40',
-    name: 'Dolly Madison',
+    name: 'Dolley Madison',
     type: 'Person',
     description: 'First Lady known for saving the portrait of Washington during the War of 1812.',
     imageUrl: images.dolley_madison,
