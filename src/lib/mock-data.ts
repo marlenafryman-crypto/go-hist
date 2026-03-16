@@ -60,6 +60,14 @@ export const DECK: Card[] = [
     hint: 'regency period history',
   },
   {
+    id: 'e05',
+    name: 'Discovery of Radium',
+    type: 'Event',
+    description: 'Marie and Pierre Curie\'s monumental discovery of a new radioactive element.',
+    imageUrl: images.discovery_radium,
+    hint: 'radium discovery science',
+  },
+  {
     id: 'p05',
     name: 'Albert Einstein',
     type: 'Person',
