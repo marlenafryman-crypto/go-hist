@@ -46,7 +46,7 @@ export const DECK: Card[] = [
   { id: 'p40', name: 'Franklin D. Roosevelt', type: 'Person', description: '32nd US President, who led through the Great Depression and WWII.', imageUrl: images.franklin_roosevelt, hint: 'president fdr leader' },
   { id: 'p41', name: 'Aaron Burr', type: 'Person', description: 'Third US Vice President, who killed Alexander Hamilton in a duel.', imageUrl: images.aaron_burr, hint: 'vp aaron burr' },
   { id: 'p42', name: 'Eleanor Roosevelt', type: 'Person', description: 'First Lady and diplomat known for her advocacy of human rights.', imageUrl: images.eleanor_roosevelt, hint: 'human rights eleanor' },
-  { id: 'p43', name: 'Hedy Lamarr', type: 'Person', description: 'Actress and inventor whose frequency-hopping technology led to Wi-Fi.', imageUrl: images.manhattan_project, hint: 'inventor hedy lamarr' },
+  { id: 'p43', name: 'Hedy Lamarr', type: 'Person', description: 'Actress and inventor whose frequency-hopping technology led to Wi-Fi.', imageUrl: images.hedy_lamarr, hint: 'inventor hedy lamarr' },
   { id: 'p44', name: 'Rosalind Franklin', type: 'Person', description: 'Chemist whose X-ray images were key to discovering DNA\'s structure.', imageUrl: images.structure_dna, hint: 'scientist franklin dna' },
   { id: 'p45', name: 'Genghis Khan', type: 'Person', description: 'Founder and first Great Khan of the Mongol Empire.', imageUrl: images.alexander_great, hint: 'mongol leader genghis' },
   { id: 'p46', name: 'William Shakespeare', type: 'Person', description: 'English playwright and poet, widely regarded as the greatest in history.', imageUrl: images.renaissance, hint: 'playwright shakespeare' },
@@ -64,7 +64,7 @@ export const DECK: Card[] = [
 
   // EVENTS
   { id: 'e01', name: 'The Renaissance', type: 'Event', description: 'A period of cultural, artistic, and scientific rebirth in Europe.', imageUrl: images.renaissance, hint: 'renaissance era' },
-  { id: 'e02', name: 'Scientific Revolution', type: 'Event', description: 'Developments in mathematics and physics that transformed views of nature.', imageUrl: images.discovery_radium, hint: 'scientific revolution' },
+  { id: 'e02', name: 'Scientific Revolution', type: 'Event', description: 'Developments in mathematics and physics that transformed views of nature.', imageUrl: images.scientific_revolution, hint: 'scientific revolution' },
   { id: 'e03', name: 'Industrial Revolution', type: 'Event', description: 'The transition to new manufacturing processes in the 18th and 19th centuries.', imageUrl: images.industrial_rev, hint: 'industrial revolution' },
   { id: 'e04', name: 'Discovery of Radium', type: 'Event', description: 'The 1898 discovery by Marie and Pierre Curie of a new radioactive element.', imageUrl: images.discovery_radium, hint: 'discovery of radium' },
   { id: 'e05', name: 'Shot Heard Round the World', type: 'Event', description: 'The opening shot of the American Revolutionary War at Lexington.', imageUrl: images.shot_heard_round_world, hint: 'shot heard round' },
