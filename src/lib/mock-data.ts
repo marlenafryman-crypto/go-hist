@@ -332,6 +332,14 @@ export const DECK: Card[] = [
     hint: 'patron exploration',
   },
   {
+    id: 'p42',
+    name: 'Hedy Lamarr',
+    type: 'Person',
+    description: 'Film actress and inventor who co-developed the frequency-hopping technology used in Wi-Fi and Bluetooth.',
+    imageUrl: images.hedy_lamarr,
+    hint: 'actress inventor hedy',
+  },
+  {
     id: 'e01',
     name: 'The Renaissance',
     type: 'Event',
