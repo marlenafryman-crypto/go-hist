@@ -40,25 +40,19 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'photos.google.com',
+        hostname: '**.googleusercontent.com',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'photos.app.goo.gl',
+        hostname: '**.google.com',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'photos.fife.usercontent.google.com',
+        hostname: '**.goo.gl',
         port: '',
         pathname: '/**',
       },

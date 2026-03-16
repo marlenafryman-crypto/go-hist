@@ -381,7 +381,7 @@ function GamePageContent() {
             <TabsContent value="reference" className="absolute inset-0 overflow-y-auto p-6 m-0 bg-background/50 data-[state=inactive]:hidden">
               <div className="max-w-7xl mx-auto pb-96">
                 <h3 className="text-2xl font-headline text-primary mb-6">Complete Card Collection</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pb-20">
                   {DECK.map(card => (
                     <div key={card.id} className="flex flex-col items-center group">
                        <GameCard card={card} className="w-full" />
