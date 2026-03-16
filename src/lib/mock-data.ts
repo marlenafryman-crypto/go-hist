@@ -76,7 +76,7 @@ export const DECK: Card[] = [
   { id: 'e11', name: 'Declaration of Independence', type: 'Event', description: 'The formal statement declaring the 13 colonies free from British rule.', imageUrl: images.declaration_independence, hint: 'declaration of independence' },
   { id: 'e12', name: 'Lewis and Clark Expedition', type: 'Event', description: 'The first American expedition to cross the western portion of the continent.', imageUrl: images.lewis_clark, hint: 'lewis clark expedition' },
   { id: 'e13', name: 'Salt March', type: 'Event', description: 'Nonviolent protest led by Gandhi against British colonial salt laws.', imageUrl: images.salt_march, hint: 'salt march protest' },
-  { id: 'e14', name: 'Indian Independence Movement', type: 'Event', description: 'The series of events leading to the end of British rule in India.', imageUrl: images.indian_independence, hint: 'indian independence movement' },
+  { id: 'e14', name: 'Indian Independence Movement', type: 'Event', description: 'The series of presidential and political events leading to British withdrawal.', imageUrl: images.indian_independence, hint: 'indian independence movement' },
   { id: 'e15', name: 'English Reformation', type: 'Event', description: 'The process by which the Church of England broke away from the Pope.', imageUrl: images.english_reformation, hint: 'english reformation' },
   { id: 'e16', name: 'Church of England', type: 'Event', description: 'The established Christian church in England, formed by Henry VIII.', imageUrl: images.church_of_england, hint: 'church of england' },
   { id: 'e17', name: 'European Conquests', type: 'Event', description: 'The expansion of European influence and territories globally.', imageUrl: images.european_conquests, hint: 'european conquests' },
