@@ -712,7 +712,7 @@ export const DECK: Card[] = [
     name: 'I Have a Dream Speech',
     type: 'Event',
     description: 'The landmark speech delivered by Martin Luther King Jr. for jobs and freedom.',
-    imageUrl: images.i_have_a_dream,
+    imageUrl: images.famous_speech,
     hint: 'mlk speech',
   },
   {

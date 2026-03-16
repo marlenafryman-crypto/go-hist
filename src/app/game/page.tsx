@@ -330,8 +330,8 @@ function GamePageContent() {
       </aside>
 
       <main className="flex-1 flex flex-col overflow-hidden relative">
-        <Tabs defaultValue="game" className="flex-1 flex flex-col">
-          <div className="px-6 py-2 border-b bg-card/50 flex justify-center">
+        <Tabs defaultValue="game" className="flex-1 flex flex-col overflow-hidden">
+          <div className="px-6 py-2 border-b bg-card/50 flex justify-center shrink-0">
             <TabsList>
               <TabsTrigger value="game" className="flex items-center gap-2">
                 <HistoryIcon className="w-4 h-4" /> Game Board
@@ -342,51 +342,53 @@ function GamePageContent() {
             </TabsList>
           </div>
 
-          <TabsContent value="game" className="flex-1 flex flex-col overflow-hidden p-0 m-0">
-            <div className="flex-1 overflow-y-auto p-4 space-y-8 pb-72">
-              <div className="flex justify-center items-center gap-12 py-6 bg-muted/10 rounded-2xl border-2 border-dashed border-primary/10">
-                <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
-                  <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Draw Deck ({gameState.deck.length})</p>
-                  <GameCard card="back" className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all shadow-xl" />
+          <div className="flex-1 relative overflow-hidden">
+            <TabsContent value="game" className="absolute inset-0 flex flex-col overflow-hidden p-0 m-0 data-[state=inactive]:hidden">
+              <div className="flex-1 overflow-y-auto p-4 space-y-8 pb-72">
+                <div className="flex justify-center items-center gap-12 py-6 bg-muted/10 rounded-2xl border-2 border-dashed border-primary/10">
+                  <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
+                    <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Draw Deck ({gameState.deck.length})</p>
+                    <GameCard card="back" className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all shadow-xl" />
+                  </div>
+                  <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
+                    <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Discard Pile</p>
+                    {gameState.discardPile.length > 0 ? (
+                      <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all shadow-xl" />
+                    ) : (
+                      <div className="w-[100px] h-[150px] border-2 border-dashed rounded-lg bg-muted/20 flex items-center justify-center">
+                        <Trash2 className="text-muted-foreground/30 w-8 h-8" />
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
-                  <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Discard Pile</p>
-                  {gameState.discardPile.length > 0 ? (
-                    <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all shadow-xl" />
-                  ) : (
-                    <div className="w-[100px] h-[150px] border-2 border-dashed rounded-lg bg-muted/20 flex items-center justify-center">
-                      <Trash2 className="text-muted-foreground/30 w-8 h-8" />
+
+                <div className="space-y-6">
+                  {otherPlayers.map(p => (
+                    <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm shadow-sm">
+                      <h3 className="text-xs font-bold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
+                        <User className="w-3 h-3" />
+                        {p.name}'s Hand ({p.hand.length} cards)
+                      </h3>
+                      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                        {p.hand.map((_, i) => (<GameCard key={i} card="back" className="w-[60px] h-[90px]" />))}
+                      </div>
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
+            </TabsContent>
 
-              <div className="space-y-6">
-                {otherPlayers.map(p => (
-                  <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm shadow-sm">
-                    <h3 className="text-xs font-bold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
-                      <User className="w-3 h-3" />
-                      {p.name}'s Hand ({p.hand.length} cards)
-                    </h3>
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                      {p.hand.map((_, i) => (<GameCard key={i} card="back" className="w-[60px] h-[90px]" />))}
-                    </div>
+            <TabsContent value="reference" className="absolute inset-0 overflow-y-auto p-6 m-0 bg-background/50 data-[state=inactive]:hidden">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pb-96">
+                {DECK.map(card => (
+                  <div key={card.id} className="flex flex-col items-center">
+                     <GameCard card={card} className="w-full" />
+                     <p className="text-[10px] mt-2 text-muted-foreground font-mono uppercase">{card.id}</p>
                   </div>
                 ))}
               </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="reference" className="flex-1 overflow-y-auto p-6 m-0 bg-background/50">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pb-24">
-              {DECK.map(card => (
-                <div key={card.id} className="flex flex-col items-center">
-                   <GameCard card={card} className="w-full" />
-                   <p className="text-[10px] mt-2 text-muted-foreground font-mono uppercase">{card.id}</p>
-                </div>
-              ))}
-            </div>
-          </TabsContent>
+            </TabsContent>
+          </div>
         </Tabs>
 
         <div className="absolute bottom-0 left-0 right-0 bg-card/95 p-6 rounded-t-3xl border-t-2 border-primary/20 shadow-[0_-20px_40px_rgba(0,0,0,0.3)] z-20 backdrop-blur-md">

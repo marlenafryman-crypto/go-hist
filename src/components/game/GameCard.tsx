@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -49,6 +50,9 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
   const imageSize = isPlayerCard ? 'h-[150px]' : 'h-[90px]';
   const textContentSize = isPlayerCard ? 'text-sm' : 'text-[9px]';
 
+  // Use a fallback image if card.imageUrl is undefined or invalid
+  const displayImage = card.imageUrl || images.card_back;
+
   return (
     <div className={cn('relative shrink-0 transition-transform duration-200', isInteractive && 'hover:-translate-y-2', cardBaseSize, className)}>
       <Card
@@ -75,7 +79,7 @@ export function GameCard({ card, isSelected, onSelect, className, isPlayerCard }
         <CardContent className="p-0 flex-grow flex flex-col min-h-0">
           <div className={cn("relative w-full border-y", imageSize)}>
             <Image
-              src={card.imageUrl}
+              src={displayImage}
               alt={card.name}
               fill
               className="object-cover"
