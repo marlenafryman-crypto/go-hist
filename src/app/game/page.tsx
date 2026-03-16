@@ -343,27 +343,17 @@ function GamePageContent() {
           </div>
 
           <TabsContent value="game" className="flex-1 flex flex-col overflow-hidden p-0 m-0">
-            <div className="flex-1 overflow-y-auto p-4 space-y-8 pb-56">
-              {otherPlayers.map(p => (
-                <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm">
-                  <h3 className="text-xs font-bold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
-                    <User className="w-3 h-3" />
-                    {p.name}'s Hand ({p.hand.length})
-                  </h3>
-                  <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                    {p.hand.map((_, i) => (<GameCard key={i} card="back" className="w-[70px] h-[100px]" />))}
-                  </div>
-                </div>
-              ))}
-              <div className="flex justify-center items-center gap-8 py-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-8 pb-72">
+              {/* Play Area: Deck and Discard moved to top for visibility */}
+              <div className="flex justify-center items-center gap-12 py-6 bg-muted/10 rounded-2xl border-2 border-dashed border-primary/10">
                 <div onClick={handleDrawFromDeck} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
-                  <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Deck ({gameState.deck.length})</p>
-                  <GameCard card="back" className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all" />
+                  <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Draw Deck ({gameState.deck.length})</p>
+                  <GameCard card="back" className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all shadow-xl" />
                 </div>
                 <div onClick={handleDrawFromDiscard} className="cursor-pointer text-center group transition-transform hover:scale-105 active:scale-95">
                   <p className="text-[10px] mb-2 font-bold uppercase tracking-tighter text-muted-foreground">Discard Pile</p>
                   {gameState.discardPile.length > 0 ? (
-                    <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all" />
+                    <GameCard card={gameState.discardPile[gameState.discardPile.length - 1]} className="w-[100px] h-[150px] ring-primary/20 group-hover:ring-4 transition-all shadow-xl" />
                   ) : (
                     <div className="w-[100px] h-[150px] border-2 border-dashed rounded-lg bg-muted/20 flex items-center justify-center">
                       <Trash2 className="text-muted-foreground/30 w-8 h-8" />
@@ -371,19 +361,38 @@ function GamePageContent() {
                   )}
                 </div>
               </div>
+
+              {/* Opponent Hands */}
+              <div className="space-y-6">
+                {otherPlayers.map(p => (
+                  <div key={p.id} className="relative p-4 border rounded-xl bg-card/30 backdrop-blur-sm shadow-sm">
+                    <h3 className="text-xs font-bold mb-3 flex items-center gap-2 text-muted-foreground uppercase tracking-wider">
+                      <User className="w-3 h-3" />
+                      {p.name}'s Hand ({p.hand.length} cards)
+                    </h3>
+                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                      {p.hand.map((_, i) => (<GameCard key={i} card="back" className="w-[60px] h-[90px]" />))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </TabsContent>
 
-          <TabsContent value="reference" className="flex-1 overflow-y-auto p-6 m-0">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          <TabsContent value="reference" className="flex-1 overflow-y-auto p-6 m-0 bg-background/50">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 pb-24">
               {DECK.map(card => (
-                <GameCard key={card.id} card={card} className="w-full aspect-[2/3]" />
+                <div key={card.id} className="flex flex-col items-center">
+                   <GameCard card={card} className="w-full" />
+                   <p className="text-[10px] mt-2 text-muted-foreground font-mono uppercase">{card.id}</p>
+                </div>
               ))}
             </div>
           </TabsContent>
         </Tabs>
 
-        <div className="absolute bottom-0 left-0 right-0 bg-card/95 p-6 rounded-t-3xl border-t-2 border-primary/20 shadow-[0_-20px_40px_rgba(0,0,0,0.3)] z-10 backdrop-blur-md">
+        {/* Persistent Action Panel */}
+        <div className="absolute bottom-0 left-0 right-0 bg-card/95 p-6 rounded-t-3xl border-t-2 border-primary/20 shadow-[0_-20px_40px_rgba(0,0,0,0.3)] z-20 backdrop-blur-md">
           <div className="max-w-6xl mx-auto space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="space-y-1 text-center md:text-left">
@@ -396,7 +405,7 @@ function GamePageContent() {
                       ? '⚠️ Select 1 card to discard' 
                       : (selectedCards.length === 4 
                           ? '✨ Ready to declare set!' 
-                          : 'Action phase')}
+                          : 'Action phase: Draw, Ask, or Declare')}
                   </p>
               </div>
               
@@ -429,7 +438,7 @@ function GamePageContent() {
               </div>
             </div>
 
-            <div className="flex gap-4 overflow-x-auto pb-4 pt-2 -mx-2 px-2 scroll-smooth scrollbar-hide">
+            <div className="flex gap-4 overflow-x-auto pb-4 pt-2 -mx-2 px-2 scroll-smooth scrollbar-hide min-h-[220px]">
               {currentPlayer.hand.map(c => (
                 <GameCard 
                   key={c.id} 
