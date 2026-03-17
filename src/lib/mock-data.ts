@@ -156,6 +156,7 @@ export const DECK: Card[] = [
   { id: 'e89', name: 'Tudor Dynasty', type: 'Event', description: 'The royal house of Welsh-English origin that ruled England from 1485 to 1603.', imageUrl: images.tudor_dynasty, hint: 'tudor dynasty' },
   { id: 'e90', name: 'Monarchy Reforms', type: 'Event', description: 'The changes made to the structure and power of monarchical systems.', imageUrl: images.monarchy_reforms, hint: 'monarchy reforms' },
   { id: 'e91', name: 'Manifest Destiny', type: 'Event', description: 'The 19th-century belief that the expansion of the US throughout the continent was justified and inevitable.', imageUrl: images.manifest_destiny, hint: 'manifest destiny' },
+  { id: 'e92', name: '14th Amendment', type: 'Event', description: 'The constitutional amendment granting citizenship and equal civil and legal rights to African Americans.', imageUrl: images.amendment_14, hint: 'amendment 14 law' },
 
   // WILDCARDS
   { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
