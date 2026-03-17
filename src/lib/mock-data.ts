@@ -89,7 +89,9 @@ export const DECK: Card[] = [
   { id: 'e39', name: 'Early Republic Politics', type: 'Event', description: 'The political development and struggles of the early United States.', imageUrl: images.early_republic_politics, hint: 'early us politics' },
   { id: 'e40', name: 'Treasury System', type: 'Event', description: 'The establishment of the US financial framework by Hamilton.', imageUrl: images.treasury_system, hint: 'us treasury system' },
   { id: 'e41', name: 'Red Scare', type: 'Event', description: 'Periods of widespread fear of communist subversion in the US.', imageUrl: images.red_scare, hint: 'red scare history' },
+  { id: 'e42', name: 'World War II', type: 'Event', description: 'A global conflict that involved the vast majority of the world\'s countries.', imageUrl: images.wwii, hint: 'world war two' },
 
   // WILDCARDS
-  { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' }
+  { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
+  { id: 'w02', name: 'War Wildcard', type: 'Wildcard', description: 'This Person was a leader or key figure in a major historical War.', imageUrl: images.wildcard_war, hint: 'historical war' }
 ];
