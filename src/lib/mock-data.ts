@@ -40,7 +40,7 @@ export const DECK: Card[] = [
   { id: 'p34', name: 'Jane Austen', type: 'Person', description: 'English novelist known for her realism, biting irony, and social commentary.', imageUrl: images.jane_austen, hint: 'novelist jane austen' },
   { id: 'p35', name: 'Charles Darwin', type: 'Person', description: 'Naturalist best known for his contributions to the science of evolution.', imageUrl: images.charles_darwin, hint: 'scientist charles darwin' },
   { id: 'p36', name: 'Rosa Parks', type: 'Person', description: 'Civil rights activist whose arrest sparked the Montgomery Bus Boycott.', imageUrl: images.rosa_parks, hint: 'civil rights parks' },
-  { id: 'p37', name: 'Sacagawea', type: 'Person', description: 'Lemhi Shoshone woman who helped the Lewis and Clark Expedition.', imageUrl: images.lewis_clark, hint: 'guide sacagawea historical' },
+  { id: 'p37', name: 'Sacagawea', type: 'Person', description: 'Lemhi Shoshone woman who helped the Lewis and Clark Expedition.', imageUrl: images.sacagawea, hint: 'guide sacagawea historical' },
   { id: 'p38', name: 'George III', type: 'Person', description: 'King of Great Britain and Ireland during the American Revolution.', imageUrl: images.george_iii, hint: 'king george iii' },
   { id: 'p39', name: 'Franklin D. Roosevelt', type: 'Person', description: '32nd US President, who led through the Great Depression and WWII.', imageUrl: images.franklin_roosevelt, hint: 'president fdr leader' },
   { id: 'p40', name: 'Aaron Burr', type: 'Person', description: 'Third US Vice President, who killed Alexander Hamilton in a duel.', imageUrl: images.aaron_burr, hint: 'vp aaron burr' },
