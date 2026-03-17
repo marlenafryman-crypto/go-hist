@@ -157,6 +157,7 @@ export const DECK: Card[] = [
   { id: 'e90', name: 'Monarchy Reforms', type: 'Event', description: 'The changes made to the structure and power of monarchical systems.', imageUrl: images.monarchy_reforms, hint: 'monarchy reforms' },
   { id: 'e91', name: 'Manifest Destiny', type: 'Event', description: 'The 19th-century belief that the expansion of the US throughout the continent was justified and inevitable.', imageUrl: images.manifest_destiny, hint: 'manifest destiny' },
   { id: 'e92', name: '14th Amendment', type: 'Event', description: 'The constitutional amendment granting citizenship and equal civil and legal rights to African Americans.', imageUrl: images.amendment_14, hint: 'amendment 14 law' },
+  { id: 'e93', name: 'The Holocaust (Shoah)', type: 'Event', description: 'The systematic, state-sponsored persecution and murder of six million Jews by the Nazi regime.', imageUrl: images.holocaust_shoah, hint: 'holocaust memorial' },
 
   // WILDCARDS
   { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
