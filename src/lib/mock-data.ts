@@ -17,7 +17,7 @@ export const DECK: Card[] = [
   { id: 'p11', name: 'Nikola Tesla', type: 'Person', description: 'Inventor best known for his contributions to the design of the AC electricity system.', imageUrl: images.tesla, hint: 'inventor nikola tesla' },
   { id: 'p12', name: 'Ada Lovelace', type: 'Person', description: 'Mathematician known for her work on Charles Babbage\'s early mechanical computer.', imageUrl: images.ada_lovelace, hint: 'first programmer lovelace' },
   { id: 'p13', name: 'Joan of Arc', type: 'Person', description: 'Heroine of France for her role during the Lancastrian phase of the Hundred Years\' War.', imageUrl: images.joan_of_arc, hint: 'historical joan arc' },
-  { id: 'p14', name: 'Paul Revere', type: 'Person', description: 'American patriot best known for his midnight ride to alert the colonial militia.', imageUrl: images.shot_heard_round_world, hint: 'patriot paul revere' },
+  { id: 'p14', name: 'Paul Revere', type: 'Person', description: 'American patriot best known for his midnight ride to alert the colonial militia.', imageUrl: images.paul_revere, hint: 'patriot paul revere' },
   { id: 'p15', name: 'Henry VIII', type: 'Person', description: 'King of England known for the English Reformation and his six marriages.', imageUrl: images.english_reformation, hint: 'tudor king henry' },
   { id: 'p16', name: 'Alexander the Great', type: 'Person', description: 'King of Macedon who created one of the largest empires of the ancient world.', imageUrl: images.alexander_great, hint: 'conqueror alexander macedon' },
   { id: 'p17', name: 'Harriet Tubman', type: 'Person', description: 'Abolitionist and political activist who led many to freedom on the Underground Railroad.', imageUrl: images.imprisonment_resistance, hint: 'abolitionist tubman' },
