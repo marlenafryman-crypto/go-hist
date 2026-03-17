@@ -90,6 +90,8 @@ export const DECK: Card[] = [
   { id: 'e40', name: 'Treasury System', type: 'Event', description: 'The establishment of the US financial framework by Hamilton.', imageUrl: images.treasury_system, hint: 'us treasury system' },
   { id: 'e41', name: 'Red Scare', type: 'Event', description: 'Periods of widespread fear of communist subversion in the US.', imageUrl: images.red_scare, hint: 'red scare history' },
   { id: 'e42', name: 'World War II', type: 'Event', description: 'A global conflict that involved the vast majority of the world\'s countries.', imageUrl: images.wwii, hint: 'world war two' },
+  { id: 'e43', name: 'Space Race', type: 'Event', description: 'The 20th-century competition between the US and USSR for dominance in space exploration.', imageUrl: images.space_race, hint: 'historical space race' },
+  { id: 'e44', name: 'Cuban Missile Crisis', type: 'Event', description: 'A 13-day confrontation between the US and the Soviet Union over Soviet missiles in Cuba.', imageUrl: images.cuban_missile_crisis, hint: 'cuban missile crisis' },
 
   // WILDCARDS
   { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
