@@ -20,7 +20,7 @@ export const DECK: Card[] = [
   { id: 'p14', name: 'Paul Revere', type: 'Person', description: 'American patriot best known for his midnight ride to alert the colonial militia.', imageUrl: images.paul_revere, hint: 'patriot paul revere' },
   { id: 'p15', name: 'Henry VIII', type: 'Person', description: 'King of England known for the English Reformation and his six marriages.', imageUrl: images.english_reformation, hint: 'tudor king henry' },
   { id: 'p16', name: 'Alexander the Great', type: 'Person', description: 'King of Macedon who created one of the largest empires of the ancient world.', imageUrl: images.alexander_great, hint: 'conqueror alexander macedon' },
-  { id: 'p17', name: 'Harriet Tubman', type: 'Person', description: 'Abolitionist and political activist who led many to freedom on the Underground Railroad.', imageUrl: images.imprisonment_resistance, hint: 'abolitionist tubman' },
+  { id: 'p17', name: 'Harriet Tubman', type: 'Person', description: 'Abolitionist and political activist who led many to freedom on the Underground Railroad.', imageUrl: images.harriet_tubman, hint: 'abolitionist tubman' },
   { id: 'p18', name: 'Nelson Mandela', type: 'Person', description: 'Anti-apartheid revolutionary and the first black head of state in South Africa.', imageUrl: images.imprisonment_resistance, hint: 'nelson mandela revolutionary' },
   { id: 'p19', name: 'Winston Churchill', type: 'Person', description: 'Prime Minister of the UK who led the country to victory in World War II.', imageUrl: images.winston_churchill, hint: 'churchill uk leader' },
   { id: 'p20', name: 'Harry S Truman', type: 'Person', description: '33rd President of the US, who presided over the end of WWII and the start of the Cold War.', imageUrl: images.harry_truman, hint: 'president harry truman' },
@@ -47,6 +47,7 @@ export const DECK: Card[] = [
   { id: 'p41', name: 'Eleanor Roosevelt', type: 'Person', description: 'First Lady and diplomat known for her advocacy of human rights.', imageUrl: images.eleanor_roosevelt, hint: 'human rights eleanor' },
   { id: 'p42', name: 'Hedy Lamarr', type: 'Person', description: 'Actress and inventor whose frequency-hopping technology led to Wi-Fi.', imageUrl: images.hedy_lamarr, hint: 'inventor hedy lamarr' },
   { id: 'p43', name: 'Sojourner Truth', type: 'Person', description: 'Abolitionist and women\'s rights activist known for her speech "Ain\'t I a Woman?".', imageUrl: images.sojourner_truth, hint: 'abolitionist truth' },
+  { id: 'p44', name: 'Frederick Douglass', type: 'Person', description: 'Abolitionist, orator, writer, and statesman who escaped from slavery and became a leader of the abolitionist movement.', imageUrl: images.frederick_douglass, hint: 'abolitionist douglass' },
 
   // EVENTS
   { id: 'e01', name: 'The Renaissance', type: 'Event', description: 'A period of cultural, artistic, and scientific rebirth in Europe.', imageUrl: images.renaissance, hint: 'renaissance era' },
