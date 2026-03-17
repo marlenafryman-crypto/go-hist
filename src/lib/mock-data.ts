@@ -48,6 +48,7 @@ export const DECK: Card[] = [
   { id: 'p42', name: 'Hedy Lamarr', type: 'Person', description: 'Actress and inventor whose frequency-hopping technology led to Wi-Fi.', imageUrl: images.hedy_lamarr, hint: 'inventor hedy lamarr' },
   { id: 'p43', name: 'Sojourner Truth', type: 'Person', description: 'Abolitionist and women\'s rights activist known for her speech "Ain\'t I a Woman?".', imageUrl: images.sojourner_truth, hint: 'abolitionist truth' },
   { id: 'p44', name: 'Frederick Douglass', type: 'Person', description: 'Abolitionist, orator, writer, and statesman who escaped from slavery and became a leader of the abolitionist movement.', imageUrl: images.frederick_douglass, hint: 'abolitionist douglass' },
+  { id: 'p45', name: 'Anne Frank', type: 'Person', description: 'Jewish girl whose diary of her family\'s two years in hiding during the German occupation of the Netherlands is a classic of war literature.', imageUrl: images.anne_frank, hint: 'historical anne frank' },
 
   // EVENTS
   { id: 'e01', name: 'The Renaissance', type: 'Event', description: 'A period of cultural, artistic, and scientific rebirth in Europe.', imageUrl: images.renaissance, hint: 'renaissance era' },
