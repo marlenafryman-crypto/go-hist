@@ -97,6 +97,7 @@ export const DECK: Card[] = [
   { id: 'e44', name: 'Cuban Missile Crisis', type: 'Event', description: 'A 13-day confrontation between the US and the Soviet Union over Soviet missiles in Cuba.', imageUrl: images.cuban_missile_crisis, hint: 'cuban missile crisis' },
   { id: 'e45', name: 'Boston Tea Party', type: 'Event', description: 'A political and mercantile protest by the Sons of Liberty in Boston, in 1773.', imageUrl: images.boston_tea_party, hint: 'boston tea party' },
   { id: 'e46', name: 'Revolutionary War', type: 'Event', description: 'The armed conflict between Great Britain and thirteen of its North American colonies.', imageUrl: images.revolutionary_war, hint: 'revolutionary war' },
+  { id: 'e47', name: 'Fireside Chats', type: 'Event', description: 'A series of evening radio addresses given by US President Franklin D. Roosevelt.', imageUrl: images.fireside_chats, hint: 'fireside chats' },
 
   // WILDCARDS
   { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
