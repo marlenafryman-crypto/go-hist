@@ -46,6 +46,7 @@ export const DECK: Card[] = [
   { id: 'p40', name: 'Aaron Burr', type: 'Person', description: 'Third US Vice President, who killed Alexander Hamilton in a duel.', imageUrl: images.aaron_burr, hint: 'vp aaron burr' },
   { id: 'p41', name: 'Eleanor Roosevelt', type: 'Person', description: 'First Lady and diplomat known for her advocacy of human rights.', imageUrl: images.eleanor_roosevelt, hint: 'human rights eleanor' },
   { id: 'p42', name: 'Hedy Lamarr', type: 'Person', description: 'Actress and inventor whose frequency-hopping technology led to Wi-Fi.', imageUrl: images.hedy_lamarr, hint: 'inventor hedy lamarr' },
+  { id: 'p43', name: 'Sojourner Truth', type: 'Person', description: 'Abolitionist and women\'s rights activist known for her speech "Ain\'t I a Woman?".', imageUrl: images.sojourner_truth, hint: 'abolitionist truth' },
 
   // EVENTS
   { id: 'e01', name: 'The Renaissance', type: 'Event', description: 'A period of cultural, artistic, and scientific rebirth in Europe.', imageUrl: images.renaissance, hint: 'renaissance era' },
