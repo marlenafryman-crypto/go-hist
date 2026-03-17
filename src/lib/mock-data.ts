@@ -63,6 +63,9 @@ export const DECK: Card[] = [
   { id: 'p57', name: 'Marco Polo', type: 'Person', description: 'Venetian merchant and explorer who traveled through Asia along the Silk Road.', imageUrl: images.marco_polo, hint: 'explorer marco polo' },
   { id: 'p58', name: 'Vincent van Gogh', type: 'Person', description: 'Dutch Post-Impressionist painter who is among the most famous and influential figures in the history of Western art.', imageUrl: images.vincent_van_gogh, hint: 'painter vincent vangogh' },
   { id: 'p59', name: 'Catherine the Great', type: 'Person', description: 'The last reigning Empress of Russia and the country\'s longest-ruling female leader.', imageUrl: images.catherine_great, hint: 'empress catherine great' },
+  { id: 'p60', name: 'Sir Walter Raleigh', type: 'Person', description: 'English explorer, soldier, and writer who sponsored the failed Roanoke Colony.', imageUrl: images.sir_walter_raleigh, hint: 'explorer sir walter raleigh' },
+  { id: 'p61', name: 'John Smith', type: 'Person', description: 'Explorer and leader of the Jamestown Colony, famously associated with Pocahontas.', imageUrl: images.john_smith, hint: 'jamestown leader john smith' },
+  { id: 'p62', name: 'Katherine Johnson', type: 'Person', description: 'Mathematician whose calculations were critical to the success of the first US crewed spaceflights.', imageUrl: images.katherine_johnson, hint: 'mathematician katherine johnson' },
 
   // EVENTS
   { id: 'e01', name: 'The Renaissance', type: 'Event', description: 'A period of cultural, artistic, and scientific rebirth in Europe.', imageUrl: images.renaissance, hint: 'renaissance era' },
@@ -158,6 +161,8 @@ export const DECK: Card[] = [
   { id: 'e91', name: 'Manifest Destiny', type: 'Event', description: 'The 19th-century belief that the expansion of the US throughout the continent was justified and inevitable.', imageUrl: images.manifest_destiny, hint: 'manifest destiny' },
   { id: 'e92', name: '14th Amendment', type: 'Event', description: 'The constitutional amendment granting citizenship and equal civil and legal rights to African Americans.', imageUrl: images.amendment_14, hint: 'amendment 14 law' },
   { id: 'e93', name: 'The Holocaust (Shoah)', type: 'Event', description: 'The systematic, state-sponsored persecution and murder of six million Jews by the Nazi regime.', imageUrl: images.holocaust_shoah, hint: 'holocaust memorial' },
+  { id: 'e94', name: 'Jamestown', type: 'Event', description: 'First permanent English settlement in North America, established in 1607.', imageUrl: images.jamestown, hint: 'jamestown settlement' },
+  { id: 'e95', name: 'Roanoke Colony', type: 'Event', description: 'The "Lost Colony" on Roanoke Island, North America\'s first attempted English settlement.', imageUrl: images.roanoke, hint: 'lost colony roanoke' },
 
   // WILDCARDS
   { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
