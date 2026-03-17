@@ -92,8 +92,11 @@ export const DECK: Card[] = [
   { id: 'e42', name: 'World War II', type: 'Event', description: 'A global conflict that involved the vast majority of the world\'s countries.', imageUrl: images.wwii, hint: 'world war two' },
   { id: 'e43', name: 'Space Race', type: 'Event', description: 'The 20th-century competition between the US and USSR for dominance in space exploration.', imageUrl: images.space_race, hint: 'historical space race' },
   { id: 'e44', name: 'Cuban Missile Crisis', type: 'Event', description: 'A 13-day confrontation between the US and the Soviet Union over Soviet missiles in Cuba.', imageUrl: images.cuban_missile_crisis, hint: 'cuban missile crisis' },
+  { id: 'e45', name: 'Boston Tea Party', type: 'Event', description: 'A political and mercantile protest by the Sons of Liberty in Boston, in 1773.', imageUrl: images.boston_tea_party, hint: 'boston tea party' },
+  { id: 'e46', name: 'Revolutionary War', type: 'Event', description: 'The armed conflict between Great Britain and thirteen of its North American colonies.', imageUrl: images.revolutionary_war, hint: 'revolutionary war' },
 
   // WILDCARDS
   { id: 'w01', name: 'Revolution Wildcard', type: 'Wildcard', description: 'This Person was part of or assisted a Revolution.', imageUrl: images.wildcard_revolution, hint: 'revolution wildcard' },
-  { id: 'w02', name: 'War Wildcard', type: 'Wildcard', description: 'This Person was a leader or key figure in a major historical War.', imageUrl: images.wildcard_war, hint: 'historical war' }
+  { id: 'w02', name: 'War Wildcard', type: 'Wildcard', description: 'This Person was a leader or key figure in a major historical War.', imageUrl: images.wildcard_war, hint: 'historical war' },
+  { id: 'w03', name: 'American Independence Wildcard', type: 'Wildcard', description: 'This Person was a key advocate or fighter for the independence of the United States.', imageUrl: images.american_independence, hint: 'american independence' }
 ];
