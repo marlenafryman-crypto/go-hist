@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -15,7 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 const formSchema = z.object({
   opponentId: z.string().min(1, 'Select an opponent.'),
-  request: z.string().min(3, 'Min 3 chars.'),
+  request: z.string().min(2, 'Enter at least 2 characters.'),
 });
 
 interface AskForCardProps {
@@ -59,10 +58,10 @@ export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
               name="opponentId"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Opponent" />
+                        <SelectValue placeholder="Select Opponent" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -83,7 +82,7 @@ export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                      <Input placeholder="e.g., 'a scientist'" {...field} />
+                      <Input placeholder="Keyword (e.g., 'Newton', 'Scientist')" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,8 +90,11 @@ export function AskForCard({ otherPlayers, onAsk, disabled }: AskForCardProps) {
             />
             <Button type="submit" className="w-full" disabled={disabled || isLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Send Request
+              Check Hand
             </Button>
+            <p className="text-[10px] text-muted-foreground text-center italic">
+              Searches for keywords in names and types.
+            </p>
           </form>
         </Form>
       </PopoverContent>

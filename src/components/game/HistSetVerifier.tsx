@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -8,7 +7,7 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Check } from 'lucide-react';
 import type { Card as CardType } from '@/lib/types';
 
 const formSchema = z.object({
@@ -60,11 +59,22 @@ export function HistSetVerifier({ selectedCards, onVerified }: HistSetVerifierPr
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            { !isLoading && <Sparkles className="mr-2 h-4 w-4" />}
-            Verify with AI
+          <Button type="submit" disabled={isLoading} className="w-full">
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                <Check className="mr-2 h-4 w-4" />
+                Confirm Historical Set
+              </>
+            )}
           </Button>
+          <p className="text-[10px] text-muted-foreground text-center italic">
+            Note: In this version, sets are automatically approved once explained.
+          </p>
         </form>
       </Form>
     </div>
