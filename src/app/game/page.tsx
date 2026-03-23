@@ -231,7 +231,7 @@ function GamePageContent() {
         setShowGoHistDialog(true);
       }
     } catch (e: any) {
-      toast({ variant: "destructive", title: "Error", description: "AI failed to process request." });
+      toast({ variant: "destructive", title: "Error", description: "Could not process request." });
     }
   };
 
@@ -263,7 +263,7 @@ function GamePageContent() {
         setSelectedCards([]);
       }
     } catch (e: any) {
-      toast({ variant: "destructive", title: "AI Error", description: "Verification failed." });
+      toast({ variant: "destructive", title: "Game Error", description: "Verification failed." });
     }
   };
 
